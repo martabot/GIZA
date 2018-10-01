@@ -1,0 +1,108 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package modelo;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ *
+ * @author sarah
+ */
+public class MeseroData {
+    
+        
+        
+    private Connection connection = null;
+    private Mesero mesero;
+
+    public MeseroData(Conexion conexion) {
+        try {
+            connection = conexion.getConexion();
+        } catch (SQLException ex) {
+            System.out.println("Error al abrir al obtener la conexion");
+        }
+    }
+    
+    
+    public void guardarMeseros(Mesero mesero){
+        try {
+            
+            String sql = "INSERT INTO mesero (nombre_mesero) VALUES ( ? );";
+
+            try (PreparedStatement statment = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                statment.setString(1, mesero.getNombreMesero());
+                
+                statment.executeUpdate();
+                
+                ResultSet rs = statment.getGeneratedKeys();//id's
+                
+                if (rs.next()) {
+                    mesero.setIdMesero(rs.getInt(1));
+                } else {
+                    System.out.println("No se pudo obtener el id luego de insertar un mesero");
+                }
+            }
+    
+        } catch (SQLException ex) {
+            System.out.println("Error al insertar un mesero: " + ex.getMessage());
+        }
+    }
+    
+    
+    public List<Mesero> obtenerMesero(){
+        List<Mesero> meseros = new ArrayList<>();
+            
+
+        try {
+            String sql = "SELECT * FROM mesero;";
+            try (PreparedStatement statment = connection.prepareStatement(sql)) {
+                ResultSet resultSet = statment.executeQuery();
+                while(resultSet.next()){
+                    Mesero mese= new Mesero();
+                    mese.setIdMesero(resultSet.getInt(1));
+                    mese.setNombreMesero(resultSet.getString(2));
+                    
+                    meseros.add(mese);
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener los meseros: " + ex.getMessage());
+        }
+        
+        
+        return meseros;
+    }
+    public Mesero deIdAMesero(int idM){
+
+        
+        try {
+            String sql = "SELECT * FROM mesero where id= ?;";
+          try (PreparedStatement statment = connection.prepareStatement(sql)) {
+              statment.setInt(1, idM);
+              ResultSet resultSet = statment.executeQuery();
+              Mesero mese = new Mesero();
+              mese.setIdMesero(resultSet.getInt(1));
+              mese.setNombreMesero(resultSet.getString(2));
+              
+              this.mesero=mese;
+          }
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener los meseros: " + ex.getMessage());
+        }
+        
+        
+        return mesero;
+    }
+    
+    
+    
+}
