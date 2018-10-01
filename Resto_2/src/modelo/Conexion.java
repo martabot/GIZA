@@ -16,7 +16,7 @@ import java.sql.SQLException;
 public class Conexion {
     private final String url="jdbc:mysql://localhost/GIZA";
     private final String usuario="root";
-    private final String password="esTaesLacontrasenia";
+    private final String password="";
 
     private Connection conexion;
     

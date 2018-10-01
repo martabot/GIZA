@@ -29,7 +29,7 @@ public class AccesoABaseDeDatos {
       
             //Nuevo:
             MeseroData mesero=new MeseroData(conexion);
-            Mesero mesero1=new Mesero("Pedrito");
+            Mesero mesero1=new Mesero("Pedrito",333);
             mesero.guardarMeseros(mesero1);
             System.out.println("El id del mesero es: " + mesero1.getIdMesero());
             
