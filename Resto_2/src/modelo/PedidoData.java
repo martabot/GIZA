@@ -22,9 +22,9 @@ public class PedidoData {
     
         
     private Connection connection = null;
+    private Pedido pedido;
     private MesaData mesa;
     private MeseroData mesero;
-    private ProductoData producto;
 
     public PedidoData(Conexion conexion) {
         try {
@@ -38,14 +38,13 @@ public class PedidoData {
     public void guardarPedido(Pedido pedido){
         try {
             
-            String sql = "INSERT INTO pedido (id_mesa, id_mesero, id_producto, sub_total, fecha_pedido) VALUES ( ? , ? , ? , ? , ? );";
+            String sql = "INSERT INTO pedido (id_mesa, id_mesero, fecha_pedido, cuenta) VALUES ( ? , ? , ? , ? );";
 
             try (PreparedStatement statment = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 statment.setInt(1, pedido.getMesa().getIdMesa());
                 statment.setInt(2, pedido.getMesero().getIdMesero());
-                statment.setInt(3, pedido.getProducto().getIdProducto());
-                statment.setDouble(4, pedido.getSubTotal());
-                statment.setDate(5, Date.valueOf(pedido.getFechaPedido()));
+                statment.setDate(3, Date.valueOf(pedido.getFechaPedido()));
+                statment.setDouble(4, pedido.getCuenta());
                 
                 statment.executeUpdate();
                 
@@ -77,9 +76,8 @@ public class PedidoData {
                     pedi.setIdPedido(resultSet.getInt(1));
                     pedi.setMesa(mesa.deIdAMesa(resultSet.getInt(2)));
                     pedi.setMesero(mesero.deIdAMesero(resultSet.getInt(3)));
-                    pedi.setProducto(producto.deIdAlProducto(resultSet.getInt(4)));
-                    pedi.setSubTotal(resultSet.getDouble(5));
-                    pedi.setFechaPedido(resultSet.getDate(6).toLocalDate());
+                    pedi.setFechaPedido(resultSet.getDate(4).toLocalDate());
+                    pedi.setCuenta(resultSet.getDouble(5));
                     
                     pedidos.add(pedi);
                 }
@@ -91,5 +89,32 @@ public class PedidoData {
         
         return pedidos;
     }
+    
+    public Pedido deIdAPedido(int idP){
+
+        
+        try {
+            String sql = "SELECT * FROM pedido where id= ?;";
+          try (PreparedStatement statment = connection.prepareStatement(sql)) {
+              statment.setInt(1, idP);
+              ResultSet resultSet = statment.executeQuery();
+              Pedido pedi = new Pedido();
+                    pedi.setIdPedido(resultSet.getInt(1));
+                    pedi.setMesa(mesa.deIdAMesa(resultSet.getInt(2)));
+                    pedi.setMesero(mesero.deIdAMesero(resultSet.getInt(3)));
+                    pedi.setFechaPedido(resultSet.getDate(4).toLocalDate());
+                    pedi.setCuenta(resultSet.getDouble(5));
+              
+              this.pedido=pedi;
+          }
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener los meseros: " + ex.getMessage());
+        }
+        
+        
+        return pedido;
+    }
+    
+    
         
 }

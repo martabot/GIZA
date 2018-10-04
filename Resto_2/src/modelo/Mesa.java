@@ -13,27 +13,20 @@ public class Mesa {
     
     private int idMesa = -1;
     private String estadoMesa;
-    private boolean tieneReserva;
     private int capacidad;
-    private double cuenta;
-    
     
     
 
-    public Mesa(int idMesa, String estadoMesa, boolean tieneReserva, int capacidad, double cuenta) {
+    public Mesa(int idMesa, String estadoMesa, int capacidad) {
         this.idMesa = idMesa;
         this.estadoMesa=estadoMesa;
-        this.tieneReserva = tieneReserva;
         this.capacidad=capacidad;
-        this.cuenta=cuenta;
     }
 
     public Mesa(String estadoMesa, boolean tieneReserva, int capacidad, double cuenta) {
         idMesa=-1;
         this.estadoMesa=estadoMesa;
-        this.tieneReserva = tieneReserva;
         this.capacidad=capacidad;
-        this.cuenta=cuenta;
         
     }
 
@@ -57,14 +50,6 @@ public class Mesa {
         this.estadoMesa = estadoMesa;
     }
 
-    public boolean isTieneReserva() {
-        return tieneReserva;
-    }
-
-    public void setTieneReserva(boolean tieneReserva) {
-        this.tieneReserva = tieneReserva;
-    }
-
     public int getCapacidad() {
         return capacidad;
     }
@@ -73,12 +58,4 @@ public class Mesa {
         this.capacidad = capacidad;
     }
 
-    public double getCuenta() {
-        return cuenta;
-    }
-
-    public void setCuenta(double cuenta) {
-        this.cuenta = cuenta;
-    }
-    
 }

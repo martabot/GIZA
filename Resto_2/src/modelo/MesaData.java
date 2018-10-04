@@ -34,13 +34,11 @@ public class MesaData {
     public void guardarMesa(Mesa mesa){
         try {
             
-            String sql = "INSERT INTO mesa (estado_mesa, tiene_reserva, capacidad, cuenta) VALUES ( ? , ? , ? , ? );";
+            String sql = "INSERT INTO mesa (estado_mesa, capacidad) VALUES ( ? , ? );";
 
             try (PreparedStatement statment = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 statment.setString(1, mesa.getEstadoMesa());
-                statment.setBoolean(2, mesa.isTieneReserva());
                 statment.setInt(3, mesa.getCapacidad());
-                statment.setDouble(4, mesa.getCuenta());
                 
                 statment.executeUpdate();
                 
@@ -71,9 +69,7 @@ public class MesaData {
                     mesi = new Mesa();
                     mesi.setIdMesa(resultSet.getInt(1));
                     mesi.setEstadoMesa(resultSet.getString(2));
-                    mesi.setTieneReserva(resultSet.getBoolean(3));
                     mesi.setCapacidad(resultSet.getInt(4));
-                    mesi.setCuenta(resultSet.getDouble(5));
                     
                     mesas.add(mesi);
                 }
@@ -96,9 +92,7 @@ public class MesaData {
             Mesa mesita=new Mesa();
             mesita.setIdMesa(resultSet.getInt(1));
             mesita.setEstadoMesa(resultSet.getString(2));
-            mesita.setTieneReserva(resultSet.getBoolean(3));
             mesita.setCapacidad(resultSet.getInt(4));
-            mesita.setCuenta(resultSet.getDouble(5));
             
             this.mesa=mesita;
         }

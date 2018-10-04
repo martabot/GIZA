@@ -26,7 +26,6 @@ import modelo.ReservaData;
  */
 public class Inicio extends javax.swing.JFrame {
     private String nombre;
-    private int dniMesero;
     private Boolean meseroIngresado;
     private List<Mesero> filtrados;
     private int numeroMesa;
@@ -66,15 +65,8 @@ public class Inicio extends javax.swing.JFrame {
         this.nombre=name;
     }
 
-    public int getDniMesero() {
-        return dniMesero;
-    }
-    public void setDniMesero(int dniMesero) {
-        this.dniMesero = dniMesero;
-    }
-    
-    public boolean meseroEsta(String name, int dni){
-        return this.getNombre().equals(name)&& this.getDniMesero()==dni;
+    public boolean meseroEsta(String name){
+        return this.getNombre().equals(name);
     }
 
     public int getNumeroMesa() {
@@ -102,8 +94,6 @@ public class Inicio extends javax.swing.JFrame {
         label1 = new javax.swing.JLabel();
         label3 = new javax.swing.JLabel();
         signUp = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        textoDni = new javax.swing.JTextField();
         panelDeTrabajo = new javax.swing.JPanel();
         ventanaMesas = new javax.swing.JInternalFrame();
         jLabel1 = new javax.swing.JLabel();
@@ -184,19 +174,6 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setText("D.N.I.:");
-
-        textoDni.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textoDniActionPerformed(evt);
-            }
-        });
-        textoDni.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                textoDniKeyPressed(evt);
-            }
-        });
-
         javax.swing.GroupLayout panelDeInicioLayout = new javax.swing.GroupLayout(panelDeInicio);
         panelDeInicio.setLayout(panelDeInicioLayout);
         panelDeInicioLayout.setHorizontalGroup(
@@ -214,13 +191,9 @@ public class Inicio extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(signUp, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(panelDeInicioLayout.createSequentialGroup()
-                                .addGroup(panelDeInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(label2)
-                                    .addComponent(jLabel3))
+                                .addComponent(label2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(panelDeInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(textoBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
-                                    .addComponent(textoDni))))))
+                                .addComponent(textoBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(47, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDeInicioLayout.createSequentialGroup()
                 .addContainerGap(80, Short.MAX_VALUE)
@@ -232,15 +205,11 @@ public class Inicio extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDeInicioLayout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16)
+                .addGap(54, 54, 54)
                 .addGroup(panelDeInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(label2)
                     .addComponent(textoBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
-                .addGroup(panelDeInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(textoDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15)
+                .addGap(18, 18, 18)
                 .addComponent(botonBuscar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addGroup(panelDeInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -403,7 +372,6 @@ public class Inicio extends javax.swing.JFrame {
     private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
        
         this.setNombre(textoBuscar.getText());
-        this.setDniMesero(Integer.parseInt(textoDni.getText()));
         
         try {
             Conexion conexion = new Conexion();
@@ -423,7 +391,7 @@ public class Inicio extends javax.swing.JFrame {
                 //contains
             //this.setMeseroIngresado(meser.getNombreMesero().equals(this.getNombre()));});
             
-            this.filtrados= mesero.obtenerMesero().stream().filter(mese -> this.meseroEsta(mese.getNombreMesero(),mese.getDniMesero())).collect(Collectors.toList());
+            this.filtrados= mesero.obtenerMesero().stream().filter(mese -> this.meseroEsta(mese.getNombreMesero())).collect(Collectors.toList());
             
             
            if (!this.filtrados.isEmpty()){
@@ -459,11 +427,11 @@ public class Inicio extends javax.swing.JFrame {
       
             MeseroData mesero=new MeseroData(conexion);
             
-            Mesero mesero1=new Mesero(this.getNombre(),this.getDniMesero());
+            Mesero mesero1=new Mesero(this.getNombre());
             mesero.guardarMeseros(mesero1);
             
             
-            this.filtrados= mesero.obtenerMesero().stream().filter(mese -> this.meseroEsta(mese.getNombreMesero(),mese.getDniMesero())).collect(Collectors.toList());
+            this.filtrados= mesero.obtenerMesero().stream().filter(mese -> this.meseroEsta(mese.getNombreMesero())).collect(Collectors.toList());
                        
             if (!this.filtrados.isEmpty()){
             label1.setVisible(false);
@@ -488,7 +456,38 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_botonBuscarKeyPressed
 
     private void textoBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textoBuscarKeyPressed
+           if (evt.getKeyCode()==KeyEvent.VK_ENTER){
+            
+            this.setNombre(textoBuscar.getText());
         
+        try {
+            Conexion conexion = new Conexion();
+            conexion.getConexion();
+      
+            MeseroData mesero=new MeseroData(conexion);
+            
+           this.filtrados= mesero.obtenerMesero().stream().filter(mese -> this.meseroEsta(mese.getNombreMesero())).collect(Collectors.toList());
+            
+           if (!this.filtrados.isEmpty()){
+            label1.setVisible(false);
+            label2.setVisible(false);
+            botonBuscar.setVisible(false);
+            textoBuscar.setVisible(false);
+            panelDeInicio.setVisible(false);
+            barraMenu.setVisible(true);
+            panelDeTrabajo.setVisible(true);
+            ventanaMesas.setVisible(true);
+           }else{
+               label3.setVisible(true);
+               signUp.setVisible(true);
+           }
+           
+        }catch(Exception e) {
+            System.out.println("Error al instanciar la clase conexion: " + e.getMessage());
+        }  
+            
+            
+        }
     }//GEN-LAST:event_textoBuscarKeyPressed
 
     private void mesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mesasActionPerformed
@@ -529,46 +528,6 @@ public class Inicio extends javax.swing.JFrame {
         } 
         
     }//GEN-LAST:event_bBuscarMesaActionPerformed
-
-    private void textoDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoDniActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textoDniActionPerformed
-
-    private void textoDniKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textoDniKeyPressed
-       if (evt.getKeyCode()==KeyEvent.VK_ENTER){
-            
-            this.setNombre(textoBuscar.getText());
-            this.setDniMesero(Integer.parseInt(textoDni.getText()));
-        
-        try {
-            Conexion conexion = new Conexion();
-            conexion.getConexion();
-      
-            MeseroData mesero=new MeseroData(conexion);
-            
-           this.filtrados= mesero.obtenerMesero().stream().filter(mese -> this.meseroEsta(mese.getNombreMesero(),mese.getDniMesero())).collect(Collectors.toList());
-            
-           if (!this.filtrados.isEmpty()){
-            label1.setVisible(false);
-            label2.setVisible(false);
-            botonBuscar.setVisible(false);
-            textoBuscar.setVisible(false);
-            panelDeInicio.setVisible(false);
-            barraMenu.setVisible(true);
-            panelDeTrabajo.setVisible(true);
-            ventanaMesas.setVisible(true);
-           }else{
-               label3.setVisible(true);
-               signUp.setVisible(true);
-           }
-           
-        }catch(Exception e) {
-            System.out.println("Error al instanciar la clase conexion: " + e.getMessage());
-        }  
-            
-            
-        }
-    }//GEN-LAST:event_textoDniKeyPressed
         
     
     /**
@@ -617,7 +576,6 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JLabel imagen;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel label1;
     private javax.swing.JLabel label2;
     private javax.swing.JLabel label3;
@@ -630,7 +588,6 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JMenu reservas;
     private javax.swing.JButton signUp;
     private javax.swing.JTextField textoBuscar;
-    private javax.swing.JTextField textoDni;
     private javax.swing.JLabel textoEstado;
     private javax.swing.JTextField textoNroMesa;
     private javax.swing.JLabel textoReserva;

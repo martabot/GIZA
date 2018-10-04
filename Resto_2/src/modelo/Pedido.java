@@ -16,27 +16,24 @@ public class Pedido {
     private int idPedido=-1;
     private Mesa mesa;
     private Mesero mesero;
-    private Producto producto;
-    private double subTotal;
     private LocalDate fechaPedido;
+    private double cuenta;
     
 
-    public Pedido(int idPedido, Mesa mesa, Mesero mesero, Producto producto, double subTotal, LocalDate fechaPedido) {
+    public Pedido(int idPedido, Mesa mesa, Mesero mesero, LocalDate fechaPedido, double cuenta) {
         this.idPedido = idPedido;
         this.mesa=mesa;
         this.mesero = mesero;
-        this.producto=producto;
-        this.subTotal=subTotal;
         this.fechaPedido=fechaPedido;
+        this.cuenta=cuenta;
     }
 
-    public Pedido(Mesa mesa, Mesero mesero, Producto producto, double subTotal, LocalDate fechaPedido) {
+    public Pedido(Mesa mesa, Mesero mesero, LocalDate fechaPedido, double cuenta) {
         idPedido=-1;
         this.mesa=mesa;
         this.mesero = mesero;
-        this.producto=producto;
-        this.subTotal=subTotal;
         this.fechaPedido=fechaPedido;
+        this.cuenta=cuenta;
     }
 
     public Pedido() {
@@ -67,22 +64,6 @@ public class Pedido {
         this.mesero = mesero;
     }
 
-    public Producto getProducto() {
-        return producto;
-    }
-
-    public void setProducto(Producto producto) {
-        this.producto = producto;
-    }
-
-    public double getSubTotal() {
-        return subTotal;
-    }
-
-    public void setSubTotal(double subTotal) {
-        this.subTotal = subTotal;
-    }
-
     public LocalDate getFechaPedido() {
         return fechaPedido;
     }
@@ -90,6 +71,13 @@ public class Pedido {
     public void setFechaPedido(LocalDate fechaPedido) {
         this.fechaPedido = fechaPedido;
     }
-    
+
+    public double getCuenta() {
+        return cuenta;
+    }
+
+    public void setCuenta(double cuenta) {
+        this.cuenta = cuenta;
+    }
     
 }

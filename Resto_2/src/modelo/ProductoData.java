@@ -34,11 +34,10 @@ public class ProductoData {
     public void guardarProducto(Producto producto){
         try {
             
-            String sql = "INSERT INTO producto (nombre_producto, cant_producto, precio) VALUES ( ? , ? , ? );";
+            String sql = "INSERT INTO producto (nombre_producto, precio) VALUES ( ? , ? );";
 
             try (PreparedStatement statment = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 statment.setString(1, producto.getNombreProducto());
-                statment.setInt(2, producto.getCantidadProducto());
                 statment.setDouble(3, producto.getPrecio());
                 
                 statment.executeUpdate();
@@ -69,8 +68,7 @@ public class ProductoData {
                     Producto product = new Producto();
                     product.setIdProducto(resultSet.getInt(1));
                     product.setNombreProducto(resultSet.getString(2));
-                    product.setCantidadProducto(resultSet.getInt(3));
-                    product.setPrecio(resultSet.getDouble(4));
+                    product.setPrecio(resultSet.getDouble(3));
                     
                     productos.add(product);
                 }
@@ -94,8 +92,7 @@ public class ProductoData {
               Producto producto = new Producto();
               producto.setIdProducto(resultSet.getInt(1));
               producto.setNombreProducto(resultSet.getString(2));
-              producto.setCantidadProducto(resultSet.getInt(3));
-              producto.setPrecio(resultSet.getDouble(4));
+              producto.setPrecio(resultSet.getDouble(3));
               
               this.product=producto;
           }

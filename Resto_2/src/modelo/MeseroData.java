@@ -36,11 +36,10 @@ public class MeseroData {
     public void guardarMeseros(Mesero mesero){
         try {
             
-            String sql = "INSERT INTO mesero (nombre_mesero, dni_mesero) VALUES ( ? , ? );";
+            String sql = "INSERT INTO mesero (nombre_mesero) VALUES ( ? );";
 
             try (PreparedStatement statment = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 statment.setString(1, mesero.getNombreMesero());
-                statment.setInt(2, mesero.getDniMesero());
                 
                 statment.executeUpdate();
                 
@@ -71,7 +70,6 @@ public class MeseroData {
                     Mesero mese= new Mesero();
                     mese.setIdMesero(resultSet.getInt(1));
                     mese.setNombreMesero(resultSet.getString(2));
-                    mese.setDniMesero(resultSet.getInt(3));
                     
                     meseros.add(mese);
                 }
@@ -94,7 +92,6 @@ public class MeseroData {
               Mesero mese = new Mesero();
               mese.setIdMesero(resultSet.getInt(1));
               mese.setNombreMesero(resultSet.getString(2));
-              mese.setDniMesero(resultSet.getInt(3));
               
               this.mesero=mese;
           }
