@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * 
+ * 
+ * 
  */
 package modelo;
 
@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  *
- * @author sarah
+ * @author Muñeca Brava
  */
 public class ProductoData {
     Producto product;
@@ -89,13 +89,14 @@ public class ProductoData {
           try (PreparedStatement statment = connection.prepareStatement(sql)) {
               statment.setInt(1, idP);
               ResultSet resultSet = statment.executeQuery();
+              while(resultSet.next()){
               Producto producto = new Producto();
               producto.setIdProducto(resultSet.getInt(1));
               producto.setNombreProducto(resultSet.getString(2));
               producto.setPrecio(resultSet.getDouble(3));
               
               this.product=producto;
-          }
+          }}
         } catch (SQLException ex) {
             System.out.println("Error al obtener el pedido: " + ex.getMessage());
         }

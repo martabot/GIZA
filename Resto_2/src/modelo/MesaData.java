@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * 
+ * 
+ * 
  */
 package modelo;
 
@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  *
- * @author sarah
+ * @author Muñeca Brava
  */
 public class MesaData {
     
@@ -69,7 +69,7 @@ public class MesaData {
                     mesi = new Mesa();
                     mesi.setIdMesa(resultSet.getInt(1));
                     mesi.setEstadoMesa(resultSet.getString(2));
-                    mesi.setCapacidad(resultSet.getInt(4));
+                    mesi.setCapacidad(resultSet.getInt(3));
                     
                     mesas.add(mesi);
                 }
@@ -85,16 +85,19 @@ public class MesaData {
     public Mesa deIdAMesa(int idM){
         
         try {
-        String sql="SELECT * FROM mesa WHERE id_mesa =( ? );";
-        try (PreparedStatement statment=connection.prepareStatement(sql)){
+        String sql="SELECT * FROM mesa WHERE id_mesa = ? ;";
+        try (PreparedStatement statment = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             statment.setInt(1, idM);
             ResultSet resultSet=statment.executeQuery();
+            while(resultSet.next()){
             Mesa mesita=new Mesa();
-            mesita.setIdMesa(resultSet.getInt(1));
-            mesita.setEstadoMesa(resultSet.getString(2));
-            mesita.setCapacidad(resultSet.getInt(4));
+                    mesita.setIdMesa(resultSet.getInt(1));
+                    mesita.setEstadoMesa(resultSet.getString(2));
+                    mesita.setCapacidad(resultSet.getInt(3));
+                    
+                    this.mesa=mesita;
+            }
             
-            this.mesa=mesita;
         }
             
         } catch (SQLException ex) {

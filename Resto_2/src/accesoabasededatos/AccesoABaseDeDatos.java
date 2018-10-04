@@ -7,15 +7,18 @@ package accesoabasededatos;
 
 import modelo.Conexion;
 import java.text.ParseException;
+import java.util.stream.Collectors;
+import modelo.Mesa;
+import modelo.MesaData;
 import modelo.Mesero;
 import modelo.MeseroData;
+import modelo.ReservaData;
 
 /**
  *
  * @author sarah
  */
 public class AccesoABaseDeDatos {
-
     /**
      * @param args the command line arguments
      * @throws java.text.ParseException
@@ -41,6 +44,17 @@ public class AccesoABaseDeDatos {
         } catch (Exception e) {
             System.out.println("Error al instanciar la clase conexion: " + e.getMessage());
         }
+        
+        try {
+            conexion = new Conexion();
+      
+            ReservaData r2= new ReservaData(conexion);
+            
+
+        } catch (Exception e) {
+            System.out.println("Error al instanciar la clase conexion: " + e.getMessage());
+        }
+        
    
         
     }

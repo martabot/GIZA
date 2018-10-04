@@ -1,17 +1,17 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * 
+ * 
+ * 
  */
 package modelo;
 
 /**
  *
- * @author sarah
+ * @author Muñeca Brava
  */
 public class Mesa {
     
-    private int idMesa = -1;
+    private int idMesa =-1;
     private String estadoMesa;
     private int capacidad;
     
@@ -31,7 +31,7 @@ public class Mesa {
     }
 
     public Mesa() {
-        idMesa = -1;
+        idMesa =-1;
     }
 
     public int getIdMesa() {

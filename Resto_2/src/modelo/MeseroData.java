@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * 
+ * 
+ * 
  */
 package modelo;
 
@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  *
- * @author sarah
+ * @author Muñeca Brava
  */
 public class MeseroData {
     
@@ -89,12 +89,13 @@ public class MeseroData {
           try (PreparedStatement statment = connection.prepareStatement(sql)) {
               statment.setInt(1, idM);
               ResultSet resultSet = statment.executeQuery();
+              while(resultSet.next()){
               Mesero mese = new Mesero();
               mese.setIdMesero(resultSet.getInt(1));
               mese.setNombreMesero(resultSet.getString(2));
               
               this.mesero=mese;
-          }
+          }}
         } catch (SQLException ex) {
             System.out.println("Error al obtener los meseros: " + ex.getMessage());
         }

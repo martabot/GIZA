@@ -29,7 +29,6 @@ public class Inicio extends javax.swing.JFrame {
     private Boolean meseroIngresado;
     private List<Mesero> filtrados;
     private int numeroMesa;
-    private List<Mesa> estado;
     PreparedStatement ps;
     private List<Reserva> reservasPorId;
     
@@ -74,10 +73,6 @@ public class Inicio extends javax.swing.JFrame {
     }
     public void setNumeroMesa(int numeroMesa) {
         this.numeroMesa = numeroMesa;
-    }
-   
-    public boolean idEsIgual(int num){
-        return this.getNumeroMesa()==num;
     }
     
     
@@ -241,6 +236,11 @@ public class Inicio extends javax.swing.JFrame {
         textoNroMesa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textoNroMesaActionPerformed(evt);
+            }
+        });
+        textoNroMesa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                textoNroMesaKeyPressed(evt);
             }
         });
 
@@ -510,24 +510,67 @@ public class Inicio extends javax.swing.JFrame {
         try {
             Conexion conexion = new Conexion();
             conexion.getConexion();
-            
+           
             MesaData mesas1 = new MesaData(conexion);
-            Mesa estado1= mesas1.deIdAMesa(this.getNumeroMesa());
+            Mesa estado1=new Mesa();
+            estado1=mesas1.deIdAMesa(this.getNumeroMesa());
             textoEstado.setText(estado1.getIdMesa()+" - Mesa "+estado1.getEstadoMesa());
             
-            
+            /*
             ReservaData r2= new ReservaData(conexion);
-            this.reservasPorId = r2.obtenerReservas().stream().filter(r1 -> this.idEsIgual(r1.getMesa().getIdMesa())).collect(Collectors.toList());
+            this.reservasPorId = r2.obtenerReservas().stream().filter(r1 -> (r1.getMesa().getIdMesa())==this.getNumeroMesa()).collect(Collectors.toList());
             
             this.reservasPorId.forEach(reserva ->{
                 textoReserva.setText("Reserva: "+reserva.getNombreCliente()+" "+reserva.getFechaReserva());
             });
-            
+            */
         }catch(Exception e) {
-            System.out.println("Error al instanciar la clase conexion: " + e.getMessage()+textoEstado.getText());
+            System.out.println("1Error al instanciar la clase conexion: " + e.getMessage());
         } 
         
     }//GEN-LAST:event_bBuscarMesaActionPerformed
+
+    private void textoNroMesaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textoNroMesaKeyPressed
+    if (evt.getKeyCode()==KeyEvent.VK_ENTER){
+            
+        this.setNumeroMesa(Integer.parseInt(textoNroMesa.getText()));
+        
+        try {
+            Conexion conexion = new Conexion();
+            conexion.getConexion();
+           
+            MesaData mesas1 = new MesaData(conexion);
+            Mesa estado1=new Mesa();
+            estado1=mesas1.deIdAMesa(this.getNumeroMesa());
+            textoEstado.setText(estado1.getIdMesa()+" - Mesa "+estado1.getEstadoMesa());
+            
+        }catch(Exception e) {
+            System.out.println("Error al instanciar la clase conexion: " + e.getMessage());
+        } 
+        /* 
+        try {
+            Conexion conexion = new Conexion();
+            conexion.getConexion();
+           
+            ReservaData r2= new ReservaData(conexion);
+            this.reservasPorId = r2.obtenerReservas().stream().filter(r1 -> (r1.getMesa().getIdMesa())==this.getNumeroMesa()).collect(Collectors.toList());
+            
+            
+            if (!reservasPorId.isEmpty()){
+                this.reservasPorId.forEach(reserva ->{
+                textoReserva.setText("Reserva: "+reserva.getNombreCliente()+" "+reserva.getFechaReserva());
+            });
+            }else{ textoReserva.setText("Sin Reservas");}
+            
+            
+        }catch(Exception e) {
+            System.out.println("2Error al instanciar la clase conexion: " + e.getMessage()+textoReserva.getText());
+        } 
+        */    
+            
+        
+    }
+    }//GEN-LAST:event_textoNroMesaKeyPressed
         
     
     /**

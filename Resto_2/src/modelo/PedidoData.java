@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * 
+ * 
+ * 
  */
 package modelo;
 
@@ -16,7 +16,7 @@ import java.util.List;
 
 /**
  *
- * @author sarah
+ * @author Muñeca Brava
  */
 public class PedidoData {
     
@@ -98,6 +98,7 @@ public class PedidoData {
           try (PreparedStatement statment = connection.prepareStatement(sql)) {
               statment.setInt(1, idP);
               ResultSet resultSet = statment.executeQuery();
+              while(resultSet.next()){
               Pedido pedi = new Pedido();
                     pedi.setIdPedido(resultSet.getInt(1));
                     pedi.setMesa(mesa.deIdAMesa(resultSet.getInt(2)));
@@ -106,7 +107,7 @@ public class PedidoData {
                     pedi.setCuenta(resultSet.getDouble(5));
               
               this.pedido=pedi;
-          }
+          }}
         } catch (SQLException ex) {
             System.out.println("Error al obtener los meseros: " + ex.getMessage());
         }
