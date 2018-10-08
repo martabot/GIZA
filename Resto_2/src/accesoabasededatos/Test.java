@@ -34,7 +34,7 @@ public class Test {
         
         String url="jdbc:mysql://localhost/GIZA";
         String usuario="root";
-        String password="esTaesLacontrasenia";
+        String password="";
         Connection conexion;
         PreparedStatement ps;
         MeseroData meseroData;
