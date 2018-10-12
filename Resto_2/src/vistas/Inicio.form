@@ -298,7 +298,7 @@
                               <Component id="textoEstado" alignment="1" max="32767" attributes="0"/>
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="jLabel1" min="-2" pref="171" max="-2" attributes="0"/>
-                                  <EmptySpace pref="73" max="32767" attributes="0"/>
+                                  <EmptySpace pref="86" max="32767" attributes="0"/>
                                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="textoNroMesa" min="-2" pref="58" max="-2" attributes="0"/>
@@ -307,6 +307,13 @@
                               </Group>
                           </Group>
                           <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="157" max="-2" attributes="0"/>
+                          <Component id="tReserva" min="-2" pref="70" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
+                          <Component id="bReserva" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -324,7 +331,12 @@
                           <Component id="textoEstado" min="-2" pref="20" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="textoReserva" min="-2" pref="18" max="-2" attributes="0"/>
-                          <EmptySpace pref="362" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="103" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="tReserva" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="bReserva" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace pref="228" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -379,6 +391,19 @@
                 <Component class="javax.swing.JLabel" name="textoEstado">
                 </Component>
                 <Component class="javax.swing.JLabel" name="textoReserva">
+                </Component>
+                <Component class="javax.swing.JTextField" name="tReserva">
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tReservaActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JButton" name="bReserva">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Reservar"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bReservaActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

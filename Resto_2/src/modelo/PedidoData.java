@@ -22,6 +22,7 @@ public class PedidoData {
     
         
     private Connection connection = null;
+    private Conexion connect;
     private Pedido pedido;
     private MesaData mesa;
     private MeseroData mesero;
@@ -62,7 +63,7 @@ public class PedidoData {
         }
     }
     
-    public List<Pedido> obtenerPedidos(){
+    public List<Pedido> obtenerPedidos() throws ClassNotFoundException{
         List<Pedido> pedidos = new ArrayList<>();
             
 
@@ -72,7 +73,11 @@ public class PedidoData {
                 ResultSet resultSet = statment.executeQuery();
                 Pedido pedi;
                 while(resultSet.next()){
-                    pedi = new Pedido();
+                    pedi=new Pedido();
+                    connect=new Conexion();
+                    connect.getConexion();
+                    mesa=new MesaData(connect);
+                    mesero=new MeseroData(connect);
                     pedi.setIdPedido(resultSet.getInt(1));
                     pedi.setMesa(mesa.deIdAMesa(resultSet.getInt(2)));
                     pedi.setMesero(mesero.deIdAMesero(resultSet.getInt(3)));
@@ -90,7 +95,7 @@ public class PedidoData {
         return pedidos;
     }
     
-    public Pedido deIdAPedido(int idP){
+    public Pedido deIdAPedido(int idP) throws ClassNotFoundException{
 
         
         try {
@@ -100,6 +105,10 @@ public class PedidoData {
               ResultSet resultSet = statment.executeQuery();
               while(resultSet.next()){
               Pedido pedi = new Pedido();
+              connect=new Conexion();
+              connect.getConexion();
+              mesa=new MesaData(connect);
+              mesero=new MeseroData(connect);
                     pedi.setIdPedido(resultSet.getInt(1));
                     pedi.setMesa(mesa.deIdAMesa(resultSet.getInt(2)));
                     pedi.setMesero(mesero.deIdAMesero(resultSet.getInt(3)));

@@ -19,7 +19,8 @@ import java.util.List;
  * @author Muñeca Brava
  */
 public class ReservaData {
-    private Connection connection = null;
+    private Connection connection;
+    private Conexion connect;
     private MesaData mesa;
 
     public ReservaData(Conexion conexion) {
@@ -59,7 +60,7 @@ public class ReservaData {
         }
     }
     
-    public List<Reserva> obtenerReservas(){
+    public List<Reserva> obtenerReservas() throws ClassNotFoundException {
         List<Reserva> reservas = new ArrayList<>();
             
 
@@ -67,8 +68,12 @@ public class ReservaData {
             String sql = "SELECT * FROM reserva;";
             try (PreparedStatement statment = connection.prepareStatement(sql)) {
                 ResultSet resultSet = statment.executeQuery();
+                Reserva reser;
                 while(resultSet.next()){
-                    Reserva reser = new Reserva();
+                    reser = new Reserva();
+                    connect=new Conexion();
+                    connect.getConexion();
+                    mesa=new MesaData(connect);
                     reser.setIdReserva(resultSet.getInt(1));
                     reser.setNombreCliente(resultSet.getString(2));
                     reser.setDniCliente(resultSet.getInt(3));
@@ -81,6 +86,8 @@ public class ReservaData {
             }
         } catch (SQLException ex) {
             System.out.println("Error al obtener las reservas: " + ex.getMessage());
+        }catch(NullPointerException e){
+                System.out.println("Error3"+e.getLocalizedMessage());
         }
         
         

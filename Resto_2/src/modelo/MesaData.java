@@ -109,6 +109,24 @@ public class MesaData {
         
     }
     
+        public void actualizarEstadoMesa(String estadoNuevo,int idM){
     
+        try {
+            
+        String sql = "UPDATE mesa SET estado_mesa = ?  WHERE id_mesa = ?;";
+            try (PreparedStatement statment = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            statment.setString(1, estadoNuevo);
+            statment.setInt(2, idM);
+            statment.executeUpdate();
+            statment.close();    
+            ResultSet rs = statment.getGeneratedKeys();//id's
+              
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al actualizar el estado de la mesa: " + ex.getMessage());
+        }
     
+    }
+    
+        
 }

@@ -30,31 +30,22 @@ public class AccesoABaseDeDatos {
         try {
             conexion = new Conexion();
       
-            //Nuevo:
+            /*/Nuevo:
             MeseroData mesero=new MeseroData(conexion);
             Mesero mesero1=new Mesero("pedrito1");
             mesero.guardarMeseros(mesero1);
             System.out.println("El id del mesero es: " + mesero1.getIdMesero());
-            
+            */
             //Consulta:
-            mesero.obtenerMesero().forEach(meser-> {
-                System.out.println("Nombre: "+meser.getNombreMesero());
-            });
+           MesaData mesa=new MesaData(conexion);
+           Mesa mesita=new Mesa(19,"Reservada",3);
+            System.out.println("la mesa "+mesita.getIdMesa()+" está "+mesita.getEstadoMesa());
+           
 
         } catch (Exception e) {
             System.out.println("Error al instanciar la clase conexion: " + e.getMessage());
         }
-        
-        try {
-            conexion = new Conexion();
-      
-            ReservaData r2= new ReservaData(conexion);
-            
-
-        } catch (Exception e) {
-            System.out.println("Error al instanciar la clase conexion: " + e.getMessage());
-        }
-        
+       
    
         
     }

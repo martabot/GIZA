@@ -19,6 +19,7 @@ import java.util.List;
  */
 public class ComandaData {
     private Connection connection = null;
+    private Conexion connect;
     private PedidoData pedido;
     private ProductoData producto;
 
@@ -59,7 +60,7 @@ public class ComandaData {
     }
     
     
-    public List<Comanda> obtenerComanda(){
+    public List<Comanda> obtenerComanda() throws ClassNotFoundException{
         List<Comanda> comandas = new ArrayList<>();
             
 
@@ -69,6 +70,10 @@ public class ComandaData {
                 ResultSet resultSet = statment.executeQuery();
                 while(resultSet.next()){
                     Comanda crystal= new Comanda();
+                    connect=new Conexion();
+                    connect.getConexion();
+                    pedido=new PedidoData(connect);
+                    producto=new ProductoData(connect);
                     crystal.setIdComanda(resultSet.getInt(1));
                     crystal.setPedido(pedido.deIdAPedido(resultSet.getInt(2)));
                     crystal.setProducto(producto.deIdAlProducto(resultSet.getInt(3)));

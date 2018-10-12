@@ -8,6 +8,7 @@ package vistas;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.swing.JFrame;
@@ -75,7 +76,9 @@ public class Inicio extends javax.swing.JFrame {
         this.numeroMesa = numeroMesa;
     }
     
-    
+    public boolean reservaDeMesa(int idM){
+        return this.getNumeroMesa()==idM;
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -97,6 +100,8 @@ public class Inicio extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         textoEstado = new javax.swing.JLabel();
         textoReserva = new javax.swing.JLabel();
+        tReserva = new javax.swing.JTextField();
+        bReserva = new javax.swing.JButton();
         imagen = new javax.swing.JLabel();
         barraMenu = new javax.swing.JMenuBar();
         mesas = new javax.swing.JMenu();
@@ -255,6 +260,19 @@ public class Inicio extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(123, 5, 5));
         jLabel2.setText("nro:");
 
+        tReserva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tReservaActionPerformed(evt);
+            }
+        });
+
+        bReserva.setText("Reservar");
+        bReserva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bReservaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout ventanaMesasLayout = new javax.swing.GroupLayout(ventanaMesas.getContentPane());
         ventanaMesas.getContentPane().setLayout(ventanaMesasLayout);
         ventanaMesasLayout.setHorizontalGroup(
@@ -266,13 +284,19 @@ public class Inicio extends javax.swing.JFrame {
                     .addComponent(textoEstado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ventanaMesasLayout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(textoNroMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(37, 37, 37)
                         .addComponent(bBuscarMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(70, 70, 70))
+            .addGroup(ventanaMesasLayout.createSequentialGroup()
+                .addGap(157, 157, 157)
+                .addComponent(tReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(61, 61, 61)
+                .addComponent(bReserva)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         ventanaMesasLayout.setVerticalGroup(
             ventanaMesasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -287,7 +311,11 @@ public class Inicio extends javax.swing.JFrame {
                 .addComponent(textoEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(textoReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(362, Short.MAX_VALUE))
+                .addGap(103, 103, 103)
+                .addGroup(ventanaMesasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tReserva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bReserva))
+                .addContainerGap(228, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout panelDeTrabajoLayout = new javax.swing.GroupLayout(panelDeTrabajo);
@@ -514,16 +542,17 @@ public class Inicio extends javax.swing.JFrame {
             MesaData mesas1 = new MesaData(conexion);
             Mesa estado1=new Mesa();
             estado1=mesas1.deIdAMesa(this.getNumeroMesa());
+            if (estado1!=null){
             textoEstado.setText(estado1.getIdMesa()+" - Mesa "+estado1.getEstadoMesa());
+            }else{textoEstado.setText("No existe la mesa");}
             
-            /*
-            ReservaData r2= new ReservaData(conexion);
-            this.reservasPorId = r2.obtenerReservas().stream().filter(r1 -> (r1.getMesa().getIdMesa())==this.getNumeroMesa()).collect(Collectors.toList());
-            
+            ReservaData r2=new ReservaData(conexion);
+            this.reservasPorId = r2.obtenerReservas().stream().filter(r1 -> this.reservaDeMesa(r1.getMesa().getIdMesa())).collect(Collectors.toList());
+
             this.reservasPorId.forEach(reserva ->{
-                textoReserva.setText("Reserva: "+reserva.getNombreCliente()+" "+reserva.getFechaReserva());
+               textoReserva.setText("Reserva: "+reserva.getNombreCliente()+" --- "+reserva.getFechaReserva());
             });
-            */
+            
         }catch(Exception e) {
             System.out.println("1Error al instanciar la clase conexion: " + e.getMessage());
         } 
@@ -533,6 +562,7 @@ public class Inicio extends javax.swing.JFrame {
     private void textoNroMesaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textoNroMesaKeyPressed
     if (evt.getKeyCode()==KeyEvent.VK_ENTER){
             
+        
         this.setNumeroMesa(Integer.parseInt(textoNroMesa.getText()));
         
         try {
@@ -542,35 +572,44 @@ public class Inicio extends javax.swing.JFrame {
             MesaData mesas1 = new MesaData(conexion);
             Mesa estado1=new Mesa();
             estado1=mesas1.deIdAMesa(this.getNumeroMesa());
+            if (estado1!=null){
             textoEstado.setText(estado1.getIdMesa()+" - Mesa "+estado1.getEstadoMesa());
+            }else{textoEstado.setText("No existe la mesa");}
+            
+        
+            ReservaData r2=new ReservaData(conexion);
+           this.reservasPorId = r2.obtenerReservas().stream().filter(r1 -> this.reservaDeMesa(r1.getMesa().getIdMesa())).collect(Collectors.toList());
+
+            this.reservasPorId.forEach(reserva ->{
+               textoReserva.setText("Reserva: "+reserva.getNombreCliente()+" --- "+reserva.getFechaReserva());
+            });
             
         }catch(Exception e) {
             System.out.println("Error al instanciar la clase conexion: " + e.getMessage());
-        } 
-        /* 
-        try {
+        }
+        
+        
+    }
+    }//GEN-LAST:event_textoNroMesaKeyPressed
+
+    private void tReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tReservaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tReservaActionPerformed
+
+    private void bReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bReservaActionPerformed
+      int reserva=Integer.parseInt(tReserva.getText());
+      try {
             Conexion conexion = new Conexion();
             conexion.getConexion();
            
-            ReservaData r2= new ReservaData(conexion);
-            this.reservasPorId = r2.obtenerReservas().stream().filter(r1 -> (r1.getMesa().getIdMesa())==this.getNumeroMesa()).collect(Collectors.toList());
-            
-            
-            if (!reservasPorId.isEmpty()){
-                this.reservasPorId.forEach(reserva ->{
-                textoReserva.setText("Reserva: "+reserva.getNombreCliente()+" "+reserva.getFechaReserva());
-            });
-            }else{ textoReserva.setText("Sin Reservas");}
+            MesaData mesa=new MesaData(conexion);
+            mesa.actualizarEstadoMesa("Reservada", reserva);
             
             
         }catch(Exception e) {
             System.out.println("2Error al instanciar la clase conexion: " + e.getMessage()+textoReserva.getText());
         } 
-        */    
-            
-        
-    }
-    }//GEN-LAST:event_textoNroMesaKeyPressed
+    }//GEN-LAST:event_bReservaActionPerformed
         
     
     /**
@@ -614,6 +653,7 @@ public class Inicio extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bBuscarMesa;
+    private javax.swing.JButton bReserva;
     private javax.swing.JMenuBar barraMenu;
     private javax.swing.JButton botonBuscar;
     private javax.swing.JLabel imagen;
@@ -630,6 +670,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JMenu precios;
     private javax.swing.JMenu reservas;
     private javax.swing.JButton signUp;
+    private javax.swing.JTextField tReserva;
     private javax.swing.JTextField textoBuscar;
     private javax.swing.JLabel textoEstado;
     private javax.swing.JTextField textoNroMesa;
