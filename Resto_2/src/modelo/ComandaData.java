@@ -53,7 +53,6 @@ public class ComandaData {
                     System.out.println("No se pudo obtener el id luego de insertar una comanda");
                 }
             }
-    
         } catch (SQLException ex) {
             System.out.println("Error al insertar una comanda: " + ex.getMessage());
         }
@@ -85,8 +84,6 @@ public class ComandaData {
         } catch (SQLException ex) {
             System.out.println("Error al obtener las comandas: " + ex.getMessage());
         }
-        
-        
         return comandas;
     }
 }

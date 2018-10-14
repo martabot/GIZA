@@ -50,7 +50,6 @@ public class MesaData {
                     System.out.println("No se pudo obtener el id luego de insertar una mesa");
                 }
             }
-    
         } catch (SQLException ex) {
             System.out.println("Error al insertar una mesa: " + ex.getMessage());
         }
@@ -77,8 +76,6 @@ public class MesaData {
         } catch (SQLException ex) {
             System.out.println("Error al obtener las mesas: " + ex.getMessage());
         }
-        
-        
         return mesas;
     }
     
@@ -96,23 +93,17 @@ public class MesaData {
                     mesita.setCapacidad(resultSet.getInt(3));
                     
                     this.mesa=mesita;
-            }
-            
-        }
-            
+                }
+            }    
         } catch (SQLException ex) {
             System.out.println("Error al obtener la mesa: " + ex.getMessage());
         }
-        
-        
         return mesa;
-        
     }
     
-<<<<<<< HEAD
-        public void actualizarEstadoMesa(String estadoNuevo,int idM){
-=======
-        public void actualizarEstadoMesa(Mesa mesa){
+
+    public void actualizarEstadoMesa(String estadoNuevo,int idM){
+
     
         try {
             
@@ -129,26 +120,5 @@ public class MesaData {
         } catch (SQLException ex) {
             System.out.println("Error al actualizar el estado de la mesa: " + ex.getMessage());
         }
-    
-    }
->>>>>>> 875696ecce2523d9e9fdf8a8d72a4782ea90a45c
-    
-        try {
-            
-        String sql = "UPDATE mesa SET estado_mesa = ?  WHERE id_mesa = ?;";
-            try (PreparedStatement statment = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            statment.setString(1, estadoNuevo);
-            statment.setInt(2, idM);
-            statment.executeUpdate();
-            statment.close();    
-            ResultSet rs = statment.getGeneratedKeys();//id's
-              
-            }
-        } catch (SQLException ex) {
-            System.out.println("Error al actualizar el estado de la mesa: " + ex.getMessage());
-        }
-    
-    }
-    
-        
+    }      
 }

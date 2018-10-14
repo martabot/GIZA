@@ -54,10 +54,8 @@ public class PedidoData {
                 if (rs.next()) {
                     pedido.setIdPedido(rs.getInt(1));
                 } else {
-                    System.out.println("No se pudo obtener el id luego de insertar un pedido");
-                }
+                    System.out.println("No se pudo obtener el id luego de insertar un pedido");}
             }
-    
         } catch (SQLException ex) {
             System.out.println("Error al insertar un pedido: " + ex.getMessage());
         }
@@ -90,8 +88,6 @@ public class PedidoData {
         } catch (SQLException ex) {
             System.out.println("Error al obtener los pedidos: " + ex.getMessage());
         }
-        
-        
         return pedidos;
     }
     
@@ -116,15 +112,12 @@ public class PedidoData {
                     pedi.setCuenta(resultSet.getDouble(5));
               
               this.pedido=pedi;
-          }}
+            }
+          }
         } catch (SQLException ex) {
             System.out.println("Error al obtener los meseros: " + ex.getMessage());
         }
         
-        
         return pedido;
-    }
-    
-    
-        
+    }      
 }

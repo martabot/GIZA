@@ -47,10 +47,8 @@ public class ProductoData {
                 if (rs.next()) {
                     producto.setIdProducto(rs.getInt(1));
                 } else {
-                    System.out.println("No se pudo obtener el id luego de insertar un producto");
-                }
+                    System.out.println("No se pudo obtener el id luego de insertar un producto");}
             }
-    
         } catch (SQLException ex) {
             System.out.println("Error al insertar un producto: " + ex.getMessage());
         }
@@ -77,13 +75,11 @@ public class ProductoData {
             System.out.println("Error al obtener los productos: " + ex.getMessage());
         }
         
-        
         return productos;
-        
     }
+    
     public Producto deIdAlProducto(int idP){
 
-        
         try {
             String sql = "SELECT * FROM pedido where id= ?;";
           try (PreparedStatement statment = connection.prepareStatement(sql)) {
@@ -96,11 +92,11 @@ public class ProductoData {
               producto.setPrecio(resultSet.getDouble(3));
               
               this.product=producto;
-          }}
+            }
+          }
         } catch (SQLException ex) {
             System.out.println("Error al obtener el pedido: " + ex.getMessage());
         }
-        
         
         return product;
     }

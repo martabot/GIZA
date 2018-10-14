@@ -48,10 +48,8 @@ public class MeseroData {
                 if (rs.next()) {
                     mesero.setIdMesero(rs.getInt(1));
                 } else {
-                    System.out.println("No se pudo obtener el id luego de insertar un mesero");
-                }
+                    System.out.println("No se pudo obtener el id luego de insertar un mesero");}
             }
-    
         } catch (SQLException ex) {
             System.out.println("Error al insertar un mesero: " + ex.getMessage());
         }
@@ -81,25 +79,25 @@ public class MeseroData {
         
         return meseros;
     }
+    
     public Mesero deIdAMesero(int idM){
 
-        
         try {
             String sql = "SELECT * FROM mesero where id= ?;";
           try (PreparedStatement statment = connection.prepareStatement(sql)) {
               statment.setInt(1, idM);
               ResultSet resultSet = statment.executeQuery();
               while(resultSet.next()){
-              Mesero mese = new Mesero();
-              mese.setIdMesero(resultSet.getInt(1));
-              mese.setNombreMesero(resultSet.getString(2));
+                Mesero mese = new Mesero();
+                mese.setIdMesero(resultSet.getInt(1));
+                mese.setNombreMesero(resultSet.getString(2));
               
               this.mesero=mese;
-          }}
+            }
+          }
         } catch (SQLException ex) {
             System.out.println("Error al obtener los meseros: " + ex.getMessage());
         }
-        
         
         return mesero;
     }

@@ -51,10 +51,8 @@ public class ReservaData {
                 if (rs.next()) {
                     reserva.setIdReserva(rs.getInt(1));
                 } else {
-                    System.out.println("No se pudo obtener el id luego de insertar una reserva");
-                }
+                    System.out.println("No se pudo obtener el id luego de insertar una reserva");}
             }
-    
         } catch (SQLException ex) {
             System.out.println("Error al insertar una reserva: " + ex.getMessage());
         }
@@ -63,7 +61,6 @@ public class ReservaData {
     public List<Reserva> obtenerReservas() throws ClassNotFoundException {
         List<Reserva> reservas = new ArrayList<>();
             
-
         try {
             String sql = "SELECT * FROM reserva;";
             try (PreparedStatement statment = connection.prepareStatement(sql)) {
@@ -90,8 +87,6 @@ public class ReservaData {
                 System.out.println("Error3"+e.getLocalizedMessage());
         }
         
-        
         return reservas;
     }
-    
 }
