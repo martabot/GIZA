@@ -93,7 +93,6 @@ public class PedidoData {
     
     public Pedido deIdAPedido(int idP) throws ClassNotFoundException{
 
-        
         try {
             String sql = "SELECT * FROM pedido where id= ?;";
           try (PreparedStatement statment = connection.prepareStatement(sql)) {
@@ -115,9 +114,21 @@ public class PedidoData {
             }
           }
         } catch (SQLException ex) {
-            System.out.println("Error al obtener los meseros: " + ex.getMessage());
+            System.out.println("Error al obtener el pedido: " + ex.getMessage());
         }
         
         return pedido;
-    }      
+    }  
+        
+    public void borrarPedido(int idP) throws ClassNotFoundException{
+
+        try {
+            String sql = "DELETE FROM pedido where id= ?;";
+          try (PreparedStatement statment = connection.prepareStatement(sql)) {
+              statment.setInt(1, idP);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al borrar el pedido: " + ex.getMessage());
+        }
+    }  
 }

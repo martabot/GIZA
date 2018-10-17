@@ -56,8 +56,7 @@ public class ProductoData {
     
     public List<Producto> obtenerProductos(){
         List<Producto> productos = new ArrayList<>();
-            
-
+           
         try {
             String sql = "SELECT * FROM producto;";
             try (PreparedStatement statment = connection.prepareStatement(sql)) {
@@ -100,4 +99,16 @@ public class ProductoData {
         
         return product;
     }
+    
+    public void borrarProducto(int idP) throws ClassNotFoundException{
+
+        try {
+            String sql = "DELETE FROM producto where id= ?;";
+          try (PreparedStatement statment = connection.prepareStatement(sql)) {
+              statment.setInt(1, idP);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al borrar el producto: " + ex.getMessage());
+        }
+    }  
 }

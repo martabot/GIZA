@@ -89,4 +89,28 @@ public class ReservaData {
         
         return reservas;
     }
+        
+    public void borrarReserva(int idR) throws ClassNotFoundException{
+
+        try {
+            String sql = "DELETE FROM reserva where id= ?;";
+          try (PreparedStatement statment = connection.prepareStatement(sql)) {
+              statment.setInt(1, idR);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al borrar la reserva: " + ex.getMessage());
+        }
+    } 
+    
+    public void cancelarReserva(int idR) throws SQLException{
+        
+       try {
+        String sql = "UPDATE FROM reserva SET esta_vigente=0 where id_reserva= ? ;";
+       try (PreparedStatement statment = connection.prepareStatement(sql)) {
+              statment.setInt(1, idR);
+            }  
+       } catch (SQLException ex) {
+            System.out.println("Error al cancelar la reserva: " + ex.getMessage());
+        }
+    }   
 }
