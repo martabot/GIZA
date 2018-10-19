@@ -28,23 +28,30 @@ public class VistaPedidos extends javax.swing.JFrame {
         botonReservas = new javax.swing.JButton();
         botonPedidos = new javax.swing.JButton();
         aboutUs = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        ePedidos = new javax.swing.JLabel();
         idPedido = new javax.swing.JTextField();
-        buscarPedido = new javax.swing.JButton();
-        tomarPedido = new javax.swing.JLabel();
+        cobrarPedido = new javax.swing.JButton();
+        eTomarPedido = new javax.swing.JLabel();
         nombreCliente = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        botonAgregarPedido = new javax.swing.JButton();
-        etiquetaMesa = new javax.swing.JLabel();
-        spinnerMesa = new javax.swing.JSpinner();
-        botonAtender = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        eAgregarProducto = new javax.swing.JLabel();
-        etiquetaCantidad = new javax.swing.JLabel();
+        eNombreCliente = new javax.swing.JLabel();
+        botonAtenderMesa = new javax.swing.JButton();
+        eMesa = new javax.swing.JLabel();
         spinnerCantidad = new javax.swing.JSpinner();
-        jLabel4 = new javax.swing.JLabel();
-        nombreCliente1 = new javax.swing.JTextField();
-        botonAgregarPedido1 = new javax.swing.JButton();
+        propiedadesPedido = new javax.swing.JLabel();
+        eAgregarProducto = new javax.swing.JLabel();
+        eCantidad = new javax.swing.JLabel();
+        eIdProducto = new javax.swing.JLabel();
+        idProducto = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        botonAgregarProducto = new javax.swing.JButton();
+        botonCrearPedido = new javax.swing.JButton();
+        spinnerMesa = new javax.swing.JSpinner();
+        ePagaCon = new javax.swing.JLabel();
+        textoCambio = new javax.swing.JTextField();
+        eCambio = new javax.swing.JLabel();
+        textoPagaCon = new javax.swing.JTextField();
+        cancelarPedido = new javax.swing.JButton();
+        buscarPedido = new javax.swing.JButton();
         imagen = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -118,13 +125,172 @@ public class VistaPedidos extends javax.swing.JFrame {
         background.add(aboutUs);
         aboutUs.setBounds(90, 580, 110, 100);
 
-        jLabel1.setFont(new java.awt.Font("Luisa", 0, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(153, 0, 51));
-        jLabel1.setText("PEDIDOS");
-        background.add(jLabel1);
-        jLabel1.setBounds(590, 190, 100, 40);
+        ePedidos.setFont(new java.awt.Font("Luisa", 1, 18)); // NOI18N
+        ePedidos.setForeground(new java.awt.Color(153, 0, 51));
+        ePedidos.setText("PEDIDOS");
+        background.add(ePedidos);
+        ePedidos.setBounds(590, 190, 100, 40);
         background.add(idPedido);
-        idPedido.setBounds(710, 200, 40, 20);
+        idPedido.setBounds(760, 200, 70, 20);
+
+        cobrarPedido.setBackground(new java.awt.Color(255, 237, 221));
+        cobrarPedido.setForeground(new java.awt.Color(102, 0, 0));
+        cobrarPedido.setText("COBRAR");
+        cobrarPedido.setActionCommand("");
+        cobrarPedido.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 204, 204), new java.awt.Color(255, 204, 102), new java.awt.Color(204, 0, 51), new java.awt.Color(102, 0, 0)));
+        cobrarPedido.setContentAreaFilled(false);
+        background.add(cobrarPedido);
+        cobrarPedido.setBounds(750, 550, 120, 30);
+
+        eTomarPedido.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        eTomarPedido.setForeground(new java.awt.Color(153, 0, 51));
+        eTomarPedido.setText("TOMAR PEDIDO");
+        background.add(eTomarPedido);
+        eTomarPedido.setBounds(390, 230, 100, 14);
+
+        nombreCliente.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        nombreCliente.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        nombreCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nombreClienteActionPerformed(evt);
+            }
+        });
+        background.add(nombreCliente);
+        nombreCliente.setBounds(500, 280, 240, 20);
+
+        eNombreCliente.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        eNombreCliente.setForeground(new java.awt.Color(179, 3, 62));
+        eNombreCliente.setText("NOMBRE CLIENTE:");
+        background.add(eNombreCliente);
+        eNombreCliente.setBounds(380, 280, 120, 20);
+
+        botonAtenderMesa.setBackground(new java.awt.Color(255, 237, 221));
+        botonAtenderMesa.setForeground(new java.awt.Color(102, 0, 51));
+        botonAtenderMesa.setText("ATENDER");
+        botonAtenderMesa.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 255, 51), new java.awt.Color(255, 204, 204), new java.awt.Color(102, 0, 102), new java.awt.Color(102, 0, 51)));
+        botonAtenderMesa.setContentAreaFilled(false);
+        botonAtenderMesa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAtenderMesaActionPerformed(evt);
+            }
+        });
+        background.add(botonAtenderMesa);
+        botonAtenderMesa.setBounds(610, 250, 110, 20);
+
+        eMesa.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        eMesa.setForeground(new java.awt.Color(179, 3, 62));
+        eMesa.setText("MESA:");
+        background.add(eMesa);
+        eMesa.setBounds(440, 250, 60, 20);
+
+        spinnerCantidad.setModel(new javax.swing.SpinnerNumberModel(0, 0, 100, 1));
+        spinnerCantidad.setBorder(null);
+        spinnerCantidad.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        background.add(spinnerCantidad);
+        spinnerCantidad.setBounds(500, 350, 70, 30);
+
+        propiedadesPedido.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        background.add(propiedadesPedido);
+        propiedadesPedido.setBounds(420, 310, 370, 20);
+
+        eAgregarProducto.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        eAgregarProducto.setForeground(new java.awt.Color(153, 0, 51));
+        eAgregarProducto.setText("AGREGAR PRODUCTO");
+        background.add(eAgregarProducto);
+        eAgregarProducto.setBounds(380, 330, 110, 30);
+
+        eCantidad.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        eCantidad.setForeground(new java.awt.Color(179, 3, 62));
+        eCantidad.setText("CANTIDAD:");
+        background.add(eCantidad);
+        eCantidad.setBounds(420, 360, 80, 20);
+
+        eIdProducto.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        eIdProducto.setForeground(new java.awt.Color(179, 3, 62));
+        eIdProducto.setText("ID:");
+        background.add(eIdProducto);
+        eIdProducto.setBounds(610, 360, 30, 20);
+
+        idProducto.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        idProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                idProductoActionPerformed(evt);
+            }
+        });
+        background.add(idProducto);
+        idProducto.setBounds(640, 360, 70, 20);
+
+        jLabel5.setForeground(new java.awt.Color(179, 3, 62));
+        jLabel5.setText("ID:");
+        background.add(jLabel5);
+        jLabel5.setBounds(740, 200, 20, 20);
+
+        botonAgregarProducto.setBackground(new java.awt.Color(255, 237, 221));
+        botonAgregarProducto.setForeground(new java.awt.Color(102, 0, 51));
+        botonAgregarProducto.setText("AGREGAR");
+        botonAgregarProducto.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 255, 51), new java.awt.Color(255, 204, 204), new java.awt.Color(102, 0, 102), new java.awt.Color(102, 0, 51)));
+        botonAgregarProducto.setContentAreaFilled(false);
+        botonAgregarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAgregarProductoActionPerformed(evt);
+            }
+        });
+        background.add(botonAgregarProducto);
+        botonAgregarProducto.setBounds(750, 360, 110, 20);
+
+        botonCrearPedido.setBackground(new java.awt.Color(255, 237, 221));
+        botonCrearPedido.setForeground(new java.awt.Color(102, 0, 51));
+        botonCrearPedido.setText("CREAR PEDIDO");
+        botonCrearPedido.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 255, 51), new java.awt.Color(255, 204, 204), new java.awt.Color(102, 0, 102), new java.awt.Color(102, 0, 51)));
+        botonCrearPedido.setContentAreaFilled(false);
+        botonCrearPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCrearPedidoActionPerformed(evt);
+            }
+        });
+        background.add(botonCrearPedido);
+        botonCrearPedido.setBounds(750, 280, 110, 20);
+
+        spinnerMesa.setModel(new javax.swing.SpinnerNumberModel(0, 0, 100, 1));
+        spinnerMesa.setBorder(null);
+        spinnerMesa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        background.add(spinnerMesa);
+        spinnerMesa.setBounds(500, 240, 70, 30);
+
+        ePagaCon.setForeground(new java.awt.Color(179, 3, 62));
+        ePagaCon.setText("PAGA CON:");
+        background.add(ePagaCon);
+        ePagaCon.setBounds(710, 470, 70, 14);
+
+        textoCambio.setForeground(new java.awt.Color(153, 0, 51));
+        textoCambio.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        background.add(textoCambio);
+        textoCambio.setBounds(780, 500, 90, 30);
+
+        eCambio.setForeground(new java.awt.Color(179, 3, 62));
+        eCambio.setText("CAMBIO:");
+        eCambio.setToolTipText("");
+        background.add(eCambio);
+        eCambio.setBounds(720, 500, 60, 30);
+
+        textoPagaCon.setForeground(new java.awt.Color(153, 0, 51));
+        textoPagaCon.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        background.add(textoPagaCon);
+        textoPagaCon.setBounds(780, 460, 90, 30);
+
+        cancelarPedido.setBackground(new java.awt.Color(255, 255, 255));
+        cancelarPedido.setForeground(new java.awt.Color(102, 0, 0));
+        cancelarPedido.setText("CANCELAR PEDIDO");
+        cancelarPedido.setActionCommand("");
+        cancelarPedido.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        cancelarPedido.setContentAreaFilled(false);
+        cancelarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelarPedidoActionPerformed(evt);
+            }
+        });
+        background.add(cancelarPedido);
+        cancelarPedido.setBounds(730, 610, 170, 20);
 
         buscarPedido.setForeground(new java.awt.Color(102, 0, 0));
         buscarPedido.setText("Buscar");
@@ -132,77 +298,7 @@ public class VistaPedidos extends javax.swing.JFrame {
         buscarPedido.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         buscarPedido.setContentAreaFilled(false);
         background.add(buscarPedido);
-        buscarPedido.setBounds(770, 200, 60, 19);
-
-        tomarPedido.setText("TOMAR PEDIDO");
-        background.add(tomarPedido);
-        tomarPedido.setBounds(400, 260, 120, 14);
-
-        nombreCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nombreClienteActionPerformed(evt);
-            }
-        });
-        background.add(nombreCliente);
-        nombreCliente.setBounds(610, 260, 140, 20);
-
-        jLabel2.setText("NOMBRE:");
-        background.add(jLabel2);
-        jLabel2.setBounds(530, 260, 70, 14);
-
-        botonAgregarPedido.setBackground(new java.awt.Color(0, 102, 102));
-        botonAgregarPedido.setForeground(new java.awt.Color(102, 0, 51));
-        botonAgregarPedido.setText("AGREGAR");
-        botonAgregarPedido.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 255, 51), new java.awt.Color(255, 204, 204), new java.awt.Color(102, 0, 102), new java.awt.Color(102, 0, 51)));
-        botonAgregarPedido.setContentAreaFilled(false);
-        background.add(botonAgregarPedido);
-        botonAgregarPedido.setBounds(770, 260, 100, 21);
-
-        etiquetaMesa.setText("MESA");
-        background.add(etiquetaMesa);
-        etiquetaMesa.setBounds(440, 300, 50, 14);
-        background.add(spinnerMesa);
-        spinnerMesa.setBounds(530, 300, 50, 18);
-
-        botonAtender.setBackground(new java.awt.Color(255, 204, 204));
-        botonAtender.setForeground(new java.awt.Color(102, 0, 0));
-        botonAtender.setText("ATENDER");
-        botonAtender.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(0, 255, 51), new java.awt.Color(51, 255, 255), new java.awt.Color(0, 51, 51), new java.awt.Color(0, 0, 102)));
-        botonAtender.setContentAreaFilled(false);
-        background.add(botonAtender);
-        botonAtender.setBounds(630, 300, 100, 20);
-        background.add(jLabel3);
-        jLabel3.setBounds(440, 340, 410, 20);
-
-        eAgregarProducto.setText("AGREGAR PRODUCTO");
-        background.add(eAgregarProducto);
-        eAgregarProducto.setBounds(440, 380, 110, 20);
-
-        etiquetaCantidad.setText("CANTIDAD");
-        background.add(etiquetaCantidad);
-        etiquetaCantidad.setBounds(440, 410, 90, 14);
-        background.add(spinnerCantidad);
-        spinnerCantidad.setBounds(540, 410, 26, 18);
-
-        jLabel4.setText("NOMBRE:");
-        background.add(jLabel4);
-        jLabel4.setBounds(440, 440, 70, 14);
-
-        nombreCliente1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nombreCliente1ActionPerformed(evt);
-            }
-        });
-        background.add(nombreCliente1);
-        nombreCliente1.setBounds(520, 440, 140, 20);
-
-        botonAgregarPedido1.setBackground(new java.awt.Color(0, 102, 102));
-        botonAgregarPedido1.setForeground(new java.awt.Color(102, 0, 51));
-        botonAgregarPedido1.setText("AGREGAR");
-        botonAgregarPedido1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 255, 51), new java.awt.Color(255, 204, 204), new java.awt.Color(102, 0, 102), new java.awt.Color(102, 0, 51)));
-        botonAgregarPedido1.setContentAreaFilled(false);
-        background.add(botonAgregarPedido1);
-        botonAgregarPedido1.setBounds(680, 440, 100, 21);
+        buscarPedido.setBounds(840, 200, 60, 19);
 
         imagen.setBackground(new java.awt.Color(204, 70, 0));
         imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/Background.png"))); // NOI18N
@@ -255,9 +351,25 @@ public class VistaPedidos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_nombreClienteActionPerformed
 
-    private void nombreCliente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreCliente1ActionPerformed
+    private void idProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idProductoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_nombreCliente1ActionPerformed
+    }//GEN-LAST:event_idProductoActionPerformed
+
+    private void botonAtenderMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAtenderMesaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonAtenderMesaActionPerformed
+
+    private void botonAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarProductoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonAgregarProductoActionPerformed
+
+    private void botonCrearPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCrearPedidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonCrearPedidoActionPerformed
+
+    private void cancelarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarPedidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cancelarPedidoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -304,27 +416,34 @@ public class VistaPedidos extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton aboutUs;
     private javax.swing.JPanel background;
-    private javax.swing.JButton botonAgregarPedido;
-    private javax.swing.JButton botonAgregarPedido1;
-    private javax.swing.JButton botonAtender;
+    private javax.swing.JButton botonAgregarProducto;
+    private javax.swing.JButton botonAtenderMesa;
+    private javax.swing.JButton botonCrearPedido;
     private javax.swing.JButton botonMesas;
     private javax.swing.JButton botonPedidos;
     private javax.swing.JButton botonPrecios;
     private javax.swing.JButton botonReservas;
     private javax.swing.JButton buscarPedido;
+    private javax.swing.JButton cancelarPedido;
+    private javax.swing.JButton cobrarPedido;
     private javax.swing.JLabel eAgregarProducto;
-    private javax.swing.JLabel etiquetaCantidad;
-    private javax.swing.JLabel etiquetaMesa;
+    private javax.swing.JLabel eCambio;
+    private javax.swing.JLabel eCantidad;
+    private javax.swing.JLabel eIdProducto;
+    private javax.swing.JLabel eMesa;
+    private javax.swing.JLabel eNombreCliente;
+    private javax.swing.JLabel ePagaCon;
+    private javax.swing.JLabel ePedidos;
+    private javax.swing.JLabel eTomarPedido;
     private javax.swing.JTextField idPedido;
+    private javax.swing.JTextField idProducto;
     private javax.swing.JLabel imagen;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JTextField nombreCliente;
-    private javax.swing.JTextField nombreCliente1;
+    private javax.swing.JLabel propiedadesPedido;
     private javax.swing.JSpinner spinnerCantidad;
     private javax.swing.JSpinner spinnerMesa;
-    private javax.swing.JLabel tomarPedido;
+    private javax.swing.JTextField textoCambio;
+    private javax.swing.JTextField textoPagaCon;
     // End of variables declaration//GEN-END:variables
 }

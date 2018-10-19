@@ -138,6 +138,7 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
 
+        label2.setForeground(new java.awt.Color(102, 0, 0));
         label2.setText("Nombre:");
 
         label1.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 24)); // NOI18N
