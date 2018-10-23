@@ -16,6 +16,9 @@ public class Background extends javax.swing.JFrame {
         this.setResizable(false);
         this.setVisible(true);
         initComponents();
+        
+        textoUsuario.setVisible(false);
+        cambiarNombre.setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -29,8 +32,13 @@ public class Background extends javax.swing.JFrame {
         botonPedidos = new javax.swing.JButton();
         aboutUs = new javax.swing.JButton();
         textoBienvenida = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        tB2 = new javax.swing.JLabel();
+        tB3 = new javax.swing.JLabel();
+        cerrarSesion = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        textoUsuario = new javax.swing.JTextField();
+        cambiarNombre = new javax.swing.JButton();
         imagen = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -56,7 +64,6 @@ public class Background extends javax.swing.JFrame {
         botonMesas.setForeground(new java.awt.Color(238, 140, 60));
         botonMesas.setText("MESAS");
         botonMesas.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 153, 51), 3, true));
-        botonMesas.setOpaque(false);
         botonMesas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonMesasActionPerformed(evt);
@@ -107,20 +114,55 @@ public class Background extends javax.swing.JFrame {
         textoBienvenida.setFont(new java.awt.Font("Luisa", 0, 36)); // NOI18N
         textoBienvenida.setForeground(new java.awt.Color(153, 0, 51));
         textoBienvenida.setText("BIENVENIDO");
+        textoBienvenida.setBorder(null);
         background.add(textoBienvenida);
         textoBienvenida.setBounds(540, 310, 220, 70);
 
-        jLabel1.setFont(new java.awt.Font("Luisa", 0, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(153, 0, 51));
-        jLabel1.setText("AL SISTEMA DE ATENCIÓN");
-        background.add(jLabel1);
-        jLabel1.setBounds(430, 400, 440, 40);
+        tB2.setFont(new java.awt.Font("Luisa", 0, 36)); // NOI18N
+        tB2.setForeground(new java.awt.Color(153, 0, 51));
+        tB2.setText("AL SISTEMA DE ATENCIÓN");
+        background.add(tB2);
+        tB2.setBounds(430, 400, 440, 40);
 
-        jLabel2.setFont(new java.awt.Font("Luisa", 0, 36)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(153, 0, 51));
-        jLabel2.setText("DE GIZA RESTO");
-        background.add(jLabel2);
-        jLabel2.setBounds(510, 470, 250, 60);
+        tB3.setFont(new java.awt.Font("Luisa", 0, 36)); // NOI18N
+        tB3.setForeground(new java.awt.Color(153, 0, 51));
+        tB3.setText("DE GIZA RESTO");
+        background.add(tB3);
+        tB3.setBounds(510, 470, 250, 60);
+
+        cerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/Logout-512.png"))); // NOI18N
+        cerrarSesion.setContentAreaFilled(false);
+        background.add(cerrarSesion);
+        cerrarSesion.setBounds(240, 40, 30, 40);
+
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/ajustes.png"))); // NOI18N
+        jButton2.setContentAreaFilled(false);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        background.add(jButton2);
+        jButton2.setBounds(320, 40, 30, 40);
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/salir.png"))); // NOI18N
+        jButton1.setContentAreaFilled(false);
+        background.add(jButton1);
+        jButton1.setBounds(280, 40, 30, 40);
+
+        textoUsuario.setForeground(new java.awt.Color(153, 0, 51));
+        textoUsuario.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        background.add(textoUsuario);
+        textoUsuario.setBounds(380, 40, 220, 30);
+
+        cambiarNombre.setBackground(new java.awt.Color(255, 237, 221));
+        cambiarNombre.setForeground(new java.awt.Color(102, 0, 0));
+        cambiarNombre.setText("Cambiar Nombre");
+        cambiarNombre.setActionCommand("");
+        cambiarNombre.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 204, 204), new java.awt.Color(255, 204, 102), new java.awt.Color(204, 0, 51), new java.awt.Color(102, 0, 0)));
+        cambiarNombre.setBorderPainted(false);
+        background.add(cambiarNombre);
+        cambiarNombre.setBounds(610, 40, 120, 30);
 
         imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/Background.png"))); // NOI18N
         background.add(imagen);
@@ -142,33 +184,43 @@ public class Background extends javax.swing.JFrame {
 
     private void botonPreciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPreciosActionPerformed
         background.removeAll();
+        background.repaint();
         VistaPrecios vistaPrecios=new VistaPrecios();
         vistaPrecios.setVisible(true);
     }//GEN-LAST:event_botonPreciosActionPerformed
 
     private void botonMesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMesasActionPerformed
         background.removeAll();
+        background.repaint();
         VistaMesas vistaMesas=new VistaMesas();
         vistaMesas.setVisible(true);
     }//GEN-LAST:event_botonMesasActionPerformed
 
     private void botonReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReservasActionPerformed
         background.removeAll();
+        background.repaint();
         VistaReservas vistaReservas=new VistaReservas();
         vistaReservas.setVisible(true);
     }//GEN-LAST:event_botonReservasActionPerformed
 
     private void botonPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPedidosActionPerformed
         background.removeAll();
+        background.repaint();
         VistaPedidos vistaPedidos=new VistaPedidos();
         vistaPedidos.setVisible(true);
     }//GEN-LAST:event_botonPedidosActionPerformed
 
     private void aboutUsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutUsActionPerformed
         background.removeAll();
+        background.repaint();
         AboutUs aboutUs=new AboutUs();
         aboutUs.setVisible(true);
     }//GEN-LAST:event_aboutUsActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        textoUsuario.setVisible(true);
+        cambiarNombre.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -215,9 +267,14 @@ public class Background extends javax.swing.JFrame {
     private javax.swing.JButton botonPedidos;
     private javax.swing.JButton botonPrecios;
     private javax.swing.JButton botonReservas;
+    private javax.swing.JButton cambiarNombre;
+    private javax.swing.JButton cerrarSesion;
     private javax.swing.JLabel imagen;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel tB2;
+    private javax.swing.JLabel tB3;
     private javax.swing.JLabel textoBienvenida;
+    private javax.swing.JTextField textoUsuario;
     // End of variables declaration//GEN-END:variables
 }

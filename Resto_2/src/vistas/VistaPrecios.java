@@ -134,24 +134,28 @@ public class VistaPrecios extends javax.swing.JFrame {
         background.removeAll();
         VistaMesas vistaMesas=new VistaMesas();
         vistaMesas.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_botonMesasActionPerformed
 
     private void botonReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReservasActionPerformed
         background.removeAll();
         VistaReservas vistaReservas=new VistaReservas();
         vistaReservas.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_botonReservasActionPerformed
 
     private void botonPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPedidosActionPerformed
         background.removeAll();
         VistaPedidos vistaPedidos=new VistaPedidos();
         vistaPedidos.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_botonPedidosActionPerformed
 
     private void aboutUsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutUsActionPerformed
         background.removeAll();
         AboutUs aboutUs=new AboutUs();
         aboutUs.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_aboutUsActionPerformed
 
     /**

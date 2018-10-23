@@ -38,7 +38,7 @@ public class ProductoData {
 
             try (PreparedStatement statment = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 statment.setString(1, producto.getNombreProducto());
-                statment.setDouble(3, producto.getPrecio());
+                statment.setDouble(2, producto.getPrecio());
                 
                 statment.executeUpdate();
                 
@@ -102,11 +102,12 @@ public class ProductoData {
     
     public void borrarProducto(int idP) throws ClassNotFoundException{
 
-        try {
-            String sql = "DELETE FROM producto where id= ?;";
-          try (PreparedStatement statment = connection.prepareStatement(sql)) {
-              statment.setInt(1, idP);
-            }
+        String sql = "DELETE FROM producto where id_producto= ?;";
+        try (PreparedStatement statment = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            statment.setInt(1, idP);
+              
+            statment.executeUpdate();
+            
         } catch (SQLException ex) {
             System.out.println("Error al borrar el producto: " + ex.getMessage());
         }

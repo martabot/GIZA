@@ -122,11 +122,12 @@ public class PedidoData {
         
     public void borrarPedido(int idP) throws ClassNotFoundException{
 
-        try {
-            String sql = "DELETE FROM pedido where id= ?;";
-          try (PreparedStatement statment = connection.prepareStatement(sql)) {
-              statment.setInt(1, idP);
-            }
+        String sql = "DELETE FROM pedido where id_pedido= ?;";
+        try (PreparedStatement statment = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            statment.setInt(1, idP);
+              
+            statment.executeUpdate();
+            
         } catch (SQLException ex) {
             System.out.println("Error al borrar el pedido: " + ex.getMessage());
         }

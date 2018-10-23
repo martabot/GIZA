@@ -10,6 +10,8 @@ import java.awt.event.KeyEvent;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javax.swing.JFrame;
 import modelo.Conexion;
@@ -88,7 +90,7 @@ public class Inicio extends javax.swing.JFrame {
         label1 = new javax.swing.JLabel();
         label3 = new javax.swing.JLabel();
         signUp = new javax.swing.JButton();
-        botonBuscar1 = new javax.swing.JButton();
+        bRenunciar = new javax.swing.JButton();
         imagen = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -158,19 +160,19 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
 
-        botonBuscar1.setBackground(new java.awt.Color(204, 70, 0));
-        botonBuscar1.setForeground(new java.awt.Color(102, 0, 0));
-        botonBuscar1.setText("Renunciar");
-        botonBuscar1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, null, null, new java.awt.Color(153, 0, 0)));
-        botonBuscar1.setContentAreaFilled(false);
-        botonBuscar1.addActionListener(new java.awt.event.ActionListener() {
+        bRenunciar.setBackground(new java.awt.Color(204, 70, 0));
+        bRenunciar.setForeground(new java.awt.Color(102, 0, 0));
+        bRenunciar.setText("Renunciar");
+        bRenunciar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, null, null, new java.awt.Color(153, 0, 0)));
+        bRenunciar.setContentAreaFilled(false);
+        bRenunciar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonBuscar1ActionPerformed(evt);
+                bRenunciarActionPerformed(evt);
             }
         });
-        botonBuscar1.addKeyListener(new java.awt.event.KeyAdapter() {
+        bRenunciar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                botonBuscar1KeyPressed(evt);
+                bRenunciarKeyPressed(evt);
             }
         });
 
@@ -187,7 +189,7 @@ public class Inicio extends javax.swing.JFrame {
                             .addGroup(panelDeInicioLayout.createSequentialGroup()
                                 .addGroup(panelDeInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(panelDeInicioLayout.createSequentialGroup()
-                                        .addComponent(botonBuscar1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(bRenunciar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(botonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(panelDeInicioLayout.createSequentialGroup()
@@ -214,7 +216,7 @@ public class Inicio extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(panelDeInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonBuscar)
-                    .addComponent(botonBuscar1))
+                    .addComponent(bRenunciar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addGroup(panelDeInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(label3)
@@ -282,15 +284,15 @@ public class Inicio extends javax.swing.JFrame {
             textoBuscar.setVisible(false);
             panelDeInicio.setVisible(false);
             panelPrincipal.removeAll();
-            panelPrincipal.repaint();
             Background background=new Background();
             background.setVisible(true);
+            this.setVisible(false);
            }else{
                label3.setVisible(true);
                signUp.setVisible(true);
            }
            
-        }catch(Exception e) {
+        }catch(ClassNotFoundException | SQLException e) {
             System.out.println("Error al instanciar la clase conexion: " + e.getMessage());
         }   
     }//GEN-LAST:event_botonBuscarActionPerformed
@@ -320,12 +322,12 @@ public class Inicio extends javax.swing.JFrame {
             textoBuscar.setVisible(false);
             panelDeInicio.setVisible(false);
             panelPrincipal.removeAll();
-            panelPrincipal.repaint();
             Background background=new Background();
             background.setVisible(true);
+            this.setVisible(false);
            }
             
-        }catch(Exception e) {
+        }catch(ClassNotFoundException | SQLException e) {
             System.out.println("Error al instanciar la clase conexion: " + e.getMessage());
         }        // TODO add your handling code here:
     }//GEN-LAST:event_signUpActionPerformed
@@ -354,15 +356,15 @@ public class Inicio extends javax.swing.JFrame {
             textoBuscar.setVisible(false);
             panelDeInicio.setVisible(false);
             panelPrincipal.removeAll();
-            panelPrincipal.repaint();
             Background background=new Background();
             background.setVisible(true);
+            this.setVisible(false);
            }else{
                label3.setVisible(true);
                signUp.setVisible(true);
            }
            
-        }catch(Exception e) {
+        }catch(ClassNotFoundException | SQLException e) {
             System.out.println("Error al instanciar la clase conexion: " + e.getMessage());
         }  
             
@@ -370,13 +372,26 @@ public class Inicio extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_textoBuscarKeyPressed
 
-    private void botonBuscar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscar1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botonBuscar1ActionPerformed
+    private void bRenunciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRenunciarActionPerformed
+        this.setNombre(textoBuscar.getText());
+        
+        try {
+            Conexion conexion = new Conexion();
+            conexion.getConexion();
+            
+            MeseroData mesero1=new MeseroData(conexion);
+            
+            mesero1.borrarMesero(this.getNombre());
+            
+            textoBuscar.setText("");
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_bRenunciarActionPerformed
 
-    private void botonBuscar1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_botonBuscar1KeyPressed
+    private void bRenunciarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_bRenunciarKeyPressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_botonBuscar1KeyPressed
+    }//GEN-LAST:event_bRenunciarKeyPressed
         
     
     /**
@@ -419,8 +434,8 @@ public class Inicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bRenunciar;
     private javax.swing.JButton botonBuscar;
-    private javax.swing.JButton botonBuscar1;
     private javax.swing.JLabel imagen;
     private javax.swing.JLabel label1;
     private javax.swing.JLabel label2;

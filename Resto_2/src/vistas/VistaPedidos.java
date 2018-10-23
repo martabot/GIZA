@@ -77,7 +77,6 @@ public class VistaPedidos extends javax.swing.JFrame {
         botonMesas.setForeground(new java.awt.Color(238, 140, 60));
         botonMesas.setText("MESAS");
         botonMesas.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 153, 51), 3, true));
-        botonMesas.setOpaque(false);
         botonMesas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonMesasActionPerformed(evt);
@@ -130,6 +129,8 @@ public class VistaPedidos extends javax.swing.JFrame {
         ePedidos.setText("PEDIDOS");
         background.add(ePedidos);
         ePedidos.setBounds(590, 190, 100, 40);
+
+        idPedido.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         background.add(idPedido);
         idPedido.setBounds(760, 200, 70, 20);
 
@@ -140,13 +141,13 @@ public class VistaPedidos extends javax.swing.JFrame {
         cobrarPedido.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 204, 204), new java.awt.Color(255, 204, 102), new java.awt.Color(204, 0, 51), new java.awt.Color(102, 0, 0)));
         cobrarPedido.setContentAreaFilled(false);
         background.add(cobrarPedido);
-        cobrarPedido.setBounds(750, 550, 120, 30);
+        cobrarPedido.setBounds(750, 570, 120, 30);
 
         eTomarPedido.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         eTomarPedido.setForeground(new java.awt.Color(153, 0, 51));
         eTomarPedido.setText("TOMAR PEDIDO");
         background.add(eTomarPedido);
-        eTomarPedido.setBounds(390, 230, 100, 14);
+        eTomarPedido.setBounds(390, 230, 210, 14);
 
         nombreCliente.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         nombreCliente.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -156,13 +157,13 @@ public class VistaPedidos extends javax.swing.JFrame {
             }
         });
         background.add(nombreCliente);
-        nombreCliente.setBounds(500, 280, 240, 20);
+        nombreCliente.setBounds(500, 290, 240, 20);
 
         eNombreCliente.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         eNombreCliente.setForeground(new java.awt.Color(179, 3, 62));
         eNombreCliente.setText("NOMBRE CLIENTE:");
         background.add(eNombreCliente);
-        eNombreCliente.setBounds(380, 280, 120, 20);
+        eNombreCliente.setBounds(380, 290, 120, 20);
 
         botonAtenderMesa.setBackground(new java.awt.Color(255, 237, 221));
         botonAtenderMesa.setForeground(new java.awt.Color(102, 0, 51));
@@ -175,41 +176,41 @@ public class VistaPedidos extends javax.swing.JFrame {
             }
         });
         background.add(botonAtenderMesa);
-        botonAtenderMesa.setBounds(610, 250, 110, 20);
+        botonAtenderMesa.setBounds(610, 260, 110, 20);
 
         eMesa.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         eMesa.setForeground(new java.awt.Color(179, 3, 62));
         eMesa.setText("MESA:");
         background.add(eMesa);
-        eMesa.setBounds(440, 250, 60, 20);
+        eMesa.setBounds(440, 260, 60, 20);
 
         spinnerCantidad.setModel(new javax.swing.SpinnerNumberModel(0, 0, 100, 1));
         spinnerCantidad.setBorder(null);
         spinnerCantidad.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         background.add(spinnerCantidad);
-        spinnerCantidad.setBounds(500, 350, 70, 30);
+        spinnerCantidad.setBounds(500, 370, 70, 30);
 
         propiedadesPedido.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         background.add(propiedadesPedido);
-        propiedadesPedido.setBounds(420, 310, 370, 20);
+        propiedadesPedido.setBounds(420, 320, 430, 20);
 
         eAgregarProducto.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         eAgregarProducto.setForeground(new java.awt.Color(153, 0, 51));
         eAgregarProducto.setText("AGREGAR PRODUCTO");
         background.add(eAgregarProducto);
-        eAgregarProducto.setBounds(380, 330, 110, 30);
+        eAgregarProducto.setBounds(380, 340, 200, 30);
 
         eCantidad.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         eCantidad.setForeground(new java.awt.Color(179, 3, 62));
         eCantidad.setText("CANTIDAD:");
         background.add(eCantidad);
-        eCantidad.setBounds(420, 360, 80, 20);
+        eCantidad.setBounds(420, 380, 80, 20);
 
         eIdProducto.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         eIdProducto.setForeground(new java.awt.Color(179, 3, 62));
         eIdProducto.setText("ID:");
         background.add(eIdProducto);
-        eIdProducto.setBounds(610, 360, 30, 20);
+        eIdProducto.setBounds(610, 380, 30, 20);
 
         idProducto.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         idProducto.addActionListener(new java.awt.event.ActionListener() {
@@ -218,7 +219,7 @@ public class VistaPedidos extends javax.swing.JFrame {
             }
         });
         background.add(idProducto);
-        idProducto.setBounds(640, 360, 70, 20);
+        idProducto.setBounds(640, 380, 70, 20);
 
         jLabel5.setForeground(new java.awt.Color(179, 3, 62));
         jLabel5.setText("ID:");
@@ -236,7 +237,7 @@ public class VistaPedidos extends javax.swing.JFrame {
             }
         });
         background.add(botonAgregarProducto);
-        botonAgregarProducto.setBounds(750, 360, 110, 20);
+        botonAgregarProducto.setBounds(750, 380, 110, 20);
 
         botonCrearPedido.setBackground(new java.awt.Color(255, 237, 221));
         botonCrearPedido.setForeground(new java.awt.Color(102, 0, 51));
@@ -249,34 +250,34 @@ public class VistaPedidos extends javax.swing.JFrame {
             }
         });
         background.add(botonCrearPedido);
-        botonCrearPedido.setBounds(750, 280, 110, 20);
+        botonCrearPedido.setBounds(750, 290, 110, 20);
 
         spinnerMesa.setModel(new javax.swing.SpinnerNumberModel(0, 0, 100, 1));
         spinnerMesa.setBorder(null);
         spinnerMesa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         background.add(spinnerMesa);
-        spinnerMesa.setBounds(500, 240, 70, 30);
+        spinnerMesa.setBounds(500, 250, 70, 30);
 
         ePagaCon.setForeground(new java.awt.Color(179, 3, 62));
         ePagaCon.setText("PAGA CON:");
         background.add(ePagaCon);
-        ePagaCon.setBounds(710, 470, 70, 14);
+        ePagaCon.setBounds(710, 490, 70, 15);
 
         textoCambio.setForeground(new java.awt.Color(153, 0, 51));
         textoCambio.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         background.add(textoCambio);
-        textoCambio.setBounds(780, 500, 90, 30);
+        textoCambio.setBounds(780, 520, 90, 30);
 
         eCambio.setForeground(new java.awt.Color(179, 3, 62));
         eCambio.setText("CAMBIO:");
         eCambio.setToolTipText("");
         background.add(eCambio);
-        eCambio.setBounds(720, 500, 60, 30);
+        eCambio.setBounds(720, 520, 60, 30);
 
         textoPagaCon.setForeground(new java.awt.Color(153, 0, 51));
         textoPagaCon.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         background.add(textoPagaCon);
-        textoPagaCon.setBounds(780, 460, 90, 30);
+        textoPagaCon.setBounds(780, 480, 90, 30);
 
         cancelarPedido.setBackground(new java.awt.Color(255, 255, 255));
         cancelarPedido.setForeground(new java.awt.Color(102, 0, 0));
@@ -290,7 +291,7 @@ public class VistaPedidos extends javax.swing.JFrame {
             }
         });
         background.add(cancelarPedido);
-        cancelarPedido.setBounds(730, 610, 170, 20);
+        cancelarPedido.setBounds(730, 630, 170, 20);
 
         buscarPedido.setForeground(new java.awt.Color(102, 0, 0));
         buscarPedido.setText("Buscar");
@@ -323,18 +324,21 @@ public class VistaPedidos extends javax.swing.JFrame {
         background.removeAll();
         VistaPrecios vistaPrecios=new VistaPrecios();
         vistaPrecios.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_botonPreciosActionPerformed
 
     private void botonMesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMesasActionPerformed
         background.removeAll();
         VistaMesas vistaMesas=new VistaMesas();
         vistaMesas.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_botonMesasActionPerformed
 
     private void botonReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReservasActionPerformed
         background.removeAll();
         VistaReservas vistaReservas=new VistaReservas();
         vistaReservas.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_botonReservasActionPerformed
 
     private void botonPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPedidosActionPerformed
@@ -345,6 +349,7 @@ public class VistaPedidos extends javax.swing.JFrame {
         background.removeAll();
         AboutUs aboutUs=new AboutUs();
         aboutUs.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_aboutUsActionPerformed
 
     private void nombreClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreClienteActionPerformed

@@ -120,5 +120,17 @@ public class MesaData {
         } catch (SQLException ex) {
             System.out.println("Error al actualizar el estado de la mesa: " + ex.getMessage());
         }
-    }      
+    }
+    
+    public void borrarMesa(int idM){
+        String sql = "DELETE FROM mesa where id_mesa= ?;";
+        try (PreparedStatement statment = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            statment.setInt(1, idM);
+              
+            statment.executeUpdate();
+            
+        } catch (SQLException ex) {
+            System.out.println("Error al borrar la mesa: " + ex.getMessage());
+        }
+    }
 }

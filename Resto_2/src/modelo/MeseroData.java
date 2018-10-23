@@ -59,7 +59,6 @@ public class MeseroData {
     public List<Mesero> obtenerMesero(){
         List<Mesero> meseros = new ArrayList<>();
             
-
         try {
             String sql = "SELECT * FROM mesero;";
             try (PreparedStatement statment = connection.prepareStatement(sql)) {
@@ -75,7 +74,6 @@ public class MeseroData {
         } catch (SQLException ex) {
             System.out.println("Error al obtener los meseros: " + ex.getMessage());
         }
-        
         
         return meseros;
     }
@@ -102,6 +100,15 @@ public class MeseroData {
         return mesero;
     }
     
-    
-    
+    public void borrarMesero(String nombre){
+        String sql = "DELETE FROM mesero where nombre_mesero LIKE ?;";
+        try (PreparedStatement statment = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            statment.setString(1, nombre);
+              
+            statment.executeUpdate();
+            
+        } catch (SQLException ex) {
+            System.out.println("Error al borrar el mesero: " + ex.getMessage());
+        }
+    }
 }

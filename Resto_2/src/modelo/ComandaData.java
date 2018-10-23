@@ -86,4 +86,16 @@ public class ComandaData {
         }
         return comandas;
     }
+    
+    public void borrarComanda(int idC){
+        String sql = "DELETE FROM comanda where id_comanda= ?;";
+        try (PreparedStatement statment = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            statment.setInt(1, idC);
+              
+            statment.executeUpdate();
+            
+        } catch (SQLException ex) {
+            System.out.println("Error al borrar la comanda: " + ex.getMessage());
+        }
+    }
 }
