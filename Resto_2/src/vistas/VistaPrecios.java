@@ -54,7 +54,6 @@ public class VistaPrecios extends javax.swing.JFrame {
         botonMesas.setForeground(new java.awt.Color(238, 140, 60));
         botonMesas.setText("MESAS");
         botonMesas.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 153, 51), 3, true));
-        botonMesas.setOpaque(false);
         botonMesas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonMesasActionPerformed(evt);
@@ -109,6 +108,7 @@ public class VistaPrecios extends javax.swing.JFrame {
         jLabel2.setBounds(500, 210, 310, 60);
 
         imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/Background.png"))); // NOI18N
+        imagen.setAlignmentY(0.0F);
         background.add(imagen);
         imagen.setBounds(0, 0, 1440, 896);
 

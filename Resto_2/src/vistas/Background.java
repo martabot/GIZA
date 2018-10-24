@@ -165,6 +165,7 @@ public class Background extends javax.swing.JFrame {
         cambiarNombre.setBounds(610, 40, 120, 30);
 
         imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/Background.png"))); // NOI18N
+        imagen.setAlignmentY(0.0F);
         background.add(imagen);
         imagen.setBounds(0, 0, 1440, 896);
 

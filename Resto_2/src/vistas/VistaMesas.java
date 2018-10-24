@@ -87,6 +87,15 @@ public class VistaMesas extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        textoPedido = new javax.swing.JTextField();
+        textoMesero = new javax.swing.JTextField();
+        textoReserva = new javax.swing.JTextField();
+        textoCuenta = new javax.swing.JTextField();
+        botonCobrar = new javax.swing.JButton();
+        botonCobrar1 = new javax.swing.JButton();
+        botonCobrar2 = new javax.swing.JButton();
+        botonCobrar3 = new javax.swing.JButton();
+        botonCobrar4 = new javax.swing.JButton();
         imagen = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -163,7 +172,7 @@ public class VistaMesas extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(153, 0, 51));
         jLabel1.setText("MESAS");
         background.add(jLabel1);
-        jLabel1.setBounds(590, 200, 90, 30);
+        jLabel1.setBounds(590, 200, 90, 40);
 
         mesa2.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         mesa2.setForeground(new java.awt.Color(153, 0, 51));
@@ -171,7 +180,7 @@ public class VistaMesas extends javax.swing.JFrame {
         mesa2.setToolTipText("");
         mesa2.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
         background.add(mesa2);
-        mesa2.setBounds(640, 270, 60, 30);
+        mesa2.setBounds(640, 250, 60, 30);
 
         mesa1.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         mesa1.setForeground(new java.awt.Color(153, 0, 51));
@@ -179,7 +188,7 @@ public class VistaMesas extends javax.swing.JFrame {
         mesa1.setToolTipText("");
         mesa1.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
         background.add(mesa1);
-        mesa1.setBounds(400, 270, 60, 30);
+        mesa1.setBounds(400, 250, 60, 30);
 
         mesa3.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         mesa3.setForeground(new java.awt.Color(153, 0, 51));
@@ -187,7 +196,7 @@ public class VistaMesas extends javax.swing.JFrame {
         mesa3.setToolTipText("");
         mesa3.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
         background.add(mesa3);
-        mesa3.setBounds(580, 270, 60, 30);
+        mesa3.setBounds(580, 250, 60, 30);
 
         mesa4.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         mesa4.setForeground(new java.awt.Color(153, 0, 51));
@@ -195,7 +204,7 @@ public class VistaMesas extends javax.swing.JFrame {
         mesa4.setToolTipText("");
         mesa4.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
         background.add(mesa4);
-        mesa4.setBounds(520, 270, 60, 30);
+        mesa4.setBounds(520, 250, 60, 30);
 
         mesa5.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         mesa5.setForeground(new java.awt.Color(153, 0, 51));
@@ -203,7 +212,7 @@ public class VistaMesas extends javax.swing.JFrame {
         mesa5.setToolTipText("");
         mesa5.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
         background.add(mesa5);
-        mesa5.setBounds(460, 270, 60, 30);
+        mesa5.setBounds(460, 250, 60, 30);
 
         mesa6.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         mesa6.setForeground(new java.awt.Color(153, 0, 51));
@@ -211,7 +220,7 @@ public class VistaMesas extends javax.swing.JFrame {
         mesa6.setToolTipText("");
         mesa6.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
         background.add(mesa6);
-        mesa6.setBounds(460, 390, 60, 30);
+        mesa6.setBounds(460, 370, 60, 30);
 
         mesa8.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         mesa8.setForeground(new java.awt.Color(153, 0, 51));
@@ -219,7 +228,7 @@ public class VistaMesas extends javax.swing.JFrame {
         mesa8.setToolTipText("");
         mesa8.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
         background.add(mesa8);
-        mesa8.setBounds(580, 390, 60, 30);
+        mesa8.setBounds(580, 370, 60, 30);
 
         mesa9.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         mesa9.setForeground(new java.awt.Color(153, 0, 51));
@@ -227,7 +236,7 @@ public class VistaMesas extends javax.swing.JFrame {
         mesa9.setToolTipText("");
         mesa9.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
         background.add(mesa9);
-        mesa9.setBounds(400, 390, 60, 30);
+        mesa9.setBounds(400, 370, 60, 30);
 
         mesa7.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         mesa7.setForeground(new java.awt.Color(153, 0, 51));
@@ -235,7 +244,7 @@ public class VistaMesas extends javax.swing.JFrame {
         mesa7.setToolTipText("");
         mesa7.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
         background.add(mesa7);
-        mesa7.setBounds(520, 390, 60, 30);
+        mesa7.setBounds(520, 370, 60, 30);
 
         mesa10.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         mesa10.setForeground(new java.awt.Color(153, 0, 51));
@@ -243,7 +252,7 @@ public class VistaMesas extends javax.swing.JFrame {
         mesa10.setToolTipText("");
         mesa10.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
         background.add(mesa10);
-        mesa10.setBounds(640, 390, 60, 30);
+        mesa10.setBounds(640, 370, 60, 30);
 
         mesa11.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         mesa11.setForeground(new java.awt.Color(153, 0, 51));
@@ -251,7 +260,7 @@ public class VistaMesas extends javax.swing.JFrame {
         mesa11.setToolTipText("");
         mesa11.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
         background.add(mesa11);
-        mesa11.setBounds(640, 420, 60, 30);
+        mesa11.setBounds(640, 400, 60, 30);
 
         mesa12.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         mesa12.setForeground(new java.awt.Color(153, 0, 51));
@@ -259,7 +268,7 @@ public class VistaMesas extends javax.swing.JFrame {
         mesa12.setToolTipText("");
         mesa12.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
         background.add(mesa12);
-        mesa12.setBounds(520, 420, 60, 30);
+        mesa12.setBounds(520, 400, 60, 30);
 
         mesa13.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         mesa13.setForeground(new java.awt.Color(153, 0, 51));
@@ -267,7 +276,7 @@ public class VistaMesas extends javax.swing.JFrame {
         mesa13.setToolTipText("");
         mesa13.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
         background.add(mesa13);
-        mesa13.setBounds(400, 420, 60, 30);
+        mesa13.setBounds(400, 400, 60, 30);
 
         mesa14.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         mesa14.setForeground(new java.awt.Color(153, 0, 51));
@@ -275,7 +284,7 @@ public class VistaMesas extends javax.swing.JFrame {
         mesa14.setToolTipText("");
         mesa14.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
         background.add(mesa14);
-        mesa14.setBounds(580, 420, 60, 30);
+        mesa14.setBounds(580, 400, 60, 30);
 
         mesa15.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         mesa15.setForeground(new java.awt.Color(153, 0, 51));
@@ -283,7 +292,7 @@ public class VistaMesas extends javax.swing.JFrame {
         mesa15.setToolTipText("");
         mesa15.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
         background.add(mesa15);
-        mesa15.setBounds(460, 420, 60, 30);
+        mesa15.setBounds(460, 400, 60, 30);
 
         mesa16.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         mesa16.setForeground(new java.awt.Color(153, 0, 51));
@@ -291,7 +300,7 @@ public class VistaMesas extends javax.swing.JFrame {
         mesa16.setToolTipText("");
         mesa16.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
         background.add(mesa16);
-        mesa16.setBounds(640, 450, 60, 30);
+        mesa16.setBounds(640, 430, 60, 30);
 
         mesa17.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         mesa17.setForeground(new java.awt.Color(153, 0, 51));
@@ -299,7 +308,7 @@ public class VistaMesas extends javax.swing.JFrame {
         mesa17.setToolTipText("");
         mesa17.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
         background.add(mesa17);
-        mesa17.setBounds(520, 450, 60, 30);
+        mesa17.setBounds(520, 430, 60, 30);
 
         mesa18.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         mesa18.setForeground(new java.awt.Color(153, 0, 51));
@@ -307,7 +316,7 @@ public class VistaMesas extends javax.swing.JFrame {
         mesa18.setToolTipText("");
         mesa18.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
         background.add(mesa18);
-        mesa18.setBounds(400, 450, 60, 30);
+        mesa18.setBounds(400, 430, 60, 30);
 
         mesa19.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         mesa19.setForeground(new java.awt.Color(153, 0, 51));
@@ -315,7 +324,7 @@ public class VistaMesas extends javax.swing.JFrame {
         mesa19.setToolTipText("");
         mesa19.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
         background.add(mesa19);
-        mesa19.setBounds(580, 450, 60, 30);
+        mesa19.setBounds(580, 430, 60, 30);
 
         mesa20.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         mesa20.setForeground(new java.awt.Color(153, 0, 51));
@@ -323,7 +332,7 @@ public class VistaMesas extends javax.swing.JFrame {
         mesa20.setToolTipText("");
         mesa20.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
         background.add(mesa20);
-        mesa20.setBounds(460, 450, 60, 30);
+        mesa20.setBounds(460, 430, 60, 30);
 
         mesa21.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         mesa21.setForeground(new java.awt.Color(153, 0, 51));
@@ -331,7 +340,7 @@ public class VistaMesas extends javax.swing.JFrame {
         mesa21.setToolTipText("");
         mesa21.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
         background.add(mesa21);
-        mesa21.setBounds(640, 480, 60, 30);
+        mesa21.setBounds(640, 460, 60, 30);
 
         mesa22.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         mesa22.setForeground(new java.awt.Color(153, 0, 51));
@@ -339,7 +348,7 @@ public class VistaMesas extends javax.swing.JFrame {
         mesa22.setToolTipText("");
         mesa22.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
         background.add(mesa22);
-        mesa22.setBounds(520, 480, 60, 30);
+        mesa22.setBounds(520, 460, 60, 30);
 
         mesa23.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         mesa23.setForeground(new java.awt.Color(153, 0, 51));
@@ -347,7 +356,7 @@ public class VistaMesas extends javax.swing.JFrame {
         mesa23.setToolTipText("");
         mesa23.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
         background.add(mesa23);
-        mesa23.setBounds(400, 480, 60, 30);
+        mesa23.setBounds(400, 460, 60, 30);
 
         mesa24.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         mesa24.setForeground(new java.awt.Color(153, 0, 51));
@@ -355,7 +364,7 @@ public class VistaMesas extends javax.swing.JFrame {
         mesa24.setToolTipText("");
         mesa24.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
         background.add(mesa24);
-        mesa24.setBounds(580, 480, 60, 30);
+        mesa24.setBounds(580, 460, 60, 30);
 
         mesa25.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         mesa25.setForeground(new java.awt.Color(153, 0, 51));
@@ -363,7 +372,7 @@ public class VistaMesas extends javax.swing.JFrame {
         mesa25.setToolTipText("");
         mesa25.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
         background.add(mesa25);
-        mesa25.setBounds(460, 480, 60, 30);
+        mesa25.setBounds(460, 460, 60, 30);
 
         mesa26.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         mesa26.setForeground(new java.awt.Color(153, 0, 51));
@@ -371,7 +380,7 @@ public class VistaMesas extends javax.swing.JFrame {
         mesa26.setToolTipText("");
         mesa26.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
         background.add(mesa26);
-        mesa26.setBounds(640, 510, 60, 30);
+        mesa26.setBounds(640, 490, 60, 30);
 
         mesa27.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         mesa27.setForeground(new java.awt.Color(153, 0, 51));
@@ -379,7 +388,7 @@ public class VistaMesas extends javax.swing.JFrame {
         mesa27.setToolTipText("");
         mesa27.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
         background.add(mesa27);
-        mesa27.setBounds(520, 510, 60, 30);
+        mesa27.setBounds(520, 490, 60, 30);
 
         mesa28.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         mesa28.setForeground(new java.awt.Color(153, 0, 51));
@@ -387,7 +396,7 @@ public class VistaMesas extends javax.swing.JFrame {
         mesa28.setToolTipText("");
         mesa28.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
         background.add(mesa28);
-        mesa28.setBounds(400, 510, 60, 30);
+        mesa28.setBounds(400, 490, 60, 30);
 
         mesa29.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         mesa29.setForeground(new java.awt.Color(153, 0, 51));
@@ -395,7 +404,7 @@ public class VistaMesas extends javax.swing.JFrame {
         mesa29.setToolTipText("");
         mesa29.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
         background.add(mesa29);
-        mesa29.setBounds(580, 510, 60, 30);
+        mesa29.setBounds(580, 490, 60, 30);
 
         mesa30.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         mesa30.setForeground(new java.awt.Color(153, 0, 51));
@@ -403,7 +412,7 @@ public class VistaMesas extends javax.swing.JFrame {
         mesa30.setToolTipText("");
         mesa30.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
         background.add(mesa30);
-        mesa30.setBounds(460, 510, 60, 30);
+        mesa30.setBounds(460, 490, 60, 30);
 
         mesa31.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         mesa31.setForeground(new java.awt.Color(153, 0, 51));
@@ -411,7 +420,7 @@ public class VistaMesas extends javax.swing.JFrame {
         mesa31.setToolTipText("");
         mesa31.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
         background.add(mesa31);
-        mesa31.setBounds(640, 300, 60, 30);
+        mesa31.setBounds(640, 280, 60, 30);
 
         mesa32.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         mesa32.setForeground(new java.awt.Color(153, 0, 51));
@@ -419,7 +428,7 @@ public class VistaMesas extends javax.swing.JFrame {
         mesa32.setToolTipText("");
         mesa32.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
         background.add(mesa32);
-        mesa32.setBounds(520, 300, 60, 30);
+        mesa32.setBounds(520, 280, 60, 30);
 
         mesa33.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         mesa33.setForeground(new java.awt.Color(153, 0, 51));
@@ -427,7 +436,7 @@ public class VistaMesas extends javax.swing.JFrame {
         mesa33.setToolTipText("");
         mesa33.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
         background.add(mesa33);
-        mesa33.setBounds(400, 300, 60, 30);
+        mesa33.setBounds(400, 280, 60, 30);
 
         mesa34.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         mesa34.setForeground(new java.awt.Color(153, 0, 51));
@@ -435,7 +444,7 @@ public class VistaMesas extends javax.swing.JFrame {
         mesa34.setToolTipText("");
         mesa34.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
         background.add(mesa34);
-        mesa34.setBounds(580, 300, 60, 30);
+        mesa34.setBounds(580, 280, 60, 30);
 
         mesa35.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         mesa35.setForeground(new java.awt.Color(153, 0, 51));
@@ -443,7 +452,7 @@ public class VistaMesas extends javax.swing.JFrame {
         mesa35.setToolTipText("");
         mesa35.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
         background.add(mesa35);
-        mesa35.setBounds(460, 300, 60, 30);
+        mesa35.setBounds(460, 280, 60, 30);
 
         mesa36.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         mesa36.setForeground(new java.awt.Color(153, 0, 51));
@@ -451,7 +460,7 @@ public class VistaMesas extends javax.swing.JFrame {
         mesa36.setToolTipText("");
         mesa36.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
         background.add(mesa36);
-        mesa36.setBounds(640, 360, 60, 30);
+        mesa36.setBounds(640, 340, 60, 30);
 
         mesa37.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         mesa37.setForeground(new java.awt.Color(153, 0, 51));
@@ -459,7 +468,7 @@ public class VistaMesas extends javax.swing.JFrame {
         mesa37.setToolTipText("");
         mesa37.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
         background.add(mesa37);
-        mesa37.setBounds(520, 360, 60, 30);
+        mesa37.setBounds(520, 340, 60, 30);
 
         mesa38.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         mesa38.setForeground(new java.awt.Color(153, 0, 51));
@@ -467,7 +476,7 @@ public class VistaMesas extends javax.swing.JFrame {
         mesa38.setToolTipText("");
         mesa38.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
         background.add(mesa38);
-        mesa38.setBounds(400, 360, 60, 30);
+        mesa38.setBounds(400, 340, 60, 30);
 
         mesa39.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         mesa39.setForeground(new java.awt.Color(153, 0, 51));
@@ -475,7 +484,7 @@ public class VistaMesas extends javax.swing.JFrame {
         mesa39.setToolTipText("");
         mesa39.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
         background.add(mesa39);
-        mesa39.setBounds(580, 360, 60, 30);
+        mesa39.setBounds(580, 340, 60, 30);
 
         mesa40.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         mesa40.setForeground(new java.awt.Color(153, 0, 51));
@@ -483,7 +492,7 @@ public class VistaMesas extends javax.swing.JFrame {
         mesa40.setToolTipText("");
         mesa40.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
         background.add(mesa40);
-        mesa40.setBounds(460, 360, 60, 30);
+        mesa40.setBounds(460, 340, 60, 30);
 
         mesa41.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         mesa41.setForeground(new java.awt.Color(153, 0, 51));
@@ -491,7 +500,7 @@ public class VistaMesas extends javax.swing.JFrame {
         mesa41.setToolTipText("");
         mesa41.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
         background.add(mesa41);
-        mesa41.setBounds(640, 330, 60, 30);
+        mesa41.setBounds(640, 310, 60, 30);
 
         mesa42.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         mesa42.setForeground(new java.awt.Color(153, 0, 51));
@@ -499,7 +508,7 @@ public class VistaMesas extends javax.swing.JFrame {
         mesa42.setToolTipText("");
         mesa42.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
         background.add(mesa42);
-        mesa42.setBounds(520, 330, 60, 30);
+        mesa42.setBounds(520, 310, 60, 30);
 
         mesa43.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         mesa43.setForeground(new java.awt.Color(153, 0, 51));
@@ -507,7 +516,7 @@ public class VistaMesas extends javax.swing.JFrame {
         mesa43.setToolTipText("");
         mesa43.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
         background.add(mesa43);
-        mesa43.setBounds(400, 330, 60, 30);
+        mesa43.setBounds(400, 310, 60, 30);
 
         mesa44.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         mesa44.setForeground(new java.awt.Color(153, 0, 51));
@@ -515,7 +524,7 @@ public class VistaMesas extends javax.swing.JFrame {
         mesa44.setToolTipText("");
         mesa44.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
         background.add(mesa44);
-        mesa44.setBounds(580, 330, 60, 30);
+        mesa44.setBounds(580, 310, 60, 30);
 
         mesa45.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         mesa45.setForeground(new java.awt.Color(153, 0, 51));
@@ -523,7 +532,7 @@ public class VistaMesas extends javax.swing.JFrame {
         mesa45.setToolTipText("");
         mesa45.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
         background.add(mesa45);
-        mesa45.setBounds(460, 330, 60, 30);
+        mesa45.setBounds(460, 310, 60, 30);
 
         mesa46.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         mesa46.setForeground(new java.awt.Color(153, 0, 51));
@@ -531,7 +540,7 @@ public class VistaMesas extends javax.swing.JFrame {
         mesa46.setToolTipText("");
         mesa46.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
         background.add(mesa46);
-        mesa46.setBounds(400, 540, 60, 30);
+        mesa46.setBounds(400, 520, 60, 30);
 
         mesa47.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         mesa47.setForeground(new java.awt.Color(153, 0, 51));
@@ -539,7 +548,7 @@ public class VistaMesas extends javax.swing.JFrame {
         mesa47.setToolTipText("");
         mesa47.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
         background.add(mesa47);
-        mesa47.setBounds(460, 540, 60, 30);
+        mesa47.setBounds(460, 520, 60, 30);
 
         mesa48.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         mesa48.setForeground(new java.awt.Color(153, 0, 51));
@@ -547,7 +556,7 @@ public class VistaMesas extends javax.swing.JFrame {
         mesa48.setToolTipText("");
         mesa48.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
         background.add(mesa48);
-        mesa48.setBounds(520, 540, 60, 30);
+        mesa48.setBounds(520, 520, 60, 30);
 
         mesa49.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         mesa49.setForeground(new java.awt.Color(153, 0, 51));
@@ -555,7 +564,7 @@ public class VistaMesas extends javax.swing.JFrame {
         mesa49.setToolTipText("");
         mesa49.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
         background.add(mesa49);
-        mesa49.setBounds(580, 540, 60, 30);
+        mesa49.setBounds(580, 520, 60, 30);
 
         mesa50.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         mesa50.setForeground(new java.awt.Color(153, 0, 51));
@@ -563,47 +572,102 @@ public class VistaMesas extends javax.swing.JFrame {
         mesa50.setToolTipText("");
         mesa50.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
         background.add(mesa50);
-        mesa50.setBounds(640, 540, 60, 30);
+        mesa50.setBounds(640, 520, 60, 30);
 
         jLabel2.setBackground(new java.awt.Color(60, 219, 84));
         jLabel2.setOpaque(true);
         background.add(jLabel2);
-        jLabel2.setBounds(430, 600, 20, 20);
+        jLabel2.setBounds(410, 640, 20, 20);
 
         jLabel3.setForeground(new java.awt.Color(153, 0, 51));
         jLabel3.setText("DISPONIBLE");
         background.add(jLabel3);
-        jLabel3.setBounds(460, 600, 90, 20);
+        jLabel3.setBounds(440, 640, 90, 20);
 
         jLabel4.setForeground(new java.awt.Color(153, 0, 51));
         jLabel4.setText("RESERVADA");
         background.add(jLabel4);
-        jLabel4.setBounds(460, 630, 90, 20);
+        jLabel4.setBounds(690, 640, 90, 20);
 
         jLabel5.setBackground(new java.awt.Color(255, 240, 0));
         jLabel5.setOpaque(true);
         background.add(jLabel5);
-        jLabel5.setBounds(430, 630, 20, 20);
+        jLabel5.setBounds(660, 640, 20, 20);
 
         jLabel6.setBackground(new java.awt.Color(253, 134, 43));
         jLabel6.setOpaque(true);
         background.add(jLabel6);
-        jLabel6.setBounds(570, 600, 20, 20);
+        jLabel6.setBounds(540, 640, 20, 20);
 
         jLabel7.setForeground(new java.awt.Color(153, 0, 51));
         jLabel7.setText("OCUPADA");
         background.add(jLabel7);
-        jLabel7.setBounds(600, 600, 90, 20);
+        jLabel7.setBounds(570, 640, 90, 20);
 
         jLabel8.setBackground(new java.awt.Color(255, 18, 0));
         jLabel8.setOpaque(true);
         background.add(jLabel8);
-        jLabel8.setBounds(570, 630, 20, 20);
+        jLabel8.setBounds(790, 640, 20, 20);
 
         jLabel9.setForeground(new java.awt.Color(153, 0, 51));
         jLabel9.setText("ATENDIDA");
         background.add(jLabel9);
-        jLabel9.setBounds(600, 630, 90, 20);
+        jLabel9.setBounds(820, 640, 90, 20);
+
+        textoPedido.setForeground(new java.awt.Color(153, 0, 51));
+        textoPedido.setBorder(javax.swing.BorderFactory.createEtchedBorder(null, new java.awt.Color(182, 52, 52)));
+        background.add(textoPedido);
+        textoPedido.setBounds(730, 350, 180, 30);
+
+        textoMesero.setForeground(new java.awt.Color(153, 0, 51));
+        textoMesero.setBorder(javax.swing.BorderFactory.createEtchedBorder(null, new java.awt.Color(182, 52, 52)));
+        background.add(textoMesero);
+        textoMesero.setBounds(730, 250, 180, 30);
+
+        textoReserva.setForeground(new java.awt.Color(153, 0, 51));
+        textoReserva.setBorder(javax.swing.BorderFactory.createEtchedBorder(null, new java.awt.Color(182, 52, 52)));
+        background.add(textoReserva);
+        textoReserva.setBounds(730, 300, 180, 30);
+
+        textoCuenta.setForeground(new java.awt.Color(153, 0, 51));
+        textoCuenta.setBorder(javax.swing.BorderFactory.createEtchedBorder(null, new java.awt.Color(182, 52, 52)));
+        background.add(textoCuenta);
+        textoCuenta.setBounds(730, 400, 90, 30);
+
+        botonCobrar.setForeground(new java.awt.Color(153, 0, 51));
+        botonCobrar.setText("LIMPIAR");
+        botonCobrar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(201, 254, 91), new java.awt.Color(148, 39, 83), new java.awt.Color(173, 98, 98), new java.awt.Color(222, 33, 33)));
+        botonCobrar.setContentAreaFilled(false);
+        background.add(botonCobrar);
+        botonCobrar.setBounds(730, 450, 80, 30);
+
+        botonCobrar1.setForeground(new java.awt.Color(153, 0, 51));
+        botonCobrar1.setText("COBRAR");
+        botonCobrar1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(201, 254, 91), new java.awt.Color(148, 39, 83), new java.awt.Color(173, 98, 98), new java.awt.Color(222, 33, 33)));
+        botonCobrar1.setContentAreaFilled(false);
+        background.add(botonCobrar1);
+        botonCobrar1.setBounds(830, 400, 80, 30);
+
+        botonCobrar2.setForeground(new java.awt.Color(153, 0, 51));
+        botonCobrar2.setText("BUSCAR");
+        botonCobrar2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(201, 254, 91), new java.awt.Color(148, 39, 83), new java.awt.Color(173, 98, 98), new java.awt.Color(222, 33, 33)));
+        botonCobrar2.setContentAreaFilled(false);
+        background.add(botonCobrar2);
+        botonCobrar2.setBounds(820, 450, 90, 30);
+
+        botonCobrar3.setForeground(new java.awt.Color(153, 0, 51));
+        botonCobrar3.setText("ELIMINAR");
+        botonCobrar3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(201, 254, 91), new java.awt.Color(148, 39, 83), new java.awt.Color(173, 98, 98), new java.awt.Color(222, 33, 33)));
+        botonCobrar3.setContentAreaFilled(false);
+        background.add(botonCobrar3);
+        botonCobrar3.setBounds(730, 490, 80, 30);
+
+        botonCobrar4.setForeground(new java.awt.Color(153, 0, 51));
+        botonCobrar4.setText("AGREGAR");
+        botonCobrar4.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(201, 254, 91), new java.awt.Color(148, 39, 83), new java.awt.Color(173, 98, 98), new java.awt.Color(222, 33, 33)));
+        botonCobrar4.setContentAreaFilled(false);
+        background.add(botonCobrar4);
+        botonCobrar4.setBounds(820, 490, 90, 30);
 
         imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/Background.png"))); // NOI18N
         imagen.setAlignmentY(0.0F);
@@ -701,6 +765,11 @@ public class VistaMesas extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton aboutUs;
     private javax.swing.JPanel background;
+    private javax.swing.JButton botonCobrar;
+    private javax.swing.JButton botonCobrar1;
+    private javax.swing.JButton botonCobrar2;
+    private javax.swing.JButton botonCobrar3;
+    private javax.swing.JButton botonCobrar4;
     private javax.swing.JButton botonMesas;
     private javax.swing.JButton botonPedidos;
     private javax.swing.JButton botonPrecios;
@@ -765,5 +834,9 @@ public class VistaMesas extends javax.swing.JFrame {
     private javax.swing.JButton mesa7;
     private javax.swing.JButton mesa8;
     private javax.swing.JButton mesa9;
+    private javax.swing.JTextField textoCuenta;
+    private javax.swing.JTextField textoMesero;
+    private javax.swing.JTextField textoPedido;
+    private javax.swing.JTextField textoReserva;
     // End of variables declaration//GEN-END:variables
 }
