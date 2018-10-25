@@ -29,6 +29,17 @@ public class VistaPrecios extends javax.swing.JFrame {
         botonPedidos = new javax.swing.JButton();
         aboutUs = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        etiquetaId = new javax.swing.JLabel();
+        textoId = new javax.swing.JTextField();
+        botonBuscarId = new javax.swing.JButton();
+        etiquetaNombre = new javax.swing.JLabel();
+        textNombre = new javax.swing.JTextField();
+        botonBuscarNomb = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaPrecios = new javax.swing.JTable();
+        etiquetaNpedido = new javax.swing.JLabel();
+        textNpedido = new javax.swing.JTextField();
+        etiquetaAgregar = new javax.swing.JLabel();
         imagen = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -105,12 +116,152 @@ public class VistaPrecios extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(153, 0, 51));
         jLabel2.setText("LISTA DE PRECIOS");
         background.add(jLabel2);
-        jLabel2.setBounds(500, 210, 310, 60);
+        jLabel2.setBounds(500, 150, 310, 70);
+
+        etiquetaId.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        etiquetaId.setForeground(new java.awt.Color(204, 0, 0));
+        etiquetaId.setText("ID:");
+        background.add(etiquetaId);
+        etiquetaId.setBounds(380, 280, 90, 17);
+        background.add(textoId);
+        textoId.setBounds(470, 280, 60, 20);
+
+        botonBuscarId.setBackground(new java.awt.Color(255, 237, 221));
+        botonBuscarId.setForeground(new java.awt.Color(102, 0, 51));
+        botonBuscarId.setText("Buscar");
+        botonBuscarId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonBuscarIdActionPerformed(evt);
+            }
+        });
+        background.add(botonBuscarId);
+        botonBuscarId.setBounds(720, 273, 130, 30);
+
+        etiquetaNombre.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        etiquetaNombre.setForeground(new java.awt.Color(204, 0, 0));
+        etiquetaNombre.setText("NOMBRE:");
+        background.add(etiquetaNombre);
+        etiquetaNombre.setBounds(380, 330, 90, 17);
+
+        textNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textNombreActionPerformed(evt);
+            }
+        });
+        background.add(textNombre);
+        textNombre.setBounds(470, 330, 180, 20);
+
+        botonBuscarNomb.setText("Buscar");
+        background.add(botonBuscarNomb);
+        botonBuscarNomb.setBounds(720, 323, 130, 30);
+
+        tablaPrecios.setForeground(new java.awt.Color(153, 0, 0));
+        tablaPrecios.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Código", "Nombre", "Precio"
+            }
+        ));
+        jScrollPane1.setViewportView(tablaPrecios);
+
+        background.add(jScrollPane1);
+        jScrollPane1.setBounds(380, 450, 469, 100);
+
+        etiquetaNpedido.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        etiquetaNpedido.setForeground(new java.awt.Color(153, 0, 0));
+        etiquetaNpedido.setText("Nº PEDIDO:");
+        background.add(etiquetaNpedido);
+        etiquetaNpedido.setBounds(380, 590, 90, 17);
+        background.add(textNpedido);
+        textNpedido.setBounds(460, 590, 110, 20);
+        background.add(etiquetaAgregar);
+        etiquetaAgregar.setBounds(380, 390, 520, 30);
 
         imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/Background.png"))); // NOI18N
         imagen.setAlignmentY(0.0F);
         background.add(imagen);
-        imagen.setBounds(0, 0, 1440, 896);
+        imagen.setBounds(10, -50, 1440, 896);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -158,6 +309,14 @@ public class VistaPrecios extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_aboutUsActionPerformed
 
+    private void textNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textNombreActionPerformed
+
+    private void botonBuscarIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonBuscarIdActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -203,11 +362,22 @@ public class VistaPrecios extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton aboutUs;
     private javax.swing.JPanel background;
+    private javax.swing.JButton botonBuscarId;
+    private javax.swing.JButton botonBuscarNomb;
     private javax.swing.JButton botonMesas;
     private javax.swing.JButton botonPedidos;
     private javax.swing.JButton botonPrecios;
     private javax.swing.JButton botonReservas;
+    private javax.swing.JLabel etiquetaAgregar;
+    private javax.swing.JLabel etiquetaId;
+    private javax.swing.JLabel etiquetaNombre;
+    private javax.swing.JLabel etiquetaNpedido;
     private javax.swing.JLabel imagen;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tablaPrecios;
+    private javax.swing.JTextField textNombre;
+    private javax.swing.JTextField textNpedido;
+    private javax.swing.JTextField textoId;
     // End of variables declaration//GEN-END:variables
 }
