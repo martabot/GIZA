@@ -114,7 +114,6 @@ public class Background extends javax.swing.JFrame {
         textoBienvenida.setFont(new java.awt.Font("Luisa", 0, 36)); // NOI18N
         textoBienvenida.setForeground(new java.awt.Color(153, 0, 51));
         textoBienvenida.setText("BIENVENIDO");
-        textoBienvenida.setBorder(null);
         background.add(textoBienvenida);
         textoBienvenida.setBounds(540, 310, 220, 70);
 
@@ -132,6 +131,11 @@ public class Background extends javax.swing.JFrame {
 
         cerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/Logout-512.png"))); // NOI18N
         cerrarSesion.setContentAreaFilled(false);
+        cerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cerrarSesionActionPerformed(evt);
+            }
+        });
         background.add(cerrarSesion);
         cerrarSesion.setBounds(240, 40, 30, 40);
 
@@ -147,6 +151,11 @@ public class Background extends javax.swing.JFrame {
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/salir.png"))); // NOI18N
         jButton1.setContentAreaFilled(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         background.add(jButton1);
         jButton1.setBounds(280, 40, 30, 40);
 
@@ -222,6 +231,17 @@ public class Background extends javax.swing.JFrame {
         textoUsuario.setVisible(true);
         cambiarNombre.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void cerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarSesionActionPerformed
+        background.removeAll();
+        background.repaint();
+        Inicio inicio=new Inicio();
+        inicio.setVisible(true);
+    }//GEN-LAST:event_cerrarSesionActionPerformed
 
     /**
      * @param args the command line arguments

@@ -44,6 +44,11 @@ public class VistaReservas extends javax.swing.JFrame {
         eFormato1 = new javax.swing.JLabel();
         spinnerMesas = new javax.swing.JSpinner();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        cerrarSesion = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        textoUsuario = new javax.swing.JTextField();
+        cambiarNombre = new javax.swing.JButton();
         imagen = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -216,7 +221,51 @@ public class VistaReservas extends javax.swing.JFrame {
         background.add(spinnerMesas);
         spinnerMesas.setBounds(550, 480, 90, 30);
         background.add(jDateChooser1);
-        jDateChooser1.setBounds(550, 430, 290, 32);
+        jDateChooser1.setBounds(550, 430, 290, 20);
+
+        cerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/Logout-512.png"))); // NOI18N
+        cerrarSesion.setContentAreaFilled(false);
+        cerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cerrarSesionActionPerformed(evt);
+            }
+        });
+        background.add(cerrarSesion);
+        cerrarSesion.setBounds(240, 40, 30, 40);
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/salir.png"))); // NOI18N
+        jButton1.setContentAreaFilled(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        background.add(jButton1);
+        jButton1.setBounds(280, 40, 30, 40);
+
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/ajustes.png"))); // NOI18N
+        jButton2.setContentAreaFilled(false);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        background.add(jButton2);
+        jButton2.setBounds(320, 40, 30, 40);
+
+        textoUsuario.setForeground(new java.awt.Color(153, 0, 51));
+        textoUsuario.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        background.add(textoUsuario);
+        textoUsuario.setBounds(380, 40, 220, 30);
+
+        cambiarNombre.setBackground(new java.awt.Color(255, 237, 221));
+        cambiarNombre.setForeground(new java.awt.Color(102, 0, 0));
+        cambiarNombre.setText("Cambiar Nombre");
+        cambiarNombre.setActionCommand("");
+        cambiarNombre.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 204, 204), new java.awt.Color(255, 204, 102), new java.awt.Color(204, 0, 51), new java.awt.Color(102, 0, 0)));
+        cambiarNombre.setBorderPainted(false);
+        background.add(cambiarNombre);
+        cambiarNombre.setBounds(610, 40, 120, 30);
 
         imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/Background.png"))); // NOI18N
         imagen.setAlignmentY(0.0F);
@@ -277,6 +326,22 @@ public class VistaReservas extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_crearReservaActionPerformed
 
+    private void cerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarSesionActionPerformed
+        background.removeAll();
+        background.repaint();
+        Inicio inicio=new Inicio();
+        inicio.setVisible(true);
+    }//GEN-LAST:event_cerrarSesionActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        textoUsuario.setVisible(true);
+        cambiarNombre.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -327,6 +392,8 @@ public class VistaReservas extends javax.swing.JFrame {
     private javax.swing.JButton botonPrecios;
     private javax.swing.JButton botonReservas;
     private javax.swing.JButton buscarReservaPor;
+    private javax.swing.JButton cambiarNombre;
+    private javax.swing.JButton cerrarSesion;
     private javax.swing.JButton cobrarPedido;
     private javax.swing.JButton crearReserva;
     private javax.swing.JLabel eDNI;
@@ -336,6 +403,8 @@ public class VistaReservas extends javax.swing.JFrame {
     private javax.swing.JLabel eNombre;
     private javax.swing.JButton eliminarReserva;
     private javax.swing.JLabel imagen;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -343,5 +412,6 @@ public class VistaReservas extends javax.swing.JFrame {
     private javax.swing.JTextField textoDNI;
     private javax.swing.JTextField textoIdReserva;
     private javax.swing.JTextField textoNombre;
+    private javax.swing.JTextField textoUsuario;
     // End of variables declaration//GEN-END:variables
 }

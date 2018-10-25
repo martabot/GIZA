@@ -96,6 +96,25 @@ public class VistaMesas extends javax.swing.JFrame {
         botonCobrar2 = new javax.swing.JButton();
         botonCobrar3 = new javax.swing.JButton();
         botonCobrar4 = new javax.swing.JButton();
+        cerrarSesion = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        textoUsuario = new javax.swing.JTextField();
+        cambiarNombre = new javax.swing.JButton();
+        mesa51 = new javax.swing.JButton();
+        mesa52 = new javax.swing.JButton();
+        mesa53 = new javax.swing.JButton();
+        mesa54 = new javax.swing.JButton();
+        mesa55 = new javax.swing.JButton();
+        mesa56 = new javax.swing.JButton();
+        mesa57 = new javax.swing.JButton();
+        mesa58 = new javax.swing.JButton();
+        mesa59 = new javax.swing.JButton();
+        mesa60 = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
         imagen = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -617,57 +636,203 @@ public class VistaMesas extends javax.swing.JFrame {
         textoPedido.setForeground(new java.awt.Color(153, 0, 51));
         textoPedido.setBorder(javax.swing.BorderFactory.createEtchedBorder(null, new java.awt.Color(182, 52, 52)));
         background.add(textoPedido);
-        textoPedido.setBounds(730, 350, 180, 30);
+        textoPedido.setBounds(720, 400, 180, 30);
 
         textoMesero.setForeground(new java.awt.Color(153, 0, 51));
         textoMesero.setBorder(javax.swing.BorderFactory.createEtchedBorder(null, new java.awt.Color(182, 52, 52)));
         background.add(textoMesero);
-        textoMesero.setBounds(730, 250, 180, 30);
+        textoMesero.setBounds(720, 280, 180, 30);
 
         textoReserva.setForeground(new java.awt.Color(153, 0, 51));
         textoReserva.setBorder(javax.swing.BorderFactory.createEtchedBorder(null, new java.awt.Color(182, 52, 52)));
         background.add(textoReserva);
-        textoReserva.setBounds(730, 300, 180, 30);
+        textoReserva.setBounds(720, 340, 180, 30);
 
         textoCuenta.setForeground(new java.awt.Color(153, 0, 51));
         textoCuenta.setBorder(javax.swing.BorderFactory.createEtchedBorder(null, new java.awt.Color(182, 52, 52)));
         background.add(textoCuenta);
-        textoCuenta.setBounds(730, 400, 90, 30);
+        textoCuenta.setBounds(720, 460, 90, 30);
 
         botonCobrar.setForeground(new java.awt.Color(153, 0, 51));
         botonCobrar.setText("LIMPIAR");
         botonCobrar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(201, 254, 91), new java.awt.Color(148, 39, 83), new java.awt.Color(173, 98, 98), new java.awt.Color(222, 33, 33)));
         botonCobrar.setContentAreaFilled(false);
         background.add(botonCobrar);
-        botonCobrar.setBounds(730, 450, 80, 30);
+        botonCobrar.setBounds(720, 520, 80, 30);
 
         botonCobrar1.setForeground(new java.awt.Color(153, 0, 51));
         botonCobrar1.setText("COBRAR");
         botonCobrar1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(201, 254, 91), new java.awt.Color(148, 39, 83), new java.awt.Color(173, 98, 98), new java.awt.Color(222, 33, 33)));
         botonCobrar1.setContentAreaFilled(false);
         background.add(botonCobrar1);
-        botonCobrar1.setBounds(830, 400, 80, 30);
+        botonCobrar1.setBounds(820, 460, 80, 30);
 
         botonCobrar2.setForeground(new java.awt.Color(153, 0, 51));
         botonCobrar2.setText("BUSCAR");
         botonCobrar2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(201, 254, 91), new java.awt.Color(148, 39, 83), new java.awt.Color(173, 98, 98), new java.awt.Color(222, 33, 33)));
         botonCobrar2.setContentAreaFilled(false);
         background.add(botonCobrar2);
-        botonCobrar2.setBounds(820, 450, 90, 30);
+        botonCobrar2.setBounds(810, 520, 90, 30);
 
         botonCobrar3.setForeground(new java.awt.Color(153, 0, 51));
         botonCobrar3.setText("ELIMINAR");
         botonCobrar3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(201, 254, 91), new java.awt.Color(148, 39, 83), new java.awt.Color(173, 98, 98), new java.awt.Color(222, 33, 33)));
         botonCobrar3.setContentAreaFilled(false);
         background.add(botonCobrar3);
-        botonCobrar3.setBounds(730, 490, 80, 30);
+        botonCobrar3.setBounds(720, 560, 80, 30);
 
         botonCobrar4.setForeground(new java.awt.Color(153, 0, 51));
         botonCobrar4.setText("AGREGAR");
         botonCobrar4.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(201, 254, 91), new java.awt.Color(148, 39, 83), new java.awt.Color(173, 98, 98), new java.awt.Color(222, 33, 33)));
         botonCobrar4.setContentAreaFilled(false);
         background.add(botonCobrar4);
-        botonCobrar4.setBounds(820, 490, 90, 30);
+        botonCobrar4.setBounds(810, 560, 90, 30);
+
+        cerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/Logout-512.png"))); // NOI18N
+        cerrarSesion.setContentAreaFilled(false);
+        cerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cerrarSesionActionPerformed(evt);
+            }
+        });
+        background.add(cerrarSesion);
+        cerrarSesion.setBounds(240, 40, 30, 40);
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/salir.png"))); // NOI18N
+        jButton1.setContentAreaFilled(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        background.add(jButton1);
+        jButton1.setBounds(280, 40, 30, 40);
+
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/ajustes.png"))); // NOI18N
+        jButton2.setContentAreaFilled(false);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        background.add(jButton2);
+        jButton2.setBounds(320, 40, 30, 40);
+
+        textoUsuario.setForeground(new java.awt.Color(153, 0, 51));
+        textoUsuario.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        background.add(textoUsuario);
+        textoUsuario.setBounds(380, 40, 220, 30);
+
+        cambiarNombre.setBackground(new java.awt.Color(255, 237, 221));
+        cambiarNombre.setForeground(new java.awt.Color(102, 0, 0));
+        cambiarNombre.setText("Cambiar Nombre");
+        cambiarNombre.setActionCommand("");
+        cambiarNombre.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 204, 204), new java.awt.Color(255, 204, 102), new java.awt.Color(204, 0, 51), new java.awt.Color(102, 0, 0)));
+        cambiarNombre.setBorderPainted(false);
+        background.add(cambiarNombre);
+        cambiarNombre.setBounds(610, 40, 120, 30);
+
+        mesa51.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
+        mesa51.setForeground(new java.awt.Color(153, 0, 51));
+        mesa51.setText("51");
+        mesa51.setToolTipText("");
+        mesa51.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
+        background.add(mesa51);
+        mesa51.setBounds(400, 550, 60, 30);
+
+        mesa52.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
+        mesa52.setForeground(new java.awt.Color(153, 0, 51));
+        mesa52.setText("52");
+        mesa52.setToolTipText("");
+        mesa52.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
+        mesa52.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mesa52ActionPerformed(evt);
+            }
+        });
+        background.add(mesa52);
+        mesa52.setBounds(460, 550, 60, 30);
+
+        mesa53.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
+        mesa53.setForeground(new java.awt.Color(153, 0, 51));
+        mesa53.setText("53");
+        mesa53.setToolTipText("");
+        mesa53.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
+        background.add(mesa53);
+        mesa53.setBounds(520, 550, 60, 30);
+
+        mesa54.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
+        mesa54.setForeground(new java.awt.Color(153, 0, 51));
+        mesa54.setText("54");
+        mesa54.setToolTipText("");
+        mesa54.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
+        background.add(mesa54);
+        mesa54.setBounds(580, 550, 60, 30);
+
+        mesa55.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
+        mesa55.setForeground(new java.awt.Color(153, 0, 51));
+        mesa55.setText("55");
+        mesa55.setToolTipText("");
+        mesa55.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
+        background.add(mesa55);
+        mesa55.setBounds(640, 550, 60, 30);
+
+        mesa56.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
+        mesa56.setForeground(new java.awt.Color(153, 0, 51));
+        mesa56.setText("60");
+        mesa56.setToolTipText("");
+        mesa56.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
+        background.add(mesa56);
+        mesa56.setBounds(640, 580, 60, 30);
+
+        mesa57.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
+        mesa57.setForeground(new java.awt.Color(153, 0, 51));
+        mesa57.setText("59");
+        mesa57.setToolTipText("");
+        mesa57.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
+        background.add(mesa57);
+        mesa57.setBounds(580, 580, 60, 30);
+
+        mesa58.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
+        mesa58.setForeground(new java.awt.Color(153, 0, 51));
+        mesa58.setText("58");
+        mesa58.setToolTipText("");
+        mesa58.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
+        background.add(mesa58);
+        mesa58.setBounds(520, 580, 60, 30);
+
+        mesa59.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
+        mesa59.setForeground(new java.awt.Color(153, 0, 51));
+        mesa59.setText("57");
+        mesa59.setToolTipText("");
+        mesa59.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
+        background.add(mesa59);
+        mesa59.setBounds(460, 580, 60, 30);
+
+        mesa60.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
+        mesa60.setForeground(new java.awt.Color(153, 0, 51));
+        mesa60.setText("56");
+        mesa60.setToolTipText("");
+        mesa60.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 106, 21), new java.awt.Color(189, 66, 58)));
+        background.add(mesa60);
+        mesa60.setBounds(400, 580, 60, 30);
+
+        jLabel10.setForeground(new java.awt.Color(153, 0, 51));
+        jLabel10.setText("CUENTA:");
+        background.add(jLabel10);
+        jLabel10.setBounds(720, 430, 180, 30);
+
+        jLabel11.setForeground(new java.awt.Color(153, 0, 51));
+        background.add(jLabel11);
+        jLabel11.setBounds(720, 250, 180, 30);
+
+        jLabel12.setForeground(new java.awt.Color(153, 0, 51));
+        background.add(jLabel12);
+        jLabel12.setBounds(720, 310, 180, 30);
+
+        jLabel13.setForeground(new java.awt.Color(153, 0, 51));
+        background.add(jLabel13);
+        jLabel13.setBounds(720, 370, 180, 30);
 
         imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/Background.png"))); // NOI18N
         imagen.setAlignmentY(0.0F);
@@ -719,6 +884,26 @@ public class VistaMesas extends javax.swing.JFrame {
         aboutUs.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_aboutUsActionPerformed
+
+    private void cerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarSesionActionPerformed
+        background.removeAll();
+        background.repaint();
+        Inicio inicio=new Inicio();
+        inicio.setVisible(true);
+    }//GEN-LAST:event_cerrarSesionActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        textoUsuario.setVisible(true);
+        cambiarNombre.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void mesa52ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mesa52ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mesa52ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -774,8 +959,16 @@ public class VistaMesas extends javax.swing.JFrame {
     private javax.swing.JButton botonPedidos;
     private javax.swing.JButton botonPrecios;
     private javax.swing.JButton botonReservas;
+    private javax.swing.JButton cambiarNombre;
+    private javax.swing.JButton cerrarSesion;
     private javax.swing.JLabel imagen;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -830,7 +1023,17 @@ public class VistaMesas extends javax.swing.JFrame {
     private javax.swing.JButton mesa49;
     private javax.swing.JButton mesa5;
     private javax.swing.JButton mesa50;
+    private javax.swing.JButton mesa51;
+    private javax.swing.JButton mesa52;
+    private javax.swing.JButton mesa53;
+    private javax.swing.JButton mesa54;
+    private javax.swing.JButton mesa55;
+    private javax.swing.JButton mesa56;
+    private javax.swing.JButton mesa57;
+    private javax.swing.JButton mesa58;
+    private javax.swing.JButton mesa59;
     private javax.swing.JButton mesa6;
+    private javax.swing.JButton mesa60;
     private javax.swing.JButton mesa7;
     private javax.swing.JButton mesa8;
     private javax.swing.JButton mesa9;
@@ -838,5 +1041,6 @@ public class VistaMesas extends javax.swing.JFrame {
     private javax.swing.JTextField textoMesero;
     private javax.swing.JTextField textoPedido;
     private javax.swing.JTextField textoReserva;
+    private javax.swing.JTextField textoUsuario;
     // End of variables declaration//GEN-END:variables
 }

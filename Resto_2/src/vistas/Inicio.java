@@ -91,6 +91,7 @@ public class Inicio extends javax.swing.JFrame {
         label3 = new javax.swing.JLabel();
         signUp = new javax.swing.JButton();
         bRenunciar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         imagen = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -144,7 +145,7 @@ public class Inicio extends javax.swing.JFrame {
         label2.setText("Nombre:");
 
         label1.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 24)); // NOI18N
-        label1.setForeground(new java.awt.Color(51, 51, 51));
+        label1.setForeground(new java.awt.Color(102, 0, 0));
         label1.setText("INGRESAR");
 
         label3.setForeground(new java.awt.Color(255, 0, 0));
@@ -226,6 +227,16 @@ public class Inicio extends javax.swing.JFrame {
 
         panelPrincipal.add(panelDeInicio);
         panelDeInicio.setBounds(510, 280, 300, 270);
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/salir.png"))); // NOI18N
+        jButton1.setContentAreaFilled(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        panelPrincipal.add(jButton1);
+        jButton1.setBounds(50, 40, 30, 40);
 
         imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/inicio.png"))); // NOI18N
         imagen.setAlignmentY(0.0F);
@@ -392,6 +403,10 @@ public class Inicio extends javax.swing.JFrame {
     private void bRenunciarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_bRenunciarKeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_bRenunciarKeyPressed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jButton1ActionPerformed
         
     
     /**
@@ -437,6 +452,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JButton bRenunciar;
     private javax.swing.JButton botonBuscar;
     private javax.swing.JLabel imagen;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel label1;
     private javax.swing.JLabel label2;
     private javax.swing.JLabel label3;

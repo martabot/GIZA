@@ -29,6 +29,11 @@ public class AboutUs extends javax.swing.JFrame {
         botonPedidos = new javax.swing.JButton();
         aboutUs = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        cerrarSesion = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        textoUsuario = new javax.swing.JTextField();
+        cambiarNombre = new javax.swing.JButton();
         imagen = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -107,6 +112,50 @@ public class AboutUs extends javax.swing.JFrame {
         background.add(jLabel2);
         jLabel2.setBounds(490, 210, 310, 60);
 
+        cerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/Logout-512.png"))); // NOI18N
+        cerrarSesion.setContentAreaFilled(false);
+        cerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cerrarSesionActionPerformed(evt);
+            }
+        });
+        background.add(cerrarSesion);
+        cerrarSesion.setBounds(240, 40, 30, 40);
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/salir.png"))); // NOI18N
+        jButton1.setContentAreaFilled(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        background.add(jButton1);
+        jButton1.setBounds(280, 40, 30, 40);
+
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/ajustes.png"))); // NOI18N
+        jButton2.setContentAreaFilled(false);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        background.add(jButton2);
+        jButton2.setBounds(320, 40, 30, 40);
+
+        textoUsuario.setForeground(new java.awt.Color(153, 0, 51));
+        textoUsuario.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        background.add(textoUsuario);
+        textoUsuario.setBounds(380, 40, 220, 30);
+
+        cambiarNombre.setBackground(new java.awt.Color(255, 237, 221));
+        cambiarNombre.setForeground(new java.awt.Color(102, 0, 0));
+        cambiarNombre.setText("Cambiar Nombre");
+        cambiarNombre.setActionCommand("");
+        cambiarNombre.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 204, 204), new java.awt.Color(255, 204, 102), new java.awt.Color(204, 0, 51), new java.awt.Color(102, 0, 0)));
+        cambiarNombre.setBorderPainted(false);
+        background.add(cambiarNombre);
+        cambiarNombre.setBounds(610, 40, 120, 30);
+
         imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/Background.png"))); // NOI18N
         imagen.setAlignmentY(0.0F);
         background.add(imagen);
@@ -157,6 +206,22 @@ public class AboutUs extends javax.swing.JFrame {
     private void aboutUsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutUsActionPerformed
 
     }//GEN-LAST:event_aboutUsActionPerformed
+
+    private void cerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarSesionActionPerformed
+        background.removeAll();
+        background.repaint();
+        Inicio inicio=new Inicio();
+        inicio.setVisible(true);
+    }//GEN-LAST:event_cerrarSesionActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        textoUsuario.setVisible(true);
+        cambiarNombre.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -215,7 +280,12 @@ public class AboutUs extends javax.swing.JFrame {
     private javax.swing.JButton botonPedidos;
     private javax.swing.JButton botonPrecios;
     private javax.swing.JButton botonReservas;
+    private javax.swing.JButton cambiarNombre;
+    private javax.swing.JButton cerrarSesion;
     private javax.swing.JLabel imagen;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JTextField textoUsuario;
     // End of variables declaration//GEN-END:variables
 }
