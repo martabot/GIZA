@@ -18,8 +18,6 @@ import java.util.List;
  * @author Muñeca Brava
  */
 public class MesaData {
-    
-    
     private Connection connection;
     private Mesa mesa;
 
@@ -35,7 +33,6 @@ public class MesaData {
         try {
             
             String sql = "INSERT INTO mesa (estado_mesa, capacidad) VALUES ( ? , ? );";
-
             try (PreparedStatement statment = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 statment.setString(1, mesa.getEstadoMesa());
                 statment.setInt(3, mesa.getCapacidad());
@@ -57,8 +54,7 @@ public class MesaData {
     
     public List<Mesa> obtenerMesas(){
         List<Mesa> mesas = new ArrayList<>();
-            
-
+           
         try {
             String sql = "SELECT * FROM mesa;";
             try (PreparedStatement statment = connection.prepareStatement(sql)) {
@@ -101,22 +97,16 @@ public class MesaData {
         return mesa;
     }
     
-
     public void actualizarEstadoMesa(String estadoNuevo,int idM){
 
-    
         try {
-            
             String sql = "UPDATE mesa SET estado_mesa = ?  WHERE id_mesa = ?;";
-
-            PreparedStatement statment = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            statment.setString(1, mesa.getEstadoMesa());
-            statment.setInt(2, mesa.getIdMesa());
-            statment.executeUpdate();
-            
-          
-            statment.close();
-    
+            try (PreparedStatement statment = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                statment.setString(1, estadoNuevo);
+                statment.setInt(2, idM);
+                
+                statment.executeUpdate();
+            }
         } catch (SQLException ex) {
             System.out.println("Error al actualizar el estado de la mesa: " + ex.getMessage());
         }

@@ -9,8 +9,10 @@ import java.awt.event.KeyEvent;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import modelo.*;
 
 /**
@@ -23,7 +25,9 @@ public class VistaReservas extends javax.swing.JFrame {
     private int dni;
     private LocalDate fecha;
     private int nroMesa;
-    Conexion conexion;
+    private Conexion conexion;
+    private List<Reserva> reservaMesa;
+    private Reserva re;
 
     public VistaReservas(){
         this.setUndecorated(true);
@@ -468,11 +472,16 @@ public class VistaReservas extends javax.swing.JFrame {
             conexion.getConexion();
             MesaData m1=new MesaData(conexion);
             ReservaData r1=new ReservaData(conexion);
-            Reserva reserva=new Reserva(textoNombre.getText(),this.getDni(),this.getFecha(),m1.deIdAMesa(this.getNroMesa()),true);
-            r1.guardarReserva(reserva);
-            m1.actualizarEstadoMesa("Reservada",this.getNroMesa());
-            if (r1.obtenerReservas().contains(reserva)){ avisos.setText("La reserva se creo exitosamente");this.limpiar();}
-            else{avisos.setText("Error al crear la reserva");}
+            if ("Reservada".equals(m1.deIdAMesa(this.getNroMesa()).getEstadoMesa())){
+                avisos.setText("Mesa reservada");
+            }else{
+                Reserva reserva=new Reserva(textoNombre.getText(),this.getDni(),this.getFecha(),m1.deIdAMesa(this.getNroMesa()),true);
+                r1.guardarReserva(reserva);
+                m1.actualizarEstadoMesa("Reservada",this.getNroMesa());
+                //if (r1.obtenerReservas().contains(reserva)){ avisos.setText("La reserva se creo exitosamente");this.limpiar();}
+                //else{avisos.setText("Error al crear la reserva");}
+                avisos.setText("La reserva se creo exitosamente");this.limpiar();
+            }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(Background.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -545,6 +554,10 @@ public class VistaReservas extends javax.swing.JFrame {
                 Conexion conexion = new Conexion();
                 conexion.getConexion();
                 ReservaData r1 = new ReservaData(conexion);
+                reservaMesa=r1.obtenerReservas().stream().filter(r->r.getMesa().getIdMesa()==Integer.parseInt(textoId.getText())).collect(Collectors.toList());
+                reservaMesa.forEach(r->{
+                MesaData m1=new MesaData(conexion);
+                m1.actualizarEstadoMesa("Libre",r.getMesa().getIdMesa());});
                 r1.borrarReserva(Integer.parseInt(textoId.getText()));
                 avisos.setText("Reserva eliminada");
                 this.limpiar();
@@ -560,6 +573,10 @@ public class VistaReservas extends javax.swing.JFrame {
                 conexion.getConexion();
                 ReservaData r1 = new ReservaData(conexion);
                 r1.cancelarReserva(Integer.parseInt(textoId.getText()));
+                reservaMesa=r1.obtenerReservas().stream().filter(r->r.getMesa().getIdMesa()==Integer.parseInt(textoId.getText())).collect(Collectors.toList());
+                reservaMesa.forEach(r->{
+                MesaData m1=new MesaData(conexion);
+                m1.actualizarEstadoMesa("Libre",r.getMesa().getIdMesa());});
                 avisos.setText("Reserva cancelada");
                 this.limpiar();
 
@@ -569,7 +586,37 @@ public class VistaReservas extends javax.swing.JFrame {
     }//GEN-LAST:event_darDeBajaActionPerformed
 
     private void buscarReservaPor1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarReservaPor1ActionPerformed
+        java.util.Date utilStartDate = calendario.getDate();
+        java.sql.Date fec = new java.sql.Date(utilStartDate.getTime());
         
+        try {
+            Conexion conexion = new Conexion();
+            conexion.getConexion();
+            ReservaData r1 = new ReservaData(conexion);
+        if (textoId!=null){
+            re=r1.buscarReservaPorId(Integer.parseInt(textoId.getText()));
+            avisos.setText("Reserva "+re.getNombreCliente()+" la mesa "+re.getMesa().getIdMesa()+" el "+re.getFechaReserva());
+        }else{ if (textoNombre!=null){
+            re=r1.buscarReservaPorNombre(textoNombre.getText());
+            avisos.setText("Reserva "+re.getNombreCliente()+" la mesa "+re.getMesa().getIdMesa()+" el "+re.getFechaReserva());
+        }else{if (textoDni!=null){
+            re=r1.buscarReservaPorDni(Integer.parseInt(textoId.getText()));
+            avisos.setText("Reserva "+re.getNombreCliente()+" la mesa "+re.getMesa().getIdMesa()+" el "+re.getFechaReserva());
+        }else{ if (calendario!=null){
+            re=r1.buscarReservaPorFecha(fec);
+            avisos.setText("Reserva "+re.getNombreCliente()+" la mesa "+re.getMesa().getIdMesa()+" el "+re.getFechaReserva());
+        }else{ if (this.getNroMesa()!=0){
+            re=r1.buscarReservaPorMesa(this.getNroMesa());
+            avisos.setText("Reserva "+re.getNombreCliente()+" la mesa "+re.getMesa().getIdMesa()+" el "+re.getFechaReserva());
+        }}}}}
+        
+        
+        
+        
+        
+        } catch (ClassNotFoundException | SQLException ex) {
+                Logger.getLogger(VistaReservas.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_buscarReservaPor1ActionPerformed
 
     /**

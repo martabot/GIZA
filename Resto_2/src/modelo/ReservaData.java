@@ -22,6 +22,7 @@ public class ReservaData {
     private Connection connection;
     private Conexion connect;
     private MesaData mesa;
+    private Reserva reserva;
 
     public ReservaData(Conexion conexion) {
         try {
@@ -30,7 +31,6 @@ public class ReservaData {
             System.out.println("Error al abrir al obtener la conexion");
         }
     }
-    
     
     public void guardarReserva(Reserva reserva){
         try {
@@ -115,5 +115,145 @@ public class ReservaData {
        } catch (SQLException ex) {
             System.out.println("Error al cancelar la reserva: " + ex.getMessage());
         }
-    }   
+    }
+    
+    public Reserva buscarReservaPorId(int idR) throws ClassNotFoundException{
+        
+        try {
+        String sql="SELECT * FROM reserva WHERE id_reserva = ? ;";
+        try (PreparedStatement statment = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            statment.setInt(1, idR);
+            ResultSet resultSet=statment.executeQuery();
+            while(resultSet.next()){
+            Reserva r=new Reserva();
+                    connect=new Conexion();
+                    connect.getConexion();
+                    mesa=new MesaData(connect);
+                    r.setIdReserva(resultSet.getInt(1));
+                    r.setNombreCliente(resultSet.getString(2));
+                    r.setDniCliente(resultSet.getInt(3));
+                    r.setFechaReserva(resultSet.getDate(4).toLocalDate());
+                    r.setMesa(mesa.deIdAMesa(resultSet.getInt(5)));
+                    r.setEstaVigente(resultSet.getBoolean(6));
+                    
+                    this.reserva=r;
+                }
+            }    
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener la reserva: " + ex.getMessage());
+        }
+        return reserva;
+    }
+    
+    public Reserva buscarReservaPorNombre(String nombre) throws ClassNotFoundException{
+        
+        try {
+        String sql="SELECT * FROM reserva WHERE nombre_cliente = ? ;";
+        try (PreparedStatement statment = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            statment.setString(1, nombre);
+            ResultSet resultSet=statment.executeQuery();
+            while(resultSet.next()){
+            Reserva r=new Reserva();
+                    connect=new Conexion();
+                    connect.getConexion();
+                    mesa=new MesaData(connect);
+                    r.setIdReserva(resultSet.getInt(1));
+                    r.setNombreCliente(resultSet.getString(2));
+                    r.setDniCliente(resultSet.getInt(3));
+                    r.setFechaReserva(resultSet.getDate(4).toLocalDate());
+                    r.setMesa(mesa.deIdAMesa(resultSet.getInt(5)));
+                    r.setEstaVigente(resultSet.getBoolean(6));
+                    
+                    this.reserva=r;
+                }
+            }    
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener la reserva: " + ex.getMessage());
+        }
+        return reserva;
+    }
+    
+    public Reserva buscarReservaPorDni(int idR) throws ClassNotFoundException{
+        
+        try {
+        String sql="SELECT * FROM reserva WHERE dni_cliente = ? ;";
+        try (PreparedStatement statment = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            statment.setInt(1, idR);
+            ResultSet resultSet=statment.executeQuery();
+            while(resultSet.next()){
+            Reserva r=new Reserva();
+                    connect=new Conexion();
+                    connect.getConexion();
+                    mesa=new MesaData(connect);
+                    r.setIdReserva(resultSet.getInt(1));
+                    r.setNombreCliente(resultSet.getString(2));
+                    r.setDniCliente(resultSet.getInt(3));
+                    r.setFechaReserva(resultSet.getDate(4).toLocalDate());
+                    r.setMesa(mesa.deIdAMesa(resultSet.getInt(5)));
+                    r.setEstaVigente(resultSet.getBoolean(6));
+                    
+                    this.reserva=r;
+                }
+            }    
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener la reserva: " + ex.getMessage());
+        }
+        return reserva;
+    }
+    
+    public Reserva buscarReservaPorFecha(Date idR) throws ClassNotFoundException{
+        
+        try {
+        String sql="SELECT * FROM reserva WHERE id_reserva = ? ;";
+        try (PreparedStatement statment = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            statment.setDate(1, idR);
+            ResultSet resultSet=statment.executeQuery();
+            while(resultSet.next()){
+            Reserva r=new Reserva();
+                    connect=new Conexion();
+                    connect.getConexion();
+                    mesa=new MesaData(connect);
+                    r.setIdReserva(resultSet.getInt(1));
+                    r.setNombreCliente(resultSet.getString(2));
+                    r.setDniCliente(resultSet.getInt(3));
+                    r.setFechaReserva(resultSet.getDate(4).toLocalDate());
+                    r.setMesa(mesa.deIdAMesa(resultSet.getInt(5)));
+                    r.setEstaVigente(resultSet.getBoolean(6));
+                    
+                    this.reserva=r;
+                }
+            }    
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener la reserva: " + ex.getMessage());
+        }
+        return reserva;
+    }
+    
+    public Reserva buscarReservaPorMesa(int idR) throws ClassNotFoundException{
+        
+        try {
+        String sql="SELECT * FROM reserva WHERE id_mesa = ? ;";
+        try (PreparedStatement statment = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            statment.setInt(1, idR);
+            ResultSet resultSet=statment.executeQuery();
+            while(resultSet.next()){
+            Reserva r=new Reserva();
+                    connect=new Conexion();
+                    connect.getConexion();
+                    mesa=new MesaData(connect);
+                    r.setIdReserva(resultSet.getInt(1));
+                    r.setNombreCliente(resultSet.getString(2));
+                    r.setDniCliente(resultSet.getInt(3));
+                    r.setFechaReserva(resultSet.getDate(4).toLocalDate());
+                    r.setMesa(mesa.deIdAMesa(resultSet.getInt(5)));
+                    r.setEstaVigente(resultSet.getBoolean(6));
+                    
+                    this.reserva=r;
+                }
+            }    
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener la mesa: " + ex.getMessage());
+        }
+        return reserva;
+    }
 }
