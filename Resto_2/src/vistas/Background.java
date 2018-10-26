@@ -5,6 +5,13 @@
  */
 package vistas;
 
+
+import java.awt.event.KeyEvent;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import modelo.*;
+
 /**
  *
  * @author Muñeca Brava
@@ -18,6 +25,9 @@ public class Background extends javax.swing.JFrame {
         initComponents();
         
         textoUsuario.setVisible(false);
+        textoUsuario1.setVisible(false);
+        nomOld.setVisible(false);
+        nomNu.setVisible(false);
         cambiarNombre.setVisible(false);
     }
 
@@ -35,10 +45,13 @@ public class Background extends javax.swing.JFrame {
         tB2 = new javax.swing.JLabel();
         tB3 = new javax.swing.JLabel();
         cerrarSesion = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        botonAjustes = new javax.swing.JButton();
+        botonApagar = new javax.swing.JButton();
         textoUsuario = new javax.swing.JTextField();
+        textoUsuario1 = new javax.swing.JTextField();
         cambiarNombre = new javax.swing.JButton();
+        nomOld = new javax.swing.JLabel();
+        nomNu = new javax.swing.JLabel();
         imagen = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -139,30 +152,40 @@ public class Background extends javax.swing.JFrame {
         background.add(cerrarSesion);
         cerrarSesion.setBounds(240, 40, 30, 40);
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/ajustes.png"))); // NOI18N
-        jButton2.setContentAreaFilled(false);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        botonAjustes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/ajustes.png"))); // NOI18N
+        botonAjustes.setContentAreaFilled(false);
+        botonAjustes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                botonAjustesActionPerformed(evt);
             }
         });
-        background.add(jButton2);
-        jButton2.setBounds(320, 40, 30, 40);
+        background.add(botonAjustes);
+        botonAjustes.setBounds(320, 40, 30, 40);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/salir.png"))); // NOI18N
-        jButton1.setContentAreaFilled(false);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        botonApagar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/salir.png"))); // NOI18N
+        botonApagar.setContentAreaFilled(false);
+        botonApagar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                botonApagarActionPerformed(evt);
             }
         });
-        background.add(jButton1);
-        jButton1.setBounds(280, 40, 30, 40);
+        background.add(botonApagar);
+        botonApagar.setBounds(280, 40, 30, 40);
 
         textoUsuario.setForeground(new java.awt.Color(153, 0, 51));
         textoUsuario.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         background.add(textoUsuario);
-        textoUsuario.setBounds(380, 40, 220, 30);
+        textoUsuario.setBounds(520, 20, 220, 30);
+
+        textoUsuario1.setForeground(new java.awt.Color(153, 0, 51));
+        textoUsuario1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        textoUsuario1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                textoUsuario1KeyPressed(evt);
+            }
+        });
+        background.add(textoUsuario1);
+        textoUsuario1.setBounds(520, 60, 220, 30);
 
         cambiarNombre.setBackground(new java.awt.Color(255, 237, 221));
         cambiarNombre.setForeground(new java.awt.Color(102, 0, 0));
@@ -170,8 +193,25 @@ public class Background extends javax.swing.JFrame {
         cambiarNombre.setActionCommand("");
         cambiarNombre.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 204, 204), new java.awt.Color(255, 204, 102), new java.awt.Color(204, 0, 51), new java.awt.Color(102, 0, 0)));
         cambiarNombre.setBorderPainted(false);
+        cambiarNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cambiarNombreActionPerformed(evt);
+            }
+        });
         background.add(cambiarNombre);
-        cambiarNombre.setBounds(610, 40, 120, 30);
+        cambiarNombre.setBounds(770, 60, 120, 30);
+
+        nomOld.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        nomOld.setForeground(new java.awt.Color(102, 0, 0));
+        nomOld.setText("NOMBRE:");
+        background.add(nomOld);
+        nomOld.setBounds(420, 20, 100, 30);
+
+        nomNu.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        nomNu.setForeground(new java.awt.Color(102, 0, 0));
+        nomNu.setText("NUEVO NOMBRE:");
+        background.add(nomNu);
+        nomNu.setBounds(420, 60, 100, 30);
 
         imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/Background.png"))); // NOI18N
         imagen.setAlignmentY(0.0F);
@@ -227,14 +267,17 @@ public class Background extends javax.swing.JFrame {
         aboutUs.setVisible(true);
     }//GEN-LAST:event_aboutUsActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void botonAjustesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAjustesActionPerformed
         textoUsuario.setVisible(true);
+        textoUsuario1.setVisible(true);
+        nomOld.setVisible(true);
+        nomNu.setVisible(true);
         cambiarNombre.setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_botonAjustesActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void botonApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonApagarActionPerformed
         System.exit(0);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_botonApagarActionPerformed
 
     private void cerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarSesionActionPerformed
         background.removeAll();
@@ -242,6 +285,44 @@ public class Background extends javax.swing.JFrame {
         Inicio inicio=new Inicio();
         inicio.setVisible(true);
     }//GEN-LAST:event_cerrarSesionActionPerformed
+
+    private void cambiarNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cambiarNombreActionPerformed
+        
+        try {
+            Conexion conexion = new Conexion();
+            conexion.getConexion();
+            MeseroData m1=new MeseroData(conexion);
+            m1.cambiarNombre(textoUsuario.getText(), textoUsuario1.getText());
+            textoUsuario.setVisible(false);
+            textoUsuario1.setVisible(false);
+            nomOld.setVisible(false);
+            nomNu.setVisible(false);
+            cambiarNombre.setVisible(false);
+            
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(Background.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_cambiarNombreActionPerformed
+
+    private void textoUsuario1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textoUsuario1KeyPressed
+        if (evt.getKeyCode()==KeyEvent.VK_ENTER){
+            
+        try {
+            Conexion conexion = new Conexion();
+            conexion.getConexion();
+            MeseroData m1=new MeseroData(conexion);
+            m1.cambiarNombre(textoUsuario.getText(), textoUsuario1.getText());
+            textoUsuario.setVisible(false);
+            textoUsuario1.setVisible(false);
+            nomOld.setVisible(false);
+            nomNu.setVisible(false);
+            cambiarNombre.setVisible(false);
+            
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(Background.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        }
+    }//GEN-LAST:event_textoUsuario1KeyPressed
 
     /**
      * @param args the command line arguments
@@ -284,6 +365,8 @@ public class Background extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton aboutUs;
     private javax.swing.JPanel background;
+    private javax.swing.JButton botonAjustes;
+    private javax.swing.JButton botonApagar;
     private javax.swing.JButton botonMesas;
     private javax.swing.JButton botonPedidos;
     private javax.swing.JButton botonPrecios;
@@ -291,11 +374,12 @@ public class Background extends javax.swing.JFrame {
     private javax.swing.JButton cambiarNombre;
     private javax.swing.JButton cerrarSesion;
     private javax.swing.JLabel imagen;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel nomNu;
+    private javax.swing.JLabel nomOld;
     private javax.swing.JLabel tB2;
     private javax.swing.JLabel tB3;
     private javax.swing.JLabel textoBienvenida;
     private javax.swing.JTextField textoUsuario;
+    private javax.swing.JTextField textoUsuario1;
     // End of variables declaration//GEN-END:variables
 }

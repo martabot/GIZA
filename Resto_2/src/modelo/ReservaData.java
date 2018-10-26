@@ -105,7 +105,7 @@ public class ReservaData {
     public void cancelarReserva(int idR) throws SQLException{
         
        try {
-        String sql = "UPDATE FROM reserva SET esta_vigente=0 where id_reserva= ? ;";
+        String sql = "UPDATE reserva SET esta_vigente=0 where id_reserva= ? ;";
        try (PreparedStatement statment = connection.prepareStatement(sql)) {
             statment.setInt(1, idR);
               

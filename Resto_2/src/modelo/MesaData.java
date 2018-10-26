@@ -107,7 +107,7 @@ public class MesaData {
     
         try {
             
-            String sql = "UPDATE mesa SET estado_mesa = ?  WHERE id = ?;";
+            String sql = "UPDATE mesa SET estado_mesa = ?  WHERE id_mesa = ?;";
 
             PreparedStatement statment = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statment.setString(1, mesa.getEstadoMesa());

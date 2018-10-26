@@ -111,4 +111,17 @@ public class MeseroData {
             System.out.println("Error al borrar el mesero: " + ex.getMessage());
         }
     }
+    
+    public void cambiarNombre(String old,String nu){
+        String sql = "UPDATE `mesero` SET `nombre_mesero`= ? WHERE `nombre_mesero`= ?;";
+        try (PreparedStatement statment = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            statment.setString(1, nu);
+            statment.setString(2, old);
+              
+            statment.executeUpdate();
+            
+        } catch (SQLException ex) {
+            System.out.println("Error al actualizar el nombre de mesero: " + ex.getMessage());
+        }
+    }
 }
