@@ -6,13 +6,14 @@
 package vistas;
 
 import java.awt.event.KeyEvent;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import static java.time.LocalDate.now;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import javax.swing.JOptionPane;
 import modelo.*;
 
 /**
@@ -25,7 +26,6 @@ public class VistaReservas extends javax.swing.JFrame {
     private int dni;
     private LocalDate fecha;
     private int nroMesa;
-    private Conexion conexion;
     private List<Reserva> reservaMesa;
     private Reserva re;
 
@@ -84,6 +84,7 @@ public class VistaReservas extends javax.swing.JFrame {
         textoDni.setText(null);
         calendario.setDate(null);
         spinnerMesas.setValue(0);
+        avisos.setText(null);
     }
     
     @SuppressWarnings("unchecked")
@@ -95,7 +96,6 @@ public class VistaReservas extends javax.swing.JFrame {
         botonMesas = new javax.swing.JButton();
         botonReservas = new javax.swing.JButton();
         botonPedidos = new javax.swing.JButton();
-        aboutUs = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         limpiarCasilleros = new javax.swing.JButton();
         darDeBaja = new javax.swing.JButton();
@@ -122,6 +122,8 @@ public class VistaReservas extends javax.swing.JFrame {
         calendario = new com.toedter.calendar.JDateChooser();
         buscarReservaPor1 = new javax.swing.JButton();
         avisos = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tablahabs = new javax.swing.JTable();
         imagen = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -181,24 +183,11 @@ public class VistaReservas extends javax.swing.JFrame {
         background.add(botonPedidos);
         botonPedidos.setBounds(20, 380, 250, 90);
 
-        aboutUs.setBackground(new java.awt.Color(0, 0, 0));
-        aboutUs.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/Captura.JPG"))); // NOI18N
-        aboutUs.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
-        aboutUs.setBorderPainted(false);
-        aboutUs.setContentAreaFilled(false);
-        aboutUs.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                aboutUsActionPerformed(evt);
-            }
-        });
-        background.add(aboutUs);
-        aboutUs.setBounds(90, 580, 110, 100);
-
         jLabel1.setFont(new java.awt.Font("Luisa", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(153, 0, 51));
         jLabel1.setText("RESERVAS");
         background.add(jLabel1);
-        jLabel1.setBounds(580, 190, 150, 40);
+        jLabel1.setBounds(570, 200, 150, 40);
 
         limpiarCasilleros.setBackground(new java.awt.Color(255, 237, 221));
         limpiarCasilleros.setForeground(new java.awt.Color(102, 0, 0));
@@ -211,7 +200,7 @@ public class VistaReservas extends javax.swing.JFrame {
             }
         });
         background.add(limpiarCasilleros);
-        limpiarCasilleros.setBounds(510, 590, 120, 30);
+        limpiarCasilleros.setBounds(790, 420, 120, 30);
 
         darDeBaja.setBackground(new java.awt.Color(255, 237, 221));
         darDeBaja.setForeground(new java.awt.Color(102, 0, 0));
@@ -224,7 +213,7 @@ public class VistaReservas extends javax.swing.JFrame {
             }
         });
         background.add(darDeBaja);
-        darDeBaja.setBounds(700, 270, 100, 20);
+        darDeBaja.setBounds(790, 360, 120, 30);
 
         crearReserva.setBackground(new java.awt.Color(255, 237, 221));
         crearReserva.setForeground(new java.awt.Color(102, 0, 0));
@@ -237,7 +226,7 @@ public class VistaReservas extends javax.swing.JFrame {
             }
         });
         background.add(crearReserva);
-        crearReserva.setBounds(510, 540, 120, 30);
+        crearReserva.setBounds(790, 280, 120, 30);
 
         eliminarReserva.setBackground(new java.awt.Color(255, 237, 221));
         eliminarReserva.setForeground(new java.awt.Color(102, 0, 0));
@@ -250,13 +239,13 @@ public class VistaReservas extends javax.swing.JFrame {
             }
         });
         background.add(eliminarReserva);
-        eliminarReserva.setBounds(680, 590, 120, 30);
+        eliminarReserva.setBounds(790, 320, 120, 30);
 
         spinnerMesas.setModel(new javax.swing.SpinnerNumberModel(0, 0, 100, 1));
         spinnerMesas.setBorder(null);
         spinnerMesas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         background.add(spinnerMesas);
-        spinnerMesas.setBounds(530, 460, 140, 30);
+        spinnerMesas.setBounds(460, 380, 140, 30);
 
         cerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/Logout-512.png"))); // NOI18N
         cerrarSesion.setContentAreaFilled(false);
@@ -333,17 +322,18 @@ public class VistaReservas extends javax.swing.JFrame {
         etiquetaId.setForeground(new java.awt.Color(153, 0, 51));
         etiquetaId.setText("ID:");
         background.add(etiquetaId);
-        etiquetaId.setBounds(550, 270, 50, 17);
+        etiquetaId.setBounds(800, 210, 40, 17);
 
         textoId.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         background.add(textoId);
-        textoId.setBounds(600, 270, 60, 18);
+        textoId.setBounds(840, 210, 60, 18);
 
         etiquetaNombre.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         etiquetaNombre.setForeground(new java.awt.Color(153, 0, 51));
         etiquetaNombre.setText("NOMBRE:");
+        etiquetaNombre.setAlignmentY(0.0F);
         background.add(etiquetaNombre);
-        etiquetaNombre.setBounds(460, 330, 70, 20);
+        etiquetaNombre.setBounds(390, 280, 70, 20);
 
         textoNombre.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         textoNombre.addActionListener(new java.awt.event.ActionListener() {
@@ -352,39 +342,39 @@ public class VistaReservas extends javax.swing.JFrame {
             }
         });
         background.add(textoNombre);
-        textoNombre.setBounds(530, 330, 300, 18);
+        textoNombre.setBounds(460, 280, 270, 18);
 
         textoDni.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         background.add(textoDni);
-        textoDni.setBounds(530, 370, 140, 18);
+        textoDni.setBounds(460, 310, 140, 18);
 
         emesa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         emesa.setForeground(new java.awt.Color(153, 0, 51));
         emesa.setText("MESA:");
         background.add(emesa);
-        emesa.setBounds(460, 460, 70, 30);
+        emesa.setBounds(390, 380, 70, 30);
 
         etiquetaId2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         etiquetaId2.setForeground(new java.awt.Color(153, 0, 51));
         etiquetaId2.setText("* DNI sin puntos");
         background.add(etiquetaId2);
-        etiquetaId2.setBounds(680, 370, 110, 15);
+        etiquetaId2.setBounds(610, 310, 110, 15);
 
         etiquetaId3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         etiquetaId3.setForeground(new java.awt.Color(153, 0, 51));
         etiquetaId3.setText("FECHA:");
         background.add(etiquetaId3);
-        etiquetaId3.setBounds(460, 410, 70, 30);
+        etiquetaId3.setBounds(390, 340, 70, 30);
 
         etiquetaId4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         etiquetaId4.setForeground(new java.awt.Color(153, 0, 51));
         etiquetaId4.setText("DNI:");
         background.add(etiquetaId4);
-        etiquetaId4.setBounds(460, 370, 70, 17);
+        etiquetaId4.setBounds(390, 310, 70, 17);
 
         calendario.setDateFormatString("dd/MM/yyyy HH:mm:ss");
         background.add(calendario);
-        calendario.setBounds(530, 410, 300, 30);
+        calendario.setBounds(460, 340, 270, 30);
 
         buscarReservaPor1.setBackground(new java.awt.Color(255, 237, 221));
         buscarReservaPor1.setForeground(new java.awt.Color(102, 0, 0));
@@ -397,12 +387,54 @@ public class VistaReservas extends javax.swing.JFrame {
             }
         });
         background.add(buscarReservaPor1);
-        buscarReservaPor1.setBounds(680, 540, 120, 30);
+        buscarReservaPor1.setBounds(800, 230, 100, 20);
 
         avisos.setForeground(new java.awt.Color(102, 0, 0));
         avisos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         background.add(avisos);
-        avisos.setBounds(500, 504, 290, 20);
+        avisos.setBounds(460, 430, 290, 20);
+
+        tablahabs.setBackground(new java.awt.Color(0, 0, 0));
+        tablahabs.setForeground(new java.awt.Color(255, 255, 255));
+        tablahabs.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tablahabs.setShowHorizontalLines(false);
+        tablahabs.setShowVerticalLines(false);
+        tablahabs.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablahabsMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tablahabs);
+
+        background.add(jScrollPane2);
+        jScrollPane2.setBounds(380, 470, 530, 190);
 
         imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/Background.png"))); // NOI18N
         imagen.setAlignmentY(0.0F);
@@ -448,13 +480,6 @@ public class VistaReservas extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_botonPedidosActionPerformed
 
-    private void aboutUsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutUsActionPerformed
-        background.removeAll();
-        AboutUs aboutUs=new AboutUs();
-        aboutUs.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_aboutUsActionPerformed
-
     private void limpiarCasillerosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarCasillerosActionPerformed
         this.limpiar();
     }//GEN-LAST:event_limpiarCasillerosActionPerformed
@@ -465,22 +490,29 @@ public class VistaReservas extends javax.swing.JFrame {
         java.util.Date utilStartDate = calendario.getDate();
         java.sql.Date fec = new java.sql.Date(utilStartDate.getTime());
         this.setFecha(fec.toLocalDate());
-        
+        int fec2=now().compareTo(fec.toLocalDate());
         
         try {
             Conexion conexion = new Conexion();
             conexion.getConexion();
             MesaData m1=new MesaData(conexion);
             ReservaData r1=new ReservaData(conexion);
-            if ("Reservada".equals(m1.deIdAMesa(this.getNroMesa()).getEstadoMesa())){
-                avisos.setText("Mesa reservada");
-            }else{
+            
+                if (textoNombre.getText().equals("")) {
+                    avisos.setText("Por favor ingrese su nombre.");
+                } else if (textoDni.getText().equals("")) {
+                    avisos.setText("Por favor ingrese su DNI.");
+                } else if (fec2>1) {
+                    avisos.setText("Por favor ingrese una fecha válida.");
+                } else if ("Reservada".equals(m1.deIdAMesa(this.getNroMesa()).getEstadoMesa())){
+                avisos.setText("La mesa ya se encuentra reservada, seleccione otra.");
+                }else{
                 Reserva reserva=new Reserva(textoNombre.getText(),this.getDni(),this.getFecha(),m1.deIdAMesa(this.getNroMesa()),true);
                 r1.guardarReserva(reserva);
                 m1.actualizarEstadoMesa("Reservada",this.getNroMesa());
                 //if (r1.obtenerReservas().contains(reserva)){ avisos.setText("La reserva se creo exitosamente");this.limpiar();}
                 //else{avisos.setText("Error al crear la reserva");}
-                avisos.setText("La reserva se creo exitosamente");this.limpiar();
+                this.limpiar();avisos.setText("La reserva se creo exitosamente.");
             }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(Background.class.getName()).log(Level.SEVERE, null, ex);
@@ -559,7 +591,7 @@ public class VistaReservas extends javax.swing.JFrame {
                 MesaData m1=new MesaData(conexion);
                 m1.actualizarEstadoMesa("Libre",r.getMesa().getIdMesa());});
                 r1.borrarReserva(Integer.parseInt(textoId.getText()));
-                avisos.setText("Reserva eliminada");
+                avisos.setText("Reserva eliminada.");
                 this.limpiar();
 
             } catch (ClassNotFoundException | SQLException ex) {
@@ -577,7 +609,7 @@ public class VistaReservas extends javax.swing.JFrame {
                 reservaMesa.forEach(r->{
                 MesaData m1=new MesaData(conexion);
                 m1.actualizarEstadoMesa("Libre",r.getMesa().getIdMesa());});
-                avisos.setText("Reserva cancelada");
+                avisos.setText("Reserva cancelada.");
                 this.limpiar();
 
             } catch (ClassNotFoundException | SQLException ex) {
@@ -593,31 +625,24 @@ public class VistaReservas extends javax.swing.JFrame {
             Conexion conexion = new Conexion();
             conexion.getConexion();
             ReservaData r1 = new ReservaData(conexion);
-        if (textoId!=null){
-            re=r1.buscarReservaPorId(Integer.parseInt(textoId.getText()));
-            avisos.setText("Reserva "+re.getNombreCliente()+" la mesa "+re.getMesa().getIdMesa()+" el "+re.getFechaReserva());
-        }else{ if (textoNombre!=null){
-            re=r1.buscarReservaPorNombre(textoNombre.getText());
-            avisos.setText("Reserva "+re.getNombreCliente()+" la mesa "+re.getMesa().getIdMesa()+" el "+re.getFechaReserva());
-        }else{if (textoDni!=null){
-            re=r1.buscarReservaPorDni(Integer.parseInt(textoId.getText()));
-            avisos.setText("Reserva "+re.getNombreCliente()+" la mesa "+re.getMesa().getIdMesa()+" el "+re.getFechaReserva());
-        }else{ if (calendario!=null){
-            re=r1.buscarReservaPorFecha(fec);
-            avisos.setText("Reserva "+re.getNombreCliente()+" la mesa "+re.getMesa().getIdMesa()+" el "+re.getFechaReserva());
-        }else{ if (this.getNroMesa()!=0){
-            re=r1.buscarReservaPorMesa(this.getNroMesa());
-            avisos.setText("Reserva "+re.getNombreCliente()+" la mesa "+re.getMesa().getIdMesa()+" el "+re.getFechaReserva());
-        }}}}}
-        
-        
-        
-        
-        
+            if (textoId!=null){
+                re=r1.buscarReservaPorId(Integer.parseInt(textoId.getText()));
+                avisos.setText("Reserva "+re.getNombreCliente()+" la mesa "+re.getMesa().getIdMesa()+" el "+re.getFechaReserva()+".");
+            }
         } catch (ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(VistaReservas.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_buscarReservaPor1ActionPerformed
+
+    private void tablahabsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablahabsMouseClicked
+        //btnsiguientehab.setEnabled(true);  //Habilito el botón siguiente para elegir un tipo deseado
+
+        //Aqui debo tomar el id de la habitacion seleccionada por el cliente y luego
+        //pasar a la ventana de login/registro.
+        //int selec = tablahabs.rowAtPoint(evt.getPoint());
+        //id_hab_elegida = Integer.valueOf(String.valueOf(tablahabs.getValueAt(selec, 0)));
+        //nro_hab_elegida = Integer.valueOf(String.valueOf(tablahabs.getValueAt(selec, 1)));
+    }//GEN-LAST:event_tablahabsMouseClicked
 
     /**
      * @param args the command line arguments
@@ -662,7 +687,6 @@ public class VistaReservas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton aboutUs;
     private javax.swing.JButton apagar;
     private javax.swing.JLabel avisos;
     private javax.swing.JPanel background;
@@ -686,10 +710,12 @@ public class VistaReservas extends javax.swing.JFrame {
     private javax.swing.JLabel etiquetaNombre;
     private javax.swing.JLabel imagen;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton limpiarCasilleros;
     private javax.swing.JLabel nomNu;
     private javax.swing.JLabel nomOld;
     private javax.swing.JSpinner spinnerMesas;
+    private javax.swing.JTable tablahabs;
     private javax.swing.JTextField textoDni;
     private javax.swing.JTextField textoId;
     private javax.swing.JTextField textoNombre;
