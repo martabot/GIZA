@@ -7,8 +7,12 @@ package vistas;
 
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import static java.time.LocalDate.now;
+import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import modelo.*;
 
 /**
@@ -73,21 +77,19 @@ public class VistaPedidos extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaPedido = new javax.swing.JTable();
         labelPedidos = new javax.swing.JLabel();
-        buscarReservaPor1 = new javax.swing.JButton();
+        limpiarCampos = new javax.swing.JButton();
         textoId = new javax.swing.JTextField();
         etiquetaId = new javax.swing.JLabel();
-        etiquetaNombre = new javax.swing.JLabel();
         emesa = new javax.swing.JLabel();
         spinnerMesas = new javax.swing.JSpinner();
-        textoNombre = new javax.swing.JTextField();
-        buscarReservaPor2 = new javax.swing.JButton();
-        buscarReservaPor3 = new javax.swing.JButton();
-        btnCrearPedido = new javax.swing.JButton();
-        buscarReservaPor5 = new javax.swing.JButton();
-        buscarReservaPor6 = new javax.swing.JButton();
+        buscarPedido = new javax.swing.JButton();
+        cancelarPedido = new javax.swing.JButton();
+        agregarProducto = new javax.swing.JButton();
+        cobrarPedido = new javax.swing.JButton();
         ePagaCon1 = new javax.swing.JLabel();
-        textoPagaCon1 = new javax.swing.JTextField();
+        textoCuenta = new javax.swing.JTextField();
         botonBalance = new javax.swing.JButton();
+        atenderMesa = new javax.swing.JButton();
         imagen = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -151,35 +153,35 @@ public class VistaPedidos extends javax.swing.JFrame {
         eTomarPedido.setForeground(new java.awt.Color(153, 0, 51));
         eTomarPedido.setText("TOMAR PEDIDO");
         background.add(eTomarPedido);
-        eTomarPedido.setBounds(390, 240, 210, 14);
+        eTomarPedido.setBounds(390, 240, 190, 14);
 
         spinnerCantidad.setModel(new javax.swing.SpinnerNumberModel(0, 0, 100, 1));
         spinnerCantidad.setBorder(null);
         spinnerCantidad.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         background.add(spinnerCantidad);
-        spinnerCantidad.setBounds(470, 390, 70, 30);
+        spinnerCantidad.setBounds(460, 370, 70, 30);
 
         avisos.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         background.add(avisos);
-        avisos.setBounds(420, 340, 430, 20);
+        avisos.setBounds(420, 300, 430, 30);
 
         eAgregarProducto.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         eAgregarProducto.setForeground(new java.awt.Color(153, 0, 51));
         eAgregarProducto.setText("AGREGAR PRODUCTO");
         background.add(eAgregarProducto);
-        eAgregarProducto.setBounds(380, 360, 200, 30);
+        eAgregarProducto.setBounds(390, 330, 190, 30);
 
-        eCantidad.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
-        eCantidad.setForeground(new java.awt.Color(179, 3, 62));
+        eCantidad.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        eCantidad.setForeground(new java.awt.Color(153, 0, 51));
         eCantidad.setText("CANTIDAD:");
         background.add(eCantidad);
-        eCantidad.setBounds(380, 390, 80, 30);
+        eCantidad.setBounds(380, 370, 80, 30);
 
-        eIdProducto.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
-        eIdProducto.setForeground(new java.awt.Color(179, 3, 62));
+        eIdProducto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        eIdProducto.setForeground(new java.awt.Color(153, 0, 51));
         eIdProducto.setText("ID:");
         background.add(eIdProducto);
-        eIdProducto.setBounds(580, 390, 30, 30);
+        eIdProducto.setBounds(560, 370, 30, 30);
 
         idProducto.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         idProducto.addActionListener(new java.awt.event.ActionListener() {
@@ -188,28 +190,28 @@ public class VistaPedidos extends javax.swing.JFrame {
             }
         });
         background.add(idProducto);
-        idProducto.setBounds(610, 390, 90, 30);
+        idProducto.setBounds(600, 370, 90, 30);
 
         ePagaCon.setForeground(new java.awt.Color(179, 3, 62));
         ePagaCon.setText("PAGA CON:");
         background.add(ePagaCon);
-        ePagaCon.setBounds(730, 490, 80, 30);
+        ePagaCon.setBounds(730, 480, 80, 30);
 
         textoCambio.setForeground(new java.awt.Color(153, 0, 51));
         textoCambio.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         background.add(textoCambio);
-        textoCambio.setBounds(810, 530, 90, 30);
+        textoCambio.setBounds(810, 520, 90, 30);
 
         eCambio.setForeground(new java.awt.Color(179, 3, 62));
         eCambio.setText("CAMBIO:");
         eCambio.setToolTipText("");
         background.add(eCambio);
-        eCambio.setBounds(730, 530, 80, 30);
+        eCambio.setBounds(730, 520, 80, 30);
 
         textoPagaCon.setForeground(new java.awt.Color(153, 0, 51));
         textoPagaCon.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         background.add(textoPagaCon);
-        textoPagaCon.setBounds(810, 490, 90, 30);
+        textoPagaCon.setBounds(810, 480, 90, 30);
 
         cerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/Logout-512.png"))); // NOI18N
         cerrarSesion.setContentAreaFilled(false);
@@ -374,7 +376,7 @@ public class VistaPedidos extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tablaPedido);
 
         background.add(jScrollPane1);
-        jScrollPane1.setBounds(380, 440, 320, 220);
+        jScrollPane1.setBounds(380, 430, 320, 230);
 
         labelPedidos.setFont(new java.awt.Font("Luisa", 1, 24)); // NOI18N
         labelPedidos.setForeground(new java.awt.Color(153, 0, 51));
@@ -382,19 +384,19 @@ public class VistaPedidos extends javax.swing.JFrame {
         background.add(labelPedidos);
         labelPedidos.setBounds(580, 190, 130, 40);
 
-        buscarReservaPor1.setBackground(new java.awt.Color(255, 237, 221));
-        buscarReservaPor1.setForeground(new java.awt.Color(102, 0, 0));
-        buscarReservaPor1.setText("ATENDER");
-        buscarReservaPor1.setToolTipText("");
-        buscarReservaPor1.setActionCommand("");
-        buscarReservaPor1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 204, 204), new java.awt.Color(255, 204, 102), new java.awt.Color(204, 0, 51), new java.awt.Color(102, 0, 0)));
-        buscarReservaPor1.addActionListener(new java.awt.event.ActionListener() {
+        limpiarCampos.setBackground(new java.awt.Color(255, 237, 221));
+        limpiarCampos.setForeground(new java.awt.Color(102, 0, 0));
+        limpiarCampos.setText("LIMPIAR CAMPOS");
+        limpiarCampos.setToolTipText("");
+        limpiarCampos.setActionCommand("");
+        limpiarCampos.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 204, 204), new java.awt.Color(255, 204, 102), new java.awt.Color(204, 0, 51), new java.awt.Color(102, 0, 0)));
+        limpiarCampos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buscarReservaPor1ActionPerformed(evt);
+                limpiarCamposActionPerformed(evt);
             }
         });
-        background.add(buscarReservaPor1);
-        buscarReservaPor1.setBounds(630, 260, 110, 30);
+        background.add(limpiarCampos);
+        limpiarCampos.setBounds(790, 260, 120, 30);
 
         textoId.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         background.add(textoId);
@@ -405,13 +407,6 @@ public class VistaPedidos extends javax.swing.JFrame {
         etiquetaId.setText("NRO:");
         background.add(etiquetaId);
         etiquetaId.setBounds(800, 210, 40, 17);
-
-        etiquetaNombre.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        etiquetaNombre.setForeground(new java.awt.Color(153, 0, 51));
-        etiquetaNombre.setText("NOMBRE:");
-        etiquetaNombre.setAlignmentY(0.0F);
-        background.add(etiquetaNombre);
-        etiquetaNombre.setBounds(380, 300, 90, 30);
 
         emesa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         emesa.setForeground(new java.awt.Color(153, 0, 51));
@@ -425,93 +420,71 @@ public class VistaPedidos extends javax.swing.JFrame {
         background.add(spinnerMesas);
         spinnerMesas.setBounds(470, 260, 140, 30);
 
-        textoNombre.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        textoNombre.addActionListener(new java.awt.event.ActionListener() {
+        buscarPedido.setBackground(new java.awt.Color(255, 237, 221));
+        buscarPedido.setForeground(new java.awt.Color(102, 0, 0));
+        buscarPedido.setText("BUSCAR");
+        buscarPedido.setActionCommand("");
+        buscarPedido.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 204, 204), new java.awt.Color(255, 204, 102), new java.awt.Color(204, 0, 51), new java.awt.Color(102, 0, 0)));
+        buscarPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textoNombreActionPerformed(evt);
+                buscarPedidoActionPerformed(evt);
             }
         });
-        background.add(textoNombre);
-        textoNombre.setBounds(470, 300, 310, 30);
+        background.add(buscarPedido);
+        buscarPedido.setBounds(800, 230, 100, 20);
 
-        buscarReservaPor2.setBackground(new java.awt.Color(255, 237, 221));
-        buscarReservaPor2.setForeground(new java.awt.Color(102, 0, 0));
-        buscarReservaPor2.setText("BUSCAR");
-        buscarReservaPor2.setActionCommand("");
-        buscarReservaPor2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 204, 204), new java.awt.Color(255, 204, 102), new java.awt.Color(204, 0, 51), new java.awt.Color(102, 0, 0)));
-        buscarReservaPor2.addActionListener(new java.awt.event.ActionListener() {
+        cancelarPedido.setBackground(new java.awt.Color(255, 237, 221));
+        cancelarPedido.setForeground(new java.awt.Color(102, 0, 0));
+        cancelarPedido.setText("CANCELAR PEDIDO");
+        cancelarPedido.setToolTipText("");
+        cancelarPedido.setActionCommand("");
+        cancelarPedido.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 204, 204), new java.awt.Color(255, 204, 102), new java.awt.Color(204, 0, 51), new java.awt.Color(102, 0, 0)));
+        cancelarPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buscarReservaPor2ActionPerformed(evt);
+                cancelarPedidoActionPerformed(evt);
             }
         });
-        background.add(buscarReservaPor2);
-        buscarReservaPor2.setBounds(800, 230, 100, 20);
+        background.add(cancelarPedido);
+        cancelarPedido.setBounds(740, 640, 150, 20);
 
-        buscarReservaPor3.setBackground(new java.awt.Color(255, 237, 221));
-        buscarReservaPor3.setForeground(new java.awt.Color(102, 0, 0));
-        buscarReservaPor3.setText("CANCELAR PEDIDO");
-        buscarReservaPor3.setToolTipText("");
-        buscarReservaPor3.setActionCommand("");
-        buscarReservaPor3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 204, 204), new java.awt.Color(255, 204, 102), new java.awt.Color(204, 0, 51), new java.awt.Color(102, 0, 0)));
-        buscarReservaPor3.addActionListener(new java.awt.event.ActionListener() {
+        agregarProducto.setBackground(new java.awt.Color(255, 237, 221));
+        agregarProducto.setForeground(new java.awt.Color(102, 0, 0));
+        agregarProducto.setText("AGREGAR");
+        agregarProducto.setToolTipText("");
+        agregarProducto.setActionCommand("");
+        agregarProducto.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 204, 204), new java.awt.Color(255, 204, 102), new java.awt.Color(204, 0, 51), new java.awt.Color(102, 0, 0)));
+        agregarProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buscarReservaPor3ActionPerformed(evt);
+                agregarProductoActionPerformed(evt);
             }
         });
-        background.add(buscarReservaPor3);
-        buscarReservaPor3.setBounds(740, 640, 150, 20);
+        background.add(agregarProducto);
+        agregarProducto.setBounds(730, 370, 110, 30);
 
-        btnCrearPedido.setBackground(new java.awt.Color(255, 237, 221));
-        btnCrearPedido.setForeground(new java.awt.Color(102, 0, 0));
-        btnCrearPedido.setText("CREAR PEDIDO");
-        btnCrearPedido.setToolTipText("");
-        btnCrearPedido.setActionCommand("");
-        btnCrearPedido.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 204, 204), new java.awt.Color(255, 204, 102), new java.awt.Color(204, 0, 51), new java.awt.Color(102, 0, 0)));
-        btnCrearPedido.addActionListener(new java.awt.event.ActionListener() {
+        cobrarPedido.setBackground(new java.awt.Color(255, 237, 221));
+        cobrarPedido.setForeground(new java.awt.Color(102, 0, 0));
+        cobrarPedido.setText("COBRAR");
+        cobrarPedido.setToolTipText("");
+        cobrarPedido.setActionCommand("");
+        cobrarPedido.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 204, 204), new java.awt.Color(255, 204, 102), new java.awt.Color(204, 0, 51), new java.awt.Color(102, 0, 0)));
+        cobrarPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCrearPedidoActionPerformed(evt);
+                cobrarPedidoActionPerformed(evt);
             }
         });
-        background.add(btnCrearPedido);
-        btnCrearPedido.setBounds(790, 300, 110, 30);
+        background.add(cobrarPedido);
+        cobrarPedido.setBounds(760, 560, 110, 30);
 
-        buscarReservaPor5.setBackground(new java.awt.Color(255, 237, 221));
-        buscarReservaPor5.setForeground(new java.awt.Color(102, 0, 0));
-        buscarReservaPor5.setText("AGREGAR");
-        buscarReservaPor5.setToolTipText("");
-        buscarReservaPor5.setActionCommand("");
-        buscarReservaPor5.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 204, 204), new java.awt.Color(255, 204, 102), new java.awt.Color(204, 0, 51), new java.awt.Color(102, 0, 0)));
-        buscarReservaPor5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buscarReservaPor5ActionPerformed(evt);
-            }
-        });
-        background.add(buscarReservaPor5);
-        buscarReservaPor5.setBounds(740, 390, 110, 30);
-
-        buscarReservaPor6.setBackground(new java.awt.Color(255, 237, 221));
-        buscarReservaPor6.setForeground(new java.awt.Color(102, 0, 0));
-        buscarReservaPor6.setText("COBRAR");
-        buscarReservaPor6.setToolTipText("");
-        buscarReservaPor6.setActionCommand("");
-        buscarReservaPor6.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 204, 204), new java.awt.Color(255, 204, 102), new java.awt.Color(204, 0, 51), new java.awt.Color(102, 0, 0)));
-        buscarReservaPor6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buscarReservaPor6ActionPerformed(evt);
-            }
-        });
-        background.add(buscarReservaPor6);
-        buscarReservaPor6.setBounds(760, 570, 110, 30);
-
-        ePagaCon1.setForeground(new java.awt.Color(179, 3, 62));
+        ePagaCon1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        ePagaCon1.setForeground(new java.awt.Color(153, 0, 51));
         ePagaCon1.setText("CUENTA:");
         background.add(ePagaCon1);
-        ePagaCon1.setBounds(730, 450, 80, 30);
+        ePagaCon1.setBounds(730, 440, 80, 30);
 
-        textoPagaCon1.setForeground(new java.awt.Color(153, 0, 51));
-        textoPagaCon1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        background.add(textoPagaCon1);
-        textoPagaCon1.setBounds(810, 450, 90, 30);
+        textoCuenta.setForeground(new java.awt.Color(153, 0, 51));
+        textoCuenta.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        background.add(textoCuenta);
+        textoCuenta.setBounds(810, 440, 90, 30);
 
         botonBalance.setBackground(new java.awt.Color(0, 0, 0));
         botonBalance.setFont(new java.awt.Font("Luisa", 1, 36)); // NOI18N
@@ -526,6 +499,20 @@ public class VistaPedidos extends javax.swing.JFrame {
         });
         background.add(botonBalance);
         botonBalance.setBounds(20, 600, 250, 70);
+
+        atenderMesa.setBackground(new java.awt.Color(255, 237, 221));
+        atenderMesa.setForeground(new java.awt.Color(102, 0, 0));
+        atenderMesa.setText("ATENDER");
+        atenderMesa.setToolTipText("");
+        atenderMesa.setActionCommand("");
+        atenderMesa.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 204, 204), new java.awt.Color(255, 204, 102), new java.awt.Color(204, 0, 51), new java.awt.Color(102, 0, 0)));
+        atenderMesa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                atenderMesaActionPerformed(evt);
+            }
+        });
+        background.add(atenderMesa);
+        atenderMesa.setBounds(630, 260, 110, 30);
 
         imagen.setBackground(new java.awt.Color(204, 70, 0));
         imagen.setForeground(new java.awt.Color(1, 1, 1));
@@ -638,40 +625,27 @@ public class VistaPedidos extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cambiarNombre2ActionPerformed
 
-    private void buscarReservaPor1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarReservaPor1ActionPerformed
+    private void limpiarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarCamposActionPerformed
 
         //Para eso cambiamos el color de background y foreground de la fila a los colores de seleccion
 
-    }//GEN-LAST:event_buscarReservaPor1ActionPerformed
+    }//GEN-LAST:event_limpiarCamposActionPerformed
 
-    private void textoNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoNombreActionPerformed
-
-    }//GEN-LAST:event_textoNombreActionPerformed
-
-    private void buscarReservaPor2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarReservaPor2ActionPerformed
+    private void buscarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarPedidoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_buscarReservaPor2ActionPerformed
+    }//GEN-LAST:event_buscarPedidoActionPerformed
 
-    private void buscarReservaPor3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarReservaPor3ActionPerformed
+    private void cancelarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarPedidoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_buscarReservaPor3ActionPerformed
+    }//GEN-LAST:event_cancelarPedidoActionPerformed
 
-    private void btnCrearPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearPedidoActionPerformed
-        String nombre=textoNombre.getText();
-        String mesa=spinnerMesas.getValue().toString();
-        
-        
-        
-        
-    }//GEN-LAST:event_btnCrearPedidoActionPerformed
-
-    private void buscarReservaPor5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarReservaPor5ActionPerformed
+    private void agregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarProductoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_buscarReservaPor5ActionPerformed
+    }//GEN-LAST:event_agregarProductoActionPerformed
 
-    private void buscarReservaPor6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarReservaPor6ActionPerformed
+    private void cobrarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cobrarPedidoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_buscarReservaPor6ActionPerformed
+    }//GEN-LAST:event_cobrarPedidoActionPerformed
 
     private void botonBalanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBalanceActionPerformed
         background.removeAll();
@@ -680,49 +654,19 @@ public class VistaPedidos extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_botonBalanceActionPerformed
 
+    private void atenderMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atenderMesaActionPerformed
+        
+    }//GEN-LAST:event_atenderMesaActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VistaPedidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VistaPedidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VistaPedidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VistaPedidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VistaPedidos().setVisible(true);
-            }
-        });
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton agregarProducto;
+    private javax.swing.JButton atenderMesa;
     private javax.swing.JLabel avisos;
     private javax.swing.JPanel background;
     private javax.swing.JButton botonAjustes;
@@ -731,14 +675,11 @@ public class VistaPedidos extends javax.swing.JFrame {
     private javax.swing.JButton botonPedidos;
     private javax.swing.JButton botonPrecios;
     private javax.swing.JButton botonReservas;
-    private javax.swing.JButton btnCrearPedido;
-    private javax.swing.JButton buscarReservaPor1;
-    private javax.swing.JButton buscarReservaPor2;
-    private javax.swing.JButton buscarReservaPor3;
-    private javax.swing.JButton buscarReservaPor5;
-    private javax.swing.JButton buscarReservaPor6;
+    private javax.swing.JButton buscarPedido;
     private javax.swing.JButton cambiarNombre2;
+    private javax.swing.JButton cancelarPedido;
     private javax.swing.JButton cerrarSesion;
+    private javax.swing.JButton cobrarPedido;
     private javax.swing.JLabel eAgregarProducto;
     private javax.swing.JLabel eCambio;
     private javax.swing.JLabel eCantidad;
@@ -748,22 +689,21 @@ public class VistaPedidos extends javax.swing.JFrame {
     private javax.swing.JLabel eTomarPedido;
     private javax.swing.JLabel emesa;
     private javax.swing.JLabel etiquetaId;
-    private javax.swing.JLabel etiquetaNombre;
     private javax.swing.JTextField idProducto;
     private javax.swing.JLabel imagen;
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelPedidos;
+    private javax.swing.JButton limpiarCampos;
     private javax.swing.JLabel nomNu;
     private javax.swing.JLabel nomOld;
     private javax.swing.JSpinner spinnerCantidad;
     private javax.swing.JSpinner spinnerMesas;
     private javax.swing.JTable tablaPedido;
     private javax.swing.JTextField textoCambio;
+    private javax.swing.JTextField textoCuenta;
     private javax.swing.JTextField textoId;
-    private javax.swing.JTextField textoNombre;
     private javax.swing.JTextField textoPagaCon;
-    private javax.swing.JTextField textoPagaCon1;
     private javax.swing.JTextField textoUsuario;
     private javax.swing.JTextField textoUsuario1;
     // End of variables declaration//GEN-END:variables

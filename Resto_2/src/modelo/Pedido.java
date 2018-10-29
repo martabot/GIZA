@@ -5,7 +5,8 @@
  */
 package modelo;
 
-import java.time.LocalDate;
+
+import java.time.LocalDateTime;
 
 /**
  *
@@ -16,11 +17,11 @@ public class Pedido {
     private int idPedido=-1;
     private Mesa mesa;
     private Mesero mesero;
-    private LocalDate fechaPedido;
+    private LocalDateTime fechaPedido;
     private double cuenta;
     
 
-    public Pedido(int idPedido, Mesa mesa, Mesero mesero, LocalDate fechaPedido, double cuenta) {
+    public Pedido(int idPedido, Mesa mesa, Mesero mesero, LocalDateTime fechaPedido, double cuenta) {
         this.idPedido = idPedido;
         this.mesa=mesa;
         this.mesero = mesero;
@@ -28,7 +29,7 @@ public class Pedido {
         this.cuenta=cuenta;
     }
 
-    public Pedido(Mesa mesa, Mesero mesero, LocalDate fechaPedido, double cuenta) {
+    public Pedido(Mesa mesa, Mesero mesero, LocalDateTime fechaPedido, double cuenta) {
         idPedido=-1;
         this.mesa=mesa;
         this.mesero = mesero;
@@ -64,11 +65,11 @@ public class Pedido {
         this.mesero = mesero;
     }
 
-    public LocalDate getFechaPedido() {
+    public LocalDateTime getFechaPedido() {
         return fechaPedido;
     }
 
-    public void setFechaPedido(LocalDate fechaPedido) {
+    public void setFechaPedido(LocalDateTime fechaPedido) {
         this.fechaPedido = fechaPedido;
     }
 

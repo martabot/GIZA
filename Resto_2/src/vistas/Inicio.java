@@ -136,7 +136,7 @@ public class Inicio extends javax.swing.JFrame {
         });
 
         label2.setForeground(new java.awt.Color(102, 0, 0));
-        label2.setText("Nombre:");
+        label2.setText("Nick:");
 
         label1.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 24)); // NOI18N
         label1.setForeground(new java.awt.Color(102, 0, 0));
@@ -197,7 +197,7 @@ public class Inicio extends javax.swing.JFrame {
                         .addComponent(label3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(signUp, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addContainerGap(84, Short.MAX_VALUE))
         );
         panelDeInicioLayout.setVerticalGroup(
             panelDeInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -280,7 +280,7 @@ public class Inicio extends javax.swing.JFrame {
       
             MeseroData mesero=new MeseroData(conexion);
             
-           this.filtrados= mesero.obtenerMesero().stream().filter(mese -> this.meseroEsta(mese.getNombreMesero())).collect(Collectors.toList());
+           this.filtrados= mesero.obtenerMeseros().stream().filter(mese -> this.meseroEsta(mese.getNombreMesero())).collect(Collectors.toList());
             
            if (!this.filtrados.isEmpty()){
             mesero.almacenarUsuario(textoBuscar.getText());
@@ -312,7 +312,7 @@ public class Inicio extends javax.swing.JFrame {
             mesero.guardarMeseros(mesero1);
             
             
-            this.filtrados= mesero.obtenerMesero().stream().filter(mese -> this.meseroEsta(mese.getNombreMesero())).collect(Collectors.toList());
+            this.filtrados= mesero.obtenerMeseros().stream().filter(mese -> this.meseroEsta(mese.getNombreMesero())).collect(Collectors.toList());
                        
             if (!this.filtrados.isEmpty()){
             panelPrincipal.removeAll();
@@ -341,7 +341,7 @@ public class Inicio extends javax.swing.JFrame {
       
             MeseroData mesero=new MeseroData(conexion);
             
-           this.filtrados= mesero.obtenerMesero().stream().filter(mese -> this.meseroEsta(mese.getNombreMesero())).collect(Collectors.toList());
+           this.filtrados= mesero.obtenerMeseros().stream().filter(mese -> this.meseroEsta(mese.getNombreMesero())).collect(Collectors.toList());
             
            if (!this.filtrados.isEmpty()){
             label1.setVisible(false);

@@ -54,7 +54,7 @@ public class MeseroData {
         }
     }
     
-    public List<Mesero> obtenerMesero(){
+    public List<Mesero> obtenerMeseros(){
         List<Mesero> meseros = new ArrayList<>();
             
         try {

@@ -6,11 +6,11 @@
 package modelo;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,7 +43,7 @@ public class PedidoData {
             try (PreparedStatement statment = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 statment.setInt(1, pedido.getMesa().getIdMesa());
                 statment.setInt(2, pedido.getMesero().getIdMesero());
-                statment.setDate(3, Date.valueOf(pedido.getFechaPedido()));
+                statment.setTimestamp(3, Timestamp.valueOf(pedido.getFechaPedido()));
                 statment.setDouble(4, pedido.getCuenta());
                 
                 statment.executeUpdate();
@@ -78,7 +78,7 @@ public class PedidoData {
                     pedi.setIdPedido(resultSet.getInt(1));
                     pedi.setMesa(mesa.deIdAMesa(resultSet.getInt(2)));
                     pedi.setMesero(mesero.deIdAMesero(resultSet.getInt(3)));
-                    pedi.setFechaPedido(resultSet.getDate(4).toLocalDate());
+                    pedi.setFechaPedido(resultSet.getTimestamp(4).toLocalDateTime());
                     pedi.setCuenta(resultSet.getDouble(5));
                     
                     pedidos.add(pedi);
@@ -106,7 +106,7 @@ public class PedidoData {
                     pedi.setIdPedido(resultSet.getInt(1));
                     pedi.setMesa(mesa.deIdAMesa(resultSet.getInt(2)));
                     pedi.setMesero(mesero.deIdAMesero(resultSet.getInt(3)));
-                    pedi.setFechaPedido(resultSet.getDate(4).toLocalDate());
+                    pedi.setFechaPedido(resultSet.getTimestamp(4).toLocalDateTime());
                     pedi.setCuenta(resultSet.getDouble(5));
               
               this.pedido=pedi;

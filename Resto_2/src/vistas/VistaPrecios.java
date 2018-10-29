@@ -20,6 +20,7 @@ public class VistaPrecios extends javax.swing.JFrame {
     private Fuentes fuente;
     private ArrayList<Producto> lista=new ArrayList<>();
     private Producto producto;
+    Conexion conexion;
     
     public VistaPrecios() {
         
@@ -44,6 +45,14 @@ public class VistaPrecios extends javax.swing.JFrame {
         nomOld.setVisible(false);
         nomNu.setVisible(false);
         cambiarNombre2.setVisible(false);
+        //Instanciamos la conexion 
+        try {
+            conexion = new Conexion();
+            conexion.getConexion();
+                
+        } catch (ClassNotFoundException | SQLException ex) {
+                Logger.getLogger(Background.class.getName()).log(Level.SEVERE, null, ex);
+        }  
     }
 
     @SuppressWarnings("unchecked")
@@ -532,23 +541,15 @@ public class VistaPrecios extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void cambiarNombre2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cambiarNombre2ActionPerformed
-
-        try {
-            Conexion conexion = new Conexion();
-            conexion.getConexion();
-            MeseroData m1=new MeseroData(conexion);
-            m1.cambiarNombre(textoUsuario.getText(), textoUsuario1.getText());
-            textoUsuario.setVisible(false);
-            textoUsuario1.setVisible(false);
-            nomOld.setVisible(false);
-            nomNu.setVisible(false);
-            cambiarNombre2.setVisible(false);
-            textoUsuario.setText(null);
-            textoUsuario1.setText(null);
-
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(Background.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        MeseroData m1=new MeseroData(conexion);
+        m1.cambiarNombre(textoUsuario.getText(), textoUsuario1.getText());
+        textoUsuario.setVisible(false);
+        textoUsuario1.setVisible(false);
+        nomOld.setVisible(false);
+        nomNu.setVisible(false);
+        cambiarNombre2.setVisible(false);
+        textoUsuario.setText(null);
+        textoUsuario1.setText(null);
     }//GEN-LAST:event_cambiarNombre2ActionPerformed
 
     private void botonAjustesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAjustesActionPerformed
@@ -561,23 +562,15 @@ public class VistaPrecios extends javax.swing.JFrame {
 
     private void textoUsuario1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textoUsuario1KeyPressed
         if (evt.getKeyCode()==KeyEvent.VK_ENTER){
-
-            try {
-                Conexion conexion = new Conexion();
-                conexion.getConexion();
-                MeseroData m1=new MeseroData(conexion);
-                m1.cambiarNombre(textoUsuario.getText(), textoUsuario1.getText());
-                textoUsuario.setVisible(false);
-                textoUsuario1.setVisible(false);
-                nomOld.setVisible(false);
-                nomNu.setVisible(false);
-                cambiarNombre2.setVisible(false);
-                textoUsuario.setText(null);
-                textoUsuario1.setText(null);
-
-            } catch (ClassNotFoundException | SQLException ex) {
-                Logger.getLogger(Background.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            MeseroData m1=new MeseroData(conexion);
+            m1.cambiarNombre(textoUsuario.getText(), textoUsuario1.getText());
+            textoUsuario.setVisible(false);
+            textoUsuario1.setVisible(false);
+            nomOld.setVisible(false);
+            nomNu.setVisible(false);
+            cambiarNombre2.setVisible(false);
+            textoUsuario.setText(null);
+            textoUsuario1.setText(null);
         }
     }//GEN-LAST:event_textoUsuario1KeyPressed
 
@@ -602,47 +595,7 @@ public class VistaPrecios extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_textoMontoActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VistaPrecios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VistaPrecios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VistaPrecios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VistaPrecios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VistaPrecios().setVisible(true);
-            }
-        });
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton agregarProducto;

@@ -8,14 +8,11 @@ package vistas;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import static java.time.LocalDate.now;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
-import javax.swing.JOptionPane;
 import modelo.*;
 
 /**
@@ -32,7 +29,8 @@ public class VistaReservas extends javax.swing.JFrame {
     private List<Reserva> reservaMesa;
     private ArrayList<Reserva> reservasLista=new ArrayList<>();
     private Fuentes fuente;
-    
+    Conexion conexion;
+    ReservaData r1;
     
     
     //Constructor
@@ -52,6 +50,7 @@ public class VistaReservas extends javax.swing.JFrame {
         botonPedidos.setFont(fuente.fuenteLuisa(1,36));
         botonPrecios.setFont(fuente.fuenteLuisa(1,36));
         labelReservas.setFont(fuente.fuenteLuisa(1, 24));
+        labelConfirmacion.setFont(fuente.fuenteLuisa(1, 24));
         
         //campos ocultos que aparecen al ser llamados por los ajustes del usuario
         textoUsuario.setVisible(false);
@@ -59,6 +58,17 @@ public class VistaReservas extends javax.swing.JFrame {
         nomOld.setVisible(false);
         nomNu.setVisible(false);
         cambiarNombre2.setVisible(false);
+        
+        //Instanciamos la conexion
+        try {
+                conexion = new Conexion();
+                conexion.getConexion();
+                ReservaData r1=new ReservaData(conexion);
+                reservasLista=r1.obtenerReservas();
+                
+            } catch (ClassNotFoundException | SQLException ex) {
+                Logger.getLogger(Background.class.getName()).log(Level.SEVERE, null, ex);
+            }
     }
 
     //algunos getters y setters necesarios
@@ -106,7 +116,7 @@ public class VistaReservas extends javax.swing.JFrame {
         spinnerMesas.setValue(0);
         avisos.setText(null);
     }
-    /*
+    /* intentamos comparar el dni para saber si es valido
     private boolean esEntero(String nosabemos){
         try {
             Integer.parseInt(nosabemos);
@@ -122,7 +132,7 @@ public class VistaReservas extends javax.swing.JFrame {
 
         confirmacion = new javax.swing.JDialog();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        labelConfirmacion = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         nombreConfirmacion = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -177,10 +187,10 @@ public class VistaReservas extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 234, 223));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Luisa", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(153, 0, 51));
-        jLabel1.setText("CREAR RESERVA");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, 220, 30));
+        labelConfirmacion.setFont(new java.awt.Font("Luisa", 1, 24)); // NOI18N
+        labelConfirmacion.setForeground(new java.awt.Color(153, 0, 51));
+        labelConfirmacion.setText("CREAR RESERVA");
+        jPanel1.add(labelConfirmacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, 220, 30));
 
         jLabel2.setForeground(new java.awt.Color(153, 0, 51));
         jLabel2.setText("NOMBRE:");
@@ -630,29 +640,9 @@ public class VistaReservas extends javax.swing.JFrame {
     }//GEN-LAST:event_botonPedidosActionPerformed
 
     //Muestra las reservas en la tabla
-    private void mostrarReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarReservasActionPerformed
-        
-        try {
-                Conexion conexion = new Conexion();
-                conexion.getConexion();
-                ReservaData r1=new ReservaData(conexion);
-                //asignamos el Arraylist que devuelve obtenerReservas a nuesta lista para llenar la tabla
-                reservasLista=r1.obtenerReservas();
-                
-                //Llamamos a un metodo que cree la matriz con los valores que llenan la tabla
-                mostrar();
-            } catch (ClassNotFoundException | SQLException ex) {
-                Logger.getLogger(Background.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        
-        //el problema no es null, al menos no acá
-        catch(NullPointerException ex){
-            System.out.println("null"+ex);
-        }
-    }
     //nuestro metodo utilizará un iterador para recorrer el tamaño de la lista y asi avanzar en cada fila de la tabla
     //de esta forma asigna a cada fila y columna el valor de cada reserva
-    public void mostrar(){
+    private void mostrarReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarReservasActionPerformed
         String matriz [][]= new String [reservasLista.size()][5];
                 for (int i=0; i > reservasLista.size();i++){
                     matriz [i][0]=String.valueOf(reservasLista.get(i).getIdReserva());
@@ -666,7 +656,7 @@ public class VistaReservas extends javax.swing.JFrame {
             new String [] {
                 "RESERVA", "NOMBRE", "DNI", "FECHA", "MESA"
             }
-        ));
+        ));  
     }//GEN-LAST:event_mostrarReservasActionPerformed
 
     //Creamos una reserva con los datos insertados en los campos de texto y avisamos si algo en el proceso está saliendo mal
@@ -683,13 +673,10 @@ public class VistaReservas extends javax.swing.JFrame {
         int fec2=LocalDateTime.now().compareTo(this.getFecha());
         DateTimeFormatter x = DateTimeFormatter.ofPattern("dd/mm/yyyy HH:mm:ss");
         
-        try {
-            Conexion conexion = new Conexion();
-            conexion.getConexion();
-            MesaData m1=new MesaData(conexion);
+        MesaData m1=new MesaData(conexion);
                 
-                //corroboramos que los datos sean validos mediante condicion if/else
-                if (textoNombre.getText().equals("")) {
+        //corroboramos que los datos sean validos mediante condicion if/else
+        if (textoNombre.getText().equals("")) {
                     avisos.setText("Por favor ingrese su nombre.");
                 } else if (textoDni.getText().equals("")) {
                     avisos.setText("Por favor ingrese su DNI.");
@@ -706,9 +693,7 @@ public class VistaReservas extends javax.swing.JFrame {
         fechaConfirmacion.setText(this.getFecha().format(x));
         mesaConfirmacion.setText(String.valueOf(this.getNroMesa()));
         confirmacion.setVisible(true);}
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(Background.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
     }//GEN-LAST:event_crearReservaActionPerformed
 
     //vuelve a la pagina de inicio donde el mesero iniciara sesión
@@ -727,44 +712,30 @@ public class VistaReservas extends javax.swing.JFrame {
     //actualiza el nombre del usuario, y vuelve a settear ocultos los campos de texto
     private void cambiarNombre2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cambiarNombre2ActionPerformed
 
-            try {
-                Conexion conexion = new Conexion();
-                conexion.getConexion();
-                MeseroData m1=new MeseroData(conexion);
-                m1.cambiarNombre(textoUsuario.getText(), textoUsuario1.getText());
-                textoUsuario.setVisible(false);
-                textoUsuario1.setVisible(false);
-                nomOld.setVisible(false);
-                nomNu.setVisible(false);
-                cambiarNombre2.setVisible(false);
-                textoUsuario.setText(null);
-                textoUsuario1.setText(null);
-
-            } catch (ClassNotFoundException | SQLException ex) {
-                Logger.getLogger(Background.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        MeseroData m1=new MeseroData(conexion);
+        m1.cambiarNombre(textoUsuario.getText(), textoUsuario1.getText());
+        textoUsuario.setVisible(false);
+        textoUsuario1.setVisible(false);
+        nomOld.setVisible(false);
+        nomNu.setVisible(false);
+        cambiarNombre2.setVisible(false);
+        textoUsuario.setText(null);
+        textoUsuario1.setText(null);
     }//GEN-LAST:event_cambiarNombre2ActionPerformed
 
     //Lo mismo que el método anterior pero a través de la tecla enter en el campo del nuevo nombre
     private void textoUsuario1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textoUsuario1KeyPressed
         if (evt.getKeyCode()==KeyEvent.VK_ENTER){
 
-            try {
-                Conexion conexion = new Conexion();
-                conexion.getConexion();
-                MeseroData m1=new MeseroData(conexion);
-                m1.cambiarNombre(textoUsuario.getText(), textoUsuario1.getText());
-                textoUsuario.setVisible(false);
-                textoUsuario1.setVisible(false);
-                nomOld.setVisible(false);
-                nomNu.setVisible(false);
-                cambiarNombre2.setVisible(false);
-                textoUsuario.setText(null);
-                textoUsuario1.setText(null);
-
-            } catch (ClassNotFoundException | SQLException ex) {
-                Logger.getLogger(Background.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            MeseroData m1=new MeseroData(conexion);
+            m1.cambiarNombre(textoUsuario.getText(), textoUsuario1.getText());
+            textoUsuario.setVisible(false);
+            textoUsuario1.setVisible(false);
+            nomOld.setVisible(false);
+            nomNu.setVisible(false);
+            cambiarNombre2.setVisible(false);
+            textoUsuario.setText(null);
+            textoUsuario1.setText(null);
         }
     }//GEN-LAST:event_textoUsuario1KeyPressed
 
@@ -784,37 +755,29 @@ public class VistaReservas extends javax.swing.JFrame {
 
     //Elimina la reserva por id o "numero de reserva" y reestablece el estado de la mesa a Libre
     private void eliminarReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarReservaActionPerformed
-        try {
-                Conexion conexion = new Conexion();
-                conexion.getConexion();
-                ReservaData r1 = new ReservaData(conexion);
-                reservaMesa=r1.obtenerReservas().stream().filter(r->r.getIdReserva()==Integer.parseInt(textoId.getText())).collect(Collectors.toList());
-                reservaMesa.forEach(r->{
-                MesaData m1=new MesaData(conexion);
-                m1.actualizarEstadoMesa("Libre",r.getMesa().getIdMesa());});
-                r1.borrarReserva(Integer.parseInt(textoId.getText()));
-                this.limpiar();avisos.setText("Reserva eliminada.");
-
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(Background.class.getName()).log(Level.SEVERE, null, ex);
+       try { 
+        reservaMesa=reservasLista.stream().filter(r->r.getIdReserva()==Integer.parseInt(textoId.getText())).collect(Collectors.toList());
+        reservaMesa.forEach(r->{
+        MesaData m1=new MesaData(conexion);
+        m1.actualizarEstadoMesa("Libre",r.getMesa().getIdMesa());});
+        r1.borrarReserva(Integer.parseInt(textoId.getText()));
+        this.limpiar();avisos.setText("Reserva eliminada.");
+       } catch (ClassNotFoundException ex) {
+            Logger.getLogger(VistaReservas.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_eliminarReservaActionPerformed
 
     //Cambia la vigencia de una Reserva que no fue eliminada voluntariamente o cuando la fecha ya no sea valida
     private void darDeBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_darDeBajaActionPerformed
-        try {
-                Conexion conexion = new Conexion();
-                conexion.getConexion();
-                ReservaData r1 = new ReservaData(conexion);
-                r1.cancelarReserva(Integer.parseInt(textoId.getText()));
-                reservaMesa=r1.obtenerReservas().stream().filter(r->r.getMesa().getIdMesa()==Integer.parseInt(textoId.getText())).collect(Collectors.toList());
-                reservaMesa.forEach(r->{
-                MesaData m1=new MesaData(conexion);
-                m1.actualizarEstadoMesa("Libre",r.getMesa().getIdMesa());});
-                avisos.setText("Reserva cancelada.");
-                this.limpiar();
-
-        } catch (ClassNotFoundException | SQLException ex) {
+       try {
+        r1.cancelarReserva(Integer.parseInt(textoId.getText()));
+        reservaMesa=reservasLista.stream().filter(r->r.getMesa().getIdMesa()==Integer.parseInt(textoId.getText())).collect(Collectors.toList());
+        reservaMesa.forEach(r->{
+        MesaData m1=new MesaData(conexion);
+        m1.actualizarEstadoMesa("Libre",r.getMesa().getIdMesa());});
+        avisos.setText("Reserva cancelada.");
+        this.limpiar();
+       } catch (SQLException ex) {
             Logger.getLogger(Background.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_darDeBajaActionPerformed
@@ -845,70 +808,29 @@ public class VistaReservas extends javax.swing.JFrame {
     }//GEN-LAST:event_botonAceptarActionPerformed
 
     private void botonAceptar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptar1ActionPerformed
-       
+        
         try {
-            Conexion conexion = new Conexion();
-            conexion.getConexion();
-            MesaData m1=new MesaData(conexion);
-            ReservaData r1=new ReservaData(conexion);
-                
-               //si todo es correcto crea una reserva y la guarda en la base de datos
-                Reserva reserva=new Reserva(textoNombre.getText(),this.getDni(),this.getFecha(),m1.deIdAMesa(this.getNroMesa()),true);
-                r1.guardarReserva(reserva);
-                    //actualizamos el estado de la mesa para saber que está reservada
-                m1.actualizarEstadoMesa("Reservada",this.getNroMesa());
-                
-                //Limpiamos los campos y avisamos que se creo la reserva
-                confirmacion.setVisible(false);
-                this.limpiar();avisos.setText("La reserva se creo exitosamente.");
-                
+                conexion = new Conexion();
+                conexion.getConexion();
+                ReservaData r1=new ReservaData(conexion);
+                reservasLista=r1.obtenerReservas();
+                MesaData m1=new MesaData(conexion);
             
+        //si todo es correcto crea una reserva y la guarda en la base de datos
+        Reserva reserva=new Reserva(textoNombre.getText(),this.getDni(),this.getFecha(),m1.deIdAMesa(this.getNroMesa()),true);
+        r1.guardarReserva(reserva);
+        //actualizamos el estado de la mesa para saber que está reservada
+        m1.actualizarEstadoMesa("Reservada",this.getNroMesa());
+        //Limpiamos los campos y avisamos que se creo la reserva
+        confirmacion.setVisible(false);
+        this.limpiar();
+        avisos.setText("La reserva se creo exitosamente.");
         } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(Background.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Background.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_botonAceptar1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VistaReservas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VistaReservas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VistaReservas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VistaReservas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VistaReservas().setVisible(true);
-            }
-        });
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton apagar;
@@ -939,13 +861,13 @@ public class VistaReservas extends javax.swing.JFrame {
     private javax.swing.JLabel etiquetaNombre;
     private javax.swing.JLabel fechaConfirmacion;
     private javax.swing.JLabel imagen;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel labelConfirmacion;
     private javax.swing.JLabel labelReservas;
     private javax.swing.JButton limpiarCasilleros1;
     private javax.swing.JLabel mesaConfirmacion;
