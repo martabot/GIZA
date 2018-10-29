@@ -58,8 +58,8 @@ public class ReservaData {
         }
     }
     
-    public List<Reserva> obtenerReservas() throws ClassNotFoundException {
-        List<Reserva> reservas = new ArrayList<>();
+    public ArrayList<Reserva> obtenerReservas() throws ClassNotFoundException {
+        ArrayList<Reserva> reservas = new ArrayList<>();
             
         try {
             String sql = "SELECT * FROM reserva;";

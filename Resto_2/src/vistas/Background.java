@@ -18,12 +18,17 @@ import modelo.*;
  */
 public class Background extends javax.swing.JFrame {
 
+    //constructor
     public Background() {
+        
+        //Propiedades de la pantalla completa
         this.setUndecorated(true);
         this.setResizable(false);
         this.setVisible(true);
+        
         initComponents();
         
+        //campos ocultos que aparecen al ser llamados por los ajustes del usuario
         textoUsuario.setVisible(false);
         textoUsuario1.setVisible(false);
         nomOld.setVisible(false);
@@ -232,6 +237,7 @@ public class Background extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //Pasa a vista Lista de Precios
     private void botonPreciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPreciosActionPerformed
         background.removeAll();
         background.repaint();
@@ -239,6 +245,7 @@ public class Background extends javax.swing.JFrame {
         vistaPrecios.setVisible(true);
     }//GEN-LAST:event_botonPreciosActionPerformed
 
+    //Pasa a vista de Mesas
     private void botonMesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMesasActionPerformed
         background.removeAll();
         background.repaint();
@@ -246,6 +253,7 @@ public class Background extends javax.swing.JFrame {
         vistaMesas.setVisible(true);
     }//GEN-LAST:event_botonMesasActionPerformed
 
+    //Pasa a boton de Reservas
     private void botonReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReservasActionPerformed
         background.removeAll();
         background.repaint();
@@ -253,6 +261,7 @@ public class Background extends javax.swing.JFrame {
         vistaReservas.setVisible(true);
     }//GEN-LAST:event_botonReservasActionPerformed
 
+    //Pasa a vista Pedidos
     private void botonPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPedidosActionPerformed
         background.removeAll();
         background.repaint();
@@ -260,6 +269,7 @@ public class Background extends javax.swing.JFrame {
         vistaPedidos.setVisible(true);
     }//GEN-LAST:event_botonPedidosActionPerformed
 
+    //Pasa a vista sobre nosotras
     private void aboutUsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutUsActionPerformed
         background.removeAll();
         background.repaint();
@@ -267,6 +277,7 @@ public class Background extends javax.swing.JFrame {
         aboutUs.setVisible(true);
     }//GEN-LAST:event_aboutUsActionPerformed
 
+    //llama a las variable que están ocultas en el constructor para realizar el cambio de nombre del usuario
     private void botonAjustesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAjustesActionPerformed
         textoUsuario.setVisible(true);
         textoUsuario1.setVisible(true);
@@ -275,17 +286,20 @@ public class Background extends javax.swing.JFrame {
         cambiarNombre.setVisible(true);
     }//GEN-LAST:event_botonAjustesActionPerformed
 
+    //cierra el programa
     private void botonApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonApagarActionPerformed
         System.exit(0);
     }//GEN-LAST:event_botonApagarActionPerformed
 
+    //cierra sesión del usuario y vuelve a la pantalla de inicio
     private void cerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarSesionActionPerformed
         background.removeAll();
         background.repaint();
         Inicio inicio=new Inicio();
         inicio.setVisible(true);
     }//GEN-LAST:event_cerrarSesionActionPerformed
-
+    
+    //actualiza el nombre del usuario, y vuelve a settear ocultos los campos de texto
     private void cambiarNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cambiarNombreActionPerformed
         
         try {
@@ -304,6 +318,7 @@ public class Background extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cambiarNombreActionPerformed
 
+    //Lo mismo que el método anterior pero a través de la tecla enter en el campo del nuevo nombre
     private void textoUsuario1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textoUsuario1KeyPressed
         if (evt.getKeyCode()==KeyEvent.VK_ENTER){
             

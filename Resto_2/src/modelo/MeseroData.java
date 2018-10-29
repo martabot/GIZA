@@ -18,8 +18,7 @@ import java.util.List;
  * @author Muñeca Brava
  */
 public class MeseroData {
-    
-        
+    private String usuario;
         
     private Connection connection = null;
     private Mesero mesero;
@@ -54,7 +53,6 @@ public class MeseroData {
             System.out.println("Error al insertar un mesero: " + ex.getMessage());
         }
     }
-    
     
     public List<Mesero> obtenerMesero(){
         List<Mesero> meseros = new ArrayList<>();
@@ -123,5 +121,13 @@ public class MeseroData {
         } catch (SQLException ex) {
             System.out.println("Error al actualizar el nombre de mesero: " + ex.getMessage());
         }
+    }
+    
+    public void almacenarUsuario(String usuario){
+        this.usuario=usuario;
+    }
+    
+    public String usuarioRegistrado(){
+        return usuario;
     }
 }

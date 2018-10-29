@@ -271,7 +271,7 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_textoBuscarActionPerformed
 
     private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
-       
+        
         this.setNombre(textoBuscar.getText());
         
         try {
@@ -283,11 +283,7 @@ public class Inicio extends javax.swing.JFrame {
            this.filtrados= mesero.obtenerMesero().stream().filter(mese -> this.meseroEsta(mese.getNombreMesero())).collect(Collectors.toList());
             
            if (!this.filtrados.isEmpty()){
-            label1.setVisible(false);
-            label2.setVisible(false);
-            botonBuscar.setVisible(false);
-            textoBuscar.setVisible(false);
-            panelDeInicio.setVisible(false);
+            mesero.almacenarUsuario(textoBuscar.getText());
             panelPrincipal.removeAll();
             Background background=new Background();
             background.setVisible(true);
@@ -319,13 +315,6 @@ public class Inicio extends javax.swing.JFrame {
             this.filtrados= mesero.obtenerMesero().stream().filter(mese -> this.meseroEsta(mese.getNombreMesero())).collect(Collectors.toList());
                        
             if (!this.filtrados.isEmpty()){
-            label3.setVisible(false);
-            signUp.setVisible(false);
-            label1.setVisible(false);
-            label2.setVisible(false);
-            botonBuscar.setVisible(false);
-            textoBuscar.setVisible(false);
-            panelDeInicio.setVisible(false);
             panelPrincipal.removeAll();
             Background background=new Background();
             background.setVisible(true);
@@ -334,11 +323,11 @@ public class Inicio extends javax.swing.JFrame {
             
         }catch(ClassNotFoundException | SQLException e) {
             System.out.println("Error al instanciar la clase conexion: " + e.getMessage());
-        }        // TODO add your handling code here:
+        }        
     }//GEN-LAST:event_signUpActionPerformed
 
     private void botonBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_botonBuscarKeyPressed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_botonBuscarKeyPressed
 
     private void textoBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textoBuscarKeyPressed
