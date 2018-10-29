@@ -1,4 +1,4 @@
--- phpMyAdmin SQL Dump
+﻿-- phpMyAdmin SQL Dump
 -- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
@@ -146,6 +146,32 @@ CREATE TABLE `producto` (
   `nombre_producto` varchar(50) DEFAULT NULL,
   `precio` double DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+--
+-- Volcado de datos para la tabla `producto`
+--
+
+INSERT INTO `producto` (`id_producto`, `nombre_producto`, `precio`) VALUES
+(1, 'Picada', 50),
+(2, 'Ensalada', 25),
+(3, 'Sandwhich', 25),
+(4, 'Empanadas', 50),
+(5, 'Locro', 30),
+(6, 'Tacos por 3', 60),
+(7, 'Lomito', 50),
+(8, 'Pizza', 40),
+(9, 'Agua Sin Gas 500ml', 10),
+(10, 'Agua Con Gas 500ml', 15),
+(11, 'Agua Saborizada 500ml', 30),
+(12, 'Gaseosa 1lt', 80),
+(13, 'Cerveza 1lt', 30),
+(14, 'Vino', 20),
+(15, 'Fernet', 70),
+(16, 'Whisky', 100),
+(17, 'Flan Mixto', 5),
+(18, 'Helado', 15),
+(19, 'Ensalada de Frutas', 20),
+
+
 
 -- --------------------------------------------------------
 
