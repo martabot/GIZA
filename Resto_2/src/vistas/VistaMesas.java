@@ -7,6 +7,7 @@ package vistas;
 
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelo.*;
@@ -16,13 +17,27 @@ import modelo.*;
  * @author Muñeca Brava
  */
 public class VistaMesas extends javax.swing.JFrame {
+    private Conexion conexion;
+    private MesaData mesaData;
+    private ArrayList<Mesa> mesas;
+    private Fuentes fuente;
 
-    public VistaMesas() {
+    public VistaMesas(){
         this.setUndecorated(true);
         this.setResizable(false);
         this.setVisible(true);
+          
         initComponents();
+        //setteamos las fuentes personalizadas
+        fuente=new Fuentes();
+        botonBalance.setFont(fuente.fuenteLuisa(1,36));
+        botonMesas.setFont(fuente.fuenteLuisa(1,36));
+        botonReservas.setFont(fuente.fuenteLuisa(1,36));
+        botonPedidos.setFont(fuente.fuenteLuisa(1,36));
+        botonPrecios.setFont(fuente.fuenteLuisa(1,36));
+        labelMesas.setFont(fuente.fuenteLuisa(1,24));
         
+        //campos ocultos que aparecen al ser llamados por los ajustes del usuario
         textoUsuario.setVisible(false);
         textoUsuario1.setVisible(false);
         nomOld.setVisible(false);
@@ -42,11 +57,10 @@ public class VistaMesas extends javax.swing.JFrame {
     private void initComponents() {
 
         background = new javax.swing.JPanel();
-        botonPrecios = new javax.swing.JButton();
+        botonBalance = new javax.swing.JButton();
         botonMesas = new javax.swing.JButton();
         botonReservas = new javax.swing.JButton();
         botonPedidos = new javax.swing.JButton();
-        aboutUs = new javax.swing.JButton();
         cerrarSesion = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
@@ -58,7 +72,7 @@ public class VistaMesas extends javax.swing.JFrame {
         nomOld = new javax.swing.JLabel();
         nomNu = new javax.swing.JLabel();
         botonAjustes = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        labelMesas = new javax.swing.JLabel();
         textoId = new javax.swing.JTextField();
         etiquetaId = new javax.swing.JLabel();
         darDeBaja = new javax.swing.JButton();
@@ -72,25 +86,26 @@ public class VistaMesas extends javax.swing.JFrame {
         buscarReservaPor1 = new javax.swing.JButton();
         limpiarCasilleros = new javax.swing.JButton();
         eliminarReserva = new javax.swing.JButton();
+        botonPrecios = new javax.swing.JButton();
         imagen = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         background.setLayout(null);
 
-        botonPrecios.setBackground(new java.awt.Color(0, 0, 0));
-        botonPrecios.setFont(new java.awt.Font("Luisa", 1, 36)); // NOI18N
-        botonPrecios.setForeground(new java.awt.Color(238, 140, 60));
-        botonPrecios.setText("PRECIOS");
-        botonPrecios.setToolTipText("");
-        botonPrecios.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 153, 51), 3, true));
-        botonPrecios.addActionListener(new java.awt.event.ActionListener() {
+        botonBalance.setBackground(new java.awt.Color(0, 0, 0));
+        botonBalance.setFont(new java.awt.Font("Luisa", 1, 36)); // NOI18N
+        botonBalance.setForeground(new java.awt.Color(238, 140, 60));
+        botonBalance.setText("BALANCE");
+        botonBalance.setToolTipText("");
+        botonBalance.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 153, 51), 3, true));
+        botonBalance.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonPreciosActionPerformed(evt);
+                botonBalanceActionPerformed(evt);
             }
         });
-        background.add(botonPrecios);
-        botonPrecios.setBounds(20, 480, 250, 90);
+        background.add(botonBalance);
+        botonBalance.setBounds(20, 600, 250, 70);
 
         botonMesas.setBackground(new java.awt.Color(0, 0, 0));
         botonMesas.setFont(new java.awt.Font("Luisa", 1, 36)); // NOI18N
@@ -103,7 +118,7 @@ public class VistaMesas extends javax.swing.JFrame {
             }
         });
         background.add(botonMesas);
-        botonMesas.setBounds(20, 180, 250, 90);
+        botonMesas.setBounds(20, 200, 250, 70);
 
         botonReservas.setBackground(new java.awt.Color(0, 0, 0));
         botonReservas.setFont(new java.awt.Font("Luisa", 1, 36)); // NOI18N
@@ -116,7 +131,7 @@ public class VistaMesas extends javax.swing.JFrame {
             }
         });
         background.add(botonReservas);
-        botonReservas.setBounds(20, 280, 250, 90);
+        botonReservas.setBounds(20, 300, 250, 70);
 
         botonPedidos.setBackground(new java.awt.Color(0, 0, 0));
         botonPedidos.setFont(new java.awt.Font("Luisa", 1, 36)); // NOI18N
@@ -129,20 +144,7 @@ public class VistaMesas extends javax.swing.JFrame {
             }
         });
         background.add(botonPedidos);
-        botonPedidos.setBounds(20, 380, 250, 90);
-
-        aboutUs.setBackground(new java.awt.Color(0, 0, 0));
-        aboutUs.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/Captura.JPG"))); // NOI18N
-        aboutUs.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
-        aboutUs.setBorderPainted(false);
-        aboutUs.setContentAreaFilled(false);
-        aboutUs.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                aboutUsActionPerformed(evt);
-            }
-        });
-        background.add(aboutUs);
-        aboutUs.setBounds(90, 580, 110, 100);
+        botonPedidos.setBounds(20, 400, 250, 70);
 
         cerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/Logout-512.png"))); // NOI18N
         cerrarSesion.setContentAreaFilled(false);
@@ -227,11 +229,11 @@ public class VistaMesas extends javax.swing.JFrame {
         background.add(botonAjustes);
         botonAjustes.setBounds(320, 40, 30, 40);
 
-        jLabel1.setFont(new java.awt.Font("Luisa", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(153, 0, 51));
-        jLabel1.setText("MESAS");
-        background.add(jLabel1);
-        jLabel1.setBounds(610, 190, 120, 40);
+        labelMesas.setFont(new java.awt.Font("Luisa", 1, 24)); // NOI18N
+        labelMesas.setForeground(new java.awt.Color(153, 0, 51));
+        labelMesas.setText("MESAS");
+        background.add(labelMesas);
+        labelMesas.setBounds(610, 190, 120, 40);
 
         textoId.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         background.add(textoId);
@@ -345,6 +347,20 @@ public class VistaMesas extends javax.swing.JFrame {
         background.add(eliminarReserva);
         eliminarReserva.setBounds(680, 590, 120, 30);
 
+        botonPrecios.setBackground(new java.awt.Color(0, 0, 0));
+        botonPrecios.setFont(new java.awt.Font("Luisa", 1, 36)); // NOI18N
+        botonPrecios.setForeground(new java.awt.Color(238, 140, 60));
+        botonPrecios.setText("PRECIOS");
+        botonPrecios.setToolTipText("");
+        botonPrecios.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 153, 51), 3, true));
+        botonPrecios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonPreciosActionPerformed(evt);
+            }
+        });
+        background.add(botonPrecios);
+        botonPrecios.setBounds(20, 500, 250, 70);
+
         imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/Background.png"))); // NOI18N
         imagen.setAlignmentY(0.0F);
         background.add(imagen);
@@ -364,15 +380,18 @@ public class VistaMesas extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void botonPreciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPreciosActionPerformed
+    private void botonBalanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBalanceActionPerformed
         background.removeAll();
-        VistaPrecios vistaPrecios=new VistaPrecios();
-        vistaPrecios.setVisible(true);
+        VistaBalance vistaBalance=new VistaBalance();
+        vistaBalance.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_botonPreciosActionPerformed
+    }//GEN-LAST:event_botonBalanceActionPerformed
 
     private void botonMesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMesasActionPerformed
-       
+        background.removeAll();
+        VistaMesas vistaMesas=new VistaMesas();
+        vistaMesas.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_botonMesasActionPerformed
 
     private void botonReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReservasActionPerformed
@@ -389,13 +408,6 @@ public class VistaMesas extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_botonPedidosActionPerformed
 
-    private void aboutUsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutUsActionPerformed
-        background.removeAll();
-        AboutUs aboutUs=new AboutUs();
-        aboutUs.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_aboutUsActionPerformed
-
     private void cerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarSesionActionPerformed
         background.removeAll();
         background.repaint();
@@ -408,9 +420,29 @@ public class VistaMesas extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void cambiarNombre2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cambiarNombre2ActionPerformed
+       try{
+        
+        conexion = new Conexion();
+        conexion.getConexion();
+        MeseroData m1=new MeseroData(conexion);
+        m1.cambiarNombre(textoUsuario.getText(), textoUsuario1.getText());
+        textoUsuario.setVisible(false);
+        textoUsuario1.setVisible(false);
+        nomOld.setVisible(false);
+        nomNu.setVisible(false);
+        cambiarNombre2.setVisible(false);
+        textoUsuario.setText(null);
+        textoUsuario1.setText(null);
+        
+        } catch (ClassNotFoundException | SQLException ex) {
+                    Logger.getLogger(VistaMesas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_cambiarNombre2ActionPerformed
 
-        try {
-            Conexion conexion = new Conexion();
+    private void textoUsuario1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textoUsuario1KeyPressed
+        if (evt.getKeyCode()==KeyEvent.VK_ENTER){
+        try{
+            conexion = new Conexion();
             conexion.getConexion();
             MeseroData m1=new MeseroData(conexion);
             m1.cambiarNombre(textoUsuario.getText(), textoUsuario1.getText());
@@ -419,29 +451,12 @@ public class VistaMesas extends javax.swing.JFrame {
             nomOld.setVisible(false);
             nomNu.setVisible(false);
             cambiarNombre2.setVisible(false);
-
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(Background.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_cambiarNombre2ActionPerformed
-
-    private void textoUsuario1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textoUsuario1KeyPressed
-        if (evt.getKeyCode()==KeyEvent.VK_ENTER){
-
-            try {
-                Conexion conexion = new Conexion();
-                conexion.getConexion();
-                MeseroData m1=new MeseroData(conexion);
-                m1.cambiarNombre(textoUsuario.getText(), textoUsuario1.getText());
-                textoUsuario.setVisible(false);
-                textoUsuario1.setVisible(false);
-                nomOld.setVisible(false);
-                nomNu.setVisible(false);
-                cambiarNombre2.setVisible(false);
-
-            } catch (ClassNotFoundException | SQLException ex) {
-                Logger.getLogger(Background.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            textoUsuario.setText(null);
+            textoUsuario1.setText(null);
+            
+            } catch (SQLException | ClassNotFoundException ex) {
+                    Logger.getLogger(VistaMesas.class.getName()).log(Level.SEVERE, null, ex);
+         }
         }
     }//GEN-LAST:event_textoUsuario1KeyPressed
 
@@ -477,6 +492,10 @@ public class VistaMesas extends javax.swing.JFrame {
         
     }//GEN-LAST:event_eliminarReservaActionPerformed
 
+    private void botonPreciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPreciosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonPreciosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -493,16 +512,14 @@ public class VistaMesas extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VistaMesas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VistaMesas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VistaMesas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(VistaMesas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        
+        //</editor-fold>
+        
+
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -520,9 +537,9 @@ public class VistaMesas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton aboutUs;
     private javax.swing.JPanel background;
     private javax.swing.JButton botonAjustes;
+    private javax.swing.JButton botonBalance;
     private javax.swing.JButton botonMesas;
     private javax.swing.JButton botonPedidos;
     private javax.swing.JButton botonPrecios;
@@ -539,10 +556,10 @@ public class VistaMesas extends javax.swing.JFrame {
     private javax.swing.JLabel etiquetaNombre;
     private javax.swing.JLabel imagen;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel labelMesas;
     private javax.swing.JButton limpiarCasilleros;
     private javax.swing.JLabel nomNu;
     private javax.swing.JLabel nomOld;

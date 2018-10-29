@@ -17,6 +17,7 @@ import modelo.*;
  */
 public class VistaPedidos extends javax.swing.JFrame {
     private Conexion conexion;
+    private Fuentes fuente;
 
     public VistaPedidos() {
         this.setUndecorated(true);
@@ -24,9 +25,16 @@ public class VistaPedidos extends javax.swing.JFrame {
         this.setVisible(true);
         
         initComponents();
+        //setteamos las fuentes personalizadas
+        fuente=new Fuentes();
+        botonBalance.setFont(fuente.fuenteLuisa(1,36));
+        botonMesas.setFont(fuente.fuenteLuisa(1,36));
+        botonReservas.setFont(fuente.fuenteLuisa(1,36));
+        botonPedidos.setFont(fuente.fuenteLuisa(1,36));
+        botonPrecios.setFont(fuente.fuenteLuisa(1,36));
+        labelPedidos.setFont(fuente.fuenteLuisa(1,24));
         
-        
-        
+        //campos ocultos que aparecen al ser llamados por los ajustes del usuario
         textoUsuario.setVisible(false);
         textoUsuario1.setVisible(false);
         nomOld.setVisible(false);
@@ -43,7 +51,6 @@ public class VistaPedidos extends javax.swing.JFrame {
         botonMesas = new javax.swing.JButton();
         botonReservas = new javax.swing.JButton();
         botonPedidos = new javax.swing.JButton();
-        aboutUs = new javax.swing.JButton();
         eTomarPedido = new javax.swing.JLabel();
         spinnerCantidad = new javax.swing.JSpinner();
         avisos = new javax.swing.JLabel();
@@ -65,7 +72,7 @@ public class VistaPedidos extends javax.swing.JFrame {
         cambiarNombre2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaPedido = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
+        labelPedidos = new javax.swing.JLabel();
         buscarReservaPor1 = new javax.swing.JButton();
         textoId = new javax.swing.JTextField();
         etiquetaId = new javax.swing.JLabel();
@@ -80,6 +87,7 @@ public class VistaPedidos extends javax.swing.JFrame {
         buscarReservaPor6 = new javax.swing.JButton();
         ePagaCon1 = new javax.swing.JLabel();
         textoPagaCon1 = new javax.swing.JTextField();
+        botonBalance = new javax.swing.JButton();
         imagen = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -98,7 +106,7 @@ public class VistaPedidos extends javax.swing.JFrame {
             }
         });
         background.add(botonPrecios);
-        botonPrecios.setBounds(20, 480, 250, 90);
+        botonPrecios.setBounds(20, 500, 250, 70);
 
         botonMesas.setBackground(new java.awt.Color(0, 0, 0));
         botonMesas.setFont(new java.awt.Font("Luisa", 1, 36)); // NOI18N
@@ -111,7 +119,7 @@ public class VistaPedidos extends javax.swing.JFrame {
             }
         });
         background.add(botonMesas);
-        botonMesas.setBounds(20, 180, 250, 90);
+        botonMesas.setBounds(20, 200, 250, 70);
 
         botonReservas.setBackground(new java.awt.Color(0, 0, 0));
         botonReservas.setFont(new java.awt.Font("Luisa", 1, 36)); // NOI18N
@@ -124,7 +132,7 @@ public class VistaPedidos extends javax.swing.JFrame {
             }
         });
         background.add(botonReservas);
-        botonReservas.setBounds(20, 280, 250, 90);
+        botonReservas.setBounds(20, 300, 250, 70);
 
         botonPedidos.setBackground(new java.awt.Color(0, 0, 0));
         botonPedidos.setFont(new java.awt.Font("Luisa", 1, 36)); // NOI18N
@@ -137,20 +145,7 @@ public class VistaPedidos extends javax.swing.JFrame {
             }
         });
         background.add(botonPedidos);
-        botonPedidos.setBounds(20, 380, 250, 90);
-
-        aboutUs.setBackground(new java.awt.Color(0, 0, 0));
-        aboutUs.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/Captura.JPG"))); // NOI18N
-        aboutUs.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
-        aboutUs.setBorderPainted(false);
-        aboutUs.setContentAreaFilled(false);
-        aboutUs.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                aboutUsActionPerformed(evt);
-            }
-        });
-        background.add(aboutUs);
-        aboutUs.setBounds(90, 580, 110, 100);
+        botonPedidos.setBounds(20, 400, 250, 70);
 
         eTomarPedido.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         eTomarPedido.setForeground(new java.awt.Color(153, 0, 51));
@@ -381,11 +376,11 @@ public class VistaPedidos extends javax.swing.JFrame {
         background.add(jScrollPane1);
         jScrollPane1.setBounds(380, 440, 320, 220);
 
-        jLabel1.setFont(new java.awt.Font("Luisa", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(153, 0, 51));
-        jLabel1.setText("PEDIDOS");
-        background.add(jLabel1);
-        jLabel1.setBounds(580, 190, 130, 40);
+        labelPedidos.setFont(new java.awt.Font("Luisa", 1, 24)); // NOI18N
+        labelPedidos.setForeground(new java.awt.Color(153, 0, 51));
+        labelPedidos.setText("PEDIDOS");
+        background.add(labelPedidos);
+        labelPedidos.setBounds(580, 190, 130, 40);
 
         buscarReservaPor1.setBackground(new java.awt.Color(255, 237, 221));
         buscarReservaPor1.setForeground(new java.awt.Color(102, 0, 0));
@@ -403,7 +398,7 @@ public class VistaPedidos extends javax.swing.JFrame {
 
         textoId.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         background.add(textoId);
-        textoId.setBounds(840, 210, 60, 19);
+        textoId.setBounds(840, 210, 60, 18);
 
         etiquetaId.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         etiquetaId.setForeground(new java.awt.Color(153, 0, 51));
@@ -518,6 +513,20 @@ public class VistaPedidos extends javax.swing.JFrame {
         background.add(textoPagaCon1);
         textoPagaCon1.setBounds(810, 450, 90, 30);
 
+        botonBalance.setBackground(new java.awt.Color(0, 0, 0));
+        botonBalance.setFont(new java.awt.Font("Luisa", 1, 36)); // NOI18N
+        botonBalance.setForeground(new java.awt.Color(238, 140, 60));
+        botonBalance.setText("BALANCE");
+        botonBalance.setToolTipText("");
+        botonBalance.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 153, 51), 3, true));
+        botonBalance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonBalanceActionPerformed(evt);
+            }
+        });
+        background.add(botonBalance);
+        botonBalance.setBounds(20, 600, 250, 70);
+
         imagen.setBackground(new java.awt.Color(204, 70, 0));
         imagen.setForeground(new java.awt.Color(1, 1, 1));
         imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/Background.png"))); // NOI18N
@@ -564,13 +573,6 @@ public class VistaPedidos extends javax.swing.JFrame {
        
     }//GEN-LAST:event_botonPedidosActionPerformed
 
-    private void aboutUsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutUsActionPerformed
-        background.removeAll();
-        AboutUs aboutUs=new AboutUs();
-        aboutUs.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_aboutUsActionPerformed
-
     private void idProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idProductoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_idProductoActionPerformed
@@ -607,6 +609,8 @@ public class VistaPedidos extends javax.swing.JFrame {
                 nomOld.setVisible(false);
                 nomNu.setVisible(false);
                 cambiarNombre2.setVisible(false);
+                textoUsuario.setText(null);
+                textoUsuario1.setText(null);
 
             } catch (ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(Background.class.getName()).log(Level.SEVERE, null, ex);
@@ -626,6 +630,8 @@ public class VistaPedidos extends javax.swing.JFrame {
             nomOld.setVisible(false);
             nomNu.setVisible(false);
             cambiarNombre2.setVisible(false);
+            textoUsuario.setText(null);
+            textoUsuario1.setText(null);
 
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(Background.class.getName()).log(Level.SEVERE, null, ex);
@@ -666,6 +672,13 @@ public class VistaPedidos extends javax.swing.JFrame {
     private void buscarReservaPor6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarReservaPor6ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_buscarReservaPor6ActionPerformed
+
+    private void botonBalanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBalanceActionPerformed
+        background.removeAll();
+        VistaBalance vistaBalance=new VistaBalance();
+        vistaBalance.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_botonBalanceActionPerformed
 
     /**
      * @param args the command line arguments
@@ -710,10 +723,10 @@ public class VistaPedidos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton aboutUs;
     private javax.swing.JLabel avisos;
     private javax.swing.JPanel background;
     private javax.swing.JButton botonAjustes;
+    private javax.swing.JButton botonBalance;
     private javax.swing.JButton botonMesas;
     private javax.swing.JButton botonPedidos;
     private javax.swing.JButton botonPrecios;
@@ -739,8 +752,8 @@ public class VistaPedidos extends javax.swing.JFrame {
     private javax.swing.JTextField idProducto;
     private javax.swing.JLabel imagen;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel labelPedidos;
     private javax.swing.JLabel nomNu;
     private javax.swing.JLabel nomOld;
     private javax.swing.JSpinner spinnerCantidad;

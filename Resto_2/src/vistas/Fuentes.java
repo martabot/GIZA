@@ -6,6 +6,8 @@
 package vistas;
 
 import java.awt.Font;
+import java.awt.FontFormatException;
+import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -20,17 +22,32 @@ public class Fuentes {
         //Font.PLAIN = 0 , Font.BOLD = 1 , Font.ITALIC = 2
         //tamanio = float
     
-    public Font fuente( String fontName, int estilo, float tamanio){
+    public Font fuenteLuisa(int stilo, int tamanio){
         
          try {
-            InputStream is =  getClass().getResourceAsStream(fontName);
+            InputStream is =  getClass().getResourceAsStream(luisa);
             font = Font.createFont(Font.TRUETYPE_FONT, is);
-        } catch (Exception ex) {
-            System.err.println(fontName + " No se cargo la fuente");
+        } catch (FontFormatException | IOException ex) {
+            System.err.println(luisa + " No se cargo la fuente");
             font = new Font("Arial", Font.PLAIN, 14);            
         }
-        Font tfont = font.deriveFont(estilo, tamanio);
+        Font tfont = font.deriveFont(stilo, tamanio);
         return tfont;
     }
+    
+    public Font fuenteSunshine(int stilo,int tamanio){
+        
+         try {
+            InputStream is =  getClass().getResourceAsStream(sunshine);
+            font = Font.createFont(Font.TRUETYPE_FONT, is);
+        } catch (FontFormatException | IOException ex) {
+            System.err.println(luisa + " No se cargo la fuente");
+            font = new Font("Arial", Font.PLAIN, 14);            
+        }
+        Font tfont = font.deriveFont(stilo, tamanio);
+        return tfont;
+    }
+    
+    
 }
 

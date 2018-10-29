@@ -7,7 +7,6 @@ package vistas;
 
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelo.*;
@@ -16,12 +15,10 @@ import modelo.*;
  *
  * @author Muñeca Brava
  */
-public class VistaPrecios extends javax.swing.JFrame {
+public class VistaBalance extends javax.swing.JFrame {
     private Fuentes fuente;
-    private ArrayList<Producto> lista=new ArrayList<>();
-    private Producto producto;
     
-    public VistaPrecios() {
+    public VistaBalance() {
         
         //Propiedades de la pantalla completa
         this.setUndecorated(true);
@@ -36,7 +33,7 @@ public class VistaPrecios extends javax.swing.JFrame {
         botonReservas.setFont(fuente.fuenteLuisa(1,36));
         botonPedidos.setFont(fuente.fuenteLuisa(1,36));
         botonPrecios.setFont(fuente.fuenteLuisa(1,36));
-        labelPrecios.setFont(fuente.fuenteLuisa(1, 24));
+        labelBalance.setFont(fuente.fuenteLuisa(1, 24));
         
         //campos ocultos que aparecen al ser llamados por los ajustes del usuario
         textoUsuario.setVisible(false);
@@ -55,15 +52,21 @@ public class VistaPrecios extends javax.swing.JFrame {
         botonMesas = new javax.swing.JButton();
         botonReservas = new javax.swing.JButton();
         botonPedidos = new javax.swing.JButton();
-        labelPrecios = new javax.swing.JLabel();
+        labelBalance = new javax.swing.JLabel();
+        etiquetaId = new javax.swing.JLabel();
+        textoId = new javax.swing.JTextField();
+        etiquetaNombre = new javax.swing.JLabel();
+        textNombre = new javax.swing.JTextField();
         crearReserva = new javax.swing.JButton();
-        avisos = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaPrecios = new javax.swing.JTable();
+        etiquetaNpedido = new javax.swing.JLabel();
+        textNpedido = new javax.swing.JTextField();
         etiquetaAgregar = new javax.swing.JLabel();
         crearReserva1 = new javax.swing.JButton();
-        agregarProducto = new javax.swing.JButton();
+        crearReserva2 = new javax.swing.JButton();
         crearReserva3 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         cerrarSesion = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         nomNu = new javax.swing.JLabel();
@@ -73,13 +76,6 @@ public class VistaPrecios extends javax.swing.JFrame {
         botonAjustes = new javax.swing.JButton();
         textoUsuario1 = new javax.swing.JTextField();
         botonBalance = new javax.swing.JButton();
-        buscarReservaPor1 = new javax.swing.JButton();
-        textoId = new javax.swing.JTextField();
-        etiquetaId = new javax.swing.JLabel();
-        textoNombre = new javax.swing.JTextField();
-        etiquetaNombre = new javax.swing.JLabel();
-        etiquetaId4 = new javax.swing.JLabel();
-        textoMonto = new javax.swing.JTextField();
         imagen = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -139,11 +135,36 @@ public class VistaPrecios extends javax.swing.JFrame {
         background.add(botonPedidos);
         botonPedidos.setBounds(20, 400, 250, 70);
 
-        labelPrecios.setFont(new java.awt.Font("Luisa", 1, 24)); // NOI18N
-        labelPrecios.setForeground(new java.awt.Color(153, 0, 51));
-        labelPrecios.setText("LISTA DE PRECIOS");
-        background.add(labelPrecios);
-        labelPrecios.setBounds(540, 190, 220, 40);
+        labelBalance.setFont(new java.awt.Font("Luisa", 1, 24)); // NOI18N
+        labelBalance.setForeground(new java.awt.Color(153, 0, 51));
+        labelBalance.setText("BALANCE");
+        background.add(labelBalance);
+        labelBalance.setBounds(600, 190, 160, 40);
+
+        etiquetaId.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        etiquetaId.setForeground(new java.awt.Color(153, 0, 51));
+        etiquetaId.setText("ID:");
+        background.add(etiquetaId);
+        etiquetaId.setBounds(460, 250, 70, 17);
+
+        textoId.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        background.add(textoId);
+        textoId.setBounds(530, 250, 60, 18);
+
+        etiquetaNombre.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        etiquetaNombre.setForeground(new java.awt.Color(153, 0, 51));
+        etiquetaNombre.setText("NOMBRE:");
+        background.add(etiquetaNombre);
+        etiquetaNombre.setBounds(460, 280, 70, 20);
+
+        textNombre.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        textNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textNombreActionPerformed(evt);
+            }
+        });
+        background.add(textNombre);
+        textNombre.setBounds(530, 280, 300, 18);
 
         crearReserva.setBackground(new java.awt.Color(255, 237, 221));
         crearReserva.setForeground(new java.awt.Color(102, 0, 0));
@@ -157,12 +178,7 @@ public class VistaPrecios extends javax.swing.JFrame {
             }
         });
         background.add(crearReserva);
-        crearReserva.setBounds(520, 350, 120, 30);
-
-        avisos.setForeground(new java.awt.Color(102, 0, 0));
-        avisos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        background.add(avisos);
-        avisos.setBounds(470, 320, 290, 20);
+        crearReserva.setBounds(520, 340, 120, 30);
 
         tablaPrecios.setForeground(new java.awt.Color(153, 0, 0));
         tablaPrecios.setModel(new javax.swing.table.DefaultTableModel(
@@ -255,7 +271,17 @@ public class VistaPrecios extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tablaPrecios);
 
         background.add(jScrollPane1);
-        jScrollPane1.setBounds(390, 390, 510, 280);
+        jScrollPane1.setBounds(390, 380, 510, 290);
+
+        etiquetaNpedido.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        etiquetaNpedido.setForeground(new java.awt.Color(153, 0, 51));
+        etiquetaNpedido.setText("MONTO:");
+        background.add(etiquetaNpedido);
+        etiquetaNpedido.setBounds(630, 250, 70, 17);
+
+        textNpedido.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        background.add(textNpedido);
+        textNpedido.setBounds(700, 250, 130, 18);
         background.add(etiquetaAgregar);
         etiquetaAgregar.setBounds(380, 390, 520, 30);
 
@@ -271,21 +297,21 @@ public class VistaPrecios extends javax.swing.JFrame {
             }
         });
         background.add(crearReserva1);
-        crearReserva1.setBounds(390, 350, 120, 30);
+        crearReserva1.setBounds(390, 340, 120, 30);
 
-        agregarProducto.setBackground(new java.awt.Color(255, 237, 221));
-        agregarProducto.setForeground(new java.awt.Color(102, 0, 0));
-        agregarProducto.setText("AGREGAR");
-        agregarProducto.setActionCommand("");
-        agregarProducto.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 204, 204), new java.awt.Color(255, 204, 102), new java.awt.Color(204, 0, 51), new java.awt.Color(102, 0, 0)));
-        agregarProducto.setContentAreaFilled(false);
-        agregarProducto.addActionListener(new java.awt.event.ActionListener() {
+        crearReserva2.setBackground(new java.awt.Color(255, 237, 221));
+        crearReserva2.setForeground(new java.awt.Color(102, 0, 0));
+        crearReserva2.setText("CREAR");
+        crearReserva2.setActionCommand("");
+        crearReserva2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 204, 204), new java.awt.Color(255, 204, 102), new java.awt.Color(204, 0, 51), new java.awt.Color(102, 0, 0)));
+        crearReserva2.setContentAreaFilled(false);
+        crearReserva2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                agregarProductoActionPerformed(evt);
+                crearReserva2ActionPerformed(evt);
             }
         });
-        background.add(agregarProducto);
-        agregarProducto.setBounds(650, 350, 120, 30);
+        background.add(crearReserva2);
+        crearReserva2.setBounds(650, 340, 120, 30);
 
         crearReserva3.setBackground(new java.awt.Color(255, 237, 221));
         crearReserva3.setForeground(new java.awt.Color(102, 0, 0));
@@ -299,7 +325,9 @@ public class VistaPrecios extends javax.swing.JFrame {
             }
         });
         background.add(crearReserva3);
-        crearReserva3.setBounds(780, 350, 120, 30);
+        crearReserva3.setBounds(780, 340, 120, 30);
+        background.add(jLabel1);
+        jLabel1.setBounds(470, 260, 370, 20);
 
         cerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/Logout-512.png"))); // NOI18N
         cerrarSesion.setContentAreaFilled(false);
@@ -386,61 +414,6 @@ public class VistaPrecios extends javax.swing.JFrame {
         background.add(botonBalance);
         botonBalance.setBounds(20, 600, 250, 70);
 
-        buscarReservaPor1.setBackground(new java.awt.Color(255, 237, 221));
-        buscarReservaPor1.setForeground(new java.awt.Color(102, 0, 0));
-        buscarReservaPor1.setText("BUSCAR");
-        buscarReservaPor1.setActionCommand("");
-        buscarReservaPor1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 204, 204), new java.awt.Color(255, 204, 102), new java.awt.Color(204, 0, 51), new java.awt.Color(102, 0, 0)));
-        buscarReservaPor1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buscarReservaPor1ActionPerformed(evt);
-            }
-        });
-        background.add(buscarReservaPor1);
-        buscarReservaPor1.setBounds(800, 230, 100, 20);
-
-        textoId.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        background.add(textoId);
-        textoId.setBounds(840, 210, 60, 18);
-
-        etiquetaId.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        etiquetaId.setForeground(new java.awt.Color(153, 0, 51));
-        etiquetaId.setText("NRO:");
-        background.add(etiquetaId);
-        etiquetaId.setBounds(800, 210, 40, 17);
-
-        textoNombre.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        textoNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textoNombreActionPerformed(evt);
-            }
-        });
-        background.add(textoNombre);
-        textoNombre.setBounds(470, 240, 270, 30);
-
-        etiquetaNombre.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        etiquetaNombre.setForeground(new java.awt.Color(153, 0, 51));
-        etiquetaNombre.setText("NOMBRE:");
-        etiquetaNombre.setAlignmentY(0.0F);
-        background.add(etiquetaNombre);
-        etiquetaNombre.setBounds(380, 240, 90, 30);
-
-        etiquetaId4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        etiquetaId4.setForeground(new java.awt.Color(153, 0, 51));
-        etiquetaId4.setText("MONTO:      $");
-        background.add(etiquetaId4);
-        etiquetaId4.setBounds(380, 280, 90, 30);
-
-        textoMonto.setText("00.00");
-        textoMonto.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        textoMonto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textoMontoActionPerformed(evt);
-            }
-        });
-        background.add(textoMonto);
-        textoMonto.setBounds(470, 280, 140, 30);
-
         imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/Background.png"))); // NOI18N
         imagen.setAlignmentY(0.0F);
         background.add(imagen);
@@ -485,6 +458,10 @@ public class VistaPrecios extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_botonPedidosActionPerformed
 
+    private void textNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textNombreActionPerformed
+
     private void crearReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearReservaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_crearReservaActionPerformed
@@ -493,29 +470,10 @@ public class VistaPrecios extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_crearReserva1ActionPerformed
 
-    private void agregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarProductoActionPerformed
-        Producto producto=new Producto(textoNombre.getText(),Double.parseDouble(textoMonto.getText()));
-        lista.add(producto);
-        
-        mostrar();
-    }//GEN-LAST:event_agregarProductoActionPerformed
-    
-    private void mostrar(){
-        
-        String matriz [][]= new String [lista.size()][3];
-                for (int i=0; i > lista.size();i++){
-                    matriz [i][0]=String.valueOf(i+1);
-                    matriz [i][1]=lista.get(i).getNombreProducto();
-                    matriz [i][2]=String.valueOf(lista.get(i).getPrecio());
-                }
-            tablaPrecios.setModel(new javax.swing.table.DefaultTableModel(
-            matriz,
-            new String [] {
-                "Código", "Nombre", "Precio"
-            }
-        ));
-    }
-    
+    private void crearReserva2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearReserva2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_crearReserva2ActionPerformed
+
     private void crearReserva3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearReserva3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_crearReserva3ActionPerformed
@@ -545,7 +503,7 @@ public class VistaPrecios extends javax.swing.JFrame {
             cambiarNombre2.setVisible(false);
             textoUsuario.setText(null);
             textoUsuario1.setText(null);
-
+            
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(Background.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -572,8 +530,6 @@ public class VistaPrecios extends javax.swing.JFrame {
                 nomOld.setVisible(false);
                 nomNu.setVisible(false);
                 cambiarNombre2.setVisible(false);
-                textoUsuario.setText(null);
-                textoUsuario1.setText(null);
 
             } catch (ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(Background.class.getName()).log(Level.SEVERE, null, ex);
@@ -582,25 +538,8 @@ public class VistaPrecios extends javax.swing.JFrame {
     }//GEN-LAST:event_textoUsuario1KeyPressed
 
     private void botonBalanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBalanceActionPerformed
-        background.removeAll();
-        VistaBalance vistaBalance=new VistaBalance();
-        vistaBalance.setVisible(true);
-        this.setVisible(false);
+
     }//GEN-LAST:event_botonBalanceActionPerformed
-
-    private void buscarReservaPor1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarReservaPor1ActionPerformed
-
-        //Para eso cambiamos el color de background y foreground de la fila a los colores de seleccion
-
-    }//GEN-LAST:event_buscarReservaPor1ActionPerformed
-
-    private void textoNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoNombreActionPerformed
-
-    }//GEN-LAST:event_textoNombreActionPerformed
-
-    private void textoMontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoMontoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textoMontoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -619,14 +558,38 @@ public class VistaPrecios extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VistaPrecios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaBalance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VistaPrecios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaBalance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VistaPrecios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaBalance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VistaPrecios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaBalance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -639,14 +602,12 @@ public class VistaPrecios extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VistaPrecios().setVisible(true);
+                new VistaBalance().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton agregarProducto;
-    private javax.swing.JLabel avisos;
     private javax.swing.JPanel background;
     private javax.swing.JButton botonAjustes;
     private javax.swing.JButton botonBalance;
@@ -654,26 +615,27 @@ public class VistaPrecios extends javax.swing.JFrame {
     private javax.swing.JButton botonPedidos;
     private javax.swing.JButton botonPrecios;
     private javax.swing.JButton botonReservas;
-    private javax.swing.JButton buscarReservaPor1;
     private javax.swing.JButton cambiarNombre2;
     private javax.swing.JButton cerrarSesion;
     private javax.swing.JButton crearReserva;
     private javax.swing.JButton crearReserva1;
+    private javax.swing.JButton crearReserva2;
     private javax.swing.JButton crearReserva3;
     private javax.swing.JLabel etiquetaAgregar;
     private javax.swing.JLabel etiquetaId;
-    private javax.swing.JLabel etiquetaId4;
     private javax.swing.JLabel etiquetaNombre;
+    private javax.swing.JLabel etiquetaNpedido;
     private javax.swing.JLabel imagen;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel labelPrecios;
+    private javax.swing.JLabel labelBalance;
     private javax.swing.JLabel nomNu;
     private javax.swing.JLabel nomOld;
     private javax.swing.JTable tablaPrecios;
+    private javax.swing.JTextField textNombre;
+    private javax.swing.JTextField textNpedido;
     private javax.swing.JTextField textoId;
-    private javax.swing.JTextField textoMonto;
-    private javax.swing.JTextField textoNombre;
     private javax.swing.JTextField textoUsuario;
     private javax.swing.JTextField textoUsuario1;
     // End of variables declaration//GEN-END:variables

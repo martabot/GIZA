@@ -5,7 +5,8 @@
  */
 package modelo;
 
-import java.time.LocalDate;
+
+import java.time.LocalDateTime;
 
 /**
  *
@@ -16,11 +17,11 @@ public class Reserva {
     private int idReserva=-1;
     private String nombreCliente;
     private int dniCliente;
-    private LocalDate fechaReserva;
+    private LocalDateTime fechaReserva;
     private Mesa mesa;
     private boolean estaVigente;
 
-    public Reserva(int idReserva, String nombreCliente, int dniCliente, LocalDate fechaReserva, Mesa mesa, boolean estaVigente) {
+    public Reserva(int idReserva, String nombreCliente, int dniCliente, LocalDateTime fechaReserva, Mesa mesa, boolean estaVigente) {
         this.idReserva = idReserva;
         this.nombreCliente = nombreCliente;
         this.dniCliente = dniCliente;
@@ -29,7 +30,7 @@ public class Reserva {
         this.estaVigente = estaVigente;
     }
 
-    public Reserva(String nombreCliente, int dniCliente, LocalDate fechaReserva, Mesa mesa, boolean estaVigente) {
+    public Reserva(String nombreCliente, int dniCliente, LocalDateTime fechaReserva, Mesa mesa, boolean estaVigente) {
         this.nombreCliente = nombreCliente;
         this.dniCliente = dniCliente;
         this.fechaReserva = fechaReserva;
@@ -65,11 +66,11 @@ public class Reserva {
         this.dniCliente = dniCliente;
     }
 
-    public LocalDate getFechaReserva() {
+    public LocalDateTime getFechaReserva() {
         return fechaReserva;
     }
 
-    public void setFechaReserva(LocalDate fechaReserva) {
+    public void setFechaReserva(LocalDateTime fechaReserva) {
         this.fechaReserva = fechaReserva;
     }
 
