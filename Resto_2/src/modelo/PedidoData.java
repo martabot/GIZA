@@ -131,4 +131,46 @@ public class PedidoData {
             System.out.println("Error al borrar el pedido: " + ex.getMessage());
         }
     }  
+       
+    public Pedido selccionarPedidoPorMesa(int idM) throws ClassNotFoundException{
+        
+        try {
+            String sql = "SELECT * FROM pedido where id_mesa = ?;";
+          try (PreparedStatement statment = connection.prepareStatement(sql)) {
+              statment.setInt(1, idM);
+              ResultSet resultSet = statment.executeQuery();
+              while(resultSet.next()){
+              Pedido pedi = new Pedido();
+              connect=new Conexion();
+              connect.getConexion();
+              mesa=new MesaData(connect);
+              mesero=new MeseroData(connect);
+                    pedi.setIdPedido(resultSet.getInt(1));
+                    pedi.setMesa(mesa.deIdAMesa(resultSet.getInt(2)));
+                    pedi.setMesero(mesero.deIdAMesero(resultSet.getInt(3)));
+                    pedi.setFechaPedido(resultSet.getTimestamp(4).toLocalDateTime());
+                    pedi.setCuenta(resultSet.getDouble(5));
+              
+              this.pedido=pedi;
+            }
+          }
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener el pedido: " + ex.getMessage());
+        }
+    return pedido;
+    }  
+    
+    public void actualizarCuentaDePedido(int x,double b){
+        try {
+            String sql = "UPDATE `pedido` SET `cuenta`=?  WHERE id_pedido= ?;";
+            try (PreparedStatement statment = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                statment.setDouble(1, b);
+                statment.setInt(2, x);
+                
+                statment.executeUpdate();
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al actualizar la cuenta: " + ex.getMessage());
+        }
+    }
 }

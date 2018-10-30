@@ -22,6 +22,7 @@ public class ComandaData {
     private Conexion connect;
     private PedidoData pedido;
     private ProductoData producto;
+    private Comanda comanda;
 
     public ComandaData(Conexion conexion) {
         try {
@@ -59,8 +60,8 @@ public class ComandaData {
     }
     
     
-    public List<Comanda> obtenerComanda() throws ClassNotFoundException{
-        List<Comanda> comandas = new ArrayList<>();
+    public ArrayList<Comanda> obtenerComandas() throws ClassNotFoundException{
+        ArrayList<Comanda> comandas = new ArrayList<>();
             
 
         try {
@@ -98,4 +99,60 @@ public class ComandaData {
             System.out.println("Error al borrar la comanda: " + ex.getMessage());
         }
     }
+    
+    public ArrayList<Comanda> selccionarComandasPorPedido(int i) throws ClassNotFoundException{
+            ArrayList<Comanda> x=new ArrayList<>();
+            
+        try {
+            String sql = "SELECT * FROM comanda where id_pedido = ?;";
+          try (PreparedStatement statment = connection.prepareStatement(sql)) {
+              statment.setInt(1, i);
+              ResultSet resultSet = statment.executeQuery();
+              while(resultSet.next()){
+                    Comanda c= new Comanda();
+                    connect=new Conexion();
+                    connect.getConexion();
+                    pedido=new PedidoData(connect);
+                    producto=new ProductoData(connect);
+                    c.setIdComanda(resultSet.getInt(1));
+                    c.setPedido(pedido.deIdAPedido(resultSet.getInt(2)));
+                    c.setProducto(producto.deIdAlProducto(resultSet.getInt(3)));
+                    c.setCantidad(resultSet.getInt(4));
+                    
+                    x.add(c);   
+            }
+          }
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener las comandas: " + ex.getMessage());
+        } 
+    return x;
+    }  
+       
+    public Comanda selccionarComandaPor(String a,String idc) throws ClassNotFoundException{
+            
+        try {
+            String sql = "SELECT * FROM comanda where ? = ?;";
+          try (PreparedStatement statment = connection.prepareStatement(sql)) {
+              statment.setString(1, a);
+              statment.setString(2, idc);
+              ResultSet resultSet = statment.executeQuery();
+              while(resultSet.next()){
+                    Comanda c= new Comanda();
+                    connect=new Conexion();
+                    connect.getConexion();
+                    pedido=new PedidoData(connect);
+                    producto=new ProductoData(connect);
+                    c.setIdComanda(resultSet.getInt(1));
+                    c.setPedido(pedido.deIdAPedido(resultSet.getInt(2)));
+                    c.setProducto(producto.deIdAlProducto(resultSet.getInt(3)));
+                    c.setCantidad(resultSet.getInt(4));
+                    
+                    this.comanda=c;   
+            }
+          }
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener la comanda: " + ex.getMessage());
+        }
+    return comanda;
+    }  
 }

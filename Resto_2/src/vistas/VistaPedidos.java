@@ -10,9 +10,12 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import static java.time.LocalDate.now;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import javax.swing.table.DefaultTableModel;
 import modelo.*;
 
 /**
@@ -22,8 +25,11 @@ import modelo.*;
 public class VistaPedidos extends javax.swing.JFrame {
     private Conexion conexion;
     private Fuentes fuente;
+    private Double subtotal;
+    private int a;
 
     public VistaPedidos() {
+        this.subtotal = 00.0;
         this.setUndecorated(true);
         this.setResizable(false);
         this.setVisible(true);
@@ -44,6 +50,46 @@ public class VistaPedidos extends javax.swing.JFrame {
         nomOld.setVisible(false);
         nomNu.setVisible(false);
         cambiarNombre2.setVisible(false);
+        
+        //Instanciamos la conexion 
+        try {
+            conexion = new Conexion();
+            conexion.getConexion();    
+        } catch (ClassNotFoundException | SQLException ex) {
+                Logger.getLogger(Background.class.getName()).log(Level.SEVERE, null, ex);
+        }  
+    }
+    
+    private void cargarTabla(){
+        try {
+            DefaultTableModel modelo=new DefaultTableModel();
+            tablaPedido.setModel(modelo);
+            
+            modelo.addColumn("CANTIDAD");
+            modelo.addColumn("PRODUCTO");
+            modelo.addColumn("SUB-TOTAL");
+            
+            PedidoData pd =new PedidoData(conexion);
+            ComandaData cd=new ComandaData(conexion);
+            int x=cd.selccionarComandasPorPedido(Integer.parseInt(textoId.getText())).size();
+            if(x==0){avisos.setText("No existe el numero de orden");}
+            List<Comanda> lista=new ArrayList<>();
+            lista=cd.selccionarComandasPorPedido(Integer.parseInt(textoId.getText()));
+            for (int b=0;b<x;b++){
+                Object [] filas = new Object[3];
+                Comanda nuevo=lista.get(b);
+                filas  [0]=nuevo.getCantidad();
+                filas  [1]=nuevo.getProducto().getNombreProducto();
+                filas  [2]=(nuevo.getProducto().getPrecio())*nuevo.getCantidad();
+                modelo.addRow(filas);
+                subtotal=subtotal+(nuevo.getProducto().getPrecio())*nuevo.getCantidad();
+            }
+            pd.actualizarCuentaDePedido(Integer.parseInt(textoId.getText()),subtotal);
+            subtotal=00.0;
+            textoCuenta.setText(String.valueOf(pd.deIdAPedido(Integer.parseInt(textoId.getText())).getCuenta()));
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(VistaPedidos.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -161,9 +207,10 @@ public class VistaPedidos extends javax.swing.JFrame {
         background.add(spinnerCantidad);
         spinnerCantidad.setBounds(460, 370, 70, 30);
 
-        avisos.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        avisos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        avisos.setForeground(new java.awt.Color(153, 0, 51));
         background.add(avisos);
-        avisos.setBounds(420, 300, 430, 30);
+        avisos.setBounds(520, 300, 330, 30);
 
         eAgregarProducto.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         eAgregarProducto.setForeground(new java.awt.Color(153, 0, 51));
@@ -370,9 +417,24 @@ public class VistaPedidos extends javax.swing.JFrame {
                 {null, null, null}
             },
             new String [] {
-                "Cantidad", "Producto", "Sub-total"
+                "CANTIDAD", "PRODUCTO", "SUB-TOTAL"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.Double.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tablaPedido);
 
         background.add(jScrollPane1);
@@ -632,7 +694,7 @@ public class VistaPedidos extends javax.swing.JFrame {
     }//GEN-LAST:event_limpiarCamposActionPerformed
 
     private void buscarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarPedidoActionPerformed
-        // TODO add your handling code here:
+        this.cargarTabla();
     }//GEN-LAST:event_buscarPedidoActionPerformed
 
     private void cancelarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarPedidoActionPerformed
@@ -655,7 +717,40 @@ public class VistaPedidos extends javax.swing.JFrame {
     }//GEN-LAST:event_botonBalanceActionPerformed
 
     private void atenderMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atenderMesaActionPerformed
+        int m=Integer.valueOf(spinnerMesas.getValue().toString());
         
+        try {
+            DefaultTableModel modelo=new DefaultTableModel();
+            tablaPedido.setModel(modelo);
+            
+            modelo.addColumn("CANTIDAD");
+            modelo.addColumn("PRODUCTO");
+            modelo.addColumn("SUB-TOTAL");
+            
+            ComandaData cd=new ComandaData(conexion);
+            PedidoData pd=new PedidoData(conexion);
+            int x=cd.selccionarComandasPorPedido(pd.selccionarPedidoPorMesa(m).getIdPedido()).size();
+            if(x==0){avisos.setText("La mesa aun no tiene pedidos");}
+            System.out.println(x);
+            List<Comanda> lista=new ArrayList<>();
+            lista=cd.selccionarComandasPorPedido(pd.selccionarPedidoPorMesa(m).getIdPedido());
+            lista.forEach(c->{
+                System.out.println("nro c "+c.getIdComanda()+" nro p "+c.getPedido().getIdPedido());
+            });
+            for (int b=0;b<x;b++){
+                Object [] filas = new Object[3];
+                Comanda nuevo=lista.get(b);
+                filas  [0]=nuevo.getCantidad();
+                filas  [1]=nuevo.getProducto().getNombreProducto();
+                filas  [2]=(nuevo.getProducto().getPrecio())*nuevo.getCantidad();
+                modelo.addRow(filas);
+            }
+            
+            
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(VistaPedidos.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_atenderMesaActionPerformed
 
     /**

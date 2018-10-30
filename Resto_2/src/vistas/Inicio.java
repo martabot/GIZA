@@ -312,6 +312,7 @@ public class Inicio extends javax.swing.JFrame {
             mesero.guardarMeseros(mesero1);
             
             
+            
             this.filtrados= mesero.obtenerMeseros().stream().filter(mese -> this.meseroEsta(mese.getNombreMesero())).collect(Collectors.toList());
                        
             if (!this.filtrados.isEmpty()){
@@ -361,8 +362,6 @@ public class Inicio extends javax.swing.JFrame {
         }catch(ClassNotFoundException | SQLException e) {
             System.out.println("Error al instanciar la clase conexion: " + e.getMessage());
         }  
-            
-            
         }
     }//GEN-LAST:event_textoBuscarKeyPressed
 

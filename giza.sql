@@ -2,12 +2,14 @@
 -- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost:3306
--- Tiempo de generación: 29-10-2018 a las 22:44:09
--- Versión del servidor: 10.1.26-MariaDB-0+deb9u1
--- Versión de PHP: 7.0.30-0+deb9u1
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 30-10-2018 a las 19:37:08
+-- Versión del servidor: 10.1.36-MariaDB
+-- Versión de PHP: 5.6.38
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -32,6 +34,8 @@ CREATE TABLE `comanda` (
   `id_producto` int(11) DEFAULT NULL,
   `cantidad` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
 
 -- --------------------------------------------------------
 
@@ -126,12 +130,13 @@ INSERT INTO `mesero` (`id_mesero`, `nombre_mesero`) VALUES
 --
 
 CREATE TABLE `pedido` (
-  `id_pedido` int(11) NOT NULL,
+  `id_pedido` int(4) NOT NULL,
   `id_mesa` int(11) DEFAULT NULL,
   `id_mesero` int(11) DEFAULT NULL,
   `fecha_pedido` datetime DEFAULT NULL,
   `cuenta` double DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 
 -- --------------------------------------------------------
 
@@ -194,8 +199,8 @@ CREATE TABLE `reserva` (
 --
 ALTER TABLE `comanda`
   ADD PRIMARY KEY (`id_comanda`),
-  ADD UNIQUE KEY `id_pedido` (`id_pedido`),
-  ADD KEY `id_producto` (`id_producto`);
+  ADD KEY `id_producto` (`id_producto`),
+  ADD KEY `id_pedido` (`id_pedido`) USING BTREE;
 
 --
 -- Indices de la tabla `mesa`
@@ -238,27 +243,38 @@ ALTER TABLE `reserva`
 -- AUTO_INCREMENT de la tabla `comanda`
 --
 ALTER TABLE `comanda`
-  MODIFY `id_comanda` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_comanda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+
 --
 -- AUTO_INCREMENT de la tabla `mesa`
 --
 ALTER TABLE `mesa`
   MODIFY `id_mesa` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+
 --
 -- AUTO_INCREMENT de la tabla `mesero`
 --
 ALTER TABLE `mesero`
   MODIFY `id_mesero` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `pedido`
+--
+ALTER TABLE `pedido`
+  MODIFY `id_pedido` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+
 --
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
   MODIFY `id_producto` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
 --
 -- AUTO_INCREMENT de la tabla `reserva`
 --
 ALTER TABLE `reserva`
-  MODIFY `id_reserva` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_reserva` int(4) NOT NULL AUTO_INCREMENT;
+
 --
 -- Restricciones para tablas volcadas
 --
@@ -282,6 +298,7 @@ ALTER TABLE `pedido`
 --
 ALTER TABLE `reserva`
   ADD CONSTRAINT `reserva_ibfk_1` FOREIGN KEY (`id_mesa`) REFERENCES `mesa` (`id_mesa`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

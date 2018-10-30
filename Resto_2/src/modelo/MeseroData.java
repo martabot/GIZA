@@ -79,7 +79,7 @@ public class MeseroData {
     public Mesero deIdAMesero(int idM){
 
         try {
-            String sql = "SELECT * FROM mesero where id= ?;";
+            String sql = "SELECT * FROM mesero where id_mesero= ?;";
           try (PreparedStatement statment = connection.prepareStatement(sql)) {
               statment.setInt(1, idM);
               ResultSet resultSet = statment.executeQuery();
@@ -129,5 +129,27 @@ public class MeseroData {
     
     public String usuarioRegistrado(){
         return usuario;
+    }
+    
+    public Mesero deUsuarioAMesero(String u){
+
+        try {
+            String sql = "SELECT * FROM mesero where nombre_mesero= u;";
+          try (PreparedStatement statment = connection.prepareStatement(sql)) {
+              statment.setString(1, u);
+              ResultSet resultSet = statment.executeQuery();
+              while(resultSet.next()){
+                Mesero mese = new Mesero();
+                mese.setIdMesero(resultSet.getInt(1));
+                mese.setNombreMesero(resultSet.getString(2));
+              
+              this.mesero=mese;
+            }
+          }
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener los meseros: " + ex.getMessage());
+        }
+        
+        return mesero;
     }
 }
