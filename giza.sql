@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.6.6deb4
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 09-10-2018 a las 17:00:36
--- Versión del servidor: 10.1.36-MariaDB
--- Versión de PHP: 5.6.38
+-- Servidor: localhost:3306
+-- Tiempo de generación: 29-10-2018 a las 22:44:09
+-- Versión del servidor: 10.1.26-MariaDB-0+deb9u1
+-- Versión de PHP: 7.0.30-0+deb9u1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -147,6 +145,31 @@ CREATE TABLE `producto` (
   `precio` double DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `producto`
+--
+
+INSERT INTO `producto` (`id_producto`, `nombre_producto`, `precio`) VALUES
+(1, 'Picada', 50),
+(2, 'Ensalada', 25),
+(3, 'Sandwhich', 25),
+(4, 'Empanadas', 50),
+(5, 'Locro', 30),
+(6, 'Tacos por 3', 60),
+(7, 'Lomito', 50),
+(8, 'Pizza', 40),
+(9, 'Agua Sin Gas 500ml', 10),
+(10, 'Agua Con Gas 500ml', 15),
+(11, 'Agua Saborizada 500ml', 30),
+(12, 'Gaseosa 1lt', 80),
+(13, 'Cerveza 1lt', 30),
+(14, 'Vino', 20),
+(15, 'Fernet', 70),
+(16, 'Whisky', 100),
+(17, 'Flan Mixto', 5),
+(18, 'Helado', 15),
+(19, 'Ensalada de Frutas', 20);
+
 -- --------------------------------------------------------
 
 --
@@ -161,8 +184,6 @@ CREATE TABLE `reserva` (
   `id_mesa` int(11) DEFAULT NULL,
   `esta_vigente` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-
 
 --
 -- Índices para tablas volcadas
@@ -218,31 +239,26 @@ ALTER TABLE `reserva`
 --
 ALTER TABLE `comanda`
   MODIFY `id_comanda` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT de la tabla `mesa`
 --
 ALTER TABLE `mesa`
   MODIFY `id_mesa` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
-
 --
 -- AUTO_INCREMENT de la tabla `mesero`
 --
 ALTER TABLE `mesero`
   MODIFY `id_mesero` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `id_producto` int(4) NOT NULL AUTO_INCREMENT;
-
+  MODIFY `id_producto` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT de la tabla `reserva`
 --
 ALTER TABLE `reserva`
   MODIFY `id_reserva` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
 --
 -- Restricciones para tablas volcadas
 --
@@ -266,7 +282,6 @@ ALTER TABLE `pedido`
 --
 ALTER TABLE `reserva`
   ADD CONSTRAINT `reserva_ibfk_1` FOREIGN KEY (`id_mesa`) REFERENCES `mesa` (`id_mesa`);
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

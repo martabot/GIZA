@@ -93,7 +93,7 @@ public class PedidoData {
     public Pedido deIdAPedido(int idP) throws ClassNotFoundException{
 
         try {
-            String sql = "SELECT * FROM pedido where id= ?;";
+            String sql = "SELECT * FROM pedido where id_pedido= ?;";
           try (PreparedStatement statment = connection.prepareStatement(sql)) {
               statment.setInt(1, idP);
               ResultSet resultSet = statment.executeQuery();

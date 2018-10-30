@@ -54,8 +54,8 @@ public class ProductoData {
         }
     }
     
-    public List<Producto> obtenerProductos(){
-        List<Producto> productos = new ArrayList<>();
+    public ArrayList<Producto> obtenerProductos(){
+        ArrayList<Producto> productos = new ArrayList<>();
            
         try {
             String sql = "SELECT * FROM producto;";
@@ -80,7 +80,7 @@ public class ProductoData {
     public Producto deIdAlProducto(int idP){
 
         try {
-            String sql = "SELECT * FROM pedido where id= ?;";
+            String sql = "SELECT * FROM producto where id_producto= ?;";
           try (PreparedStatement statment = connection.prepareStatement(sql)) {
               statment.setInt(1, idP);
               ResultSet resultSet = statment.executeQuery();
@@ -94,7 +94,7 @@ public class ProductoData {
             }
           }
         } catch (SQLException ex) {
-            System.out.println("Error al obtener el pedido: " + ex.getMessage());
+            System.out.println("Error al obtener el producto: " + ex.getMessage());
         }
         
         return product;
@@ -112,4 +112,51 @@ public class ProductoData {
             System.out.println("Error al borrar el producto: " + ex.getMessage());
         }
     }  
+    
+    public void actualizarPrecioProducto(int i,Double d){
+        
+        try {
+            String sql = "UPDATE producto SET precio = ?  WHERE id_producto = ?;";
+            try (PreparedStatement statment = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                statment.setDouble(1, d);
+                statment.setInt(2, i);
+                
+                statment.executeUpdate();
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al actualizar el precio del producto: " + ex.getMessage());
+        }
+    
+        }
+    
+    public void actualizarNombreProducto(int i,String d){
+        
+        try {
+            String sql = "UPDATE producto SET nombre_producto = ?  WHERE id_producto = ?;";
+            try (PreparedStatement statment = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                statment.setString(1, d);
+                statment.setInt(2, i);
+                
+                statment.executeUpdate();
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al actualizar el nombre del producto: " + ex.getMessage());
+        }
+    }
+    
+    public void actualizarIdProducto(int i,int b){
+        
+        try {
+            String sql = "UPDATE producto SET id_producto = ?  WHERE id_producto = ?;";
+            try (PreparedStatement statment = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                statment.setInt(1, b);
+                statment.setInt(2, i);
+                
+                statment.executeUpdate();
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al actualizar el nombre del producto: " + ex.getMessage());
+        }
+    }
+    
 }
