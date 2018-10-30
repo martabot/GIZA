@@ -493,7 +493,10 @@ public class VistaMesas extends javax.swing.JFrame {
     }//GEN-LAST:event_eliminarReservaActionPerformed
 
     private void botonPreciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPreciosActionPerformed
-        // TODO add your handling code here:
+        background.removeAll();
+        VistaPrecios vistaPrecios=new VistaPrecios();
+        vistaPrecios.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_botonPreciosActionPerformed
 
     
