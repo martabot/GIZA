@@ -20,8 +20,8 @@ import modelo.*;
  * @author Muñeca Brava
  */
 public class VistaPrecios extends javax.swing.JFrame {
+    //Declaramos variables encapsulados
     private Fuentes fuente;
-    private Producto producto;
     Conexion conexion;
     
     public VistaPrecios() {
@@ -59,6 +59,7 @@ public class VistaPrecios extends javax.swing.JFrame {
         }  
     }
     
+    //Carga la tabla con los datos
     private void cargarTabla(){
         DefaultTableModel modelo=new DefaultTableModel();
             tablaPrecios.setModel(modelo);
@@ -521,11 +522,13 @@ public class VistaPrecios extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    //no hace nada, no se puede borrar
     private void botonPreciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPreciosActionPerformed
         
     }//GEN-LAST:event_botonPreciosActionPerformed
 
+    //Pasa a la vista de Mesas
     private void botonMesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMesasActionPerformed
         background.removeAll();
         VistaMesas vistaMesas=new VistaMesas();
@@ -533,6 +536,7 @@ public class VistaPrecios extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_botonMesasActionPerformed
 
+    //Pasa a la vista de Reservas
     private void botonReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReservasActionPerformed
         background.removeAll();
         VistaReservas vistaReservas=new VistaReservas();
@@ -540,6 +544,7 @@ public class VistaPrecios extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_botonReservasActionPerformed
 
+    //PAsa a la vista de pedidos
     private void botonPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPedidosActionPerformed
         background.removeAll();
         VistaPedidos vistaPedidos=new VistaPedidos();
@@ -547,28 +552,35 @@ public class VistaPrecios extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_botonPedidosActionPerformed
 
+    //actualiza la informacion de un producto con los datos cargados en cada campo
     private void actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarActionPerformed
         int fila=tablaPrecios.getSelectedRow();
         ProductoData pd=new ProductoData(conexion);
         
+        //si hay información del id
         if(textoId.getText()!=null){
         int codigo=Integer.parseInt(tablaPrecios.getValueAt(fila, 0).toString());
         pd.actualizarIdProducto(codigo,Integer.parseInt(textoId.getText()));
         }
         
+        //si hay informacion del nombre
         if(textoNombre.getText()!=null){
         String nombre=tablaPrecios.getValueAt(fila, 1).toString();
         pd.actualizarNombreProducto(Integer.parseInt(tablaPrecios.getValueAt(fila, 0).toString()), nombre);
         }
         
+        //si hay información del precio
         if(Integer.parseInt(textoMonto.getText())>00.0){
         double precio=Double.parseDouble(tablaPrecios.getValueAt(fila, 2).toString());
         pd.actualizarPrecioProducto(Integer.parseInt(tablaPrecios.getValueAt(fila, 0).toString()),precio);
         } 
+        
+        //carga la tabla para actualizar sus datos y limpia los casilleros con información
         this.cargarTabla();
         this.limpiar();
     }//GEN-LAST:event_actualizarActionPerformed
 
+    //agrega un producto a la db y a la tabla
     private void agregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarProductoActionPerformed
         ProductoData pd=new ProductoData(conexion);
         Producto p1=new Producto(textoNombre.getText(),Double.parseDouble(textoMonto.getText()));
@@ -577,6 +589,7 @@ public class VistaPrecios extends javax.swing.JFrame {
         this.limpiar();
     }//GEN-LAST:event_agregarProductoActionPerformed
 
+    //borra un producto de la db por medio de su id
     private void borrarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarProductoActionPerformed
         try {
             ProductoData pd=new ProductoData(conexion);
@@ -588,6 +601,7 @@ public class VistaPrecios extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_borrarProductoActionPerformed
 
+    //cierra sesión y vuelve al inicio
     private void cerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarSesionActionPerformed
         background.removeAll();
         background.repaint();
@@ -595,10 +609,12 @@ public class VistaPrecios extends javax.swing.JFrame {
         inicio.setVisible(true);
     }//GEN-LAST:event_cerrarSesionActionPerformed
 
+    //Cierra el programa
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         System.exit(0);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+   //Actualizar el nombre del mesero
     private void cambiarNombre2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cambiarNombre2ActionPerformed
         MeseroData m1=new MeseroData(conexion);
         m1.cambiarNombre(textoUsuario.getText(), textoUsuario1.getText());
@@ -610,7 +626,8 @@ public class VistaPrecios extends javax.swing.JFrame {
         textoUsuario.setText(null);
         textoUsuario1.setText(null);
     }//GEN-LAST:event_cambiarNombre2ActionPerformed
-
+ 
+    //Permite actualizar el nombre del mesero
     private void botonAjustesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAjustesActionPerformed
         textoUsuario.setVisible(true);
         textoUsuario1.setVisible(true);
@@ -619,6 +636,7 @@ public class VistaPrecios extends javax.swing.JFrame {
         cambiarNombre2.setVisible(true);
     }//GEN-LAST:event_botonAjustesActionPerformed
 
+    //Actualiza el nombre del usuario apretando enter en el segundo campo de texto
     private void textoUsuario1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textoUsuario1KeyPressed
         if (evt.getKeyCode()==KeyEvent.VK_ENTER){
             MeseroData m1=new MeseroData(conexion);
@@ -633,6 +651,7 @@ public class VistaPrecios extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_textoUsuario1KeyPressed
 
+    //Pasa a vista de balance
     private void botonBalanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBalanceActionPerformed
         background.removeAll();
         VistaBalance vistaBalance=new VistaBalance();
@@ -640,6 +659,7 @@ public class VistaPrecios extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_botonBalanceActionPerformed
 
+    //selecionamos un producto por id
     private void buscarEnListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarEnListaActionPerformed
         //Para eso cambiamos el color de background y foreground de la fila a los colores de seleccion
         ProductoData pd=new ProductoData(conexion);
@@ -654,22 +674,27 @@ public class VistaPrecios extends javax.swing.JFrame {
         
     }//GEN-LAST:event_buscarEnListaActionPerformed
 
+    //No hace nada, no se puede borrar
     private void textoNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoNombreActionPerformed
 
     }//GEN-LAST:event_textoNombreActionPerformed
 
+    //No hace nada, no se puede borrar
     private void textoMontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoMontoActionPerformed
-        // TODO add your handling code here:
+      
     }//GEN-LAST:event_textoMontoActionPerformed
 
+    //Este metodo no existe
     private void tablaPreciosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPreciosMouseClicked
        ph.setText(String.valueOf(tablaPrecios.getSelectedRow()));
     }//GEN-LAST:event_tablaPreciosMouseClicked
 
+    //No hace nada, no se puede borrar
     private void crearReserva1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearReserva1ActionPerformed
-        // TODO add your handling code here:
+     
     }//GEN-LAST:event_crearReserva1ActionPerformed
 
+    //No hace nada, no se puede borrar
     private void jtProductos(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtProductos
         
     }//GEN-LAST:event_jtProductos

@@ -21,7 +21,7 @@ import modelo.*;
  * @author Muñeca Brava
  */
 public class VistaReservas extends javax.swing.JFrame {
-    //Declaracion de atributos encapsulados
+    //Declaramos los atributos encapsulados
     private int idReserva;
     private String nombre;
     private int dni;
@@ -65,6 +65,7 @@ public class VistaReservas extends javax.swing.JFrame {
                 conexion = new Conexion();
                 conexion.getConexion();
                 
+                //cargamos la tabla con las reservas existentes
                 this.cargarTabla();
             } catch (ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(Background.class.getName()).log(Level.SEVERE, null, ex);
@@ -117,24 +118,30 @@ public class VistaReservas extends javax.swing.JFrame {
         avisos.setText(null);
     }
     
+    //cargamos la tabla con la información de nuestras reservas
     private void cargarTabla() throws ClassNotFoundException{
-     
+            
+            //nos ayuda a editar una tabla con modelo personalizado
             DefaultTableModel modelo=new DefaultTableModel();
             tablaReservas.setModel(modelo);
             
+            //agrega las columnas con las que vamos a trabajar
             modelo.addColumn("RESERVA");
             modelo.addColumn("NOMBRE");
             modelo.addColumn("DNI");
             modelo.addColumn("FECHA");
             modelo.addColumn("MESA");
             
+            //acomodamos el formato del horario para que se vea bonito en nuestra tabla
             DateTimeFormatter d = DateTimeFormatter.ofPattern("dd/mm/yyyy HH:mm:ss"); 
             
+            //variables y conexiones
             ReservaData rd=new ReservaData(conexion);
             int x=rd.obtenerReservas().size();
             ArrayList<Reserva> lista=new ArrayList<>();
             lista=rd.obtenerReservas();
             for (int b=0;b<x;b++){
+                //para una lista de tamaño x(que es nuestra cantidad de filas) llenamos los datos de cada columna, los contadores de fila empiezan en 0
                 Object [] filas = new Object[5];
                 Reserva nuevo=lista.get(b);
                 filas  [0]=nuevo.getIdReserva();
@@ -756,7 +763,7 @@ public class VistaReservas extends javax.swing.JFrame {
         
     }//GEN-LAST:event_textoNombreActionPerformed
 
-    //Elimina la reserva por id o "numero de reserva" y reestablece el estado de la mesa a Libre
+    //Elimina la reserva por id o "numero de reserva"(el que se le da al cliente) y reestablece el estado de la mesa a Libre
     private void eliminarReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarReservaActionPerformed
        try { 
         ReservaData r1=new ReservaData(conexion);
@@ -772,7 +779,7 @@ public class VistaReservas extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_eliminarReservaActionPerformed
 
-    //Cambia la vigencia de una Reserva que no fue eliminada voluntariamente o cuando la fecha ya no sea valida
+    //Cambia la vigencia de una Reserva que no fue eliminada pero que ya no es válida
     private void darDeBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_darDeBajaActionPerformed
        try {
            
@@ -792,20 +799,17 @@ public class VistaReservas extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_darDeBajaActionPerformed
     
-    //Selecciona de la lista de reservas la fila que coincida con el número de reserva buscado
+    //No hace nada, no se puede borrar
     private void buscarReservaPor1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarReservaPor1ActionPerformed
-        
-        //Para eso cambiamos el color de background y foreground de la fila a los colores de seleccion
-        
-        
-        
+    
     }//GEN-LAST:event_buscarReservaPor1ActionPerformed
 
-    //no se puede borrar, no hace nada
+    //limpia los casilleros invocando al método limpiante
     private void limpiarCasilleros1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarCasilleros1ActionPerformed
         this.limpiar();
     }//GEN-LAST:event_limpiarCasilleros1ActionPerformed
 
+    //Pasa a la vista de Balance
     private void botonBalanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBalanceActionPerformed
         background.removeAll();
         VistaBalance vistaBalance=new VistaBalance();
@@ -813,10 +817,12 @@ public class VistaReservas extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_botonBalanceActionPerformed
 
+    //Abre la ventada confirmacion para crear una reserva
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
         confirmacion.setVisible(false);
     }//GEN-LAST:event_botonAceptarActionPerformed
 
+    //si los datos son correctos el mesero registra la reserva
     private void botonAceptar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptar1ActionPerformed
         
         try {

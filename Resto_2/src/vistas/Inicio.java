@@ -5,7 +5,6 @@
  */
 package vistas;
 
-import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -21,6 +20,7 @@ import modelo.*;
  *
  * @author Muñeca Brava
  */
+
 public class Inicio extends javax.swing.JFrame {
     private String nombre;
     private Boolean meseroIngresado;
@@ -257,18 +257,22 @@ public class Inicio extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //No hace nada
     private void panelPrincipalPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_panelPrincipalPropertyChange
 
     }//GEN-LAST:event_panelPrincipalPropertyChange
 
+    //Fija tamaño de la resolucion
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }//GEN-LAST:event_formWindowOpened
 
+    //No hace nada
     private void textoBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoBuscarActionPerformed
     
     }//GEN-LAST:event_textoBuscarActionPerformed
 
+    //Buscamos en la base de datos si existe el mesero y lo registramos
     private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
         
         this.setNombre(textoBuscar.getText());
@@ -281,12 +285,14 @@ public class Inicio extends javax.swing.JFrame {
             
            this.filtrados= mesero.obtenerMeseros().stream().filter(mese -> this.meseroEsta(mese.getNombreMesero())).collect(Collectors.toList());
             
+           //Si el mesero esta reistrado inicia sesión
            if (!this.filtrados.isEmpty()){
             panelPrincipal.removeAll();
             Background background=new Background();
             background.setVisible(true);
             this.setVisible(false);
            }else{
+               //Sino invoca estos componentes que le permiten registrarse
                label3.setVisible(true);
                signUp.setVisible(true);
            }
@@ -296,6 +302,7 @@ public class Inicio extends javax.swing.JFrame {
         }   
     }//GEN-LAST:event_botonBuscarActionPerformed
 
+    //método para registrar al mesero que intenta iniciar sesión, lo guarda en la base de datos y entra al programa
     private void signUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpActionPerformed
         
         this.setNombre(textoBuscar.getText());
@@ -325,10 +332,12 @@ public class Inicio extends javax.swing.JFrame {
         }        
     }//GEN-LAST:event_signUpActionPerformed
 
+    //No hace nada
     private void botonBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_botonBuscarKeyPressed
         
     }//GEN-LAST:event_botonBuscarKeyPressed
 
+    //Buscamos en la base de datos si existe el mesero y lo registramos, se invoca con enter en el campo de buscar
     private void textoBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textoBuscarKeyPressed
        if (evt.getKeyCode()==KeyEvent.VK_ENTER){
             
@@ -364,6 +373,7 @@ public class Inicio extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_textoBuscarKeyPressed
 
+    //elimina al mesero de la base de datos y lo avisa en el campo de texto
     private void bRenunciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRenunciarActionPerformed
         this.setNombre(textoBuscar.getText());
         
@@ -381,10 +391,12 @@ public class Inicio extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_bRenunciarActionPerformed
 
+    //No hace nada
     private void bRenunciarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_bRenunciarKeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_bRenunciarKeyPressed
 
+    //Cierra el programa
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         System.exit(0);
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -394,7 +406,7 @@ public class Inicio extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     
-    
+    //Método main para ejecutar todo nuestro programa
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
