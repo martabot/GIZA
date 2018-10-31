@@ -282,7 +282,6 @@ public class Inicio extends javax.swing.JFrame {
            this.filtrados= mesero.obtenerMeseros().stream().filter(mese -> this.meseroEsta(mese.getNombreMesero())).collect(Collectors.toList());
             
            if (!this.filtrados.isEmpty()){
-            mesero.almacenarUsuario(textoBuscar.getText());
             panelPrincipal.removeAll();
             Background background=new Background();
             background.setVisible(true);
@@ -331,9 +330,7 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_botonBuscarKeyPressed
 
     private void textoBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textoBuscarKeyPressed
-       
-        
-        if (evt.getKeyCode()==KeyEvent.VK_ENTER){
+       if (evt.getKeyCode()==KeyEvent.VK_ENTER){
             
         this.setNombre(textoBuscar.getText());
         
@@ -355,6 +352,7 @@ public class Inicio extends javax.swing.JFrame {
             Background background=new Background();
             background.setVisible(true);
             this.setVisible(false);
+            
            }else{
                label3.setVisible(true);
                signUp.setVisible(true);
@@ -377,7 +375,7 @@ public class Inicio extends javax.swing.JFrame {
             
             mesero1.borrarMesero(this.getNombre());
             
-            textoBuscar.setText("");
+            textoBuscar.setText(this.getNombre()+": usuario eliminado");
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
         }

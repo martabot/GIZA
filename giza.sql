@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-10-2018 a las 19:37:08
+-- Tiempo de generación: 31-10-2018 a las 05:58:59
 -- Versión del servidor: 10.1.36-MariaDB
 -- Versión de PHP: 5.6.38
 
@@ -34,8 +34,6 @@ CREATE TABLE `comanda` (
   `id_producto` int(11) DEFAULT NULL,
   `cantidad` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-
 
 -- --------------------------------------------------------
 
@@ -137,7 +135,6 @@ CREATE TABLE `pedido` (
   `cuenta` double DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-
 -- --------------------------------------------------------
 
 --
@@ -219,8 +216,8 @@ ALTER TABLE `mesero`
 --
 ALTER TABLE `pedido`
   ADD PRIMARY KEY (`id_pedido`),
-  ADD KEY `id_mesa` (`id_mesa`),
-  ADD KEY `id_mesero` (`id_mesero`);
+  ADD KEY `id_mesero` (`id_mesero`),
+  ADD KEY `id_mesa` (`id_mesa`) USING BTREE;
 
 --
 -- Indices de la tabla `producto`
@@ -283,15 +280,15 @@ ALTER TABLE `reserva`
 -- Filtros para la tabla `comanda`
 --
 ALTER TABLE `comanda`
-  ADD CONSTRAINT `comanda_ibfk_1` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id_producto`),
-  ADD CONSTRAINT `comanda_ibfk_2` FOREIGN KEY (`id_pedido`) REFERENCES `pedido` (`id_pedido`);
+  ADD CONSTRAINT `comanda_ibfk_1` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id_producto`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `comanda_ibfk_2` FOREIGN KEY (`id_pedido`) REFERENCES `pedido` (`id_pedido`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `pedido`
 --
 ALTER TABLE `pedido`
-  ADD CONSTRAINT `pedido_ibfk_1` FOREIGN KEY (`id_mesa`) REFERENCES `mesa` (`id_mesa`),
-  ADD CONSTRAINT `pedido_ibfk_2` FOREIGN KEY (`id_mesero`) REFERENCES `mesero` (`id_mesero`);
+  ADD CONSTRAINT `pedido_ibfk_1` FOREIGN KEY (`id_mesa`) REFERENCES `mesa` (`id_mesa`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `pedido_ibfk_2` FOREIGN KEY (`id_mesero`) REFERENCES `mesero` (`id_mesero`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `reserva`

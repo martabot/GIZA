@@ -19,7 +19,6 @@ import java.util.List;
  */
 public class MeseroData {
     private String usuario;
-        
     private Connection connection = null;
     private Mesero mesero;
 

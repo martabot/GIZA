@@ -77,9 +77,11 @@ public class VistaPedidos extends javax.swing.JFrame {
             int x=cd.selccionarComandasPorPedido(z).size();
             List<Comanda> lista=new ArrayList<>();
             lista=cd.selccionarComandasPorPedido(z);
-            if(lista.isEmpty() && pd.deIdAPedido(z).getCuenta()!=0){
-                avisos.setText("El pedido ya fue cobrado, limpie los campos para continuar.");
-            }else if(!lista.isEmpty()){
+            if(pd.deIdAPedido(z)==null){
+            avisos.setText("No se encuentra la orden o no existe.");}
+            if(lista.isEmpty() && pd.deIdAPedido(z).getCuenta()!=0.0){
+                avisos.setText("El pedido ya fue cobrado, limpie los campos para continuar...");
+            } else if(!lista.isEmpty()){
                 
             for (int b=0;b<x;b++){
                 Object [] filas = new Object[3];
@@ -90,13 +92,14 @@ public class VistaPedidos extends javax.swing.JFrame {
                 modelo.addRow(filas);
                 subtotal=subtotal+(nuevo.getProducto().getPrecio())*nuevo.getCantidad();
             }
-            pd.actualizarCuentaDePedido(Integer.parseInt(textoId.getText()),subtotal);
+            pd.actualizarCuentaDePedido(z,subtotal);
             subtotal=00.0;
-            textoCuenta.setText(String.valueOf(pd.deIdAPedido(Integer.parseInt(textoId.getText())).getCuenta()));
-            spinnerMesas.setValue(pd.deIdAPedido(Integer.parseInt(textoId.getText())).getMesa().getIdMesa());
-            }else {avisos.setText("El pedido no existe, limpie los campos para continuar.");}
+            textoCuenta.setText(String.valueOf(pd.deIdAPedido(z).getCuenta()));
+            spinnerMesas.setValue(pd.deIdAPedido(z).getMesa().getIdMesa()); 
+            }
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(VistaPedidos.class.getName()).log(Level.SEVERE, null, ex);
+            
         }
     }
 
@@ -122,6 +125,7 @@ public class VistaPedidos extends javax.swing.JFrame {
                 filas  [2]=null;
                 modelo.addRow(filas);
             }
+            
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -443,7 +447,7 @@ public class VistaPedidos extends javax.swing.JFrame {
 
         textoId.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         background.add(textoId);
-        textoId.setBounds(840, 210, 60, 19);
+        textoId.setBounds(840, 210, 60, 18);
 
         etiquetaId.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         etiquetaId.setForeground(new java.awt.Color(153, 0, 51));
@@ -560,7 +564,7 @@ public class VistaPedidos extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(153, 0, 51));
         jLabel1.setText("Seleccione un producto para quitar");
         background.add(jLabel1);
-        jLabel1.setBounds(380, 640, 240, 15);
+        jLabel1.setBounds(380, 640, 240, 14);
 
         cancelarPedido1.setBackground(new java.awt.Color(255, 237, 221));
         cancelarPedido1.setForeground(new java.awt.Color(102, 0, 0));
@@ -673,7 +677,6 @@ public class VistaPedidos extends javax.swing.JFrame {
 
     private void limpiarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarCamposActionPerformed
         this.limpiar();
-        
     }//GEN-LAST:event_limpiarCamposActionPerformed
 
     private void buscarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarPedidoActionPerformed
@@ -681,11 +684,30 @@ public class VistaPedidos extends javax.swing.JFrame {
     }//GEN-LAST:event_buscarPedidoActionPerformed
 
     private void quitarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitarProductoActionPerformed
-        ProductoData pp=new ProductoData(conexion);
-        ComandaData cd= new ComandaData(conexion);
-        List<Producto> productos=pp.obtenerProductos().stream().filter(p->p.getNombreProducto().equals(tablaPedido.getValueAt(tablaPedido.getSelectedRow(), 1).toString())).collect(Collectors.toList());
-        productos.forEach(p1->cd.borrarComandaPorPrdocuto(p1.getIdProducto()));
-        this.cargarTabla();
+        try {
+            int z=Integer.parseInt(textoId.getText());
+            ProductoData pp=new ProductoData(conexion);
+            ComandaData cd= new ComandaData(conexion);
+            List<Producto> productos=pp.obtenerProductos().stream().filter(p->p.getNombreProducto().equals(tablaPedido.getValueAt(tablaPedido.getSelectedRow(), 1).toString())).collect(Collectors.toList());
+            productos.forEach(p1->cd.borrarComandaPorPrdocuto(p1.getIdProducto()));
+            if(cd.selccionarComandasPorPedido(z).isEmpty()){
+                avisos.setText("Producto eliminado.");
+                DefaultTableModel modelo=new DefaultTableModel();
+                tablaPedido.setModel(modelo);
+                modelo.addColumn("CANTIDAD");
+                modelo.addColumn("PRODUCTO");
+                modelo.addColumn("SUB-TOTAL");
+                for (int b=0;b<13;b++){
+                    Object [] filas = new Object[3];
+                    filas  [0]=null;
+                    filas  [1]=null;
+                    filas  [2]=null;
+                    modelo.addRow(filas);
+                }
+            }else{this.cargarTabla();}
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(VistaPedidos.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_quitarProductoActionPerformed
 
     private void agregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarProductoActionPerformed
@@ -718,6 +740,7 @@ public class VistaPedidos extends javax.swing.JFrame {
             md.actualizarEstadoMesa("Libre", Integer.parseInt(spinnerMesas.getValue().toString()));
             pd.actualizarCuentaDePedido(a, salvar);
             this.limpiar();
+            avisos.setText("El pedido se cobró con exito, limpie los campos para continuar.");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(VistaPedidos.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -731,38 +754,38 @@ public class VistaPedidos extends javax.swing.JFrame {
     }//GEN-LAST:event_botonBalanceActionPerformed
 
     private void atenderMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atenderMesaActionPerformed
-         /*
-        *
-        try {
-            DefaultTableModel modelo=new DefaultTableModel();
-            tablaPedido.setModel(modelo);
+       int m=Integer.valueOf(spinnerMesas.getValue().toString());
+       try {MesaData md=new MesaData(conexion);
+        if("Reserva".equals(md.deIdAMesa(m).getEstadoMesa())||"Libre".equals(md.deIdAMesa(m).getEstadoMesa())){
             
-            modelo.addColumn("CANTIDAD");
-            modelo.addColumn("PRODUCTO");
-            modelo.addColumn("SUB-TOTAL");
-            
-            
-            //variables
-            int m=Integer.valueOf(spinnerMesas.getValue().toString());
-            ComandaData cd= new ComandaData(conexion);
-            PedidoData pd= new PedidoData(conexion);
-            MesaData md= new MesaData(conexion);
-            MeseroData mm= new MeseroData(conexion);
-            int x=cd.selccionarComandasPorPedido(pd.selccionarPedidoPorMesa(m).getIdPedido()).size();
-            
-            
-            //primera condicion
-            if ("Libre".equals(md.deIdAMesa(m).getEstadoMesa())){
-                System.out.println("lista vacia");
-                Pedido pedido=new Pedido(md.deIdAMesa(m),mm.deUsuarioAMesero(mm.usuarioRegistrado()),LocalDateTime.now(),0);
+                PedidoData pd=new PedidoData(conexion);
+                MeseroData mm=new MeseroData(conexion);
+                
+                Pedido pedido=new Pedido(md.deIdAMesa(m),mm.deUsuarioAMesero("usuario1"),LocalDateTime.now(),0.0);
+                
                 pd.guardarPedido(pedido);
                 textoId.setText(String.valueOf(pd.obtenerPedidos().get(pd.obtenerPedidos().size()-1).getIdPedido()));
                 md.actualizarEstadoMesa("Ocupada", m);
-            }else{ System.out.println("lista no vacia"); 
-            int p=Integer.valueOf(textoId.getText());
-            List<Comanda> lista=new ArrayList<>();
-            lista=cd.selccionarComandasPorPedido(pd.selccionarPedidoPorMesa(m).getIdPedido());
-            for (int b=0;b<x;b++){
+                avisos.setText("Agregue un producto para continuar...");
+                
+            }else if ("Ocupada".equals(md.deIdAMesa(m).getEstadoMesa())||"Atendida".equals(md.deIdAMesa(m).getEstadoMesa())){
+                DefaultTableModel modelo=new DefaultTableModel();
+                tablaPedido.setModel(modelo);
+            
+                modelo.addColumn("CANTIDAD");
+                modelo.addColumn("PRODUCTO");
+                modelo.addColumn("SUB-TOTAL");
+                
+                PedidoData pd=new PedidoData(conexion);
+                ComandaData cd=new ComandaData(conexion);
+                
+                textoId.setText(String.valueOf(pd.selccionarPedidoPorMesa(m).getIdPedido()));
+                int x=cd.selccionarComandasPorPedido(pd.selccionarPedidoPorMesa(m).getIdPedido()).size();
+                int p=Integer.valueOf(textoId.getText());
+                List<Comanda> lista=new ArrayList<>();
+                lista=cd.selccionarComandasPorPedido(pd.selccionarPedidoPorMesa(m).getIdPedido());
+                
+                for (int b=0;b<x;b++){
                 Object [] filas = new Object[3];
                 Comanda nuevo=lista.get(b);
                 filas  [0]=nuevo.getCantidad();
@@ -773,29 +796,27 @@ public class VistaPedidos extends javax.swing.JFrame {
             }
             pd.actualizarCuentaDePedido(p,subtotal);
             subtotal=00.0;
-            textoCuenta.setText(String.valueOf(pd.deIdAPedido(p).getCuenta()));}
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(VistaPedidos.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        */
-        int m=Integer.valueOf(spinnerMesas.getValue().toString());
-        MesaData md=new MesaData(conexion);
-        if("Libre".equals(md.deIdAMesa(m).getEstadoMesa())){
-            try {
-                PedidoData pd=new PedidoData(conexion);
-                MeseroData mm=new MeseroData(conexion);
-                Pedido pedido=new Pedido(md.deIdAMesa(m),mm.deUsuarioAMesero(mm.usuarioRegistrado()),LocalDateTime.now(),0.0);
-                
-                pd.guardarPedido(pedido);
-                textoId.setText(pd.obtenerPedidos().get(pd.obtenerPedidos().size()-1).toString());
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(VistaPedidos.class.getName()).log(Level.SEVERE, null, ex);
+            textoCuenta.setText(String.valueOf(pd.deIdAPedido(p).getCuenta()));
             }
+        } catch (ClassNotFoundException ex) {
+                Logger.getLogger(VistaPedidos.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_atenderMesaActionPerformed
 
     private void cancelarPedido1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarPedido1ActionPerformed
-        // TODO add your handling code here:
+        try {
+            int z=Integer.parseInt(textoId.getText());
+            
+            PedidoData pd=new PedidoData(conexion);
+            MesaData md=new MesaData(conexion);
+            
+            pd.borrarPedido(z);
+            this.limpiar();
+            avisos.setText("Pedido "+z+" eliminado.");
+            md.actualizarEstadoMesa("Libre", pd.deIdAPedido(z).getMesa().getIdMesa());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(VistaPedidos.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_cancelarPedido1ActionPerformed
 
     private void textoCambioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoCambioActionPerformed
@@ -809,10 +830,6 @@ public class VistaPedidos extends javax.swing.JFrame {
     private void recualculando(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_recualculando
         textoCambio.setText(String.valueOf(Math.abs(Double.parseDouble(textoCuenta.getText())-Double.parseDouble(textoPagaCon.getText()))));
     }//GEN-LAST:event_recualculando
-
-    /**
-     * @param args the command line arguments
-     */
 
     
 
