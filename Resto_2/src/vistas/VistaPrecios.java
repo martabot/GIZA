@@ -8,10 +8,8 @@ package vistas;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 import javax.swing.table.DefaultTableModel;
 import modelo.*;
 
@@ -20,10 +18,11 @@ import modelo.*;
  * @author Muñeca Brava
  */
 public class VistaPrecios extends javax.swing.JFrame {
-    //Declaramos variables encapsulados
+    //atributos encapsulados
     private Fuentes fuente;
-    Conexion conexion;
+    private Conexion conexion;
     
+    //constructor
     public VistaPrecios() {
         
         //Propiedades de la pantalla completa
@@ -82,6 +81,7 @@ public class VistaPrecios extends javax.swing.JFrame {
             }
     }
     
+    //limpia los campos de texto
     private void limpiar(){
         textoNombre.setText(null);
         textoMonto.setText("00.0");
@@ -120,7 +120,7 @@ public class VistaPrecios extends javax.swing.JFrame {
         etiquetaId4 = new javax.swing.JLabel();
         textoMonto = new javax.swing.JTextField();
         ph = new javax.swing.JLabel();
-        crearReserva1 = new javax.swing.JButton();
+        limpiar = new javax.swing.JButton();
         imagen = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -133,11 +133,6 @@ public class VistaPrecios extends javax.swing.JFrame {
         botonPrecios.setText("PRECIOS");
         botonPrecios.setToolTipText("");
         botonPrecios.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 153, 51), 3, true));
-        botonPrecios.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonPreciosActionPerformed(evt);
-            }
-        });
         background.add(botonPrecios);
         botonPrecios.setBounds(20, 500, 250, 70);
 
@@ -442,7 +437,7 @@ public class VistaPrecios extends javax.swing.JFrame {
 
         textoId.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         background.add(textoId);
-        textoId.setBounds(840, 210, 60, 19);
+        textoId.setBounds(840, 210, 60, 18);
 
         etiquetaId.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         etiquetaId.setForeground(new java.awt.Color(153, 0, 51));
@@ -451,11 +446,6 @@ public class VistaPrecios extends javax.swing.JFrame {
         etiquetaId.setBounds(800, 210, 50, 20);
 
         textoNombre.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        textoNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textoNombreActionPerformed(evt);
-            }
-        });
         background.add(textoNombre);
         textoNombre.setBounds(490, 270, 270, 30);
 
@@ -474,30 +464,25 @@ public class VistaPrecios extends javax.swing.JFrame {
 
         textoMonto.setText("00.0");
         textoMonto.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        textoMonto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textoMontoActionPerformed(evt);
-            }
-        });
         background.add(textoMonto);
         textoMonto.setBounds(490, 310, 140, 30);
 
         ph.setForeground(new java.awt.Color(232, 232, 231));
         background.add(ph);
-        ph.setBounds(390, 360, 10, 10);
+        ph.setBounds(370, 200, 10, 10);
 
-        crearReserva1.setBackground(new java.awt.Color(255, 237, 221));
-        crearReserva1.setForeground(new java.awt.Color(102, 0, 0));
-        crearReserva1.setText("LIMPIAR");
-        crearReserva1.setActionCommand("");
-        crearReserva1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 204, 204), new java.awt.Color(255, 204, 102), new java.awt.Color(204, 0, 51), new java.awt.Color(102, 0, 0)));
-        crearReserva1.addActionListener(new java.awt.event.ActionListener() {
+        limpiar.setBackground(new java.awt.Color(255, 237, 221));
+        limpiar.setForeground(new java.awt.Color(102, 0, 0));
+        limpiar.setText("LIMPIAR");
+        limpiar.setActionCommand("");
+        limpiar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 204, 204), new java.awt.Color(255, 204, 102), new java.awt.Color(204, 0, 51), new java.awt.Color(102, 0, 0)));
+        limpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                crearReserva1ActionPerformed(evt);
+                limpiarActionPerformed(evt);
             }
         });
-        background.add(crearReserva1);
-        crearReserva1.setBounds(380, 590, 120, 30);
+        background.add(limpiar);
+        limpiar.setBounds(380, 590, 120, 30);
 
         imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/Background.png"))); // NOI18N
         imagen.setAlignmentY(0.0F);
@@ -523,11 +508,6 @@ public class VistaPrecios extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    //no hace nada, no se puede borrar
-    private void botonPreciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPreciosActionPerformed
-        
-    }//GEN-LAST:event_botonPreciosActionPerformed
-
     //Pasa a la vista de Mesas
     private void botonMesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMesasActionPerformed
         background.removeAll();
@@ -544,7 +524,7 @@ public class VistaPrecios extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_botonReservasActionPerformed
 
-    //PAsa a la vista de pedidos
+    //Pasa a la vista de pedidos
     private void botonPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPedidosActionPerformed
         background.removeAll();
         VistaPedidos vistaPedidos=new VistaPedidos();
@@ -674,25 +654,15 @@ public class VistaPrecios extends javax.swing.JFrame {
         
     }//GEN-LAST:event_buscarEnListaActionPerformed
 
-    //No hace nada, no se puede borrar
-    private void textoNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoNombreActionPerformed
-
-    }//GEN-LAST:event_textoNombreActionPerformed
-
-    //No hace nada, no se puede borrar
-    private void textoMontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoMontoActionPerformed
-      
-    }//GEN-LAST:event_textoMontoActionPerformed
-
     //Este metodo no existe
     private void tablaPreciosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPreciosMouseClicked
        ph.setText(String.valueOf(tablaPrecios.getSelectedRow()));
     }//GEN-LAST:event_tablaPreciosMouseClicked
 
-    //No hace nada, no se puede borrar
-    private void crearReserva1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearReserva1ActionPerformed
-     
-    }//GEN-LAST:event_crearReserva1ActionPerformed
+    //Limpia los casilleros
+    private void limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarActionPerformed
+        this.limpiar();
+    }//GEN-LAST:event_limpiarActionPerformed
 
     //No hace nada, no se puede borrar
     private void jtProductos(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtProductos
@@ -715,7 +685,6 @@ public class VistaPrecios extends javax.swing.JFrame {
     private javax.swing.JButton buscarEnLista;
     private javax.swing.JButton cambiarNombre2;
     private javax.swing.JButton cerrarSesion;
-    private javax.swing.JButton crearReserva1;
     private javax.swing.JLabel etiquetaId;
     private javax.swing.JLabel etiquetaId4;
     private javax.swing.JLabel etiquetaNombre;
@@ -723,6 +692,7 @@ public class VistaPrecios extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelPrecios;
+    private javax.swing.JButton limpiar;
     private javax.swing.JLabel nomNu;
     private javax.swing.JLabel nomOld;
     private javax.swing.JLabel ph;

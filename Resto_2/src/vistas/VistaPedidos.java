@@ -25,6 +25,8 @@ public class VistaPedidos extends javax.swing.JFrame {
     private Conexion conexion;
     private Fuentes fuente;
     private Double subtotal;
+    private ProductoData pd;
+    private ArrayList<Producto> productos;
     
     //cosntructor
     public VistaPedidos() {
@@ -58,6 +60,12 @@ public class VistaPedidos extends javax.swing.JFrame {
         try {
             conexion = new Conexion();
             conexion.getConexion();
+            
+            pd = new ProductoData(conexion);
+            productos = (ArrayList<Producto>) pd.obtenerProductos();
+            
+            //cargamos los prodcutos disponibles en el combobox
+            cargarCbProductos();
             
         } catch (ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(Background.class.getName()).log(Level.SEVERE, null, ex);
@@ -147,10 +155,16 @@ public class VistaPedidos extends javax.swing.JFrame {
                 filas  [1]=null;
                 filas  [2]=null;
                 modelo.addRow(filas);
-            }
-            
+            }   
     }
     
+    //Metodo para caragar los productos disponibles en el combobox
+    public void cargarCbProductos(){
+        for(Producto p: productos) {
+            cbProductos.addItem(p.getNombreProducto());
+        }
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -197,6 +211,8 @@ public class VistaPedidos extends javax.swing.JFrame {
         atenderMesa = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         cancelarPedido1 = new javax.swing.JButton();
+        eIdProducto1 = new javax.swing.JLabel();
+        cbProductos = new javax.swing.JComboBox<>();
         imagen = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -248,11 +264,6 @@ public class VistaPedidos extends javax.swing.JFrame {
         botonPedidos.setForeground(new java.awt.Color(238, 140, 60));
         botonPedidos.setText("PEDIDOS");
         botonPedidos.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 153, 51), 3, true));
-        botonPedidos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonPedidosActionPerformed(evt);
-            }
-        });
         background.add(botonPedidos);
         botonPedidos.setBounds(20, 400, 250, 70);
 
@@ -266,7 +277,7 @@ public class VistaPedidos extends javax.swing.JFrame {
         spinnerCantidad.setBorder(null);
         spinnerCantidad.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         background.add(spinnerCantidad);
-        spinnerCantidad.setBounds(460, 380, 70, 30);
+        spinnerCantidad.setBounds(440, 380, 60, 30);
 
         avisos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         avisos.setForeground(new java.awt.Color(153, 0, 51));
@@ -281,24 +292,19 @@ public class VistaPedidos extends javax.swing.JFrame {
 
         eCantidad.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         eCantidad.setForeground(new java.awt.Color(153, 0, 51));
-        eCantidad.setText("CANTIDAD:");
+        eCantidad.setText("CANT.:");
         background.add(eCantidad);
-        eCantidad.setBounds(380, 380, 80, 30);
+        eCantidad.setBounds(380, 380, 60, 30);
 
         eIdProducto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         eIdProducto.setForeground(new java.awt.Color(153, 0, 51));
-        eIdProducto.setText("ID:");
+        eIdProducto.setText("NOMBRE:");
         background.add(eIdProducto);
-        eIdProducto.setBounds(560, 380, 30, 30);
+        eIdProducto.setBounds(620, 380, 70, 30);
 
         idProducto.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        idProducto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                idProductoActionPerformed(evt);
-            }
-        });
         background.add(idProducto);
-        idProducto.setBounds(600, 380, 90, 30);
+        idProducto.setBounds(550, 380, 50, 30);
 
         ePagaCon.setForeground(new java.awt.Color(179, 3, 62));
         ePagaCon.setText("PAGA CON:");
@@ -307,11 +313,6 @@ public class VistaPedidos extends javax.swing.JFrame {
 
         textoCambio.setForeground(new java.awt.Color(153, 0, 51));
         textoCambio.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        textoCambio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textoCambioActionPerformed(evt);
-            }
-        });
         background.add(textoCambio);
         textoCambio.setBounds(810, 530, 90, 30);
 
@@ -323,11 +324,6 @@ public class VistaPedidos extends javax.swing.JFrame {
 
         textoPagaCon.setForeground(new java.awt.Color(153, 0, 51));
         textoPagaCon.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        textoPagaCon.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textoPagaConActionPerformed(evt);
-            }
-        });
         textoPagaCon.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 recualculando(evt);
@@ -530,7 +526,7 @@ public class VistaPedidos extends javax.swing.JFrame {
             }
         });
         background.add(agregarProducto);
-        agregarProducto.setBounds(730, 380, 110, 30);
+        agregarProducto.setBounds(800, 380, 110, 30);
 
         cobrarPedido.setBackground(new java.awt.Color(255, 237, 221));
         cobrarPedido.setForeground(new java.awt.Color(102, 0, 0));
@@ -604,6 +600,22 @@ public class VistaPedidos extends javax.swing.JFrame {
         background.add(cancelarPedido1);
         cancelarPedido1.setBounds(740, 640, 150, 20);
 
+        eIdProducto1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        eIdProducto1.setForeground(new java.awt.Color(153, 0, 51));
+        eIdProducto1.setText("ID:");
+        background.add(eIdProducto1);
+        eIdProducto1.setBounds(520, 380, 30, 30);
+
+        cbProductos.setForeground(new java.awt.Color(153, 0, 51));
+        cbProductos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        cbProductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbProductosActionPerformed(evt);
+            }
+        });
+        background.add(cbProductos);
+        cbProductos.setBounds(690, 380, 100, 30);
+
         imagen.setBackground(new java.awt.Color(204, 70, 0));
         imagen.setForeground(new java.awt.Color(1, 1, 1));
         imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/Background.png"))); // NOI18N
@@ -648,16 +660,6 @@ public class VistaPedidos extends javax.swing.JFrame {
         vistaReservas.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_botonReservasActionPerformed
-
-    //no hace nada, no se puede borrar
-    private void botonPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPedidosActionPerformed
-       
-    }//GEN-LAST:event_botonPedidosActionPerformed
-
-    //no hace nada, no se puede borrar
-    private void idProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idProductoActionPerformed
-       
-    }//GEN-LAST:event_idProductoActionPerformed
 
     //cierra sesion y pasa al inicio
     private void cerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarSesionActionPerformed
@@ -894,20 +896,16 @@ public class VistaPedidos extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cancelarPedido1ActionPerformed
     
-    //no hace nada, no se puede borrar
-    private void textoCambioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoCambioActionPerformed
-       
-    }//GEN-LAST:event_textoCambioActionPerformed
-
-     //no hace nada, no se puede borrar
-    private void textoPagaConActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoPagaConActionPerformed
-       
-    }//GEN-LAST:event_textoPagaConActionPerformed
-
      //calcula el cambio que le daremos al cliente dependiendo de su cuenta y con cuanto pague
     private void recualculando(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_recualculando
         textoCambio.setText(String.valueOf(Math.abs(Double.parseDouble(textoCuenta.getText())-Double.parseDouble(textoPagaCon.getText()))));
     }//GEN-LAST:event_recualculando
+
+    private void cbProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbProductosActionPerformed
+        ProductoData pp=new ProductoData(conexion);
+        List<Producto> productos=pp.obtenerProductos().stream().filter(p->p.getNombreProducto().equals(cbProductos.getSelectedItem().toString())).collect(Collectors.toList());
+        productos.forEach(p1->idProducto.setText(String.valueOf(p1.getIdProducto())));
+    }//GEN-LAST:event_cbProductosActionPerformed
 
     
 
@@ -925,12 +923,14 @@ public class VistaPedidos extends javax.swing.JFrame {
     private javax.swing.JButton buscarPedido;
     private javax.swing.JButton cambiarNombre2;
     private javax.swing.JButton cancelarPedido1;
+    private javax.swing.JComboBox<String> cbProductos;
     private javax.swing.JButton cerrarSesion;
     private javax.swing.JButton cobrarPedido;
     private javax.swing.JLabel eAgregarProducto;
     private javax.swing.JLabel eCambio;
     private javax.swing.JLabel eCantidad;
     private javax.swing.JLabel eIdProducto;
+    private javax.swing.JLabel eIdProducto1;
     private javax.swing.JLabel ePagaCon;
     private javax.swing.JLabel ePagaCon1;
     private javax.swing.JLabel eTomarPedido;

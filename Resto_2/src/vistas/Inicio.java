@@ -22,13 +22,14 @@ import modelo.*;
  */
 
 public class Inicio extends javax.swing.JFrame {
+    //atributos encapsuladas
     private String nombre;
     private Boolean meseroIngresado;
     private List<Mesero> filtrados;
     private int numeroMesa;
     PreparedStatement ps;
     
-    
+    //constructor
     public Inicio() {
         this.setUndecorated(true);
         this.setResizable(false);
@@ -42,6 +43,7 @@ public class Inicio extends javax.swing.JFrame {
 
     }
     
+    //Algunos getters y setter necesarios
     public Boolean getMeseroIngresado(){
         return meseroIngresado;
     }
@@ -56,6 +58,7 @@ public class Inicio extends javax.swing.JFrame {
         this.nombre=name;
     }
 
+    //Unb booleano que compara el nombre
     public boolean meseroEsta(String name){
         return this.getNombre().equals(name);
     }
@@ -65,10 +68,6 @@ public class Inicio extends javax.swing.JFrame {
     }
     public void setNumeroMesa(int numeroMesa) {
         this.numeroMesa = numeroMesa;
-    }
-    
-    public boolean reservaDeMesa(int idM){
-        return this.getNumeroMesa()==idM;
     }
     
     @SuppressWarnings("unchecked")
@@ -97,21 +96,11 @@ public class Inicio extends javax.swing.JFrame {
 
         panelPrincipal.setAlignmentX(0.0F);
         panelPrincipal.setAlignmentY(0.0F);
-        panelPrincipal.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                panelPrincipalPropertyChange(evt);
-            }
-        });
         panelPrincipal.setLayout(null);
 
         panelDeInicio.setBackground(new java.awt.Color(254, 237, 219));
         panelDeInicio.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
-        textoBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textoBuscarActionPerformed(evt);
-            }
-        });
         textoBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 textoBuscarKeyPressed(evt);
@@ -126,11 +115,6 @@ public class Inicio extends javax.swing.JFrame {
         botonBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonBuscarActionPerformed(evt);
-            }
-        });
-        botonBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                botonBuscarKeyPressed(evt);
             }
         });
 
@@ -162,11 +146,6 @@ public class Inicio extends javax.swing.JFrame {
         bRenunciar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bRenunciarActionPerformed(evt);
-            }
-        });
-        bRenunciar.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                bRenunciarKeyPressed(evt);
             }
         });
 
@@ -257,20 +236,10 @@ public class Inicio extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    //No hace nada
-    private void panelPrincipalPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_panelPrincipalPropertyChange
-
-    }//GEN-LAST:event_panelPrincipalPropertyChange
-
     //Fija tamaño de la resolucion
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }//GEN-LAST:event_formWindowOpened
-
-    //No hace nada
-    private void textoBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoBuscarActionPerformed
-    
-    }//GEN-LAST:event_textoBuscarActionPerformed
 
     //Buscamos en la base de datos si existe el mesero y lo registramos
     private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
@@ -332,11 +301,6 @@ public class Inicio extends javax.swing.JFrame {
         }        
     }//GEN-LAST:event_signUpActionPerformed
 
-    //No hace nada
-    private void botonBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_botonBuscarKeyPressed
-        
-    }//GEN-LAST:event_botonBuscarKeyPressed
-
     //Buscamos en la base de datos si existe el mesero y lo registramos, se invoca con enter en el campo de buscar
     private void textoBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textoBuscarKeyPressed
        if (evt.getKeyCode()==KeyEvent.VK_ENTER){
@@ -391,17 +355,11 @@ public class Inicio extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_bRenunciarActionPerformed
 
-    //No hace nada
-    private void bRenunciarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_bRenunciarKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_bRenunciarKeyPressed
-
     //Cierra el programa
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         System.exit(0);
     }//GEN-LAST:event_jButton1ActionPerformed
-        
-    
+      
     /**
      * @param args the command line arguments
      */

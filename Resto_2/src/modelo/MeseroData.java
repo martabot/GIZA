@@ -121,7 +121,8 @@ public class MeseroData {
             System.out.println("Error al actualizar el nombre de mesero: " + ex.getMessage());
         }
     }
-    
+   
+    ////////////
     public void almacenarUsuario(String usuario){
         this.usuario=usuario;
     }

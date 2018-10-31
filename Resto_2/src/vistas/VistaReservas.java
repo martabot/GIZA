@@ -325,11 +325,6 @@ public class VistaReservas extends javax.swing.JFrame {
         botonReservas.setForeground(new java.awt.Color(238, 140, 60));
         botonReservas.setText("RESERVAS");
         botonReservas.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 153, 51), 3, true));
-        botonReservas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonReservasActionPerformed(evt);
-            }
-        });
         background.add(botonReservas);
         botonReservas.setBounds(20, 300, 250, 70);
 
@@ -476,7 +471,7 @@ public class VistaReservas extends javax.swing.JFrame {
 
         textoId.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         background.add(textoId);
-        textoId.setBounds(840, 210, 60, 19);
+        textoId.setBounds(840, 210, 60, 18);
 
         etiquetaNombre.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         etiquetaNombre.setForeground(new java.awt.Color(153, 0, 51));
@@ -486,11 +481,6 @@ public class VistaReservas extends javax.swing.JFrame {
         etiquetaNombre.setBounds(380, 270, 90, 30);
 
         textoNombre.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        textoNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textoNombreActionPerformed(evt);
-            }
-        });
         background.add(textoNombre);
         textoNombre.setBounds(470, 269, 270, 30);
 
@@ -657,11 +647,6 @@ public class VistaReservas extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_botonMesasActionPerformed
 
-    //no se puede borrar, no hace nada
-    private void botonReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReservasActionPerformed
-        
-    }//GEN-LAST:event_botonReservasActionPerformed
-
     //Pasa a vista Pedidos
     private void botonPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPedidosActionPerformed
         background.removeAll();
@@ -758,11 +743,6 @@ public class VistaReservas extends javax.swing.JFrame {
         cambiarNombre2.setVisible(true);
     }//GEN-LAST:event_botonAjustesActionPerformed
 
-    //no se puede borrar, no hace nada
-    private void textoNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoNombreActionPerformed
-        
-    }//GEN-LAST:event_textoNombreActionPerformed
-
     //Elimina la reserva por id o "numero de reserva"(el que se le da al cliente) y reestablece el estado de la mesa a Libre
     private void eliminarReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarReservaActionPerformed
        try { 
@@ -790,8 +770,9 @@ public class VistaReservas extends javax.swing.JFrame {
         reservaMesa.forEach(r->{
         MesaData m1=new MesaData(conexion);
         m1.actualizarEstadoMesa("Libre",r.getMesa().getIdMesa());});
-        avisos.setText("Reserva cancelada.");
         this.limpiar();
+        this.cargarTabla();
+        avisos.setText("Reserva cancelada.");
        } catch (SQLException ex) {
             Logger.getLogger(Background.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -799,7 +780,7 @@ public class VistaReservas extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_darDeBajaActionPerformed
     
-    //No hace nada, no se puede borrar
+    //Selecciona en la lista de servas la que coincida con el numero de reserva que tiene el cliente
     private void buscarReservaPor1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarReservaPor1ActionPerformed
     
     }//GEN-LAST:event_buscarReservaPor1ActionPerformed
