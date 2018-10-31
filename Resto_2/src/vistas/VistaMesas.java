@@ -43,6 +43,8 @@ public class VistaMesas extends javax.swing.JFrame {
         nomOld.setVisible(false);
         nomNu.setVisible(false);
         cambiarNombre2.setVisible(false);
+        eActualizar.setVisible(false);
+        ocultar.setVisible(false);
     }
     
     private void limpiar(){
@@ -87,6 +89,8 @@ public class VistaMesas extends javax.swing.JFrame {
         limpiarCasilleros = new javax.swing.JButton();
         eliminarReserva = new javax.swing.JButton();
         botonPrecios = new javax.swing.JButton();
+        ocultar = new javax.swing.JButton();
+        eActualizar = new javax.swing.JLabel();
         imagen = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -361,6 +365,25 @@ public class VistaMesas extends javax.swing.JFrame {
         background.add(botonPrecios);
         botonPrecios.setBounds(20, 500, 250, 70);
 
+        ocultar.setBackground(new java.awt.Color(255, 237, 221));
+        ocultar.setForeground(new java.awt.Color(102, 0, 0));
+        ocultar.setText("OCULTAR");
+        ocultar.setActionCommand("");
+        ocultar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 204, 204), new java.awt.Color(255, 204, 102), new java.awt.Color(204, 0, 51), new java.awt.Color(102, 0, 0)));
+        ocultar.setBorderPainted(false);
+        ocultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ocultarActionPerformed(evt);
+            }
+        });
+        background.add(ocultar);
+        ocultar.setBounds(570, 60, 120, 30);
+
+        eActualizar.setForeground(new java.awt.Color(102, 0, 0));
+        eActualizar.setText("EL NOMBRE DE USUARIO SE ACTUALIZO CON EXITO");
+        background.add(eActualizar);
+        eActualizar.setBounds(480, 30, 300, 14);
+
         imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/Background.png"))); // NOI18N
         imagen.setAlignmentY(0.0F);
         background.add(imagen);
@@ -426,6 +449,7 @@ public class VistaMesas extends javax.swing.JFrame {
         conexion.getConexion();
         MeseroData m1=new MeseroData(conexion);
         m1.cambiarNombre(textoUsuario.getText(), textoUsuario1.getText());
+        Inicio.almacenarUsuario(textoUsuario1.getText());
         textoUsuario.setVisible(false);
         textoUsuario1.setVisible(false);
         nomOld.setVisible(false);
@@ -433,6 +457,8 @@ public class VistaMesas extends javax.swing.JFrame {
         cambiarNombre2.setVisible(false);
         textoUsuario.setText(null);
         textoUsuario1.setText(null);
+        eActualizar.setVisible(true);
+        ocultar.setVisible(true);
         
         } catch (ClassNotFoundException | SQLException ex) {
                     Logger.getLogger(VistaMesas.class.getName()).log(Level.SEVERE, null, ex);
@@ -446,6 +472,7 @@ public class VistaMesas extends javax.swing.JFrame {
             conexion.getConexion();
             MeseroData m1=new MeseroData(conexion);
             m1.cambiarNombre(textoUsuario.getText(), textoUsuario1.getText());
+            Inicio.almacenarUsuario(textoUsuario1.getText());
             textoUsuario.setVisible(false);
             textoUsuario1.setVisible(false);
             nomOld.setVisible(false);
@@ -453,6 +480,8 @@ public class VistaMesas extends javax.swing.JFrame {
             cambiarNombre2.setVisible(false);
             textoUsuario.setText(null);
             textoUsuario1.setText(null);
+            eActualizar.setVisible(true);
+            ocultar.setVisible(true);
             
             } catch (SQLException | ClassNotFoundException ex) {
                     Logger.getLogger(VistaMesas.class.getName()).log(Level.SEVERE, null, ex);
@@ -499,6 +528,11 @@ public class VistaMesas extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_botonPreciosActionPerformed
 
+    private void ocultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ocultarActionPerformed
+        eActualizar.setVisible(false);
+        ocultar.setVisible(false);
+    }//GEN-LAST:event_ocultarActionPerformed
+
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -514,6 +548,7 @@ public class VistaMesas extends javax.swing.JFrame {
     private javax.swing.JButton cerrarSesion;
     private javax.swing.JButton crearReserva;
     private javax.swing.JButton darDeBaja;
+    private javax.swing.JLabel eActualizar;
     private javax.swing.JButton eliminarReserva;
     private javax.swing.JLabel emesa;
     private javax.swing.JLabel etiquetaId;
@@ -528,6 +563,7 @@ public class VistaMesas extends javax.swing.JFrame {
     private javax.swing.JButton limpiarCasilleros;
     private javax.swing.JLabel nomNu;
     private javax.swing.JLabel nomOld;
+    private javax.swing.JButton ocultar;
     private javax.swing.JSpinner spinnerMesas;
     private javax.swing.JTextField textoDni;
     private javax.swing.JTextField textoId;

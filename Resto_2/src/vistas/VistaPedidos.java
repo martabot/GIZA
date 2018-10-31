@@ -55,6 +55,8 @@ public class VistaPedidos extends javax.swing.JFrame {
         nomOld.setVisible(false);
         nomNu.setVisible(false);
         cambiarNombre2.setVisible(false);
+        eActualizar.setVisible(false);
+        ocultar.setVisible(false);
         
         //Instanciamos la conexion 
         try {
@@ -213,6 +215,8 @@ public class VistaPedidos extends javax.swing.JFrame {
         cancelarPedido1 = new javax.swing.JButton();
         eIdProducto1 = new javax.swing.JLabel();
         cbProductos = new javax.swing.JComboBox<>();
+        ocultar = new javax.swing.JButton();
+        eActualizar = new javax.swing.JLabel();
         imagen = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -616,6 +620,25 @@ public class VistaPedidos extends javax.swing.JFrame {
         background.add(cbProductos);
         cbProductos.setBounds(690, 380, 100, 30);
 
+        ocultar.setBackground(new java.awt.Color(255, 237, 221));
+        ocultar.setForeground(new java.awt.Color(102, 0, 0));
+        ocultar.setText("OCULTAR");
+        ocultar.setActionCommand("");
+        ocultar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 204, 204), new java.awt.Color(255, 204, 102), new java.awt.Color(204, 0, 51), new java.awt.Color(102, 0, 0)));
+        ocultar.setBorderPainted(false);
+        ocultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ocultarActionPerformed(evt);
+            }
+        });
+        background.add(ocultar);
+        ocultar.setBounds(570, 60, 120, 30);
+
+        eActualizar.setForeground(new java.awt.Color(102, 0, 0));
+        eActualizar.setText("EL NOMBRE DE USUARIO SE ACTUALIZO CON EXITO");
+        background.add(eActualizar);
+        eActualizar.setBounds(490, 30, 320, 14);
+
         imagen.setBackground(new java.awt.Color(204, 70, 0));
         imagen.setForeground(new java.awt.Color(1, 1, 1));
         imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/Background.png"))); // NOI18N
@@ -688,6 +711,7 @@ public class VistaPedidos extends javax.swing.JFrame {
         if (evt.getKeyCode()==KeyEvent.VK_ENTER){
             MeseroData mm= new MeseroData(conexion);
             mm.cambiarNombre(textoUsuario.getText(), textoUsuario1.getText());
+            Inicio.almacenarUsuario(textoUsuario1.getText());
             textoUsuario.setVisible(false);
             textoUsuario1.setVisible(false);
             nomOld.setVisible(false);
@@ -695,6 +719,8 @@ public class VistaPedidos extends javax.swing.JFrame {
             cambiarNombre2.setVisible(false);
             textoUsuario.setText(null);
             textoUsuario1.setText(null);
+            eActualizar.setVisible(true);
+            ocultar.setVisible(true);
         }
     }//GEN-LAST:event_textoUsuario1KeyPressed
 
@@ -702,6 +728,7 @@ public class VistaPedidos extends javax.swing.JFrame {
     private void cambiarNombre2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cambiarNombre2ActionPerformed
         MeseroData mm= new MeseroData(conexion);
         mm.cambiarNombre(textoUsuario.getText(), textoUsuario1.getText());
+        Inicio.almacenarUsuario(textoUsuario1.getText());
         textoUsuario.setVisible(false);
         textoUsuario1.setVisible(false);
         nomOld.setVisible(false);
@@ -709,6 +736,8 @@ public class VistaPedidos extends javax.swing.JFrame {
         cambiarNombre2.setVisible(false);
         textoUsuario.setText(null);
         textoUsuario1.setText(null);
+        eActualizar.setVisible(true);
+        ocultar.setVisible(true);
     }//GEN-LAST:event_cambiarNombre2ActionPerformed
 
     //boton de limpiar llama al método limpiar
@@ -826,7 +855,7 @@ public class VistaPedidos extends javax.swing.JFrame {
                 MeseroData mm=new MeseroData(conexion);
                 
                 //mentimos en el nombre de usuario porque aun no sabemos averiguarlo
-                Pedido pedido=new Pedido(md.deIdAMesa(m),mm.deUsuarioAMesero("usuario1"),LocalDateTime.now(),0.0);
+                Pedido pedido=new Pedido(md.deIdAMesa(m),mm.deUsuarioAMesero(Inicio.usuarioRegistrado()),LocalDateTime.now(),0.0);
                 
                 //guardamos un nuevo pedido que va a tener la mesa y el pedido asignados, la cuenta en cero lista para agregar productos
                 pd.guardarPedido(pedido);
@@ -884,13 +913,13 @@ public class VistaPedidos extends javax.swing.JFrame {
             
             PedidoData pd=new PedidoData(conexion);
             MesaData md=new MesaData(conexion);
-            
+            md.actualizarEstadoMesa("Libre", pd.deIdAPedido(z).getMesa().getIdMesa());
             pd.borrarPedido(z);
             this.limpiar();
             
             //avisamos que numero de pedido fue eliminado
             avisos.setText("Pedido "+z+" eliminado.");
-            md.actualizarEstadoMesa("Libre", pd.deIdAPedido(z).getMesa().getIdMesa());
+            
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(VistaPedidos.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -906,6 +935,11 @@ public class VistaPedidos extends javax.swing.JFrame {
         List<Producto> productos=pp.obtenerProductos().stream().filter(p->p.getNombreProducto().equals(cbProductos.getSelectedItem().toString())).collect(Collectors.toList());
         productos.forEach(p1->idProducto.setText(String.valueOf(p1.getIdProducto())));
     }//GEN-LAST:event_cbProductosActionPerformed
+
+    private void ocultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ocultarActionPerformed
+        eActualizar.setVisible(false);
+        ocultar.setVisible(false);
+    }//GEN-LAST:event_ocultarActionPerformed
 
     
 
@@ -926,6 +960,7 @@ public class VistaPedidos extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbProductos;
     private javax.swing.JButton cerrarSesion;
     private javax.swing.JButton cobrarPedido;
+    private javax.swing.JLabel eActualizar;
     private javax.swing.JLabel eAgregarProducto;
     private javax.swing.JLabel eCambio;
     private javax.swing.JLabel eCantidad;
@@ -945,6 +980,7 @@ public class VistaPedidos extends javax.swing.JFrame {
     private javax.swing.JButton limpiarCampos;
     private javax.swing.JLabel nomNu;
     private javax.swing.JLabel nomOld;
+    private javax.swing.JButton ocultar;
     private javax.swing.JButton quitarProducto;
     private javax.swing.JSpinner spinnerCantidad;
     private javax.swing.JSpinner spinnerMesas;

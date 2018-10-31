@@ -46,6 +46,9 @@ public class VistaPrecios extends javax.swing.JFrame {
         nomOld.setVisible(false);
         nomNu.setVisible(false);
         cambiarNombre2.setVisible(false);
+        eActualizar.setVisible(false);
+        ocultar.setVisible(false);
+        
         //Instanciamos la conexion 
         try {
             conexion = new Conexion();
@@ -86,6 +89,7 @@ public class VistaPrecios extends javax.swing.JFrame {
         textoNombre.setText(null);
         textoMonto.setText("00.0");
         textoId.setText(null);
+        avisos.setText(null);
     }
 
     @SuppressWarnings("unchecked")
@@ -112,7 +116,6 @@ public class VistaPrecios extends javax.swing.JFrame {
         botonAjustes = new javax.swing.JButton();
         textoUsuario1 = new javax.swing.JTextField();
         botonBalance = new javax.swing.JButton();
-        buscarEnLista = new javax.swing.JButton();
         textoId = new javax.swing.JTextField();
         etiquetaId = new javax.swing.JLabel();
         textoNombre = new javax.swing.JTextField();
@@ -121,6 +124,9 @@ public class VistaPrecios extends javax.swing.JFrame {
         textoMonto = new javax.swing.JTextField();
         ph = new javax.swing.JLabel();
         limpiar = new javax.swing.JButton();
+        ocultar = new javax.swing.JButton();
+        eActualizar = new javax.swing.JLabel();
+        avisos = new javax.swing.JLabel();
         imagen = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -422,19 +428,6 @@ public class VistaPrecios extends javax.swing.JFrame {
         background.add(botonBalance);
         botonBalance.setBounds(20, 600, 250, 70);
 
-        buscarEnLista.setBackground(new java.awt.Color(255, 237, 221));
-        buscarEnLista.setForeground(new java.awt.Color(102, 0, 0));
-        buscarEnLista.setText("BUSCAR");
-        buscarEnLista.setActionCommand("");
-        buscarEnLista.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 204, 204), new java.awt.Color(255, 204, 102), new java.awt.Color(204, 0, 51), new java.awt.Color(102, 0, 0)));
-        buscarEnLista.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buscarEnListaActionPerformed(evt);
-            }
-        });
-        background.add(buscarEnLista);
-        buscarEnLista.setBounds(800, 230, 100, 20);
-
         textoId.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         background.add(textoId);
         textoId.setBounds(840, 210, 60, 18);
@@ -483,6 +476,27 @@ public class VistaPrecios extends javax.swing.JFrame {
         });
         background.add(limpiar);
         limpiar.setBounds(380, 590, 120, 30);
+
+        ocultar.setBackground(new java.awt.Color(255, 237, 221));
+        ocultar.setForeground(new java.awt.Color(102, 0, 0));
+        ocultar.setText("OCULTAR");
+        ocultar.setActionCommand("");
+        ocultar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 204, 204), new java.awt.Color(255, 204, 102), new java.awt.Color(204, 0, 51), new java.awt.Color(102, 0, 0)));
+        ocultar.setBorderPainted(false);
+        ocultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ocultarActionPerformed(evt);
+            }
+        });
+        background.add(ocultar);
+        ocultar.setBounds(570, 60, 120, 30);
+
+        eActualizar.setForeground(new java.awt.Color(102, 0, 0));
+        eActualizar.setText("EL NOMBRE DE USUARIO SE ACTUALIZO CON EXITO");
+        background.add(eActualizar);
+        eActualizar.setBounds(490, 30, 340, 14);
+        background.add(avisos);
+        avisos.setBounds(490, 240, 300, 14);
 
         imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/Background.png"))); // NOI18N
         imagen.setAlignmentY(0.0F);
@@ -534,30 +548,21 @@ public class VistaPrecios extends javax.swing.JFrame {
 
     //actualiza la informacion de un producto con los datos cargados en cada campo
     private void actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarActionPerformed
-        int fila=tablaPrecios.getSelectedRow();
-        ProductoData pd=new ProductoData(conexion);
-        
-        //si hay información del id
-        if(textoId.getText()!=null){
-        int codigo=Integer.parseInt(tablaPrecios.getValueAt(fila, 0).toString());
-        pd.actualizarIdProducto(codigo,Integer.parseInt(textoId.getText()));
-        }
-        
-        //si hay informacion del nombre
-        if(textoNombre.getText()!=null){
-        String nombre=tablaPrecios.getValueAt(fila, 1).toString();
-        pd.actualizarNombreProducto(Integer.parseInt(tablaPrecios.getValueAt(fila, 0).toString()), nombre);
-        }
-        
-        //si hay información del precio
-        if(Integer.parseInt(textoMonto.getText())>00.0){
-        double precio=Double.parseDouble(tablaPrecios.getValueAt(fila, 2).toString());
-        pd.actualizarPrecioProducto(Integer.parseInt(tablaPrecios.getValueAt(fila, 0).toString()),precio);
-        } 
-        
-        //carga la tabla para actualizar sus datos y limpia los casilleros con información
-        this.cargarTabla();
-        this.limpiar();
+        ProductoData pp = new ProductoData(conexion);
+        int filaSeleccionada = tablaPrecios.getSelectedRow();
+        if (filaSeleccionada != -1){
+            pp.actualizarIdProducto(Integer.parseInt(tablaPrecios.getValueAt(filaSeleccionada, 0).toString()), Integer.parseInt(textoId.getText()));
+        tablaPrecios.setValueAt(textoId.getText(), filaSeleccionada, 0);
+            pp.actualizarNombreProducto(Integer.parseInt(tablaPrecios.getValueAt(filaSeleccionada, 0).toString()), textoNombre.getText());
+        tablaPrecios.setValueAt(textoNombre.getText(), filaSeleccionada, 1);
+            pp.actualizarPrecioProducto(Integer.parseInt(tablaPrecios.getValueAt(filaSeleccionada, 0).toString()), Double.valueOf(textoMonto.getText()));
+        tablaPrecios.setValueAt(textoMonto.getText(), filaSeleccionada, 2);
+         limpiar();
+         avisos.setText("El producto ha sido actualizado con exito");
+    }           
+         
+     
+       
     }//GEN-LAST:event_actualizarActionPerformed
 
     //agrega un producto a la db y a la tabla
@@ -598,6 +603,7 @@ public class VistaPrecios extends javax.swing.JFrame {
     private void cambiarNombre2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cambiarNombre2ActionPerformed
         MeseroData m1=new MeseroData(conexion);
         m1.cambiarNombre(textoUsuario.getText(), textoUsuario1.getText());
+        Inicio.almacenarUsuario(textoUsuario1.getText());
         textoUsuario.setVisible(false);
         textoUsuario1.setVisible(false);
         nomOld.setVisible(false);
@@ -605,6 +611,8 @@ public class VistaPrecios extends javax.swing.JFrame {
         cambiarNombre2.setVisible(false);
         textoUsuario.setText(null);
         textoUsuario1.setText(null);
+        eActualizar.setVisible(true);
+        ocultar.setVisible(true);
     }//GEN-LAST:event_cambiarNombre2ActionPerformed
  
     //Permite actualizar el nombre del mesero
@@ -621,6 +629,7 @@ public class VistaPrecios extends javax.swing.JFrame {
         if (evt.getKeyCode()==KeyEvent.VK_ENTER){
             MeseroData m1=new MeseroData(conexion);
             m1.cambiarNombre(textoUsuario.getText(), textoUsuario1.getText());
+            Inicio.almacenarUsuario(textoUsuario1.getText());
             textoUsuario.setVisible(false);
             textoUsuario1.setVisible(false);
             nomOld.setVisible(false);
@@ -628,6 +637,8 @@ public class VistaPrecios extends javax.swing.JFrame {
             cambiarNombre2.setVisible(false);
             textoUsuario.setText(null);
             textoUsuario1.setText(null);
+            eActualizar.setVisible(true);
+            ocultar.setVisible(true);
         }
     }//GEN-LAST:event_textoUsuario1KeyPressed
 
@@ -639,24 +650,14 @@ public class VistaPrecios extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_botonBalanceActionPerformed
 
-    //selecionamos un producto por id
-    private void buscarEnListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarEnListaActionPerformed
-        //Para eso cambiamos el color de background y foreground de la fila a los colores de seleccion
-        ProductoData pd=new ProductoData(conexion);
-        int x=pd.obtenerProductos().size();
-        for(int i=0;i<x;i++){
-            int id=pd.obtenerProductos().get(i+1).getIdProducto();
-            if(id==Integer.parseInt(textoId.getText())){
-               tablaPrecios.setRowSelectionInterval(i+1, i+1);
-            }
-        }
-        
-        
-    }//GEN-LAST:event_buscarEnListaActionPerformed
-
     //Este metodo no existe
     private void tablaPreciosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPreciosMouseClicked
-       ph.setText(String.valueOf(tablaPrecios.getSelectedRow()));
+      int filaSeleccionada = tablaPrecios.getSelectedRow();
+        if (filaSeleccionada != -1){
+        textoId.setText(tablaPrecios.getValueAt(filaSeleccionada, 0).toString());
+        textoNombre.setText(tablaPrecios.getValueAt(filaSeleccionada, 1).toString());
+        textoMonto.setText(tablaPrecios.getValueAt(filaSeleccionada, 2).toString());
+        } 
     }//GEN-LAST:event_tablaPreciosMouseClicked
 
     //Limpia los casilleros
@@ -669,11 +670,17 @@ public class VistaPrecios extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jtProductos
 
+    private void ocultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ocultarActionPerformed
+        eActualizar.setVisible(false);
+        ocultar.setVisible(false);
+    }//GEN-LAST:event_ocultarActionPerformed
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton actualizar;
     private javax.swing.JButton agregarProducto;
+    private javax.swing.JLabel avisos;
     private javax.swing.JPanel background;
     private javax.swing.JButton borrarProducto;
     private javax.swing.JButton botonAjustes;
@@ -682,9 +689,9 @@ public class VistaPrecios extends javax.swing.JFrame {
     private javax.swing.JButton botonPedidos;
     private javax.swing.JButton botonPrecios;
     private javax.swing.JButton botonReservas;
-    private javax.swing.JButton buscarEnLista;
     private javax.swing.JButton cambiarNombre2;
     private javax.swing.JButton cerrarSesion;
+    private javax.swing.JLabel eActualizar;
     private javax.swing.JLabel etiquetaId;
     private javax.swing.JLabel etiquetaId4;
     private javax.swing.JLabel etiquetaNombre;
@@ -695,6 +702,7 @@ public class VistaPrecios extends javax.swing.JFrame {
     private javax.swing.JButton limpiar;
     private javax.swing.JLabel nomNu;
     private javax.swing.JLabel nomOld;
+    private javax.swing.JButton ocultar;
     private javax.swing.JLabel ph;
     private javax.swing.JTable tablaPrecios;
     private javax.swing.JTextField textoId;

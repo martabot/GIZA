@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 31-10-2018 a las 05:58:59
+-- Tiempo de generación: 31-10-2018 a las 17:55:29
 -- Versión del servidor: 10.1.36-MariaDB
 -- Versión de PHP: 5.6.38
 
@@ -52,8 +52,8 @@ CREATE TABLE `mesa` (
 --
 
 INSERT INTO `mesa` (`id_mesa`, `estado_mesa`, `capacidad`) VALUES
-(1, 'Libre', 2),
-(2, 'Libre', 2),
+(1, 'Ocupada', 2),
+(2, 'Ocupada', 2),
 (3, 'Libre', 2),
 (4, 'Libre', 2),
 (5, 'Libre', 2),
@@ -119,7 +119,7 @@ CREATE TABLE `mesero` (
 --
 
 INSERT INTO `mesero` (`id_mesero`, `nombre_mesero`) VALUES
-(1, 'usuario1');
+(1, 'u');
 
 -- --------------------------------------------------------
 
@@ -163,14 +163,16 @@ INSERT INTO `producto` (`id_producto`, `nombre_producto`, `precio`) VALUES
 (9, 'Agua Sin Gas 500ml', 10),
 (10, 'Agua Con Gas 500ml', 15),
 (11, 'Agua Saborizada 500ml', 30),
-(12, 'Gaseosa 1lt', 80),
-(13, 'Cerveza 1lt', 30),
+(12, 'Gaseosa 1Lt', 80),
+(13, 'Gaseosa 1Lt', 50),
 (14, 'Vino', 20),
 (15, 'Fernet', 70),
-(16, 'Whisky', 100),
+(16, 'Whiskey', 100),
 (17, 'Flan Mixto', 5),
 (18, 'Helado', 15),
-(19, 'Ensalada de Frutas', 20);
+(19, 'Ensalada de Frutas', 20),
+(20, 'Tortilla Española', 50);
+
 
 -- --------------------------------------------------------
 
@@ -264,13 +266,13 @@ ALTER TABLE `pedido`
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `id_producto` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id_producto` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `reserva`
 --
 ALTER TABLE `reserva`
-  MODIFY `id_reserva` int(4) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_reserva` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- Restricciones para tablas volcadas
@@ -287,7 +289,7 @@ ALTER TABLE `comanda`
 -- Filtros para la tabla `pedido`
 --
 ALTER TABLE `pedido`
-  ADD CONSTRAINT `pedido_ibfk_1` FOREIGN KEY (`id_mesa`) REFERENCES `mesa` (`id_mesa`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `pedido_ibfk_1` FOREIGN KEY (`id_mesa`) REFERENCES `mesa` (`id_mesa`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `pedido_ibfk_2` FOREIGN KEY (`id_mesero`) REFERENCES `mesero` (`id_mesero`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --

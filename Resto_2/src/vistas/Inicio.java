@@ -28,6 +28,7 @@ public class Inicio extends javax.swing.JFrame {
     private List<Mesero> filtrados;
     private int numeroMesa;
     PreparedStatement ps;
+    public static String usuario;
     
     //constructor
     public Inicio() {
@@ -68,6 +69,14 @@ public class Inicio extends javax.swing.JFrame {
     }
     public void setNumeroMesa(int numeroMesa) {
         this.numeroMesa = numeroMesa;
+    }
+    
+    public static void almacenarUsuario(String usuario){
+        Inicio.usuario=usuario;
+    }
+    
+    public static String usuarioRegistrado(){
+        return usuario;
     }
     
     @SuppressWarnings("unchecked")
@@ -256,6 +265,7 @@ public class Inicio extends javax.swing.JFrame {
             
            //Si el mesero esta reistrado inicia sesión
            if (!this.filtrados.isEmpty()){
+            this.almacenarUsuario(this.getNombre());
             panelPrincipal.removeAll();
             Background background=new Background();
             background.setVisible(true);
@@ -290,6 +300,7 @@ public class Inicio extends javax.swing.JFrame {
             this.filtrados= mesero.obtenerMeseros().stream().filter(mese -> this.meseroEsta(mese.getNombreMesero())).collect(Collectors.toList());
                        
             if (!this.filtrados.isEmpty()){
+            this.almacenarUsuario(this.getNombre());
             panelPrincipal.removeAll();
             Background background=new Background();
             background.setVisible(true);
@@ -316,6 +327,7 @@ public class Inicio extends javax.swing.JFrame {
            this.filtrados= mesero.obtenerMeseros().stream().filter(mese -> this.meseroEsta(mese.getNombreMesero())).collect(Collectors.toList());
             
            if (!this.filtrados.isEmpty()){
+            this.almacenarUsuario(this.getNombre());
             label1.setVisible(false);
             label2.setVisible(false);
             botonBuscar.setVisible(false);

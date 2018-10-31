@@ -109,26 +109,16 @@ public class MeseroData {
         }
     }
     
-    public void cambiarNombre(String old,String nu){
+    public void cambiarNombre(String viejo,String nuevo){
         String sql = "UPDATE `mesero` SET `nombre_mesero`= ? WHERE `nombre_mesero`= ?;";
         try (PreparedStatement statment = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            statment.setString(1, nu);
-            statment.setString(2, old);
+            statment.setString(1, nuevo);
+            statment.setString(2, viejo);
               
             statment.executeUpdate();
-            
         } catch (SQLException ex) {
             System.out.println("Error al actualizar el nombre de mesero: " + ex.getMessage());
         }
-    }
-   
-    ////////////
-    public void almacenarUsuario(String usuario){
-        this.usuario=usuario;
-    }
-    
-    public String usuarioRegistrado(){
-        return usuario;
     }
     
     public Mesero deUsuarioAMesero(String u){

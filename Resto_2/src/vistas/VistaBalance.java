@@ -42,6 +42,8 @@ public class VistaBalance extends javax.swing.JFrame {
         nomOld.setVisible(false);
         nomNu.setVisible(false);
         cambiarNombre2.setVisible(false);
+        eActualizar.setVisible(false);
+        ocultar.setVisible(false);
         
         //Instanciamos la conexion
         try {
@@ -72,6 +74,8 @@ public class VistaBalance extends javax.swing.JFrame {
         botonAjustes = new javax.swing.JButton();
         textoUsuario1 = new javax.swing.JTextField();
         botonBalance = new javax.swing.JButton();
+        ocultar = new javax.swing.JButton();
+        eActualizar = new javax.swing.JLabel();
         imagen = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -224,6 +228,25 @@ public class VistaBalance extends javax.swing.JFrame {
         background.add(botonBalance);
         botonBalance.setBounds(20, 600, 250, 70);
 
+        ocultar.setBackground(new java.awt.Color(255, 237, 221));
+        ocultar.setForeground(new java.awt.Color(102, 0, 0));
+        ocultar.setText("OCULTAR");
+        ocultar.setActionCommand("");
+        ocultar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 204, 204), new java.awt.Color(255, 204, 102), new java.awt.Color(204, 0, 51), new java.awt.Color(102, 0, 0)));
+        ocultar.setBorderPainted(false);
+        ocultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ocultarActionPerformed(evt);
+            }
+        });
+        background.add(ocultar);
+        ocultar.setBounds(570, 60, 120, 30);
+
+        eActualizar.setForeground(new java.awt.Color(102, 0, 0));
+        eActualizar.setText("EL NOMBRE DE USUARIO SE ACTUALIZO CON EXITO");
+        background.add(eActualizar);
+        eActualizar.setBounds(480, 30, 300, 14);
+
         imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/Background.png"))); // NOI18N
         imagen.setAlignmentY(0.0F);
         background.add(imagen);
@@ -285,6 +308,7 @@ public class VistaBalance extends javax.swing.JFrame {
     private void cambiarNombre2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cambiarNombre2ActionPerformed
         MeseroData m1=new MeseroData(conexion);
         m1.cambiarNombre(textoUsuario.getText(), textoUsuario1.getText());
+        Inicio.almacenarUsuario(textoUsuario1.getText());
         textoUsuario.setVisible(false);
         textoUsuario1.setVisible(false);
         nomOld.setVisible(false);
@@ -292,6 +316,8 @@ public class VistaBalance extends javax.swing.JFrame {
         cambiarNombre2.setVisible(false);
         textoUsuario.setText(null);
         textoUsuario1.setText(null);  
+        eActualizar.setVisible(true);
+        ocultar.setVisible(true);
     }//GEN-LAST:event_cambiarNombre2ActionPerformed
 
     private void botonAjustesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAjustesActionPerformed
@@ -307,17 +333,25 @@ public class VistaBalance extends javax.swing.JFrame {
 
         MeseroData m1=new MeseroData(conexion);
         m1.cambiarNombre(textoUsuario.getText(), textoUsuario1.getText());
+        Inicio.almacenarUsuario(textoUsuario1.getText());
         textoUsuario.setVisible(false);
         textoUsuario1.setVisible(false);
         nomOld.setVisible(false);
         nomNu.setVisible(false);
         cambiarNombre2.setVisible(false);
+        eActualizar.setVisible(true);
+        ocultar.setVisible(true);
         }
     }//GEN-LAST:event_textoUsuario1KeyPressed
 
     private void botonBalanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBalanceActionPerformed
 
     }//GEN-LAST:event_botonBalanceActionPerformed
+
+    private void ocultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ocultarActionPerformed
+        eActualizar.setVisible(false);
+        ocultar.setVisible(false);
+    }//GEN-LAST:event_ocultarActionPerformed
 
     
 
@@ -331,12 +365,14 @@ public class VistaBalance extends javax.swing.JFrame {
     private javax.swing.JButton botonReservas;
     private javax.swing.JButton cambiarNombre2;
     private javax.swing.JButton cerrarSesion;
+    private javax.swing.JLabel eActualizar;
     private javax.swing.JLabel etiquetaAgregar;
     private javax.swing.JLabel imagen;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel labelBalance;
     private javax.swing.JLabel nomNu;
     private javax.swing.JLabel nomOld;
+    private javax.swing.JButton ocultar;
     private javax.swing.JTextField textoUsuario;
     private javax.swing.JTextField textoUsuario1;
     // End of variables declaration//GEN-END:variables
