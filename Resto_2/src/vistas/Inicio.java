@@ -27,7 +27,6 @@ public class Inicio extends javax.swing.JFrame {
     private List<Mesero> filtrados;
     private int numeroMesa;
     PreparedStatement ps;
-    private List<Reserva> reservasPorId;
     
     
     public Inicio() {
@@ -332,6 +331,8 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_botonBuscarKeyPressed
 
     private void textoBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textoBuscarKeyPressed
+       
+        
         if (evt.getKeyCode()==KeyEvent.VK_ENTER){
             
         this.setNombre(textoBuscar.getText());

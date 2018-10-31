@@ -548,7 +548,7 @@ public class VistaReservas extends javax.swing.JFrame {
             }
         });
         background.add(limpiarCasilleros1);
-        limpiarCasilleros1.setBounds(790, 440, 120, 30);
+        limpiarCasilleros1.setBounds(790, 430, 120, 30);
 
         tablaReservas.setBackground(new java.awt.Color(254, 247, 230));
         tablaReservas.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -597,7 +597,7 @@ public class VistaReservas extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tablaReservas);
 
         background.add(jScrollPane1);
-        jScrollPane1.setBounds(370, 502, 540, 160);
+        jScrollPane1.setBounds(370, 482, 540, 180);
 
         botonBalance.setBackground(new java.awt.Color(0, 0, 0));
         botonBalance.setFont(new java.awt.Font("Luisa", 1, 36)); // NOI18N

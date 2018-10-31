@@ -134,7 +134,7 @@ public class MeseroData {
     public Mesero deUsuarioAMesero(String u){
 
         try {
-            String sql = "SELECT * FROM mesero where nombre_mesero= u;";
+            String sql = "SELECT * FROM mesero where nombre_mesero= ?;";
           try (PreparedStatement statment = connection.prepareStatement(sql)) {
               statment.setString(1, u);
               ResultSet resultSet = statment.executeQuery();
@@ -147,7 +147,7 @@ public class MeseroData {
             }
           }
         } catch (SQLException ex) {
-            System.out.println("Error al obtener los meseros: " + ex.getMessage());
+            System.out.println("Error al obtener el mesero: " + ex.getMessage());
         }
         
         return mesero;

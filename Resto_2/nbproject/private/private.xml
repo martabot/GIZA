@@ -3,11 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Muñeca%20Brava/Documents/repositorio_giza/GIZA/Resto_2/src/modelo/MesaData.java</file>
-            <file>file:/C:/Users/Muñeca%20Brava/Documents/repositorio_giza/GIZA/Resto_2/src/vistas/Inicio.java</file>
-            <file>file:/C:/Users/Muñeca%20Brava/Documents/repositorio_giza/GIZA/Resto_2/src/modelo/ComandaData.java</file>
-            <file>file:/C:/Users/Muñeca%20Brava/Documents/repositorio_giza/GIZA/Resto_2/src/vistas/VistaPedidos.java</file>
-            <file>file:/C:/Users/Muñeca%20Brava/Documents/repositorio_giza/GIZA/Resto_2/src/modelo/PedidoData.java</file>
+            <file>file:/home/sarah/Documentos/repositorio_giza/GIZA/Resto_2/src/modelo/Conexion.java</file>
+            <file>file:/home/sarah/Documentos/repositorio_giza/GIZA/Resto_2/src/vistas/VistaPedidos.java</file>
+            <file>file:/home/sarah/Documentos/repositorio_giza/GIZA/Resto_2/src/modelo/Pedido.java</file>
+            <file>file:/home/sarah/Documentos/repositorio_giza/GIZA/Resto_2/src/modelo/PedidoData.java</file>
+            <file>file:/home/sarah/Documentos/repositorio_giza/GIZA/Resto_2/src/modelo/MeseroData.java</file>
+            <file>file:/home/sarah/Documentos/repositorio_giza/GIZA/Resto_2/src/vistas/Inicio.java</file>
         </group>
     </open-files>
 </project-private>

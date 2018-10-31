@@ -38,7 +38,7 @@ public class PedidoData {
     public void guardarPedido(Pedido pedido){
         try {
             
-            String sql = "INSERT INTO pedido (id_mesa, id_mesero, fecha_pedido, cuenta) VALUES ( ? , ? , ? , ? );";
+            String sql = "INSERT INTO `pedido`(`id_mesa`, `id_mesero`, `fecha_pedido`, `cuenta`) VALUES ( ? , ? , ? , ?);";
 
             try (PreparedStatement statment = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 statment.setInt(1, pedido.getMesa().getIdMesa());
@@ -60,8 +60,8 @@ public class PedidoData {
         }
     }
     
-    public List<Pedido> obtenerPedidos() throws ClassNotFoundException{
-        List<Pedido> pedidos = new ArrayList<>();
+    public ArrayList<Pedido> obtenerPedidos() throws ClassNotFoundException{
+        ArrayList<Pedido> pedidos = new ArrayList<>();
             
 
         try {

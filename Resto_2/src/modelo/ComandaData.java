@@ -36,7 +36,7 @@ public class ComandaData {
     public void guardarComanda(Comanda comanda){
         try {
             
-            String sql = "INSERT INTO comanada (id_pedido, id_producto, cantidad) VALUES ( ? , ? , ? );";
+            String sql = "INSERT INTO comanda (id_pedido, id_producto, cantidad) VALUES ( ? , ? , ? );";
 
             try (PreparedStatement statment = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 
@@ -126,33 +126,17 @@ public class ComandaData {
             System.out.println("Error al obtener las comandas: " + ex.getMessage());
         } 
     return x;
-    }  
-       
-    public Comanda selccionarComandaPor(String a,String idc) throws ClassNotFoundException{
+    }
+   
+    public void borrarComandaPorPrdocuto(int idc){
+        String sql = "DELETE FROM comanda where id_producto= ?;";
+        try (PreparedStatement statment = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            statment.setInt(1, idc);
+              
+            statment.executeUpdate();
             
-        try {
-            String sql = "SELECT * FROM comanda where ? = ?;";
-          try (PreparedStatement statment = connection.prepareStatement(sql)) {
-              statment.setString(1, a);
-              statment.setString(2, idc);
-              ResultSet resultSet = statment.executeQuery();
-              while(resultSet.next()){
-                    Comanda c= new Comanda();
-                    connect=new Conexion();
-                    connect.getConexion();
-                    pedido=new PedidoData(connect);
-                    producto=new ProductoData(connect);
-                    c.setIdComanda(resultSet.getInt(1));
-                    c.setPedido(pedido.deIdAPedido(resultSet.getInt(2)));
-                    c.setProducto(producto.deIdAlProducto(resultSet.getInt(3)));
-                    c.setCantidad(resultSet.getInt(4));
-                    
-                    this.comanda=c;   
-            }
-          }
         } catch (SQLException ex) {
-            System.out.println("Error al obtener la comanda: " + ex.getMessage());
+            System.out.println("Error al borrar la comanda: " + ex.getMessage());
         }
-    return comanda;
-    }  
+    }
 }
