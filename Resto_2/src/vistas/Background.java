@@ -80,7 +80,9 @@ public class Background extends javax.swing.JFrame {
         imagen = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(254, 220, 220));
 
+        background.setBackground(new java.awt.Color(247, 227, 227));
         background.setLayout(null);
 
         botonPrecios.setBackground(new java.awt.Color(0, 0, 0));
@@ -269,6 +271,7 @@ public class Background extends javax.swing.JFrame {
     //Pasa a vista Lista de Precios
     private void botonPreciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPreciosActionPerformed
         background.removeAll();
+        background.repaint();
         VistaPrecios vistaPrecios=new VistaPrecios();
         vistaPrecios.setVisible(true);
     }//GEN-LAST:event_botonPreciosActionPerformed
@@ -276,6 +279,7 @@ public class Background extends javax.swing.JFrame {
     //Pasa a vista de Mesas
     private void botonMesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMesasActionPerformed
         background.removeAll();
+        background.repaint();
         VistaMesas vistaMesas=new VistaMesas();
         vistaMesas.setVisible(true);
     }//GEN-LAST:event_botonMesasActionPerformed
@@ -283,6 +287,7 @@ public class Background extends javax.swing.JFrame {
     //Pasa a boton de Reservas
     private void botonReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReservasActionPerformed
         background.removeAll();
+        background.repaint();
         VistaReservas vistaReservas=new VistaReservas();
         vistaReservas.setVisible(true);
     }//GEN-LAST:event_botonReservasActionPerformed
@@ -290,6 +295,7 @@ public class Background extends javax.swing.JFrame {
     //Pasa a vista Pedidos
     private void botonPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPedidosActionPerformed
         background.removeAll();
+        background.repaint();
         VistaPedidos vistaPedidos=new VistaPedidos();
         vistaPedidos.setVisible(true);
     }//GEN-LAST:event_botonPedidosActionPerformed
@@ -309,7 +315,7 @@ public class Background extends javax.swing.JFrame {
     //cierra sesión del usuario y vuelve a la pantalla de inicio
     private void cerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarSesionActionPerformed
         background.removeAll();
-        
+        background.repaint();
         Inicio inicio=new Inicio();
         inicio.setVisible(true);
     }//GEN-LAST:event_cerrarSesionActionPerformed
@@ -344,9 +350,7 @@ public class Background extends javax.swing.JFrame {
 
     private void botonBalanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBalanceActionPerformed
         background.removeAll();
-        textoBienvenida.removeAll();
-        tB2.removeAll();
-        tB3.removeAll();
+        background.repaint();
         VistaBalance vistaBalance=new VistaBalance();
         vistaBalance.setVisible(true);
     }//GEN-LAST:event_botonBalanceActionPerformed
