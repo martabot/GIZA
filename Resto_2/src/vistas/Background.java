@@ -41,9 +41,7 @@ public class Background extends javax.swing.JFrame {
         tB3.setFont(fuente.fuenteLuisa(0,36));
         
         //campos ocultos que aparecen al ser llamados por los ajustes del usuario
-        textoUsuario.setVisible(false);
         textoUsuario1.setVisible(false);
-        nomOld.setVisible(false);
         nomNu.setVisible(false);
         cambiarNombre.setVisible(false);
         eActualizar.setVisible(false);
@@ -73,10 +71,8 @@ public class Background extends javax.swing.JFrame {
         cerrarSesion = new javax.swing.JButton();
         botonAjustes = new javax.swing.JButton();
         botonApagar = new javax.swing.JButton();
-        textoUsuario = new javax.swing.JTextField();
         textoUsuario1 = new javax.swing.JTextField();
         cambiarNombre = new javax.swing.JButton();
-        nomOld = new javax.swing.JLabel();
         nomNu = new javax.swing.JLabel();
         botonBalance = new javax.swing.JButton();
         ocultar = new javax.swing.JButton();
@@ -188,11 +184,6 @@ public class Background extends javax.swing.JFrame {
         background.add(botonApagar);
         botonApagar.setBounds(280, 40, 30, 40);
 
-        textoUsuario.setForeground(new java.awt.Color(153, 0, 51));
-        textoUsuario.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        background.add(textoUsuario);
-        textoUsuario.setBounds(520, 20, 220, 30);
-
         textoUsuario1.setForeground(new java.awt.Color(153, 0, 51));
         textoUsuario1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         textoUsuario1.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -201,7 +192,7 @@ public class Background extends javax.swing.JFrame {
             }
         });
         background.add(textoUsuario1);
-        textoUsuario1.setBounds(520, 60, 220, 30);
+        textoUsuario1.setBounds(520, 50, 220, 30);
 
         cambiarNombre.setBackground(new java.awt.Color(255, 237, 221));
         cambiarNombre.setForeground(new java.awt.Color(102, 0, 0));
@@ -215,19 +206,13 @@ public class Background extends javax.swing.JFrame {
             }
         });
         background.add(cambiarNombre);
-        cambiarNombre.setBounds(770, 60, 120, 30);
-
-        nomOld.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        nomOld.setForeground(new java.awt.Color(102, 0, 0));
-        nomOld.setText("NOMBRE:");
-        background.add(nomOld);
-        nomOld.setBounds(420, 20, 100, 30);
+        cambiarNombre.setBounds(770, 50, 120, 30);
 
         nomNu.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         nomNu.setForeground(new java.awt.Color(102, 0, 0));
         nomNu.setText("NUEVO NOMBRE:");
         background.add(nomNu);
-        nomNu.setBounds(420, 60, 100, 30);
+        nomNu.setBounds(420, 50, 100, 30);
 
         botonBalance.setBackground(new java.awt.Color(0, 0, 0));
         botonBalance.setFont(new java.awt.Font("Luisa", 1, 36)); // NOI18N
@@ -311,9 +296,7 @@ public class Background extends javax.swing.JFrame {
 
     //llama a las variable que están ocultas en el constructor para realizar el cambio de nombre del usuario
     private void botonAjustesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAjustesActionPerformed
-        textoUsuario.setVisible(true);
         textoUsuario1.setVisible(true);
-        nomOld.setVisible(true);
         nomNu.setVisible(true);
         cambiarNombre.setVisible(true);
     }//GEN-LAST:event_botonAjustesActionPerformed
@@ -335,13 +318,10 @@ public class Background extends javax.swing.JFrame {
     private void cambiarNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cambiarNombreActionPerformed
         
             MeseroData m1=new MeseroData(conexion);
-            m1.cambiarNombre(textoUsuario.getText(), textoUsuario1.getText());
-            textoUsuario.setVisible(false);
+            m1.cambiarNombre(Inicio.usuarioRegistrado(), textoUsuario1.getText());
             textoUsuario1.setVisible(false);
-            nomOld.setVisible(false);
             nomNu.setVisible(false);
             cambiarNombre.setVisible(false);
-            textoUsuario.setText(null);
             textoUsuario1.setText(null);
             eActualizar.setVisible(true);
             ocultar.setVisible(true);
@@ -352,13 +332,10 @@ public class Background extends javax.swing.JFrame {
         if (evt.getKeyCode()==KeyEvent.VK_ENTER){
             
             MeseroData m1=new MeseroData(conexion);
-            m1.cambiarNombre(textoUsuario.getText(), textoUsuario1.getText());
-            textoUsuario.setVisible(false);
+            m1.cambiarNombre(Inicio.usuarioRegistrado(), textoUsuario1.getText());
             textoUsuario1.setVisible(false);
-            nomOld.setVisible(false);
             nomNu.setVisible(false);
             cambiarNombre.setVisible(false);
-            textoUsuario.setText(null);
             textoUsuario1.setText(null);
             eActualizar.setVisible(true);
             ocultar.setVisible(true);
@@ -395,12 +372,10 @@ public class Background extends javax.swing.JFrame {
     private javax.swing.JLabel eActualizar;
     private javax.swing.JLabel imagen;
     private javax.swing.JLabel nomNu;
-    private javax.swing.JLabel nomOld;
     private javax.swing.JButton ocultar;
     private javax.swing.JLabel tB2;
     private javax.swing.JLabel tB3;
     private javax.swing.JLabel textoBienvenida;
-    private javax.swing.JTextField textoUsuario;
     private javax.swing.JTextField textoUsuario1;
     // End of variables declaration//GEN-END:variables
 }

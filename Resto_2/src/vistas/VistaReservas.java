@@ -54,9 +54,7 @@ public class VistaReservas extends javax.swing.JFrame {
         labelConfirmacion.setFont(fuente.fuenteLuisa(1, 24));
         
         //campos ocultos que aparecen al ser llamados por los ajustes del usuario
-        textoUsuario.setVisible(false);
         textoUsuario1.setVisible(false);
-        nomOld.setVisible(false);
         nomNu.setVisible(false);
         cambiarNombre2.setVisible(false);
         eActualizar.setVisible(false);
@@ -195,10 +193,8 @@ public class VistaReservas extends javax.swing.JFrame {
         apagar = new javax.swing.JButton();
         cambiarNombre2 = new javax.swing.JButton();
         textoUsuario1 = new javax.swing.JTextField();
-        textoUsuario = new javax.swing.JTextField();
         botonAjustes = new javax.swing.JButton();
         nomNu = new javax.swing.JLabel();
-        nomOld = new javax.swing.JLabel();
         etiquetaId = new javax.swing.JLabel();
         textoId = new javax.swing.JTextField();
         etiquetaNombre = new javax.swing.JLabel();
@@ -428,7 +424,7 @@ public class VistaReservas extends javax.swing.JFrame {
             }
         });
         background.add(cambiarNombre2);
-        cambiarNombre2.setBounds(780, 60, 120, 30);
+        cambiarNombre2.setBounds(780, 50, 120, 30);
 
         textoUsuario1.setForeground(new java.awt.Color(153, 0, 51));
         textoUsuario1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -443,12 +439,7 @@ public class VistaReservas extends javax.swing.JFrame {
             }
         });
         background.add(textoUsuario1);
-        textoUsuario1.setBounds(520, 60, 220, 30);
-
-        textoUsuario.setForeground(new java.awt.Color(153, 0, 51));
-        textoUsuario.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        background.add(textoUsuario);
-        textoUsuario.setBounds(520, 20, 220, 30);
+        textoUsuario1.setBounds(520, 50, 220, 30);
 
         botonAjustes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/ajustes.png"))); // NOI18N
         botonAjustes.setContentAreaFilled(false);
@@ -464,13 +455,7 @@ public class VistaReservas extends javax.swing.JFrame {
         nomNu.setForeground(new java.awt.Color(102, 0, 0));
         nomNu.setText("NUEVO NOMBRE:");
         background.add(nomNu);
-        nomNu.setBounds(400, 60, 110, 30);
-
-        nomOld.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        nomOld.setForeground(new java.awt.Color(102, 0, 0));
-        nomOld.setText("NOMBRE:");
-        background.add(nomOld);
-        nomOld.setBounds(400, 20, 100, 30);
+        nomNu.setBounds(400, 50, 110, 30);
 
         etiquetaId.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         etiquetaId.setForeground(new java.awt.Color(153, 0, 51));
@@ -736,14 +721,11 @@ public class VistaReservas extends javax.swing.JFrame {
     private void cambiarNombre2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cambiarNombre2ActionPerformed
 
         MeseroData m1=new MeseroData(conexion);
-        m1.cambiarNombre(textoUsuario.getText(), textoUsuario1.getText());
+        m1.cambiarNombre(Inicio.usuarioRegistrado(), textoUsuario1.getText());
         Inicio.almacenarUsuario(textoUsuario1.getText());
-        textoUsuario.setVisible(false);
         textoUsuario1.setVisible(false);
-        nomOld.setVisible(false);
         nomNu.setVisible(false);
         cambiarNombre2.setVisible(false);
-        textoUsuario.setText(null);
         textoUsuario1.setText(null);
         eActualizar.setVisible(true);
         ocultar.setVisible(true);
@@ -755,14 +737,11 @@ public class VistaReservas extends javax.swing.JFrame {
         if (evt.getKeyCode()==KeyEvent.VK_ENTER){
 
             MeseroData m1=new MeseroData(conexion);
-            m1.cambiarNombre(textoUsuario.getText(), textoUsuario1.getText());
+            m1.cambiarNombre(Inicio.usuarioRegistrado(), textoUsuario1.getText());
             Inicio.almacenarUsuario(textoUsuario1.getText());
-            textoUsuario.setVisible(false);
             textoUsuario1.setVisible(false);
-            nomOld.setVisible(false);
             nomNu.setVisible(false);
             cambiarNombre2.setVisible(false);
-            textoUsuario.setText(null);
             textoUsuario1.setText(null);
             eActualizar.setVisible(true);
             ocultar.setVisible(true);
@@ -771,9 +750,7 @@ public class VistaReservas extends javax.swing.JFrame {
 
     //llama a las variable que están ocultas en el constructor para realizar el cambio de nombre del usuario
     private void botonAjustesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAjustesActionPerformed
-        textoUsuario.setVisible(true);
         textoUsuario1.setVisible(true);
-        nomOld.setVisible(true);
         nomNu.setVisible(true);
         cambiarNombre2.setVisible(true);
     }//GEN-LAST:event_botonAjustesActionPerformed
@@ -918,7 +895,6 @@ public class VistaReservas extends javax.swing.JFrame {
     private javax.swing.JButton limpiarCasilleros1;
     private javax.swing.JLabel mesaConfirmacion;
     private javax.swing.JLabel nomNu;
-    private javax.swing.JLabel nomOld;
     private javax.swing.JLabel nombreConfirmacion;
     private javax.swing.JButton ocultar;
     private javax.swing.JSpinner spinnerMesas;
@@ -926,7 +902,6 @@ public class VistaReservas extends javax.swing.JFrame {
     private javax.swing.JTextField textoDni;
     private javax.swing.JTextField textoId;
     private javax.swing.JTextField textoNombre;
-    private javax.swing.JTextField textoUsuario;
     private javax.swing.JTextField textoUsuario1;
     // End of variables declaration//GEN-END:variables
 }

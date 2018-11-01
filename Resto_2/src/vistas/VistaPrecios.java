@@ -41,9 +41,7 @@ public class VistaPrecios extends javax.swing.JFrame {
         labelPrecios.setFont(fuente.fuenteLuisa(1, 24));
         
         //campos ocultos que aparecen al ser llamados por los ajustes del usuario
-        textoUsuario.setVisible(false);
         textoUsuario1.setVisible(false);
-        nomOld.setVisible(false);
         nomNu.setVisible(false);
         cambiarNombre2.setVisible(false);
         eActualizar.setVisible(false);
@@ -110,9 +108,7 @@ public class VistaPrecios extends javax.swing.JFrame {
         cerrarSesion = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         nomNu = new javax.swing.JLabel();
-        textoUsuario = new javax.swing.JTextField();
         cambiarNombre2 = new javax.swing.JButton();
-        nomOld = new javax.swing.JLabel();
         botonAjustes = new javax.swing.JButton();
         textoUsuario1 = new javax.swing.JTextField();
         botonBalance = new javax.swing.JButton();
@@ -367,12 +363,7 @@ public class VistaPrecios extends javax.swing.JFrame {
         nomNu.setForeground(new java.awt.Color(102, 0, 0));
         nomNu.setText("NUEVO NOMBRE:");
         background.add(nomNu);
-        nomNu.setBounds(420, 60, 100, 30);
-
-        textoUsuario.setForeground(new java.awt.Color(153, 0, 51));
-        textoUsuario.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        background.add(textoUsuario);
-        textoUsuario.setBounds(520, 20, 220, 30);
+        nomNu.setBounds(420, 50, 100, 30);
 
         cambiarNombre2.setBackground(new java.awt.Color(255, 237, 221));
         cambiarNombre2.setForeground(new java.awt.Color(102, 0, 0));
@@ -386,13 +377,7 @@ public class VistaPrecios extends javax.swing.JFrame {
             }
         });
         background.add(cambiarNombre2);
-        cambiarNombre2.setBounds(770, 60, 120, 30);
-
-        nomOld.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        nomOld.setForeground(new java.awt.Color(102, 0, 0));
-        nomOld.setText("NOMBRE:");
-        background.add(nomOld);
-        nomOld.setBounds(420, 20, 100, 30);
+        cambiarNombre2.setBounds(770, 50, 120, 30);
 
         botonAjustes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/ajustes.png"))); // NOI18N
         botonAjustes.setContentAreaFilled(false);
@@ -412,7 +397,7 @@ public class VistaPrecios extends javax.swing.JFrame {
             }
         });
         background.add(textoUsuario1);
-        textoUsuario1.setBounds(520, 60, 220, 30);
+        textoUsuario1.setBounds(520, 50, 220, 30);
 
         botonBalance.setBackground(new java.awt.Color(0, 0, 0));
         botonBalance.setFont(new java.awt.Font("Luisa", 1, 36)); // NOI18N
@@ -602,14 +587,11 @@ public class VistaPrecios extends javax.swing.JFrame {
    //Actualizar el nombre del mesero
     private void cambiarNombre2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cambiarNombre2ActionPerformed
         MeseroData m1=new MeseroData(conexion);
-        m1.cambiarNombre(textoUsuario.getText(), textoUsuario1.getText());
+        m1.cambiarNombre(Inicio.usuarioRegistrado(), textoUsuario1.getText());
         Inicio.almacenarUsuario(textoUsuario1.getText());
-        textoUsuario.setVisible(false);
         textoUsuario1.setVisible(false);
-        nomOld.setVisible(false);
         nomNu.setVisible(false);
         cambiarNombre2.setVisible(false);
-        textoUsuario.setText(null);
         textoUsuario1.setText(null);
         eActualizar.setVisible(true);
         ocultar.setVisible(true);
@@ -617,9 +599,7 @@ public class VistaPrecios extends javax.swing.JFrame {
  
     //Permite actualizar el nombre del mesero
     private void botonAjustesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAjustesActionPerformed
-        textoUsuario.setVisible(true);
         textoUsuario1.setVisible(true);
-        nomOld.setVisible(true);
         nomNu.setVisible(true);
         cambiarNombre2.setVisible(true);
     }//GEN-LAST:event_botonAjustesActionPerformed
@@ -628,14 +608,11 @@ public class VistaPrecios extends javax.swing.JFrame {
     private void textoUsuario1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textoUsuario1KeyPressed
         if (evt.getKeyCode()==KeyEvent.VK_ENTER){
             MeseroData m1=new MeseroData(conexion);
-            m1.cambiarNombre(textoUsuario.getText(), textoUsuario1.getText());
+            m1.cambiarNombre(Inicio.usuarioRegistrado(), textoUsuario1.getText());
             Inicio.almacenarUsuario(textoUsuario1.getText());
-            textoUsuario.setVisible(false);
             textoUsuario1.setVisible(false);
-            nomOld.setVisible(false);
             nomNu.setVisible(false);
             cambiarNombre2.setVisible(false);
-            textoUsuario.setText(null);
             textoUsuario1.setText(null);
             eActualizar.setVisible(true);
             ocultar.setVisible(true);
@@ -701,14 +678,12 @@ public class VistaPrecios extends javax.swing.JFrame {
     private javax.swing.JLabel labelPrecios;
     private javax.swing.JButton limpiar;
     private javax.swing.JLabel nomNu;
-    private javax.swing.JLabel nomOld;
     private javax.swing.JButton ocultar;
     private javax.swing.JLabel ph;
     private javax.swing.JTable tablaPrecios;
     private javax.swing.JTextField textoId;
     private javax.swing.JTextField textoMonto;
     private javax.swing.JTextField textoNombre;
-    private javax.swing.JTextField textoUsuario;
     private javax.swing.JTextField textoUsuario1;
     // End of variables declaration//GEN-END:variables
 }

@@ -50,9 +50,7 @@ public class VistaPedidos extends javax.swing.JFrame {
         labelPedidos.setFont(fuente.fuenteLuisa(1,24));
         
         //campos ocultos que aparecen al ser llamados por los ajustes del usuario
-        textoUsuario.setVisible(false);
         textoUsuario1.setVisible(false);
-        nomOld.setVisible(false);
         nomNu.setVisible(false);
         cambiarNombre2.setVisible(false);
         eActualizar.setVisible(false);
@@ -190,9 +188,7 @@ public class VistaPedidos extends javax.swing.JFrame {
         cerrarSesion = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         botonAjustes = new javax.swing.JButton();
-        nomOld = new javax.swing.JLabel();
         nomNu = new javax.swing.JLabel();
-        textoUsuario = new javax.swing.JTextField();
         textoUsuario1 = new javax.swing.JTextField();
         cambiarNombre2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -217,6 +213,7 @@ public class VistaPedidos extends javax.swing.JFrame {
         cbProductos = new javax.swing.JComboBox<>();
         ocultar = new javax.swing.JButton();
         eActualizar = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
         imagen = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -366,22 +363,11 @@ public class VistaPedidos extends javax.swing.JFrame {
         background.add(botonAjustes);
         botonAjustes.setBounds(320, 40, 30, 40);
 
-        nomOld.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        nomOld.setForeground(new java.awt.Color(102, 0, 0));
-        nomOld.setText("NOMBRE:");
-        background.add(nomOld);
-        nomOld.setBounds(420, 20, 100, 30);
-
         nomNu.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         nomNu.setForeground(new java.awt.Color(102, 0, 0));
         nomNu.setText("NUEVO NOMBRE:");
         background.add(nomNu);
-        nomNu.setBounds(420, 60, 100, 30);
-
-        textoUsuario.setForeground(new java.awt.Color(153, 0, 51));
-        textoUsuario.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        background.add(textoUsuario);
-        textoUsuario.setBounds(520, 20, 220, 30);
+        nomNu.setBounds(420, 50, 100, 30);
 
         textoUsuario1.setForeground(new java.awt.Color(153, 0, 51));
         textoUsuario1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -391,7 +377,7 @@ public class VistaPedidos extends javax.swing.JFrame {
             }
         });
         background.add(textoUsuario1);
-        textoUsuario1.setBounds(520, 60, 220, 30);
+        textoUsuario1.setBounds(520, 50, 220, 30);
 
         cambiarNombre2.setBackground(new java.awt.Color(255, 237, 221));
         cambiarNombre2.setForeground(new java.awt.Color(102, 0, 0));
@@ -405,7 +391,7 @@ public class VistaPedidos extends javax.swing.JFrame {
             }
         });
         background.add(cambiarNombre2);
-        cambiarNombre2.setBounds(770, 60, 120, 30);
+        cambiarNombre2.setBounds(770, 50, 120, 30);
 
         tablaPedido.setBackground(new java.awt.Color(254, 247, 230));
         tablaPedido.setForeground(new java.awt.Color(153, 0, 0));
@@ -489,7 +475,7 @@ public class VistaPedidos extends javax.swing.JFrame {
         spinnerMesas.setBorder(null);
         spinnerMesas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         background.add(spinnerMesas);
-        spinnerMesas.setBounds(470, 270, 140, 30);
+        spinnerMesas.setBounds(470, 220, 140, 30);
 
         buscarPedido.setBackground(new java.awt.Color(255, 237, 221));
         buscarPedido.setForeground(new java.awt.Color(102, 0, 0));
@@ -639,6 +625,9 @@ public class VistaPedidos extends javax.swing.JFrame {
         background.add(eActualizar);
         eActualizar.setBounds(490, 30, 320, 14);
 
+        background.add(jComboBox1);
+        jComboBox1.setBounds(460, 270, 130, 30);
+
         imagen.setBackground(new java.awt.Color(204, 70, 0));
         imagen.setForeground(new java.awt.Color(1, 1, 1));
         imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/Background.png"))); // NOI18N
@@ -699,9 +688,7 @@ public class VistaPedidos extends javax.swing.JFrame {
 
     //permite actualizar el nombre de usuario
     private void botonAjustesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAjustesActionPerformed
-        textoUsuario.setVisible(true);
         textoUsuario1.setVisible(true);
-        nomOld.setVisible(true);
         nomNu.setVisible(true);
         cambiarNombre2.setVisible(true);
     }//GEN-LAST:event_botonAjustesActionPerformed
@@ -710,14 +697,11 @@ public class VistaPedidos extends javax.swing.JFrame {
     private void textoUsuario1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textoUsuario1KeyPressed
         if (evt.getKeyCode()==KeyEvent.VK_ENTER){
             MeseroData mm= new MeseroData(conexion);
-            mm.cambiarNombre(textoUsuario.getText(), textoUsuario1.getText());
+            mm.cambiarNombre(Inicio.usuarioRegistrado(), textoUsuario1.getText());
             Inicio.almacenarUsuario(textoUsuario1.getText());
-            textoUsuario.setVisible(false);
             textoUsuario1.setVisible(false);
-            nomOld.setVisible(false);
             nomNu.setVisible(false);
             cambiarNombre2.setVisible(false);
-            textoUsuario.setText(null);
             textoUsuario1.setText(null);
             eActualizar.setVisible(true);
             ocultar.setVisible(true);
@@ -727,14 +711,11 @@ public class VistaPedidos extends javax.swing.JFrame {
     //actualiza el nombre de usuario
     private void cambiarNombre2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cambiarNombre2ActionPerformed
         MeseroData mm= new MeseroData(conexion);
-        mm.cambiarNombre(textoUsuario.getText(), textoUsuario1.getText());
+        mm.cambiarNombre(Inicio.usuarioRegistrado(), textoUsuario1.getText());
         Inicio.almacenarUsuario(textoUsuario1.getText());
-        textoUsuario.setVisible(false);
         textoUsuario1.setVisible(false);
-        nomOld.setVisible(false);
         nomNu.setVisible(false);
         cambiarNombre2.setVisible(false);
-        textoUsuario.setText(null);
         textoUsuario1.setText(null);
         eActualizar.setVisible(true);
         ocultar.setVisible(true);
@@ -776,6 +757,7 @@ public class VistaPedidos extends javax.swing.JFrame {
                     filas  [2]=null;
                     modelo.addRow(filas);
                 }
+                textoCuenta.setText(String.valueOf(00.0));
             }
             //si aun tiene comandas las muestra en la tabla
             else{this.cargarTabla();}
@@ -868,6 +850,7 @@ public class VistaPedidos extends javax.swing.JFrame {
             //la diferencia es que la ocupada no tiene comandas y la atendida si
             //en ambas vamos a desear agregar comandas, por lo que cargamos la tabla con los datos que tenemos hasta ahora
             }else if ("Ocupada".equals(md.deIdAMesa(m).getEstadoMesa())||"Atendida".equals(md.deIdAMesa(m).getEstadoMesa())){
+                avisos.setText("Mesa "+md.deIdAMesa(m).getEstadoMesa());
                 DefaultTableModel modelo=new DefaultTableModel();
                 tablaPedido.setModel(modelo);
             
@@ -974,12 +957,12 @@ public class VistaPedidos extends javax.swing.JFrame {
     private javax.swing.JTextField idProducto;
     private javax.swing.JLabel imagen;
     private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelPedidos;
     private javax.swing.JButton limpiarCampos;
     private javax.swing.JLabel nomNu;
-    private javax.swing.JLabel nomOld;
     private javax.swing.JButton ocultar;
     private javax.swing.JButton quitarProducto;
     private javax.swing.JSpinner spinnerCantidad;
@@ -989,7 +972,6 @@ public class VistaPedidos extends javax.swing.JFrame {
     private javax.swing.JTextField textoCuenta;
     private javax.swing.JTextField textoId;
     private javax.swing.JTextField textoPagaCon;
-    private javax.swing.JTextField textoUsuario;
     private javax.swing.JTextField textoUsuario1;
     // End of variables declaration//GEN-END:variables
 }
