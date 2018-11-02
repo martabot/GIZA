@@ -62,7 +62,6 @@ public class VistaBalance extends javax.swing.JFrame {
         botonReservas = new javax.swing.JButton();
         botonPedidos = new javax.swing.JButton();
         labelBalance = new javax.swing.JLabel();
-        etiquetaAgregar = new javax.swing.JLabel();
         cerrarSesion = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         nomNu = new javax.swing.JLabel();
@@ -72,6 +71,16 @@ public class VistaBalance extends javax.swing.JFrame {
         botonBalance = new javax.swing.JButton();
         ocultar = new javax.swing.JButton();
         eActualizar = new javax.swing.JLabel();
+        etiquetaListar = new javax.swing.JLabel();
+        comboBoxListar = new javax.swing.JComboBox<>();
+        tablaBalance = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        botonListar = new javax.swing.JButton();
+        botonLimpiar = new javax.swing.JButton();
+        etiquetaFecha = new javax.swing.JLabel();
+        etiquetaHora = new javax.swing.JLabel();
+        spninnerFecha = new javax.swing.JSpinner();
+        spinnerHora = new javax.swing.JSpinner();
         imagen = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -136,8 +145,6 @@ public class VistaBalance extends javax.swing.JFrame {
         labelBalance.setText("BALANCE");
         background.add(labelBalance);
         labelBalance.setBounds(590, 190, 170, 40);
-        background.add(etiquetaAgregar);
-        etiquetaAgregar.setBounds(380, 390, 520, 30);
 
         cerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/Logout-512.png"))); // NOI18N
         cerrarSesion.setContentAreaFilled(false);
@@ -231,6 +238,166 @@ public class VistaBalance extends javax.swing.JFrame {
         eActualizar.setText("EL NOMBRE DE USUARIO SE ACTUALIZO CON EXITO");
         background.add(eActualizar);
         eActualizar.setBounds(480, 30, 300, 14);
+
+        etiquetaListar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        etiquetaListar.setForeground(new java.awt.Color(204, 0, 0));
+        etiquetaListar.setText("Consulta Por:");
+        background.add(etiquetaListar);
+        etiquetaListar.setBounds(400, 270, 110, 17);
+
+        comboBoxListar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mesero", "Mesa" }));
+        comboBoxListar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxListarActionPerformed(evt);
+            }
+        });
+        background.add(comboBoxListar);
+        comboBoxListar.setBounds(520, 270, 130, 20);
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "", "", "", ""
+            }
+        ));
+        tablaBalance.setViewportView(jTable1);
+
+        background.add(tablaBalance);
+        tablaBalance.setBounds(402, 412, 400, 200);
+
+        botonListar.setText("LISTAR");
+        botonListar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonListarActionPerformed(evt);
+            }
+        });
+        background.add(botonListar);
+        botonListar.setBounds(750, 270, 80, 30);
+
+        botonLimpiar.setText("LIMPIAR");
+        botonLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonLimpiarActionPerformed(evt);
+            }
+        });
+        background.add(botonLimpiar);
+        botonLimpiar.setBounds(750, 323, 80, 30);
+
+        etiquetaFecha.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        etiquetaFecha.setForeground(new java.awt.Color(204, 0, 0));
+        etiquetaFecha.setText("Fecha:");
+        background.add(etiquetaFecha);
+        etiquetaFecha.setBounds(400, 303, 70, 17);
+
+        etiquetaHora.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        etiquetaHora.setForeground(new java.awt.Color(204, 0, 0));
+        etiquetaHora.setText("Hora:");
+        background.add(etiquetaHora);
+        etiquetaHora.setBounds(400, 340, 50, 17);
+        background.add(spninnerFecha);
+        spninnerFecha.setBounds(520, 310, 29, 20);
+        background.add(spinnerHora);
+        spinnerHora.setBounds(520, 340, 29, 20);
 
         imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/Background.png"))); // NOI18N
         imagen.setAlignmentY(0.0F);
@@ -331,25 +498,46 @@ public class VistaBalance extends javax.swing.JFrame {
         ocultar.setVisible(false);
     }//GEN-LAST:event_ocultarActionPerformed
 
+    private void comboBoxListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxListarActionPerformed
+       
+    }//GEN-LAST:event_comboBoxListarActionPerformed
+
+    private void botonLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonLimpiarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonLimpiarActionPerformed
+
+    private void botonListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonListarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonListarActionPerformed
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel background;
     private javax.swing.JButton botonAjustes;
     private javax.swing.JButton botonBalance;
+    private javax.swing.JButton botonLimpiar;
+    private javax.swing.JButton botonListar;
     private javax.swing.JButton botonMesas;
     private javax.swing.JButton botonPedidos;
     private javax.swing.JButton botonPrecios;
     private javax.swing.JButton botonReservas;
     private javax.swing.JButton cambiarNombre2;
     private javax.swing.JButton cerrarSesion;
+    private javax.swing.JComboBox<String> comboBoxListar;
     private javax.swing.JLabel eActualizar;
-    private javax.swing.JLabel etiquetaAgregar;
+    private javax.swing.JLabel etiquetaFecha;
+    private javax.swing.JLabel etiquetaHora;
+    private javax.swing.JLabel etiquetaListar;
     private javax.swing.JLabel imagen;
     private javax.swing.JButton jButton1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JLabel labelBalance;
     private javax.swing.JLabel nomNu;
     private javax.swing.JButton ocultar;
+    private javax.swing.JSpinner spinnerHora;
+    private javax.swing.JSpinner spninnerFecha;
+    private javax.swing.JScrollPane tablaBalance;
     private javax.swing.JTextField textoUsuario1;
     // End of variables declaration//GEN-END:variables
 }

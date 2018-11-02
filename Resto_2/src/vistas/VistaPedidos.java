@@ -625,6 +625,11 @@ public class VistaPedidos extends javax.swing.JFrame {
         background.add(eActualizar);
         eActualizar.setBounds(490, 30, 320, 14);
 
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
         background.add(jComboBox1);
         jComboBox1.setBounds(460, 270, 130, 30);
 
@@ -923,6 +928,10 @@ public class VistaPedidos extends javax.swing.JFrame {
         eActualizar.setVisible(false);
         ocultar.setVisible(false);
     }//GEN-LAST:event_ocultarActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     
 
