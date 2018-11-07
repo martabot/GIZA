@@ -11,7 +11,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -35,7 +34,7 @@ public class MesaData {
             String sql = "INSERT INTO mesa (estado_mesa, capacidad) VALUES ( ? , ? );";
             try (PreparedStatement statment = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 statment.setString(1, mesa.getEstadoMesa());
-                statment.setInt(3, mesa.getCapacidad());
+                statment.setInt(2, mesa.getCapacidad());
                 
                 statment.executeUpdate();
                 
@@ -52,8 +51,8 @@ public class MesaData {
         }
     }
     
-    public List<Mesa> obtenerMesas(){
-        List<Mesa> mesas = new ArrayList<>();
+    public ArrayList<Mesa> obtenerMesas(){
+        ArrayList<Mesa> mesas = new ArrayList<>();
            
         try {
             String sql = "SELECT * FROM mesa;";
@@ -122,5 +121,35 @@ public class MesaData {
         } catch (SQLException ex) {
             System.out.println("Error al borrar la mesa: " + ex.getMessage());
         }
+    }
+    
+    public void actualizarIdMesa(int i,int b){
+        try {
+            String sql = "UPDATE mesa SET id_mesa = ?  WHERE id_mesa = ?;";
+            try (PreparedStatement statment = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                statment.setInt(1, b);
+                statment.setInt(2, i);
+                
+                statment.executeUpdate();
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al actualizar el ID de la mesa: " + ex.getMessage());
+        }
+    
+    }
+    
+    public void actualizarCapacidad(int i,int b){
+        try {
+            String sql = "UPDATE mesa SET capacidad = ?  WHERE capacidad = ?;";
+            try (PreparedStatement statment = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                statment.setInt(1, b);
+                statment.setInt(2, i);
+                
+                statment.executeUpdate();
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al actualizar la capacidad de la mesa: " + ex.getMessage());
+        }
+    
     }
 }

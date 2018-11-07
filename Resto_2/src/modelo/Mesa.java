@@ -23,11 +23,10 @@ public class Mesa {
         this.capacidad=capacidad;
     }
 
-    public Mesa(String estadoMesa, boolean tieneReserva, int capacidad, double cuenta) {
+    public Mesa(String estadoMesa, int capacidad) {
         idMesa=-1;
         this.estadoMesa=estadoMesa;
         this.capacidad=capacidad;
-        
     }
 
     public Mesa() {

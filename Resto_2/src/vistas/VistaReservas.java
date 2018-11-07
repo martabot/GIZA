@@ -8,6 +8,7 @@ package vistas;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.logging.Level;
@@ -132,8 +133,8 @@ public class VistaReservas extends javax.swing.JFrame {
             modelo.addColumn("FECHA");
             modelo.addColumn("MESA");
             
-            //acomodamos el formato del horario para que se vea bonito en nuestra tabla
-            DateTimeFormatter d = DateTimeFormatter.ofPattern("dd/mm/yyyy HH:mm:ss"); 
+            //acomodamos el formato para que se vea bonito en nuestra tabla
+            DateTimeFormatter d = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"); 
             
             //variables y conexiones
             ReservaData rd=new ReservaData(conexion);
@@ -179,6 +180,17 @@ public class VistaReservas extends javax.swing.JFrame {
         mesaConfirmacion = new javax.swing.JLabel();
         botonAceptar = new javax.swing.JButton();
         botonAceptar1 = new javax.swing.JButton();
+        confirmacion1 = new javax.swing.JDialog();
+        jPanel2 = new javax.swing.JPanel();
+        labelConfirmacion1 = new javax.swing.JLabel();
+        nombreConfirmacion1 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        dniConfirmacion1 = new javax.swing.JLabel();
+        fechaConfirmacion1 = new javax.swing.JLabel();
+        mesaConfirmacion1 = new javax.swing.JLabel();
+        botonAceptar2 = new javax.swing.JButton();
+        botonAceptar3 = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
         background = new javax.swing.JPanel();
         botonPrecios = new javax.swing.JButton();
         botonMesas = new javax.swing.JButton();
@@ -205,7 +217,6 @@ public class VistaReservas extends javax.swing.JFrame {
         etiquetaId3 = new javax.swing.JLabel();
         etiquetaId4 = new javax.swing.JLabel();
         calendario = new com.toedter.calendar.JDateChooser();
-        buscarReservaPor1 = new javax.swing.JButton();
         avisos = new javax.swing.JLabel();
         limpiarCasilleros1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -215,11 +226,13 @@ public class VistaReservas extends javax.swing.JFrame {
         ocultar = new javax.swing.JButton();
         imagen = new javax.swing.JLabel();
 
+        confirmacion.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         confirmacion.setAlwaysOnTop(true);
         confirmacion.setBackground(new java.awt.Color(253, 240, 240));
         confirmacion.setBounds(new java.awt.Rectangle(360, 188, 564, 490));
+        confirmacion.setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(255, 234, 223));
+        jPanel1.setBackground(new java.awt.Color(255, 236, 223));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         labelConfirmacion.setFont(new java.awt.Font("Luisa", 1, 24)); // NOI18N
@@ -229,28 +242,28 @@ public class VistaReservas extends javax.swing.JFrame {
 
         jLabel2.setForeground(new java.awt.Color(153, 0, 51));
         jLabel2.setText("NOMBRE:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 130, 60, 30));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 130, 60, 30));
 
         nombreConfirmacion.setForeground(new java.awt.Color(153, 0, 51));
         jPanel1.add(nombreConfirmacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 130, 300, 30));
 
         jLabel4.setForeground(new java.awt.Color(153, 0, 51));
         jLabel4.setText("DNI:");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 170, 60, 30));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 170, 60, 30));
 
         dniConfirmacion.setForeground(new java.awt.Color(153, 0, 51));
         jPanel1.add(dniConfirmacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 170, 300, 30));
 
         jLabel6.setForeground(new java.awt.Color(153, 0, 51));
         jLabel6.setText("FECHA:");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, 60, 30));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 210, 60, 30));
 
         fechaConfirmacion.setForeground(new java.awt.Color(153, 0, 51));
         jPanel1.add(fechaConfirmacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 210, 300, 30));
 
         jLabel8.setForeground(new java.awt.Color(153, 0, 51));
         jLabel8.setText("MESA:");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 250, 60, 30));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 250, 60, 30));
 
         mesaConfirmacion.setForeground(new java.awt.Color(153, 0, 51));
         jPanel1.add(mesaConfirmacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 250, 300, 30));
@@ -286,6 +299,74 @@ public class VistaReservas extends javax.swing.JFrame {
         confirmacionLayout.setVerticalGroup(
             confirmacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
+        );
+
+        confirmacion1.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        confirmacion1.setAlwaysOnTop(true);
+        confirmacion1.setBackground(new java.awt.Color(253, 240, 240));
+        confirmacion1.setBounds(new java.awt.Rectangle(360, 188, 564, 490));
+        confirmacion1.setResizable(false);
+
+        jPanel2.setBackground(new java.awt.Color(255, 236, 223));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        labelConfirmacion1.setFont(new java.awt.Font("Luisa", 1, 24)); // NOI18N
+        labelConfirmacion1.setForeground(new java.awt.Color(153, 0, 51));
+        labelConfirmacion1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelConfirmacion1.setText("ELIMINAR RESERVA");
+        jPanel2.add(labelConfirmacion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 460, 30));
+
+        nombreConfirmacion1.setForeground(new java.awt.Color(153, 0, 51));
+        jPanel2.add(nombreConfirmacion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 170, 300, 30));
+
+        jLabel5.setForeground(new java.awt.Color(153, 0, 51));
+        jLabel5.setText("DNI:");
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 210, 60, 30));
+
+        dniConfirmacion1.setForeground(new java.awt.Color(153, 0, 51));
+        jPanel2.add(dniConfirmacion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 210, 300, 30));
+
+        fechaConfirmacion1.setForeground(new java.awt.Color(153, 0, 51));
+        jPanel2.add(fechaConfirmacion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 210, 300, 30));
+
+        mesaConfirmacion1.setForeground(new java.awt.Color(153, 0, 51));
+        jPanel2.add(mesaConfirmacion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 250, 300, 30));
+
+        botonAceptar2.setBackground(new java.awt.Color(255, 237, 221));
+        botonAceptar2.setForeground(new java.awt.Color(102, 0, 0));
+        botonAceptar2.setText("CANCELAR");
+        botonAceptar2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 153, 204), new java.awt.Color(255, 153, 102), new java.awt.Color(204, 51, 0), new java.awt.Color(153, 0, 0)));
+        botonAceptar2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAceptar2ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(botonAceptar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 380, 130, 40));
+
+        botonAceptar3.setBackground(new java.awt.Color(255, 237, 221));
+        botonAceptar3.setForeground(new java.awt.Color(102, 0, 0));
+        botonAceptar3.setText("ACEPTAR");
+        botonAceptar3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 153, 204), new java.awt.Color(255, 153, 102), new java.awt.Color(204, 51, 0), new java.awt.Color(153, 0, 0)));
+        botonAceptar3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAceptar3ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(botonAceptar3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 380, 130, 40));
+
+        jLabel10.setForeground(new java.awt.Color(153, 0, 51));
+        jLabel10.setText("NOMBRE:");
+        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 170, 60, 30));
+
+        javax.swing.GroupLayout confirmacion1Layout = new javax.swing.GroupLayout(confirmacion1.getContentPane());
+        confirmacion1.getContentPane().setLayout(confirmacion1Layout);
+        confirmacion1Layout.setHorizontalGroup(
+            confirmacion1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
+        );
+        confirmacion1Layout.setVerticalGroup(
+            confirmacion1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -507,23 +588,12 @@ public class VistaReservas extends javax.swing.JFrame {
         etiquetaId4.setBounds(380, 310, 90, 30);
 
         calendario.setDateFormatString("dd/MM/yyyy HH:mm:ss");
+        calendario.setMaxSelectableDate(new java.util.Date(253370779265000L));
+        calendario.setMinSelectableDate(new java.util.Date(-62135755135000L));
         background.add(calendario);
         calendario.setBounds(470, 350, 270, 30);
 
-        buscarReservaPor1.setBackground(new java.awt.Color(255, 237, 221));
-        buscarReservaPor1.setForeground(new java.awt.Color(102, 0, 0));
-        buscarReservaPor1.setText("BUSCAR");
-        buscarReservaPor1.setActionCommand("");
-        buscarReservaPor1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 204, 204), new java.awt.Color(255, 204, 102), new java.awt.Color(204, 0, 51), new java.awt.Color(102, 0, 0)));
-        buscarReservaPor1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buscarReservaPor1ActionPerformed(evt);
-            }
-        });
-        background.add(buscarReservaPor1);
-        buscarReservaPor1.setBounds(800, 230, 100, 20);
-
-        avisos.setForeground(new java.awt.Color(102, 0, 0));
+        avisos.setForeground(new java.awt.Color(204, 0, 51));
         avisos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         background.add(avisos);
         avisos.setBounds(470, 430, 290, 30);
@@ -585,6 +655,11 @@ public class VistaReservas extends javax.swing.JFrame {
         });
         tablaReservas.setSelectionBackground(new java.awt.Color(153, 0, 51));
         tablaReservas.setSelectionForeground(new java.awt.Color(254, 247, 230));
+        tablaReservas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaReservasMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaReservas);
 
         background.add(jScrollPane1);
@@ -680,7 +755,7 @@ public class VistaReservas extends javax.swing.JFrame {
         this.setFecha(fec.toLocalDateTime());
         //comparamos con la fecha de hoy para saber si es una fecha de reserva válida
         int fec2=LocalDateTime.now().compareTo(this.getFecha());
-        DateTimeFormatter x = DateTimeFormatter.ofPattern("dd/mm/yyyy HH:mm:ss");
+        DateTimeFormatter x = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         
         MesaData m1=new MesaData(conexion);
                 
@@ -695,8 +770,7 @@ public class VistaReservas extends javax.swing.JFrame {
                 avisos.setText("La mesa ya se encuentra reservada, seleccione otra.");
                 }else{
                    
-        confirmacion.setUndecorated(true);
-        confirmacion.setResizable(false);
+        
         nombreConfirmacion.setText(textoNombre.getText());
         dniConfirmacion.setText(textoDni.getText());
         fechaConfirmacion.setText(this.getFecha().format(x));
@@ -757,18 +831,12 @@ public class VistaReservas extends javax.swing.JFrame {
 
     //Elimina la reserva por id o "numero de reserva"(el que se le da al cliente) y reestablece el estado de la mesa a Libre
     private void eliminarReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarReservaActionPerformed
-       try { 
-        ReservaData r1=new ReservaData(conexion);
-        reservasLista=r1.obtenerReservas();
-        reservaMesa=reservasLista.stream().filter(r->r.getIdReserva()==Integer.parseInt(textoId.getText())).collect(Collectors.toList());
-        reservaMesa.forEach(r->{
-        MesaData m1=new MesaData(conexion);
-        m1.actualizarEstadoMesa("Libre",r.getMesa().getIdMesa());});
-        r1.borrarReserva(Integer.parseInt(textoId.getText()));
-        this.limpiar();this.cargarTabla();avisos.setText("Reserva eliminada.");
-       } catch (ClassNotFoundException ex) {
-            Logger.getLogger(VistaReservas.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        //DateTimeFormatter x = DateTimeFormatter.ofPattern("dd/mm/yyyy HH:mm:ss");
+        nombreConfirmacion1.setText(textoNombre.getText());
+        dniConfirmacion1.setText(textoDni.getText());
+        //fechaConfirmacion1.setText(this.getFecha().format(x));
+        //mesaConfirmacion1.setText(String.valueOf(this.getNroMesa()));
+        confirmacion1.setVisible(true);
     }//GEN-LAST:event_eliminarReservaActionPerformed
 
     //Cambia la vigencia de una Reserva que no fue eliminada pero que ya no es válida
@@ -795,11 +863,6 @@ public class VistaReservas extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_darDeBajaActionPerformed
     
-    //Selecciona en la lista de servas la que coincida con el numero de reserva que tiene el cliente
-    private void buscarReservaPor1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarReservaPor1ActionPerformed
-    
-    }//GEN-LAST:event_buscarReservaPor1ActionPerformed
-
     //limpia los casilleros invocando al método limpiante
     private void limpiarCasilleros1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarCasilleros1ActionPerformed
         this.limpiar();
@@ -815,12 +878,11 @@ public class VistaReservas extends javax.swing.JFrame {
 
     //Abre la ventada confirmacion para crear una reserva
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
-        confirmacion.setVisible(false);
+        confirmacion.dispose();
     }//GEN-LAST:event_botonAceptarActionPerformed
 
     //si los datos son correctos el mesero registra la reserva
     private void botonAceptar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptar1ActionPerformed
-        
         try {
                 conexion = new Conexion();
                 conexion.getConexion();
@@ -852,6 +914,38 @@ public class VistaReservas extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_textoUsuario1ActionPerformed
 
+    private void tablaReservasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaReservasMouseClicked
+        DateTimeFormatter x = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        int filaSeleccionada = tablaReservas.getSelectedRow();
+        if (filaSeleccionada != -1){
+        textoId.setText(tablaReservas.getValueAt(filaSeleccionada, 0).toString());
+        textoNombre.setText(tablaReservas.getValueAt(filaSeleccionada, 1).toString());
+        textoDni.setText(tablaReservas.getValueAt(filaSeleccionada, 2).toString());
+        calendario.setDate(Date.from(LocalDateTime.parse(tablaReservas.getValueAt(filaSeleccionada, 3).toString(),x).toInstant(ZoneOffset.UTC)));
+        spinnerMesas.setValue(tablaReservas.getValueAt(filaSeleccionada, 4));
+        }    
+    }//GEN-LAST:event_tablaReservasMouseClicked
+
+    private void botonAceptar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptar2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonAceptar2ActionPerformed
+
+    private void botonAceptar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptar3ActionPerformed
+    try { 
+        ReservaData r1=new ReservaData(conexion);
+        reservasLista=r1.obtenerReservas();
+        reservaMesa=reservasLista.stream().filter(r->r.getIdReserva()==Integer.parseInt(textoId.getText())).collect(Collectors.toList());
+        reservaMesa.forEach(r->{
+        MesaData m1=new MesaData(conexion);
+        m1.actualizarEstadoMesa("Libre",r.getMesa().getIdMesa());});
+        r1.borrarReserva(Integer.parseInt(textoId.getText()));
+        this.limpiar();this.cargarTabla();avisos.setText("Reserva eliminada.");
+        confirmacion1.dispose();
+       } catch (ClassNotFoundException ex) {
+            Logger.getLogger(VistaReservas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_botonAceptar3ActionPerformed
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -860,20 +954,23 @@ public class VistaReservas extends javax.swing.JFrame {
     private javax.swing.JPanel background;
     private javax.swing.JButton botonAceptar;
     private javax.swing.JButton botonAceptar1;
+    private javax.swing.JButton botonAceptar2;
+    private javax.swing.JButton botonAceptar3;
     private javax.swing.JButton botonAjustes;
     private javax.swing.JButton botonBalance;
     private javax.swing.JButton botonMesas;
     private javax.swing.JButton botonPedidos;
     private javax.swing.JButton botonPrecios;
     private javax.swing.JButton botonReservas;
-    private javax.swing.JButton buscarReservaPor1;
     private com.toedter.calendar.JDateChooser calendario;
     private javax.swing.JButton cambiarNombre2;
     private javax.swing.JButton cerrarSesion;
     private javax.swing.JDialog confirmacion;
+    private javax.swing.JDialog confirmacion1;
     private javax.swing.JButton crearReserva;
     private javax.swing.JButton darDeBaja;
     private javax.swing.JLabel dniConfirmacion;
+    private javax.swing.JLabel dniConfirmacion1;
     private javax.swing.JLabel eActualizar;
     private javax.swing.JButton eliminarReserva;
     private javax.swing.JLabel emesa;
@@ -883,19 +980,26 @@ public class VistaReservas extends javax.swing.JFrame {
     private javax.swing.JLabel etiquetaId4;
     private javax.swing.JLabel etiquetaNombre;
     private javax.swing.JLabel fechaConfirmacion;
+    private javax.swing.JLabel fechaConfirmacion1;
     private javax.swing.JLabel imagen;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelConfirmacion;
+    private javax.swing.JLabel labelConfirmacion1;
     private javax.swing.JLabel labelReservas;
     private javax.swing.JButton limpiarCasilleros1;
     private javax.swing.JLabel mesaConfirmacion;
+    private javax.swing.JLabel mesaConfirmacion1;
     private javax.swing.JLabel nomNu;
     private javax.swing.JLabel nombreConfirmacion;
+    private javax.swing.JLabel nombreConfirmacion1;
     private javax.swing.JButton ocultar;
     private javax.swing.JSpinner spinnerMesas;
     private javax.swing.JTable tablaReservas;

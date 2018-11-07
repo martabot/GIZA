@@ -12,7 +12,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -159,6 +158,26 @@ public class PedidoData {
         }
     return pedido;
     }  
+    
+    public ArrayList<Integer> selccionarPedidoPorMesero(String idM) throws ClassNotFoundException{
+        ArrayList<Integer> idMesas=new ArrayList<>();
+        
+        try {
+            String sql = "SELECT DISTINCT id_mesa FROM `pedido`,mesero WHERE pedido.id_mesero=mesero.id_mesero AND mesero.nombre_mesero=? ;";
+          try (PreparedStatement statment = connection.prepareStatement(sql)) {
+              statment.setString(1, idM);
+              ResultSet resultSet = statment.executeQuery();
+              while(resultSet.next()){
+              int me=resultSet.getInt(1);
+              
+              idMesas.add(me);
+            }
+          }
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener el pedido: " + ex.getMessage());
+        }
+    return idMesas;
+    }
     
     public void actualizarCuentaDePedido(int x,double b){
         try {

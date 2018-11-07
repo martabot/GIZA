@@ -7,9 +7,13 @@ package vistas;
 
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
+import static java.time.LocalDate.now;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
+import javax.swing.table.DefaultTableModel;
 import modelo.*;
 
 /**
@@ -19,8 +23,15 @@ import modelo.*;
 public class VistaMesas extends javax.swing.JFrame {
     private Conexion conexion;
     private MesaData mesaData;
-    private ArrayList<Mesa> mesas;
+    private MeseroData meseroData;
+    private ProductoData productoData;
+    private PedidoData pedidoData;
+    private ReservaData reservaData;
+    private List<Mesa> mesas;
+    private List<Integer> mesasId;
+    private List<Integer> reservas;
     private Fuentes fuente;
+    public static int mesaActual;
 
     public VistaMesas(){
         this.setUndecorated(true);
@@ -43,19 +54,115 @@ public class VistaMesas extends javax.swing.JFrame {
         cambiarNombre2.setVisible(false);
         eActualizar.setVisible(false);
         ocultar.setVisible(false);
+        
+        //Establecemos la conexion
+        try{
+            conexion=new Conexion();
+            conexion.getConexion();
+            mesaData=new MesaData(conexion);
+            meseroData=new MeseroData(conexion);
+            productoData=new ProductoData(conexion);
+            pedidoData=new PedidoData(conexion);
+            reservaData=new ReservaData(conexion);
+            
+            cargarCbAtendidas();
+            cargarCbReservadasHoy();
+            cargarCbDisponibles();
+            cargarTabla();
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(VistaMesas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public static int getMesaActual() {
+        return mesaActual;
+    }
+    public static void setMesaActual(int mesaActual) {
+        VistaMesas.mesaActual = mesaActual;
     }
     
     private void limpiar(){
         textoId.setText(null);
-        textoNombre.setText(null);
-        textoDni.setText(null);
-        spinnerMesas.setValue(0);
+        textoCapacidad.setText(null);
+        avisos.setText(null);
+        this.cargarTabla();
+    }
+    
+    private void cargarTabla(){
+        DefaultTableModel modelo=new DefaultTableModel();
+            tablaMesas.setModel(modelo);
+            
+            modelo.addColumn("NRO DE MESA");
+            modelo.addColumn("CAPACIDAD");
+            modelo.addColumn("CUENTA");
+            
+            int x=mesaData.obtenerMesas().size();
+            ArrayList<Mesa> lista=new ArrayList<>();
+            lista=mesaData.obtenerMesas();
+            for (int b=0;b<x;b++){
+            Object [] filas = new Object[3];
+            Mesa nuevo=lista.get(b);
+            filas  [0]=nuevo.getIdMesa();
+            filas  [1]=nuevo.getCapacidad();
+            if("Atendida".equals(nuevo.getEstadoMesa())){
+                try {
+                    filas  [2]=pedidoData.selccionarPedidoPorMesa(nuevo.getIdMesa()).getCuenta();
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(VistaMesas.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {filas [2]="00.0";}
+            modelo.addRow(filas);
+            }
+        
+    }
+    
+    private void cargarCbDisponibles(){
+        mesas=mesaData.obtenerMesas().stream().filter(m->"Libre".equals(m.getEstadoMesa())).collect(Collectors.toList());
+        for(Mesa m: mesas) {
+            cbDisponibles.addItem(String.valueOf(m.getIdMesa()));
+        }
+    }
+    
+    private void cargarCbReservadasHoy(){
+        reservas=reservaData.reservasPorMesa();
+        for(Integer r: reservas) {
+            cbReservadas.addItem(String.valueOf(r));
+        }
+    }
+    
+    private void cargarCbAtendidas(){
+        try {
+            mesasId=pedidoData.selccionarPedidoPorMesero(Inicio.usuarioRegistrado());
+            for(Integer r: mesasId) {
+                cbAtendidas.addItem(String.valueOf(r));
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(VistaMesas.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        confirmacion = new javax.swing.JDialog();
+        jPanel1 = new javax.swing.JPanel();
+        labelConfirmacion = new javax.swing.JLabel();
+        textoConfirmacionMesa = new javax.swing.JLabel();
+        botonAceptar = new javax.swing.JButton();
+        botonAceptar1 = new javax.swing.JButton();
+        confirmacion1 = new javax.swing.JDialog();
+        jPanel2 = new javax.swing.JPanel();
+        labelConfirmacion1 = new javax.swing.JLabel();
+        textoConfirmacionMesa1 = new javax.swing.JLabel();
+        botonAceptar2 = new javax.swing.JButton();
+        botonAceptar3 = new javax.swing.JButton();
+        confirmacion2 = new javax.swing.JDialog();
+        jPanel3 = new javax.swing.JPanel();
+        labelConfirmacion2 = new javax.swing.JLabel();
+        textoConfirmacionMesa2 = new javax.swing.JLabel();
+        botonAceptar4 = new javax.swing.JButton();
+        botonAceptar5 = new javax.swing.JButton();
         background = new javax.swing.JPanel();
         botonBalance = new javax.swing.JButton();
         botonMesas = new javax.swing.JButton();
@@ -64,30 +171,187 @@ public class VistaMesas extends javax.swing.JFrame {
         cerrarSesion = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
         cambiarNombre2 = new javax.swing.JButton();
+        textoCapacidad = new javax.swing.JTextField();
+        avisos = new javax.swing.JLabel();
         textoUsuario1 = new javax.swing.JTextField();
         nomNu = new javax.swing.JLabel();
         botonAjustes = new javax.swing.JButton();
         labelMesas = new javax.swing.JLabel();
-        textoId = new javax.swing.JTextField();
-        etiquetaId = new javax.swing.JLabel();
-        darDeBaja = new javax.swing.JButton();
-        textoNombre = new javax.swing.JTextField();
-        etiquetaNombre = new javax.swing.JLabel();
-        etiquetaId4 = new javax.swing.JLabel();
-        textoDni = new javax.swing.JTextField();
-        emesa = new javax.swing.JLabel();
-        spinnerMesas = new javax.swing.JSpinner();
-        crearReserva = new javax.swing.JButton();
-        buscarReservaPor1 = new javax.swing.JButton();
+        agregarMesa = new javax.swing.JButton();
+        actualizarMesa = new javax.swing.JButton();
         limpiarCasilleros = new javax.swing.JButton();
-        eliminarReserva = new javax.swing.JButton();
+        eliminarMesa = new javax.swing.JButton();
         botonPrecios = new javax.swing.JButton();
         ocultar = new javax.swing.JButton();
         eActualizar = new javax.swing.JLabel();
+        textoId = new javax.swing.JTextField();
+        etiquetaId = new javax.swing.JLabel();
+        cbDisponibles = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaMesas = new javax.swing.JTable();
+        cbReservadas = new javax.swing.JComboBox<>();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        cbAtendidas = new javax.swing.JComboBox<>();
+        atenderMesas = new javax.swing.JButton();
+        jLabel15 = new javax.swing.JLabel();
         imagen = new javax.swing.JLabel();
+
+        confirmacion.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        confirmacion.setAlwaysOnTop(true);
+        confirmacion.setBackground(new java.awt.Color(253, 240, 240));
+        confirmacion.setBounds(new java.awt.Rectangle(360, 188, 564, 490));
+        confirmacion.setResizable(false);
+
+        jPanel1.setBackground(new java.awt.Color(255, 236, 223));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        labelConfirmacion.setFont(new java.awt.Font("Luisa", 1, 24)); // NOI18N
+        labelConfirmacion.setForeground(new java.awt.Color(153, 0, 51));
+        labelConfirmacion.setText("CREAR PEDIDO");
+        jPanel1.add(labelConfirmacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 10, 220, 30));
+
+        textoConfirmacionMesa.setForeground(new java.awt.Color(153, 0, 51));
+        textoConfirmacionMesa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel1.add(textoConfirmacionMesa, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 110, 350, 200));
+
+        botonAceptar.setBackground(new java.awt.Color(255, 237, 221));
+        botonAceptar.setForeground(new java.awt.Color(102, 0, 0));
+        botonAceptar.setText("CANCELAR");
+        botonAceptar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 153, 204), new java.awt.Color(255, 153, 102), new java.awt.Color(204, 51, 0), new java.awt.Color(153, 0, 0)));
+        botonAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAceptarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(botonAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 380, 130, 40));
+
+        botonAceptar1.setBackground(new java.awt.Color(255, 237, 221));
+        botonAceptar1.setForeground(new java.awt.Color(102, 0, 0));
+        botonAceptar1.setText("ACEPTAR");
+        botonAceptar1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 153, 204), new java.awt.Color(255, 153, 102), new java.awt.Color(204, 51, 0), new java.awt.Color(153, 0, 0)));
+        botonAceptar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAceptar1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(botonAceptar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 380, 130, 40));
+
+        javax.swing.GroupLayout confirmacionLayout = new javax.swing.GroupLayout(confirmacion.getContentPane());
+        confirmacion.getContentPane().setLayout(confirmacionLayout);
+        confirmacionLayout.setHorizontalGroup(
+            confirmacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
+        );
+        confirmacionLayout.setVerticalGroup(
+            confirmacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
+        );
+
+        confirmacion1.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        confirmacion1.setAlwaysOnTop(true);
+        confirmacion1.setBackground(new java.awt.Color(253, 240, 240));
+        confirmacion1.setBounds(new java.awt.Rectangle(360, 188, 564, 490));
+        confirmacion1.setResizable(false);
+
+        jPanel2.setBackground(new java.awt.Color(255, 236, 223));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        labelConfirmacion1.setFont(new java.awt.Font("Luisa", 1, 24)); // NOI18N
+        labelConfirmacion1.setForeground(new java.awt.Color(153, 0, 51));
+        labelConfirmacion1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelConfirmacion1.setText("AGREGAR UNA MESA");
+        jPanel2.add(labelConfirmacion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 540, 30));
+
+        textoConfirmacionMesa1.setForeground(new java.awt.Color(153, 0, 51));
+        textoConfirmacionMesa1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel2.add(textoConfirmacionMesa1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 110, 350, 200));
+
+        botonAceptar2.setBackground(new java.awt.Color(255, 237, 221));
+        botonAceptar2.setForeground(new java.awt.Color(102, 0, 0));
+        botonAceptar2.setText("CANCELAR");
+        botonAceptar2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 153, 204), new java.awt.Color(255, 153, 102), new java.awt.Color(204, 51, 0), new java.awt.Color(153, 0, 0)));
+        botonAceptar2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAceptar2ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(botonAceptar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 380, 130, 40));
+
+        botonAceptar3.setBackground(new java.awt.Color(255, 237, 221));
+        botonAceptar3.setForeground(new java.awt.Color(102, 0, 0));
+        botonAceptar3.setText("ACEPTAR");
+        botonAceptar3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 153, 204), new java.awt.Color(255, 153, 102), new java.awt.Color(204, 51, 0), new java.awt.Color(153, 0, 0)));
+        botonAceptar3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAceptar3ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(botonAceptar3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 380, 130, 40));
+
+        javax.swing.GroupLayout confirmacion1Layout = new javax.swing.GroupLayout(confirmacion1.getContentPane());
+        confirmacion1.getContentPane().setLayout(confirmacion1Layout);
+        confirmacion1Layout.setHorizontalGroup(
+            confirmacion1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
+        );
+        confirmacion1Layout.setVerticalGroup(
+            confirmacion1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
+        );
+
+        confirmacion2.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        confirmacion2.setAlwaysOnTop(true);
+        confirmacion2.setBackground(new java.awt.Color(253, 240, 240));
+        confirmacion2.setBounds(new java.awt.Rectangle(360, 188, 564, 490));
+        confirmacion2.setResizable(false);
+
+        jPanel3.setBackground(new java.awt.Color(255, 236, 223));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        labelConfirmacion2.setFont(new java.awt.Font("Luisa", 1, 24)); // NOI18N
+        labelConfirmacion2.setForeground(new java.awt.Color(153, 0, 51));
+        labelConfirmacion2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelConfirmacion2.setText("ELIMINAR UNA MESA");
+        jPanel3.add(labelConfirmacion2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 540, 30));
+
+        textoConfirmacionMesa2.setForeground(new java.awt.Color(153, 0, 51));
+        textoConfirmacionMesa2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel3.add(textoConfirmacionMesa2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 110, 350, 200));
+
+        botonAceptar4.setBackground(new java.awt.Color(255, 237, 221));
+        botonAceptar4.setForeground(new java.awt.Color(102, 0, 0));
+        botonAceptar4.setText("CANCELAR");
+        botonAceptar4.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 153, 204), new java.awt.Color(255, 153, 102), new java.awt.Color(204, 51, 0), new java.awt.Color(153, 0, 0)));
+        botonAceptar4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAceptar4ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(botonAceptar4, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 380, 130, 40));
+
+        botonAceptar5.setBackground(new java.awt.Color(255, 237, 221));
+        botonAceptar5.setForeground(new java.awt.Color(102, 0, 0));
+        botonAceptar5.setText("ACEPTAR");
+        botonAceptar5.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 153, 204), new java.awt.Color(255, 153, 102), new java.awt.Color(204, 51, 0), new java.awt.Color(153, 0, 0)));
+        botonAceptar5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAceptar5ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(botonAceptar5, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 380, 130, 40));
+
+        javax.swing.GroupLayout confirmacion2Layout = new javax.swing.GroupLayout(confirmacion2.getContentPane());
+        confirmacion2.getContentPane().setLayout(confirmacion2Layout);
+        confirmacion2Layout.setHorizontalGroup(
+            confirmacion2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
+        );
+        confirmacion2Layout.setVerticalGroup(
+            confirmacion2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -166,17 +430,11 @@ public class VistaMesas extends javax.swing.JFrame {
         background.add(jButton1);
         jButton1.setBounds(280, 40, 30, 40);
 
+        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(153, 0, 51));
+        jLabel11.setText("DISPONIBLES:");
         background.add(jLabel11);
-        jLabel11.setBounds(720, 250, 180, 30);
-
-        jLabel12.setForeground(new java.awt.Color(153, 0, 51));
-        background.add(jLabel12);
-        jLabel12.setBounds(720, 310, 180, 30);
-
-        jLabel13.setForeground(new java.awt.Color(153, 0, 51));
-        background.add(jLabel13);
-        jLabel13.setBounds(720, 370, 180, 30);
+        jLabel11.setBounds(430, 260, 100, 30);
 
         cambiarNombre2.setBackground(new java.awt.Color(255, 237, 221));
         cambiarNombre2.setForeground(new java.awt.Color(102, 0, 0));
@@ -191,6 +449,15 @@ public class VistaMesas extends javax.swing.JFrame {
         });
         background.add(cambiarNombre2);
         cambiarNombre2.setBounds(770, 50, 120, 30);
+
+        textoCapacidad.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        background.add(textoCapacidad);
+        textoCapacidad.setBounds(840, 240, 60, 18);
+
+        avisos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        avisos.setForeground(new java.awt.Color(204, 0, 51));
+        background.add(avisos);
+        avisos.setBounds(590, 370, 320, 30);
 
         textoUsuario1.setForeground(new java.awt.Color(153, 0, 51));
         textoUsuario1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -224,91 +491,31 @@ public class VistaMesas extends javax.swing.JFrame {
         background.add(labelMesas);
         labelMesas.setBounds(610, 190, 120, 40);
 
-        textoId.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        background.add(textoId);
-        textoId.setBounds(600, 270, 60, 18);
-
-        etiquetaId.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        etiquetaId.setForeground(new java.awt.Color(153, 0, 51));
-        etiquetaId.setText("ID:");
-        background.add(etiquetaId);
-        etiquetaId.setBounds(550, 270, 50, 17);
-
-        darDeBaja.setBackground(new java.awt.Color(255, 237, 221));
-        darDeBaja.setForeground(new java.awt.Color(102, 0, 0));
-        darDeBaja.setText("DAR DE BAJA");
-        darDeBaja.setActionCommand("");
-        darDeBaja.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 204, 204), new java.awt.Color(255, 204, 102), new java.awt.Color(204, 0, 51), new java.awt.Color(102, 0, 0)));
-        darDeBaja.addActionListener(new java.awt.event.ActionListener() {
+        agregarMesa.setBackground(new java.awt.Color(255, 237, 221));
+        agregarMesa.setForeground(new java.awt.Color(102, 0, 0));
+        agregarMesa.setText("AGREGAR");
+        agregarMesa.setActionCommand("");
+        agregarMesa.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 204, 204), new java.awt.Color(255, 204, 102), new java.awt.Color(204, 0, 51), new java.awt.Color(102, 0, 0)));
+        agregarMesa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                darDeBajaActionPerformed(evt);
+                agregarMesaActionPerformed(evt);
             }
         });
-        background.add(darDeBaja);
-        darDeBaja.setBounds(700, 270, 100, 20);
+        background.add(agregarMesa);
+        agregarMesa.setBounds(410, 540, 120, 30);
 
-        textoNombre.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        textoNombre.addActionListener(new java.awt.event.ActionListener() {
+        actualizarMesa.setBackground(new java.awt.Color(255, 237, 221));
+        actualizarMesa.setForeground(new java.awt.Color(102, 0, 0));
+        actualizarMesa.setText("ACTUALIZAR");
+        actualizarMesa.setActionCommand("");
+        actualizarMesa.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 204, 204), new java.awt.Color(255, 204, 102), new java.awt.Color(204, 0, 51), new java.awt.Color(102, 0, 0)));
+        actualizarMesa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textoNombreActionPerformed(evt);
+                actualizarMesaActionPerformed(evt);
             }
         });
-        background.add(textoNombre);
-        textoNombre.setBounds(530, 330, 300, 18);
-
-        etiquetaNombre.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        etiquetaNombre.setForeground(new java.awt.Color(153, 0, 51));
-        etiquetaNombre.setText("NOMBRE:");
-        background.add(etiquetaNombre);
-        etiquetaNombre.setBounds(460, 330, 70, 20);
-
-        etiquetaId4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        etiquetaId4.setForeground(new java.awt.Color(153, 0, 51));
-        etiquetaId4.setText("DNI:");
-        background.add(etiquetaId4);
-        etiquetaId4.setBounds(460, 370, 70, 17);
-
-        textoDni.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        background.add(textoDni);
-        textoDni.setBounds(530, 370, 140, 18);
-
-        emesa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        emesa.setForeground(new java.awt.Color(153, 0, 51));
-        emesa.setText("MESA:");
-        background.add(emesa);
-        emesa.setBounds(460, 460, 70, 30);
-
-        spinnerMesas.setModel(new javax.swing.SpinnerNumberModel(0, 0, 100, 1));
-        spinnerMesas.setBorder(null);
-        spinnerMesas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        background.add(spinnerMesas);
-        spinnerMesas.setBounds(530, 460, 140, 30);
-
-        crearReserva.setBackground(new java.awt.Color(255, 237, 221));
-        crearReserva.setForeground(new java.awt.Color(102, 0, 0));
-        crearReserva.setText("CREAR");
-        crearReserva.setActionCommand("");
-        crearReserva.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 204, 204), new java.awt.Color(255, 204, 102), new java.awt.Color(204, 0, 51), new java.awt.Color(102, 0, 0)));
-        crearReserva.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                crearReservaActionPerformed(evt);
-            }
-        });
-        background.add(crearReserva);
-        crearReserva.setBounds(510, 540, 120, 30);
-
-        buscarReservaPor1.setBackground(new java.awt.Color(255, 237, 221));
-        buscarReservaPor1.setForeground(new java.awt.Color(102, 0, 0));
-        buscarReservaPor1.setText("BUSCAR");
-        buscarReservaPor1.setActionCommand("");
-        buscarReservaPor1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 204, 204), new java.awt.Color(255, 204, 102), new java.awt.Color(204, 0, 51), new java.awt.Color(102, 0, 0)));
-        buscarReservaPor1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buscarReservaPor1ActionPerformed(evt);
-            }
-        });
-        background.add(buscarReservaPor1);
-        buscarReservaPor1.setBounds(680, 540, 120, 30);
+        background.add(actualizarMesa);
+        actualizarMesa.setBounds(410, 480, 120, 30);
 
         limpiarCasilleros.setBackground(new java.awt.Color(255, 237, 221));
         limpiarCasilleros.setForeground(new java.awt.Color(102, 0, 0));
@@ -321,20 +528,20 @@ public class VistaMesas extends javax.swing.JFrame {
             }
         });
         background.add(limpiarCasilleros);
-        limpiarCasilleros.setBounds(510, 590, 120, 30);
+        limpiarCasilleros.setBounds(410, 420, 120, 30);
 
-        eliminarReserva.setBackground(new java.awt.Color(255, 237, 221));
-        eliminarReserva.setForeground(new java.awt.Color(102, 0, 0));
-        eliminarReserva.setText("ELIMINAR");
-        eliminarReserva.setActionCommand("");
-        eliminarReserva.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 204, 204), new java.awt.Color(255, 204, 102), new java.awt.Color(204, 0, 51), new java.awt.Color(102, 0, 0)));
-        eliminarReserva.addActionListener(new java.awt.event.ActionListener() {
+        eliminarMesa.setBackground(new java.awt.Color(255, 237, 221));
+        eliminarMesa.setForeground(new java.awt.Color(102, 0, 0));
+        eliminarMesa.setText("ELIMINAR");
+        eliminarMesa.setActionCommand("");
+        eliminarMesa.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 204, 204), new java.awt.Color(255, 204, 102), new java.awt.Color(204, 0, 51), new java.awt.Color(102, 0, 0)));
+        eliminarMesa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                eliminarReservaActionPerformed(evt);
+                eliminarMesaActionPerformed(evt);
             }
         });
-        background.add(eliminarReserva);
-        eliminarReserva.setBounds(680, 590, 120, 30);
+        background.add(eliminarMesa);
+        eliminarMesa.setBounds(410, 600, 120, 30);
 
         botonPrecios.setBackground(new java.awt.Color(0, 0, 0));
         botonPrecios.setFont(new java.awt.Font("Luisa", 1, 36)); // NOI18N
@@ -368,6 +575,133 @@ public class VistaMesas extends javax.swing.JFrame {
         eActualizar.setText("EL NOMBRE DE USUARIO SE ACTUALIZO CON EXITO");
         background.add(eActualizar);
         eActualizar.setBounds(480, 30, 300, 14);
+
+        textoId.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        background.add(textoId);
+        textoId.setBounds(840, 210, 60, 18);
+
+        etiquetaId.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        etiquetaId.setForeground(new java.awt.Color(153, 0, 51));
+        etiquetaId.setText("NRO:");
+        background.add(etiquetaId);
+        etiquetaId.setBounds(800, 210, 40, 17);
+
+        cbDisponibles.setForeground(new java.awt.Color(102, 102, 102));
+        cbDisponibles.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "seleccionar" }));
+        cbDisponibles.setBorder(null);
+        cbDisponibles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbDisponiblesActionPerformed(evt);
+            }
+        });
+        background.add(cbDisponibles);
+        cbDisponibles.setBounds(530, 260, 150, 30);
+
+        tablaMesas.setBackground(new java.awt.Color(254, 247, 230));
+        tablaMesas.setForeground(new java.awt.Color(153, 0, 0));
+        tablaMesas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "NRO DE MESA", "CAPACIDAD", "CUENTA"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Double.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tablaMesas.setGridColor(new java.awt.Color(194, 65, 65));
+        tablaMesas.setSelectionBackground(new java.awt.Color(153, 0, 0));
+        tablaMesas.setSelectionForeground(new java.awt.Color(254, 247, 230));
+        tablaMesas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaMesasMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tablaMesas);
+
+        background.add(jScrollPane1);
+        jScrollPane1.setBounds(590, 400, 310, 260);
+
+        cbReservadas.setForeground(new java.awt.Color(102, 102, 102));
+        cbReservadas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "seleccionar" }));
+        cbReservadas.setBorder(null);
+        cbReservadas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbReservadasActionPerformed(evt);
+            }
+        });
+        background.add(cbReservadas);
+        cbReservadas.setBounds(530, 300, 150, 30);
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(153, 0, 51));
+        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel13.setText("RESERVADAS HOY:");
+        background.add(jLabel13);
+        jLabel13.setBounds(400, 300, 130, 30);
+
+        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(153, 0, 51));
+        jLabel14.setText("ATENDIENDO AHORA:");
+        background.add(jLabel14);
+        jLabel14.setBounds(380, 340, 150, 30);
+
+        cbAtendidas.setForeground(new java.awt.Color(102, 102, 102));
+        cbAtendidas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "seleccionar" }));
+        cbAtendidas.setBorder(null);
+        cbAtendidas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbAtendidasActionPerformed(evt);
+            }
+        });
+        background.add(cbAtendidas);
+        cbAtendidas.setBounds(530, 340, 150, 30);
+
+        atenderMesas.setBackground(new java.awt.Color(255, 237, 221));
+        atenderMesas.setForeground(new java.awt.Color(102, 0, 0));
+        atenderMesas.setText("ATENDER");
+        atenderMesas.setActionCommand("");
+        atenderMesas.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 204, 204), new java.awt.Color(255, 204, 102), new java.awt.Color(204, 0, 51), new java.awt.Color(102, 0, 0)));
+        atenderMesas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                atenderMesasActionPerformed(evt);
+            }
+        });
+        background.add(atenderMesas);
+        atenderMesas.setBounds(740, 340, 100, 30);
+
+        jLabel15.setForeground(new java.awt.Color(153, 0, 51));
+        jLabel15.setText("CAPACIDAD:");
+        background.add(jLabel15);
+        jLabel15.setBounds(760, 240, 80, 20);
 
         imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/Background.png"))); // NOI18N
         imagen.setAlignmentY(0.0F);
@@ -428,12 +762,7 @@ public class VistaMesas extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void cambiarNombre2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cambiarNombre2ActionPerformed
-       try{
-        
-        conexion = new Conexion();
-        conexion.getConexion();
-        MeseroData m1=new MeseroData(conexion);
-        m1.cambiarNombre(Inicio.usuarioRegistrado(), textoUsuario1.getText());
+        meseroData.cambiarNombre(Inicio.usuarioRegistrado(), textoUsuario1.getText());
         Inicio.almacenarUsuario(textoUsuario1.getText());
         textoUsuario1.setVisible(false);
         nomNu.setVisible(false);
@@ -441,19 +770,11 @@ public class VistaMesas extends javax.swing.JFrame {
         textoUsuario1.setText(null);
         eActualizar.setVisible(true);
         ocultar.setVisible(true);
-        
-        } catch (ClassNotFoundException | SQLException ex) {
-                    Logger.getLogger(VistaMesas.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }//GEN-LAST:event_cambiarNombre2ActionPerformed
 
     private void textoUsuario1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textoUsuario1KeyPressed
         if (evt.getKeyCode()==KeyEvent.VK_ENTER){
-        try{
-            conexion = new Conexion();
-            conexion.getConexion();
-            MeseroData m1=new MeseroData(conexion);
-            m1.cambiarNombre(Inicio.usuarioRegistrado(), textoUsuario1.getText());
+            meseroData.cambiarNombre(Inicio.usuarioRegistrado(), textoUsuario1.getText());
             Inicio.almacenarUsuario(textoUsuario1.getText());
             textoUsuario1.setVisible(false);
             nomNu.setVisible(false);
@@ -461,10 +782,6 @@ public class VistaMesas extends javax.swing.JFrame {
             textoUsuario1.setText(null);
             eActualizar.setVisible(true);
             ocultar.setVisible(true);
-            
-            } catch (SQLException | ClassNotFoundException ex) {
-                    Logger.getLogger(VistaMesas.class.getName()).log(Level.SEVERE, null, ex);
-         }
         }
     }//GEN-LAST:event_textoUsuario1KeyPressed
 
@@ -474,29 +791,38 @@ public class VistaMesas extends javax.swing.JFrame {
         cambiarNombre2.setVisible(true);
     }//GEN-LAST:event_botonAjustesActionPerformed
 
-    private void darDeBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_darDeBajaActionPerformed
-        
-    }//GEN-LAST:event_darDeBajaActionPerformed
+    private void agregarMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarMesaActionPerformed
+        if (textoCapacidad.getText().equals("")) {
+                    avisos.setText("Por favor indique una capacidad.");
+                }else{
+        textoConfirmacionMesa1.setText("Desea agregar una mesa para "+textoCapacidad.getText()+" personas?");}
+        confirmacion1.setVisible(true);
+    }//GEN-LAST:event_agregarMesaActionPerformed
 
-    private void textoNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoNombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textoNombreActionPerformed
-
-    private void crearReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearReservaActionPerformed
-        
-    }//GEN-LAST:event_crearReservaActionPerformed
-
-    private void buscarReservaPor1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarReservaPor1ActionPerformed
-    
-    }//GEN-LAST:event_buscarReservaPor1ActionPerformed
+    private void actualizarMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarMesaActionPerformed
+        int filaSeleccionada = tablaMesas.getSelectedRow();
+        if (filaSeleccionada != -1){
+            mesaData.actualizarIdMesa(Integer.parseInt(tablaMesas.getValueAt(filaSeleccionada, 0).toString()), Integer.parseInt(textoId.getText()));
+            tablaMesas.setValueAt(textoId.getText(), filaSeleccionada, 0);
+            mesaData.actualizarCapacidad(Integer.parseInt(tablaMesas.getValueAt(filaSeleccionada, 1).toString()), Integer.parseInt(textoCapacidad.getText()));
+            tablaMesas.setValueAt(textoCapacidad.getText(), filaSeleccionada, 1);
+            limpiar();
+            avisos.setText("La información se actualizó con éxito");
+        }
+    }//GEN-LAST:event_actualizarMesaActionPerformed
 
     private void limpiarCasillerosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarCasillerosActionPerformed
         this.limpiar();
     }//GEN-LAST:event_limpiarCasillerosActionPerformed
 
-    private void eliminarReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarReservaActionPerformed
-        
-    }//GEN-LAST:event_eliminarReservaActionPerformed
+    private void eliminarMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarMesaActionPerformed
+        if (textoId.getText().equals("")) {
+                    avisos.setText("Por favor seleccione una mesa.");
+                }else{
+        textoConfirmacionMesa2.setText("Desea eliminar la mesa "+textoId.getText()+" para "+textoCapacidad.getText()+" personas?");}
+        VistaMesas.setMesaActual(Integer.parseInt(textoId.getText()));
+        confirmacion2.setVisible(true);
+    }//GEN-LAST:event_eliminarMesaActionPerformed
 
     private void botonPreciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPreciosActionPerformed
         background.removeAll();
@@ -510,40 +836,130 @@ public class VistaMesas extends javax.swing.JFrame {
         ocultar.setVisible(false);
     }//GEN-LAST:event_ocultarActionPerformed
 
+    private void tablaMesasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMesasMouseClicked
+        int filaSeleccionada = tablaMesas.getSelectedRow();
+        if (filaSeleccionada != -1){
+            textoId.setText(tablaMesas.getValueAt(filaSeleccionada, 0).toString());
+            textoCapacidad.setText(tablaMesas.getValueAt(filaSeleccionada,1).toString());
+            VistaMesas.setMesaActual(Integer.parseInt(textoId.getText()));
+        }
+    }//GEN-LAST:event_tablaMesasMouseClicked
+
+    private void cbDisponiblesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbDisponiblesActionPerformed
+        List<Mesa> mesas=mesaData.obtenerMesas().stream().filter(m->m.getIdMesa()==Integer.parseInt(cbDisponibles.getSelectedItem().toString())).collect(Collectors.toList());
+        mesas.forEach(m1->textoId.setText(String.valueOf(m1.getIdMesa())));
+    }//GEN-LAST:event_cbDisponiblesActionPerformed
+
+    private void cbReservadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbReservadasActionPerformed
+        List<Mesa> mesas=mesaData.obtenerMesas().stream().filter(m->m.getIdMesa()==Integer.parseInt(cbReservadas.getSelectedItem().toString())).collect(Collectors.toList());
+        mesas.forEach(m1->textoId.setText(String.valueOf(m1.getIdMesa())));
+    }//GEN-LAST:event_cbReservadasActionPerformed
+
+    private void cbAtendidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAtendidasActionPerformed
+       List<Mesa> mesas=mesaData.obtenerMesas().stream().filter(m->m.getIdMesa()==Integer.parseInt(cbAtendidas.getSelectedItem().toString())).collect(Collectors.toList());
+       mesas.forEach(m1->textoId.setText(String.valueOf(m1.getIdMesa())));
+    }//GEN-LAST:event_cbAtendidasActionPerformed
+
+    private void atenderMesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atenderMesasActionPerformed
+        if (textoId.getText().equals("")) {
+                    avisos.setText("Por favor seleccione una mesa.");
+                }else{
+        textoConfirmacionMesa.setText("Desea iniciar un pedido para la mesa "+textoId.getText()+"?");}
+        VistaMesas.setMesaActual(Integer.parseInt(textoId.getText()));
+        confirmacion.setVisible(true);
+    }//GEN-LAST:event_atenderMesasActionPerformed
+
+    private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
+        confirmacion.dispose();
+    }//GEN-LAST:event_botonAceptarActionPerformed
+
+    private void botonAceptar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptar1ActionPerformed
+        background.removeAll();
+        confirmacion.dispose();
+        VistaPedidos vistaPedidos=new VistaPedidos(VistaMesas.getMesaActual());
+        vistaPedidos.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_botonAceptar1ActionPerformed
+
+    private void botonAceptar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptar2ActionPerformed
+        confirmacion1.dispose();
+    }//GEN-LAST:event_botonAceptar2ActionPerformed
+
+    private void botonAceptar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptar3ActionPerformed
+        Mesa m=new Mesa("Libre",Integer.parseInt(textoCapacidad.getText()));
+        mesaData.guardarMesa(m);
+        limpiar();
+        cargarTabla();
+        avisos.setText("Se agregó una nueva mesa");
+        confirmacion1.dispose();
+    }//GEN-LAST:event_botonAceptar3ActionPerformed
+
+    private void botonAceptar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptar4ActionPerformed
+        confirmacion2.dispose();
+    }//GEN-LAST:event_botonAceptar4ActionPerformed
+
+    private void botonAceptar5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptar5ActionPerformed
+        mesaData.borrarMesa(Integer.parseInt(textoId.getText()));
+        limpiar();
+        cargarTabla();
+        avisos.setText("Se eliminó una mesa");
+        confirmacion2.dispose();
+    }//GEN-LAST:event_botonAceptar5ActionPerformed
+
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton actualizarMesa;
+    private javax.swing.JButton agregarMesa;
+    private javax.swing.JButton atenderMesas;
+    private javax.swing.JLabel avisos;
     private javax.swing.JPanel background;
+    private javax.swing.JButton botonAceptar;
+    private javax.swing.JButton botonAceptar1;
+    private javax.swing.JButton botonAceptar2;
+    private javax.swing.JButton botonAceptar3;
+    private javax.swing.JButton botonAceptar4;
+    private javax.swing.JButton botonAceptar5;
     private javax.swing.JButton botonAjustes;
     private javax.swing.JButton botonBalance;
     private javax.swing.JButton botonMesas;
     private javax.swing.JButton botonPedidos;
     private javax.swing.JButton botonPrecios;
     private javax.swing.JButton botonReservas;
-    private javax.swing.JButton buscarReservaPor1;
     private javax.swing.JButton cambiarNombre2;
+    private javax.swing.JComboBox<String> cbAtendidas;
+    private javax.swing.JComboBox<String> cbDisponibles;
+    private javax.swing.JComboBox<String> cbReservadas;
     private javax.swing.JButton cerrarSesion;
-    private javax.swing.JButton crearReserva;
-    private javax.swing.JButton darDeBaja;
+    private javax.swing.JDialog confirmacion;
+    private javax.swing.JDialog confirmacion1;
+    private javax.swing.JDialog confirmacion2;
     private javax.swing.JLabel eActualizar;
-    private javax.swing.JButton eliminarReserva;
-    private javax.swing.JLabel emesa;
+    private javax.swing.JButton eliminarMesa;
     private javax.swing.JLabel etiquetaId;
-    private javax.swing.JLabel etiquetaId4;
-    private javax.swing.JLabel etiquetaNombre;
     private javax.swing.JLabel imagen;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel labelConfirmacion;
+    private javax.swing.JLabel labelConfirmacion1;
+    private javax.swing.JLabel labelConfirmacion2;
     private javax.swing.JLabel labelMesas;
     private javax.swing.JButton limpiarCasilleros;
     private javax.swing.JLabel nomNu;
     private javax.swing.JButton ocultar;
-    private javax.swing.JSpinner spinnerMesas;
-    private javax.swing.JTextField textoDni;
+    private javax.swing.JTable tablaMesas;
+    private javax.swing.JTextField textoCapacidad;
+    private javax.swing.JLabel textoConfirmacionMesa;
+    private javax.swing.JLabel textoConfirmacionMesa1;
+    private javax.swing.JLabel textoConfirmacionMesa2;
     private javax.swing.JTextField textoId;
-    private javax.swing.JTextField textoNombre;
     private javax.swing.JTextField textoUsuario1;
     // End of variables declaration//GEN-END:variables
 }

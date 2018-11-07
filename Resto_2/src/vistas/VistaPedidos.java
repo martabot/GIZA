@@ -72,6 +72,52 @@ public class VistaPedidos extends javax.swing.JFrame {
         }  
     }
     
+    //construcutor sobrecargado
+    public VistaPedidos(int mesaActual) {
+        //inicializamos nuestro contador de subtotal
+        this.subtotal = 00.0;
+        
+        //popiedades de la pantalla completa
+        this.setUndecorated(true);
+        this.setResizable(false);
+        this.setVisible(true);
+        
+        initComponents();
+        
+        //setteamos las fuentes personalizadas
+        fuente=new Fuentes();
+        botonBalance.setFont(fuente.fuenteLuisa(1,36));
+        botonMesas.setFont(fuente.fuenteLuisa(1,36));
+        botonReservas.setFont(fuente.fuenteLuisa(1,36));
+        botonPedidos.setFont(fuente.fuenteLuisa(1,36));
+        botonPrecios.setFont(fuente.fuenteLuisa(1,36));
+        labelPedidos.setFont(fuente.fuenteLuisa(1,24));
+        
+        //campos ocultos que aparecen al ser llamados por los ajustes del usuario
+        textoUsuario1.setVisible(false);
+        nomNu.setVisible(false);
+        cambiarNombre2.setVisible(false);
+        eActualizar.setVisible(false);
+        ocultar.setVisible(false);
+        
+        //Instanciamos la conexion 
+        try {
+            conexion = new Conexion();
+            conexion.getConexion();
+            
+            pd = new ProductoData(conexion);
+            productos = (ArrayList<Producto>) pd.obtenerProductos();
+            
+            //cargamos los prodcutos disponibles en el combobox
+            cargarCbProductos();
+            spinnerMesas.setValue(mesaActual);
+            this.atenderMesas();
+            
+        } catch (ClassNotFoundException | SQLException ex) {
+                Logger.getLogger(Background.class.getName()).log(Level.SEVERE, null, ex);
+        }  
+    }
+    
     //llena la tabla con informacion sobre el pedido
     private void cargarTabla(){
         int z=Integer.parseInt(textoId.getText());
@@ -164,6 +210,78 @@ public class VistaPedidos extends javax.swing.JFrame {
             cbProductos.addItem(p.getNombreProducto());
         }
     }
+    
+    //nuestro amigo identifica la mesa que se quiere seleccionar y segun las condiciones realizara diferentes acciones
+    private void atenderMesas(){
+        //asignamos la variable de la mesa con la que vamos a trabajar
+       int m=Integer.valueOf(spinnerMesas.getValue().toString());
+       try {MesaData md=new MesaData(conexion);
+        //Primera condición.. contemplamos dos posiblidades
+        //si la mesa estaba reservada se ocupa, las reservas se vencen solas al pasar media hora del momentos en el que se espera al cliente
+        //si la mesa esta libre le crea un pedido para comenzar a agregarle productos
+        if("Reservada".equals(md.deIdAMesa(m).getEstadoMesa())||"Libre".equals(md.deIdAMesa(m).getEstadoMesa())){
+            
+                PedidoData p1=new PedidoData(conexion);
+                MeseroData mm=new MeseroData(conexion);
+                ReservaData rd=new ReservaData(conexion);
+                
+                //mentimos en el nombre de usuario porque aun no sabemos averiguarlo
+                Pedido pedido=new Pedido(md.deIdAMesa(m),mm.deUsuarioAMesero(Inicio.usuarioRegistrado()),LocalDateTime.now(),0.0);
+                
+                //guardamos un nuevo pedido que va a tener la mesa y el pedido asignados, la cuenta en cero lista para agregar productos
+                p1.guardarPedido(pedido);
+                textoId.setText(String.valueOf(p1.obtenerPedidos().get(p1.obtenerPedidos().size()-1).getIdPedido()));
+                rd.cancelarReserva(spinnerMesas.getValue().toString());
+                //ocupamos la mesa para poder trabajar en ella hasta que sea cobrada
+                md.actualizarEstadoMesa("Ocupada", m);
+                avisos.setText("Agregue un producto para continuar...");
+             
+            //nuestra segunda posibilidad es que la mesa este ocupada o atendida
+            //la diferencia es que la ocupada no tiene comandas y la atendida si
+            //en ambas vamos a desear agregar comandas, por lo que cargamos la tabla con los datos que tenemos hasta ahora
+            }else if ("Ocupada".equals(md.deIdAMesa(m).getEstadoMesa())||"Atendida".equals(md.deIdAMesa(m).getEstadoMesa())){
+                avisos.setText("Mesa "+md.deIdAMesa(m).getEstadoMesa());
+                PedidoData pd=new PedidoData(conexion);
+                if (Inicio.usuarioRegistrado().equals(pd.selccionarPedidoPorMesa(m).getMesero().getNombreMesero())){
+                avisos.setText("Mesa "+md.deIdAMesa(m).getEstadoMesa());
+                
+                DefaultTableModel modelo=new DefaultTableModel();
+                tablaPedido.setModel(modelo);
+            
+                modelo.addColumn("CANTIDAD");
+                modelo.addColumn("PRODUCTO");
+                modelo.addColumn("SUB-TOTAL");
+                
+                ComandaData cd=new ComandaData(conexion);
+                
+                textoId.setText(String.valueOf(pd.selccionarPedidoPorMesa(m).getIdPedido()));
+                int x=cd.selccionarComandasPorPedido(pd.selccionarPedidoPorMesa(m).getIdPedido()).size();
+                int p=Integer.valueOf(textoId.getText());
+                List<Comanda> lista=new ArrayList<>();
+                lista=cd.selccionarComandasPorPedido(pd.selccionarPedidoPorMesa(m).getIdPedido());
+                
+                for (int b=0;b<x;b++){
+                Object [] filas = new Object[3];
+                Comanda nuevo=lista.get(b);
+                filas  [0]=nuevo.getCantidad();
+                filas  [1]=nuevo.getProducto().getNombreProducto();
+                filas  [2]=(nuevo.getProducto().getPrecio())*nuevo.getCantidad();
+                modelo.addRow(filas);
+                subtotal=subtotal+(nuevo.getProducto().getPrecio())*nuevo.getCantidad();
+            }
+                
+            //actualizamos la cuenta y limpiamos el subtotal para seguir trabajando sin problemas
+            pd.actualizarCuentaDePedido(p,subtotal);
+            subtotal=00.0;
+            //devolvemos el total del pedido seleccionado
+            textoCuenta.setText(String.valueOf(pd.deIdAPedido(p).getCuenta()));
+            }}
+        } catch (ClassNotFoundException ex) {
+                Logger.getLogger(VistaPedidos.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(VistaPedidos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -213,7 +331,6 @@ public class VistaPedidos extends javax.swing.JFrame {
         cbProductos = new javax.swing.JComboBox<>();
         ocultar = new javax.swing.JButton();
         eActualizar = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
         imagen = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -281,7 +398,7 @@ public class VistaPedidos extends javax.swing.JFrame {
         spinnerCantidad.setBounds(440, 380, 60, 30);
 
         avisos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        avisos.setForeground(new java.awt.Color(153, 0, 51));
+        avisos.setForeground(new java.awt.Color(204, 0, 51));
         background.add(avisos);
         avisos.setBounds(440, 310, 450, 30);
 
@@ -475,7 +592,7 @@ public class VistaPedidos extends javax.swing.JFrame {
         spinnerMesas.setBorder(null);
         spinnerMesas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         background.add(spinnerMesas);
-        spinnerMesas.setBounds(470, 220, 140, 30);
+        spinnerMesas.setBounds(440, 270, 130, 30);
 
         buscarPedido.setBackground(new java.awt.Color(255, 237, 221));
         buscarPedido.setForeground(new java.awt.Color(102, 0, 0));
@@ -569,7 +686,7 @@ public class VistaPedidos extends javax.swing.JFrame {
             }
         });
         background.add(atenderMesa);
-        atenderMesa.setBounds(630, 270, 110, 30);
+        atenderMesa.setBounds(600, 270, 110, 30);
 
         jLabel1.setForeground(new java.awt.Color(153, 0, 51));
         jLabel1.setText("Seleccione un producto para quitar");
@@ -597,7 +714,7 @@ public class VistaPedidos extends javax.swing.JFrame {
         eIdProducto1.setBounds(520, 380, 30, 30);
 
         cbProductos.setForeground(new java.awt.Color(153, 0, 51));
-        cbProductos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        cbProductos.setBorder(null);
         cbProductos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbProductosActionPerformed(evt);
@@ -624,14 +741,6 @@ public class VistaPedidos extends javax.swing.JFrame {
         eActualizar.setText("EL NOMBRE DE USUARIO SE ACTUALIZO CON EXITO");
         background.add(eActualizar);
         eActualizar.setBounds(490, 30, 320, 14);
-
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
-            }
-        });
-        background.add(jComboBox1);
-        jComboBox1.setBounds(460, 270, 130, 30);
 
         imagen.setBackground(new java.awt.Color(204, 70, 0));
         imagen.setForeground(new java.awt.Color(1, 1, 1));
@@ -828,69 +937,8 @@ public class VistaPedidos extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_botonBalanceActionPerformed
 
-    //nuestro amigo identifica la mesa que se quiere seleccionar y segun las condiciones realizara diferentes acciones
     private void atenderMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atenderMesaActionPerformed
-       //asignamos la variable de la mesa con la que vamos a trabajar
-       int m=Integer.valueOf(spinnerMesas.getValue().toString());
-       try {MesaData md=new MesaData(conexion);
-        //Primera condición.. contemplamos dos posiblidades
-        //si la mesa estaba reservada se ocupa, las reservas se vencen solas al pasar media hora del momentos en el que se espera al cliente
-        //si la mesa esta libre le crea un pedido para comenzar a agregarle productos
-        if("Reserva".equals(md.deIdAMesa(m).getEstadoMesa())||"Libre".equals(md.deIdAMesa(m).getEstadoMesa())){
-            
-                PedidoData pd=new PedidoData(conexion);
-                MeseroData mm=new MeseroData(conexion);
-                
-                //mentimos en el nombre de usuario porque aun no sabemos averiguarlo
-                Pedido pedido=new Pedido(md.deIdAMesa(m),mm.deUsuarioAMesero(Inicio.usuarioRegistrado()),LocalDateTime.now(),0.0);
-                
-                //guardamos un nuevo pedido que va a tener la mesa y el pedido asignados, la cuenta en cero lista para agregar productos
-                pd.guardarPedido(pedido);
-                textoId.setText(String.valueOf(pd.obtenerPedidos().get(pd.obtenerPedidos().size()-1).getIdPedido()));
-                //ocupamos la mesa para poder trabajar en ella hasta que sea cobrada
-                md.actualizarEstadoMesa("Ocupada", m);
-                avisos.setText("Agregue un producto para continuar...");
-             
-            //nuestra segunda posibilidad es que la mesa este ocupada o atendida
-            //la diferencia es que la ocupada no tiene comandas y la atendida si
-            //en ambas vamos a desear agregar comandas, por lo que cargamos la tabla con los datos que tenemos hasta ahora
-            }else if ("Ocupada".equals(md.deIdAMesa(m).getEstadoMesa())||"Atendida".equals(md.deIdAMesa(m).getEstadoMesa())){
-                avisos.setText("Mesa "+md.deIdAMesa(m).getEstadoMesa());
-                DefaultTableModel modelo=new DefaultTableModel();
-                tablaPedido.setModel(modelo);
-            
-                modelo.addColumn("CANTIDAD");
-                modelo.addColumn("PRODUCTO");
-                modelo.addColumn("SUB-TOTAL");
-                
-                PedidoData pd=new PedidoData(conexion);
-                ComandaData cd=new ComandaData(conexion);
-                
-                textoId.setText(String.valueOf(pd.selccionarPedidoPorMesa(m).getIdPedido()));
-                int x=cd.selccionarComandasPorPedido(pd.selccionarPedidoPorMesa(m).getIdPedido()).size();
-                int p=Integer.valueOf(textoId.getText());
-                List<Comanda> lista=new ArrayList<>();
-                lista=cd.selccionarComandasPorPedido(pd.selccionarPedidoPorMesa(m).getIdPedido());
-                
-                for (int b=0;b<x;b++){
-                Object [] filas = new Object[3];
-                Comanda nuevo=lista.get(b);
-                filas  [0]=nuevo.getCantidad();
-                filas  [1]=nuevo.getProducto().getNombreProducto();
-                filas  [2]=(nuevo.getProducto().getPrecio())*nuevo.getCantidad();
-                modelo.addRow(filas);
-                subtotal=subtotal+(nuevo.getProducto().getPrecio())*nuevo.getCantidad();
-            }
-                
-            //actualizamos la cuenta y limpiamos el subtotal para seguir trabajando sin problemas
-            pd.actualizarCuentaDePedido(p,subtotal);
-            subtotal=00.0;
-            //devolvemos el total del pedido seleccionado
-            textoCuenta.setText(String.valueOf(pd.deIdAPedido(p).getCuenta()));
-            }
-        } catch (ClassNotFoundException ex) {
-                Logger.getLogger(VistaPedidos.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       this.atenderMesas();
     }//GEN-LAST:event_atenderMesaActionPerformed
 
     //cancelar el pedido hara que se elimine de la base de datos, ese numero de pedido ya no podrá ser usado
@@ -929,10 +977,6 @@ public class VistaPedidos extends javax.swing.JFrame {
         ocultar.setVisible(false);
     }//GEN-LAST:event_ocultarActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-    // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
-
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -966,7 +1010,6 @@ public class VistaPedidos extends javax.swing.JFrame {
     private javax.swing.JTextField idProducto;
     private javax.swing.JLabel imagen;
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelPedidos;

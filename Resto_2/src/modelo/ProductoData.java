@@ -154,7 +154,7 @@ public class ProductoData {
                 statment.executeUpdate();
             }
         } catch (SQLException ex) {
-            System.out.println("Error al actualizar el nombre del producto: " + ex.getMessage());
+            System.out.println("Error al actualizar el ID del producto: " + ex.getMessage());
         }
     }
     

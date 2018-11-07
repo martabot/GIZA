@@ -7,6 +7,7 @@ package vistas;
 
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelo.*;
@@ -18,6 +19,7 @@ import modelo.*;
 public class VistaBalance extends javax.swing.JFrame {
     Conexion conexion;
     private Fuentes fuente;
+    private ArrayList<Mesero> meseros;
     
     public VistaBalance() {
         
@@ -51,6 +53,12 @@ public class VistaBalance extends javax.swing.JFrame {
             Logger.getLogger(Background.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+     public void cargarCb(){
+        for(Mesero m: meseros) {
+            cbmeseros.addItem(m.getNombreMesero());
+        }
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -72,7 +80,7 @@ public class VistaBalance extends javax.swing.JFrame {
         ocultar = new javax.swing.JButton();
         eActualizar = new javax.swing.JLabel();
         etiquetaListar = new javax.swing.JLabel();
-        comboBoxListar = new javax.swing.JComboBox<>();
+        cbmeseros = new javax.swing.JComboBox<>();
         tablaBalance = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         botonListar = new javax.swing.JButton();
@@ -81,6 +89,7 @@ public class VistaBalance extends javax.swing.JFrame {
         etiquetaHora = new javax.swing.JLabel();
         spninnerFecha = new javax.swing.JSpinner();
         spinnerHora = new javax.swing.JSpinner();
+        comboBoxListar1 = new javax.swing.JComboBox<>();
         imagen = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -243,16 +252,15 @@ public class VistaBalance extends javax.swing.JFrame {
         etiquetaListar.setForeground(new java.awt.Color(204, 0, 0));
         etiquetaListar.setText("Consulta Por:");
         background.add(etiquetaListar);
-        etiquetaListar.setBounds(400, 270, 110, 17);
+        etiquetaListar.setBounds(430, 250, 110, 30);
 
-        comboBoxListar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mesero", "Mesa" }));
-        comboBoxListar.addActionListener(new java.awt.event.ActionListener() {
+        cbmeseros.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboBoxListarActionPerformed(evt);
+                cbmeserosActionPerformed(evt);
             }
         });
-        background.add(comboBoxListar);
-        comboBoxListar.setBounds(520, 270, 130, 20);
+        background.add(cbmeseros);
+        cbmeseros.setBounds(540, 300, 130, 30);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -363,7 +371,7 @@ public class VistaBalance extends javax.swing.JFrame {
         tablaBalance.setViewportView(jTable1);
 
         background.add(tablaBalance);
-        tablaBalance.setBounds(402, 412, 400, 200);
+        tablaBalance.setBounds(420, 440, 450, 220);
 
         botonListar.setText("LISTAR");
         botonListar.addActionListener(new java.awt.event.ActionListener() {
@@ -372,7 +380,7 @@ public class VistaBalance extends javax.swing.JFrame {
             }
         });
         background.add(botonListar);
-        botonListar.setBounds(750, 270, 80, 30);
+        botonListar.setBounds(770, 280, 80, 30);
 
         botonLimpiar.setText("LIMPIAR");
         botonLimpiar.addActionListener(new java.awt.event.ActionListener() {
@@ -381,23 +389,36 @@ public class VistaBalance extends javax.swing.JFrame {
             }
         });
         background.add(botonLimpiar);
-        botonLimpiar.setBounds(750, 323, 80, 30);
+        botonLimpiar.setBounds(770, 340, 80, 30);
 
         etiquetaFecha.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         etiquetaFecha.setForeground(new java.awt.Color(204, 0, 0));
-        etiquetaFecha.setText("Fecha:");
+        etiquetaFecha.setText("Fecha y Hora Min:");
         background.add(etiquetaFecha);
-        etiquetaFecha.setBounds(400, 303, 70, 17);
+        etiquetaFecha.setBounds(410, 350, 130, 30);
 
         etiquetaHora.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         etiquetaHora.setForeground(new java.awt.Color(204, 0, 0));
-        etiquetaHora.setText("Hora:");
+        etiquetaHora.setText("Fecha y Hora Max:");
         background.add(etiquetaHora);
-        etiquetaHora.setBounds(400, 340, 50, 17);
+        etiquetaHora.setBounds(410, 400, 130, 30);
+
+        spninnerFecha.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(1541196679131L), null, null, java.util.Calendar.HOUR));
         background.add(spninnerFecha);
-        spninnerFecha.setBounds(520, 310, 29, 20);
+        spninnerFecha.setBounds(540, 350, 130, 30);
+
+        spinnerHora.setModel(new javax.swing.SpinnerDateModel());
         background.add(spinnerHora);
-        spinnerHora.setBounds(520, 340, 29, 20);
+        spinnerHora.setBounds(540, 400, 130, 30);
+
+        comboBoxListar1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mesero", "Mesa" }));
+        comboBoxListar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxListar1ActionPerformed(evt);
+            }
+        });
+        background.add(comboBoxListar1);
+        comboBoxListar1.setBounds(540, 250, 130, 30);
 
         imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/Background.png"))); // NOI18N
         imagen.setAlignmentY(0.0F);
@@ -498,9 +519,10 @@ public class VistaBalance extends javax.swing.JFrame {
         ocultar.setVisible(false);
     }//GEN-LAST:event_ocultarActionPerformed
 
-    private void comboBoxListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxListarActionPerformed
-       
-    }//GEN-LAST:event_comboBoxListarActionPerformed
+    private void cbmeserosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbmeserosActionPerformed
+       MeseroData m1= new MeseroData(conexion);
+       List<Mesero>meseros=m1.obtenerMeseros();
+    }//GEN-LAST:event_cbmeserosActionPerformed
 
     private void botonLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonLimpiarActionPerformed
         // TODO add your handling code here:
@@ -509,6 +531,10 @@ public class VistaBalance extends javax.swing.JFrame {
     private void botonListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonListarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_botonListarActionPerformed
+
+    private void comboBoxListar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxListar1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboBoxListar1ActionPerformed
 
     
 
@@ -523,8 +549,9 @@ public class VistaBalance extends javax.swing.JFrame {
     private javax.swing.JButton botonPrecios;
     private javax.swing.JButton botonReservas;
     private javax.swing.JButton cambiarNombre2;
+    private javax.swing.JComboBox<String> cbmeseros;
     private javax.swing.JButton cerrarSesion;
-    private javax.swing.JComboBox<String> comboBoxListar;
+    private javax.swing.JComboBox<String> comboBoxListar1;
     private javax.swing.JLabel eActualizar;
     private javax.swing.JLabel etiquetaFecha;
     private javax.swing.JLabel etiquetaHora;

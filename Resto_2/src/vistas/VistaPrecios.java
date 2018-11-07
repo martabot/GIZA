@@ -543,7 +543,7 @@ public class VistaPrecios extends javax.swing.JFrame {
             pp.actualizarPrecioProducto(Integer.parseInt(tablaPrecios.getValueAt(filaSeleccionada, 0).toString()), Double.valueOf(textoMonto.getText()));
         tablaPrecios.setValueAt(textoMonto.getText(), filaSeleccionada, 2);
          limpiar();
-         avisos.setText("El producto ha sido actualizado con exito");
+         avisos.setText("La información del producto se actualizó con éxito");
     }           
          
      
