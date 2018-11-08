@@ -100,13 +100,12 @@ public class ReservaData {
         }
     } 
     
-    public void cancelarReserva(int idR) throws SQLException{
+    public void cancelarReserva(String algo,String idM) throws SQLException{
         
        try {
-        String sql = "UPDATE reserva SET esta_vigente=0 where id_reserva= ? ;";
+        String sql = "UPDATE reserva SET esta_vigente=0 where "+algo+"="+idM+" ;";
        try (PreparedStatement statment = connection.prepareStatement(sql)) {
-            statment.setInt(1, idR);
-              
+             
             statment.executeUpdate();
             
             }  
@@ -115,10 +114,10 @@ public class ReservaData {
         }
     }
     
-    public void cancelarReserva(String idM) throws SQLException{
+    public void autoCancelarReserva(){
         
        try {
-        String sql = "UPDATE reserva SET esta_vigente=0 where id_mesa="+idM+" ;";
+        String sql = "UPDATE reserva SET esta_vigente=0 where fecha_reserva=NOW()-INTERVAL 30 MINUTE;";
        try (PreparedStatement statment = connection.prepareStatement(sql)) {
              
             statment.executeUpdate();
@@ -133,7 +132,7 @@ public class ReservaData {
         ArrayList<Integer> reservas = new ArrayList<>();
         
         try {
-            String sql = "SELECT id_mesa FROM `reserva` WHERE fecha_reserva=CURRENT_DATE;";
+            String sql = "SELECT id_mesa FROM `reserva` WHERE (DATE(fecha_reserva))=CURRENT_DATE AND esta_vigente=1;";
         try (PreparedStatement statment = connection.prepareStatement(sql)) {
             ResultSet resultSet = statment.executeQuery();
             while(resultSet.next()){

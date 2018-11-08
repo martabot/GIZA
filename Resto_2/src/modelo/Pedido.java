@@ -19,22 +19,25 @@ public class Pedido {
     private Mesero mesero;
     private LocalDateTime fechaPedido;
     private double cuenta;
+    private boolean cobrada;
     
 
-    public Pedido(int idPedido, Mesa mesa, Mesero mesero, LocalDateTime fechaPedido, double cuenta) {
+    public Pedido(int idPedido, Mesa mesa, Mesero mesero, LocalDateTime fechaPedido, double cuenta, boolean cobrada) {
         this.idPedido = idPedido;
         this.mesa=mesa;
         this.mesero = mesero;
         this.fechaPedido=fechaPedido;
         this.cuenta=cuenta;
+        this.cobrada=cobrada;
     }
 
-    public Pedido(Mesa mesa, Mesero mesero, LocalDateTime fechaPedido, double cuenta) {
+    public Pedido(Mesa mesa, Mesero mesero, LocalDateTime fechaPedido, double cuenta, boolean cobrada) {
         idPedido=-1;
         this.mesa=mesa;
         this.mesero = mesero;
         this.fechaPedido=fechaPedido;
         this.cuenta=cuenta;
+        this.cobrada=cobrada;
     }
 
     public Pedido() {
@@ -79,6 +82,14 @@ public class Pedido {
 
     public void setCuenta(double cuenta) {
         this.cuenta = cuenta;
+    }
+
+    public boolean getCobrada() {
+        return cobrada;
+    }
+
+    public void setCobrada(boolean cobrada) {
+        this.cobrada = cobrada;
     }
     
 }

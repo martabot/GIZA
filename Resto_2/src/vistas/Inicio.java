@@ -438,15 +438,10 @@ public class Inicio extends javax.swing.JFrame {
             
            if (!this.filtrados.isEmpty()){
             this.almacenarUsuario(this.getNombre());
-            label1.setVisible(false);
-            label2.setVisible(false);
-            botonBuscar.setVisible(false);
-            textoBuscar.setVisible(false);
-            panelDeInicio.setVisible(false);
             panelPrincipal.removeAll();
             Background background=new Background();
             background.setVisible(true);
-            this.setVisible(false);
+            this.dispose();
             
            }else{
                label3.setVisible(true);

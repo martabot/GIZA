@@ -7,8 +7,6 @@ package vistas;
 
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
-import static java.time.LocalDate.now;
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,7 +22,6 @@ public class VistaMesas extends javax.swing.JFrame {
     private Conexion conexion;
     private MesaData mesaData;
     private MeseroData meseroData;
-    private ProductoData productoData;
     private PedidoData pedidoData;
     private ReservaData reservaData;
     private List<Mesa> mesas;
@@ -61,7 +58,6 @@ public class VistaMesas extends javax.swing.JFrame {
             conexion.getConexion();
             mesaData=new MesaData(conexion);
             meseroData=new MeseroData(conexion);
-            productoData=new ProductoData(conexion);
             pedidoData=new PedidoData(conexion);
             reservaData=new ReservaData(conexion);
             
@@ -118,24 +114,24 @@ public class VistaMesas extends javax.swing.JFrame {
     
     private void cargarCbDisponibles(){
         mesas=mesaData.obtenerMesas().stream().filter(m->"Libre".equals(m.getEstadoMesa())).collect(Collectors.toList());
-        for(Mesa m: mesas) {
+        mesas.forEach((m) -> {
             cbDisponibles.addItem(String.valueOf(m.getIdMesa()));
-        }
+        });
     }
     
     private void cargarCbReservadasHoy(){
         reservas=reservaData.reservasPorMesa();
-        for(Integer r: reservas) {
+        reservas.forEach((r) -> {
             cbReservadas.addItem(String.valueOf(r));
-        }
+        });
     }
     
     private void cargarCbAtendidas(){
         try {
             mesasId=pedidoData.selccionarPedidoPorMesero(Inicio.usuarioRegistrado());
-            for(Integer r: mesasId) {
+            mesasId.forEach((r) -> {
                 cbAtendidas.addItem(String.valueOf(r));
-            }
+            });
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(VistaMesas.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -360,7 +356,7 @@ public class VistaMesas extends javax.swing.JFrame {
         botonBalance.setBackground(new java.awt.Color(0, 0, 0));
         botonBalance.setFont(new java.awt.Font("Luisa", 1, 36)); // NOI18N
         botonBalance.setForeground(new java.awt.Color(238, 140, 60));
-        botonBalance.setText("BALANCE");
+        botonBalance.setText("INGRESOS");
         botonBalance.setToolTipText("");
         botonBalance.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 153, 51), 3, true));
         botonBalance.addActionListener(new java.awt.event.ActionListener() {

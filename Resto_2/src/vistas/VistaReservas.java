@@ -31,8 +31,9 @@ public class VistaReservas extends javax.swing.JFrame {
     private List<Reserva> reservaMesa;
     private ArrayList<Reserva> reservasLista=new ArrayList<>();
     private Fuentes fuente;
-    Conexion conexion;
-    ReservaData r1;
+    private ReservaData reservaData;
+    private Conexion conexion;
+    private MesaData mesaData;
     
     
     //Constructor
@@ -65,9 +66,14 @@ public class VistaReservas extends javax.swing.JFrame {
         try {
                 conexion = new Conexion();
                 conexion.getConexion();
+                reservaData=new ReservaData(conexion);
+                mesaData=new MesaData(conexion);
                 
                 //cargamos la tabla con las reservas existentes
                 this.cargarTabla();
+                
+                //autocancelamos las reservas que pierden vigencia
+                reservaData.autoCancelarReserva();
             } catch (ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(Background.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -136,11 +142,10 @@ public class VistaReservas extends javax.swing.JFrame {
             //acomodamos el formato para que se vea bonito en nuestra tabla
             DateTimeFormatter d = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"); 
             
-            //variables y conexiones
-            ReservaData rd=new ReservaData(conexion);
-            int x=rd.obtenerReservas().size();
+            
+            int x=reservaData.obtenerReservas().size();
             ArrayList<Reserva> lista=new ArrayList<>();
-            lista=rd.obtenerReservas();
+            lista=reservaData.obtenerReservas();
             for (int b=0;b<x;b++){
                 //para una lista de tamaño x(que es nuestra cantidad de filas) llenamos los datos de cada columna, los contadores de fila empiezan en 0
                 Object [] filas = new Object[5];
@@ -163,6 +168,7 @@ public class VistaReservas extends javax.swing.JFrame {
         }
     }
     */
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -668,7 +674,7 @@ public class VistaReservas extends javax.swing.JFrame {
         botonBalance.setBackground(new java.awt.Color(0, 0, 0));
         botonBalance.setFont(new java.awt.Font("Luisa", 1, 36)); // NOI18N
         botonBalance.setForeground(new java.awt.Color(238, 140, 60));
-        botonBalance.setText("BALANCE");
+        botonBalance.setText("INGRESOS");
         botonBalance.setToolTipText("");
         botonBalance.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 153, 51), 3, true));
         botonBalance.addActionListener(new java.awt.event.ActionListener() {
@@ -842,23 +848,18 @@ public class VistaReservas extends javax.swing.JFrame {
     //Cambia la vigencia de una Reserva que no fue eliminada pero que ya no es válida
     private void darDeBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_darDeBajaActionPerformed
        try {
-           
-        ReservaData r1=new ReservaData(conexion);
-        reservasLista=r1.obtenerReservas();  
-        r1.cancelarReserva(Integer.parseInt(textoId.getText()));
+        reservasLista=reservaData.obtenerReservas();  
+        reservaData.cancelarReserva("id_reserva",textoId.getText());
         reservaMesa=reservasLista.stream().filter(r->r.getMesa().getIdMesa()==Integer.parseInt(textoId.getText())).collect(Collectors.toList());
         reservaMesa.forEach(r->{
-        MesaData m1=new MesaData(conexion);
-        m1.actualizarEstadoMesa("Libre",r.getMesa().getIdMesa());
+        mesaData.actualizarEstadoMesa("Libre",r.getMesa().getIdMesa());
         }); 
         ////incompleto
         tablaReservas.setDefaultRenderer (Object.class, new MiRender());
         this.limpiar();
         this.cargarTabla();
         avisos.setText("Reserva cancelada.");
-       } catch (SQLException ex) {
-            Logger.getLogger(Background.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+       } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(VistaReservas.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_darDeBajaActionPerformed
@@ -884,23 +885,18 @@ public class VistaReservas extends javax.swing.JFrame {
     //si los datos son correctos el mesero registra la reserva
     private void botonAceptar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptar1ActionPerformed
         try {
-                conexion = new Conexion();
-                conexion.getConexion();
-                ReservaData r1=new ReservaData(conexion);
-                reservasLista=r1.obtenerReservas();
-                MesaData m1=new MesaData(conexion);
-            
+            reservasLista=reservaData.obtenerReservas();
         //si todo es correcto crea una reserva y la guarda en la base de datos
-        Reserva reserva=new Reserva(textoNombre.getText(),this.getDni(),this.getFecha(),m1.deIdAMesa(this.getNroMesa()),true);
-        r1.guardarReserva(reserva);
+        Reserva reserva=new Reserva(textoNombre.getText(),this.getDni(),this.getFecha(),mesaData.deIdAMesa(this.getNroMesa()),true);
+        reservaData.guardarReserva(reserva);
         //actualizamos el estado de la mesa para saber que está reservada
-        m1.actualizarEstadoMesa("Reservada",this.getNroMesa());
+        mesaData.actualizarEstadoMesa("Reservada",this.getNroMesa());
         //Limpiamos los campos y avisamos que se creo la reserva
         confirmacion.setVisible(false);
         this.cargarTabla();
         this.limpiar();
         avisos.setText("La reserva se creo exitosamente.");
-        } catch (ClassNotFoundException | SQLException ex) {
+        } catch (ClassNotFoundException ex) {
                 Logger.getLogger(Background.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_botonAceptar1ActionPerformed
@@ -932,13 +928,11 @@ public class VistaReservas extends javax.swing.JFrame {
 
     private void botonAceptar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptar3ActionPerformed
     try { 
-        ReservaData r1=new ReservaData(conexion);
-        reservasLista=r1.obtenerReservas();
+        reservasLista=reservaData.obtenerReservas();
         reservaMesa=reservasLista.stream().filter(r->r.getIdReserva()==Integer.parseInt(textoId.getText())).collect(Collectors.toList());
         reservaMesa.forEach(r->{
-        MesaData m1=new MesaData(conexion);
-        m1.actualizarEstadoMesa("Libre",r.getMesa().getIdMesa());});
-        r1.borrarReserva(Integer.parseInt(textoId.getText()));
+        mesaData.actualizarEstadoMesa("Libre",r.getMesa().getIdMesa());});
+        reservaData.borrarReserva(Integer.parseInt(textoId.getText()));
         this.limpiar();this.cargarTabla();avisos.setText("Reserva eliminada.");
         confirmacion1.dispose();
        } catch (ClassNotFoundException ex) {

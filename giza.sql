@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 31-10-2018 a las 17:55:29
+-- Tiempo de generación: 08-11-2018 a las 20:33:36
 -- Versión del servidor: 10.1.36-MariaDB
 -- Versión de PHP: 5.6.38
 
@@ -52,8 +52,8 @@ CREATE TABLE `mesa` (
 --
 
 INSERT INTO `mesa` (`id_mesa`, `estado_mesa`, `capacidad`) VALUES
-(1, 'Ocupada', 2),
-(2, 'Ocupada', 2),
+(1, 'Libre', 2),
+(2, 'Libre', 2),
 (3, 'Libre', 2),
 (4, 'Libre', 2),
 (5, 'Libre', 2),
@@ -72,16 +72,16 @@ INSERT INTO `mesa` (`id_mesa`, `estado_mesa`, `capacidad`) VALUES
 (18, 'Libre', 3),
 (19, 'Libre', 3),
 (20, 'Libre', 3),
-(21, 'Libre', 4),
-(22, 'Libre', 4),
-(23, 'Libre', 4),
-(24, 'Libre', 4),
-(25, 'Libre', 4),
-(26, 'Libre', 4),
-(27, 'Libre', 4),
-(28, 'Libre', 4),
-(29, 'Libre', 4),
-(30, 'Libre', 4),
+(21, 'Libre', 3),
+(22, 'Libre', 3),
+(23, 'Libre', 3),
+(24, 'Libre', 3),
+(25, 'Libre', 3),
+(26, 'Libre', 3),
+(27, 'Libre', 3),
+(28, 'Libre', 3),
+(29, 'Libre', 3),
+(30, 'Libre', 3),
 (31, 'Libre', 5),
 (32, 'Libre', 5),
 (33, 'Libre', 5),
@@ -114,13 +114,6 @@ CREATE TABLE `mesero` (
   `nombre_mesero` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Volcado de datos para la tabla `mesero`
---
-
-INSERT INTO `mesero` (`id_mesero`, `nombre_mesero`) VALUES
-(1, 'u');
-
 -- --------------------------------------------------------
 
 --
@@ -132,7 +125,8 @@ CREATE TABLE `pedido` (
   `id_mesa` int(11) DEFAULT NULL,
   `id_mesero` int(11) DEFAULT NULL,
   `fecha_pedido` datetime DEFAULT NULL,
-  `cuenta` double DEFAULT NULL
+  `cuenta` double DEFAULT NULL,
+  `estado_pedido` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -154,7 +148,7 @@ CREATE TABLE `producto` (
 INSERT INTO `producto` (`id_producto`, `nombre_producto`, `precio`) VALUES
 (1, 'Picada', 50),
 (2, 'Ensalada', 25),
-(3, 'Sandwhich', 25),
+(3, 'Papas', 48),
 (4, 'Empanadas', 50),
 (5, 'Locro', 30),
 (6, 'Tacos por 3', 60),
@@ -164,15 +158,12 @@ INSERT INTO `producto` (`id_producto`, `nombre_producto`, `precio`) VALUES
 (10, 'Agua Con Gas 500ml', 15),
 (11, 'Agua Saborizada 500ml', 30),
 (12, 'Gaseosa 1Lt', 80),
-(13, 'Gaseosa 1Lt', 50),
 (14, 'Vino', 20),
 (15, 'Fernet', 70),
 (16, 'Whiskey', 100),
 (17, 'Flan Mixto', 5),
 (18, 'Helado', 15),
-(19, 'Ensalada de Frutas', 20),
-(20, 'Tortilla Española', 50);
-
+(19, 'Pastel en fuente', 50);
 
 -- --------------------------------------------------------
 
@@ -242,7 +233,7 @@ ALTER TABLE `reserva`
 -- AUTO_INCREMENT de la tabla `comanda`
 --
 ALTER TABLE `comanda`
-  MODIFY `id_comanda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `id_comanda` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `mesa`
@@ -254,25 +245,25 @@ ALTER TABLE `mesa`
 -- AUTO_INCREMENT de la tabla `mesero`
 --
 ALTER TABLE `mesero`
-  MODIFY `id_mesero` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_mesero` int(4) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `pedido`
 --
 ALTER TABLE `pedido`
-  MODIFY `id_pedido` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `id_pedido` int(4) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `id_producto` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_producto` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de la tabla `reserva`
 --
 ALTER TABLE `reserva`
-  MODIFY `id_reserva` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `id_reserva` int(4) NOT NULL AUTO_INCREMENT;
 
 --
 -- Restricciones para tablas volcadas

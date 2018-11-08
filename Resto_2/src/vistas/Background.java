@@ -219,7 +219,7 @@ public class Background extends javax.swing.JFrame {
         botonBalance.setBackground(new java.awt.Color(0, 0, 0));
         botonBalance.setFont(new java.awt.Font("Luisa", 1, 36)); // NOI18N
         botonBalance.setForeground(new java.awt.Color(238, 140, 60));
-        botonBalance.setText("BALANCE");
+        botonBalance.setText("INGRESOS");
         botonBalance.setToolTipText("");
         botonBalance.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 153, 51), 3, true));
         botonBalance.addActionListener(new java.awt.event.ActionListener() {

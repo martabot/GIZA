@@ -5,10 +5,9 @@
         <group>
             <file>file:/C:/Users/Muñeca%20Brava/Documents/repositorio_giza/GIZA/Resto_2/src/vistas/VistaReservas.java</file>
             <file>file:/C:/Users/Muñeca%20Brava/Documents/repositorio_giza/GIZA/Resto_2/src/vistas/Inicio.java</file>
-            <file>file:/C:/Users/Muñeca%20Brava/Documents/repositorio_giza/GIZA/Resto_2/src/vistas/VistaMesas.java</file>
+            <file>file:/C:/Users/Muñeca%20Brava/Documents/repositorio_giza/GIZA/Resto_2/src/modelo/Pedido.java</file>
             <file>file:/C:/Users/Muñeca%20Brava/Documents/repositorio_giza/GIZA/Resto_2/src/vistas/VistaPedidos.java</file>
-            <file>file:/C:/Users/Muñeca%20Brava/Documents/repositorio_giza/GIZA/Resto_2/src/modelo/ReservaData.java</file>
-            <file>file:/C:/Users/Muñeca%20Brava/Documents/repositorio_giza/GIZA/Resto_2/src/vistas/VistaPrecios.java</file>
+            <file>file:/C:/Users/Muñeca%20Brava/Documents/repositorio_giza/GIZA/Resto_2/src/modelo/PedidoData.java</file>
         </group>
     </open-files>
 </project-private>

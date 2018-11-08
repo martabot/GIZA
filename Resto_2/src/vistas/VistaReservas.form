@@ -1062,7 +1062,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="3c" green="8c" red="ee" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="BALANCE"/>
+            <Property name="text" type="java.lang.String" value="INGRESOS"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">

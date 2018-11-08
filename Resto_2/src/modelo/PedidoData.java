@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -25,6 +26,7 @@ public class PedidoData {
     private Pedido pedido;
     private MesaData mesa;
     private MeseroData mesero;
+    private int totales;
 
     public PedidoData(Conexion conexion) {
         try {
@@ -37,13 +39,14 @@ public class PedidoData {
     public void guardarPedido(Pedido pedido){
         try {
             
-            String sql = "INSERT INTO `pedido`(`id_mesa`, `id_mesero`, `fecha_pedido`, `cuenta`) VALUES ( ? , ? , ? , ?);";
+            String sql = "INSERT INTO `pedido`(`id_mesa`, `id_mesero`, `fecha_pedido`, `cuenta`, `estado_pedido`) VALUES ( ? , ? , ? , ? , ?);";
 
             try (PreparedStatement statment = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 statment.setInt(1, pedido.getMesa().getIdMesa());
                 statment.setInt(2, pedido.getMesero().getIdMesero());
                 statment.setTimestamp(3, Timestamp.valueOf(pedido.getFechaPedido()));
                 statment.setDouble(4, pedido.getCuenta());
+                statment.setBoolean(5, pedido.getCobrada());
                 
                 statment.executeUpdate();
                 
@@ -79,6 +82,7 @@ public class PedidoData {
                     pedi.setMesero(mesero.deIdAMesero(resultSet.getInt(3)));
                     pedi.setFechaPedido(resultSet.getTimestamp(4).toLocalDateTime());
                     pedi.setCuenta(resultSet.getDouble(5));
+                    pedi.setCobrada(resultSet.getBoolean(6));
                     
                     pedidos.add(pedi);
                 }
@@ -107,6 +111,7 @@ public class PedidoData {
                     pedi.setMesero(mesero.deIdAMesero(resultSet.getInt(3)));
                     pedi.setFechaPedido(resultSet.getTimestamp(4).toLocalDateTime());
                     pedi.setCuenta(resultSet.getDouble(5));
+                    pedi.setCobrada(resultSet.getBoolean(6));
               
               this.pedido=pedi;
             }
@@ -149,6 +154,7 @@ public class PedidoData {
                     pedi.setMesero(mesero.deIdAMesero(resultSet.getInt(3)));
                     pedi.setFechaPedido(resultSet.getTimestamp(4).toLocalDateTime());
                     pedi.setCuenta(resultSet.getDouble(5));
+                    pedi.setCobrada(resultSet.getBoolean(6));
               
               this.pedido=pedi;
             }
@@ -163,7 +169,7 @@ public class PedidoData {
         ArrayList<Integer> idMesas=new ArrayList<>();
         
         try {
-            String sql = "SELECT DISTINCT id_mesa FROM `pedido`,mesero WHERE pedido.id_mesero=mesero.id_mesero AND mesero.nombre_mesero=? ;";
+            String sql = "SELECT DISTINCT id_mesa FROM `pedido`,mesero WHERE pedido.id_mesero=mesero.id_mesero AND mesero.nombre_mesero=? AND estado_pedido=0;";
           try (PreparedStatement statment = connection.prepareStatement(sql)) {
               statment.setString(1, idM);
               ResultSet resultSet = statment.executeQuery();
@@ -190,6 +196,70 @@ public class PedidoData {
             }
         } catch (SQLException ex) {
             System.out.println("Error al actualizar la cuenta: " + ex.getMessage());
+        }
+    }
+    
+    public double cuentaDelDia(String x){
+        ArrayList<Double> cuentas = new ArrayList<>();
+        
+        try {
+            String sql = "SELECT cuenta FROM pedido WHERE (DATE(`fecha_pedido`))= ?;";
+        try (PreparedStatement statment = connection.prepareStatement(sql)) {
+            statment.setString(1, x);
+            ResultSet resultSet = statment.executeQuery();
+            while(resultSet.next()){
+                double c=resultSet.getDouble(1);    
+                cuentas.add(c);
+            }}
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener las cuentas del dia: " + ex.getMessage());
+        }
+        return cuentas.stream().mapToDouble(s->s).sum();
+    }
+    
+    public int totalDeTotales(){
+        try {
+            String sql= "SELECT COUNT(DISTINCT (DATE(`fecha_pedido`))) AS cuentas FROM pedido;";
+            try (PreparedStatement statment = connection.prepareStatement(sql)) {
+            ResultSet resultSet = statment.executeQuery();
+            while(resultSet.next()){
+                int total=resultSet.getInt(1);    
+                totales=total;
+            }}
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener el total de totales: " + ex.getMessage());
+        } 
+        return totales;
+    }
+    
+    public ArrayList<LocalDateTime> listaDeFechas(){
+        ArrayList<LocalDateTime> total = new ArrayList<>();
+        try {
+            String sql= "SELECT DISTINCT (DATE(`fecha_pedido`)) AS cuentas FROM pedido;";
+            try (PreparedStatement statment = connection.prepareStatement(sql)) {
+            ResultSet resultSet = statment.executeQuery();
+            while(resultSet.next()){
+                LocalDateTime a=resultSet.getTimestamp(1).toLocalDateTime();
+                total.add(a);
+            }
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener las reservas: " + ex.getMessage());
+        }
+        return total;
+    }
+    
+    public void actualizarEstadoYfecha(int x){
+
+        try {
+            String sql = "UPDATE `pedido` SET `estado_pedido`=1,`fecha_pedido`=CURRENT_TIMESTAMP WHERE id_pedido= ?;";
+            try (PreparedStatement statment = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                statment.setInt(1, x);
+                
+                statment.executeUpdate();
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al actualizar el estado: " + ex.getMessage());
         }
     }
 }
