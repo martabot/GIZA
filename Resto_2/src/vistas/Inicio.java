@@ -107,8 +107,8 @@ public class Inicio extends javax.swing.JFrame {
 
         confirmacion.setAlwaysOnTop(true);
         confirmacion.setBackground(new java.awt.Color(252, 238, 220));
-        confirmacion.setBounds(new java.awt.Rectangle(363, 217, 562, 488));
-        confirmacion.setLocation(new java.awt.Point(363, 217));
+        confirmacion.setBounds(new java.awt.Rectangle(410, 230, 562, 488));
+        confirmacion.setLocation(new java.awt.Point(408, 216));
 
         jPanel3.setBackground(new java.awt.Color(255, 236, 223));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -160,7 +160,7 @@ public class Inicio extends javax.swing.JFrame {
         confirmacion.getContentPane().setLayout(confirmacionLayout);
         confirmacionLayout.setHorizontalGroup(
             confirmacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 558, Short.MAX_VALUE)
         );
         confirmacionLayout.setVerticalGroup(
             confirmacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -169,8 +169,8 @@ public class Inicio extends javax.swing.JFrame {
 
         confirmacion1.setAlwaysOnTop(true);
         confirmacion1.setBackground(new java.awt.Color(252, 238, 220));
-        confirmacion1.setBounds(new java.awt.Rectangle(363, 217, 562, 488));
-        confirmacion1.setLocation(new java.awt.Point(363, 217));
+        confirmacion1.setBounds(new java.awt.Rectangle(408, 216, 562, 488));
+        confirmacion1.setLocation(new java.awt.Point(408, 216));
 
         jPanel2.setBackground(new java.awt.Color(255, 236, 223));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -268,7 +268,8 @@ public class Inicio extends javax.swing.JFrame {
         label1.setForeground(new java.awt.Color(102, 0, 0));
         label1.setText("INGRESAR");
 
-        label3.setForeground(new java.awt.Color(255, 0, 0));
+        label3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        label3.setForeground(new java.awt.Color(255, 0, 51));
         label3.setText("Mesero no registrado");
 
         signUp.setBackground(new java.awt.Color(255, 204, 153));
@@ -299,11 +300,17 @@ public class Inicio extends javax.swing.JFrame {
             .addGroup(panelDeInicioLayout.createSequentialGroup()
                 .addGroup(panelDeInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelDeInicioLayout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addComponent(label3)
+                        .addGap(18, 18, 18)
+                        .addComponent(signUp, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(panelDeInicioLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(panelDeInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(panelDeInicioLayout.createSequentialGroup()
-                                .addGroup(panelDeInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(panelDeInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addGroup(panelDeInicioLayout.createSequentialGroup()
                                         .addComponent(bRenunciar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -312,13 +319,8 @@ public class Inicio extends javax.swing.JFrame {
                                         .addComponent(label2)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(textoBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(6, 6, 6))))
-                    .addGroup(panelDeInicioLayout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addComponent(label3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(signUp, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(84, Short.MAX_VALUE))
+                                .addGap(6, 6, 6)))))
+                .addContainerGap())
         );
         panelDeInicioLayout.setVerticalGroup(
             panelDeInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -333,17 +335,17 @@ public class Inicio extends javax.swing.JFrame {
                 .addGroup(panelDeInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonBuscar)
                     .addComponent(bRenunciar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addGap(43, 43, 43)
                 .addGroup(panelDeInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(label3)
-                    .addComponent(signUp, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addComponent(signUp, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label3))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         panelPrincipal.add(panelDeInicio);
-        panelDeInicio.setBounds(520, 280, 300, 270);
+        panelDeInicio.setBounds(550, 280, 220, 300);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/salir.png"))); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/salir.png"))); // NOI18N
         jButton1.setContentAreaFilled(false);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -353,7 +355,7 @@ public class Inicio extends javax.swing.JFrame {
         panelPrincipal.add(jButton1);
         jButton1.setBounds(50, 40, 30, 40);
 
-        imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/inicio.png"))); // NOI18N
+        imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/inicio.png"))); // NOI18N
         imagen.setAlignmentY(0.0F);
         imagen.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(244, 242, 154), null));
         imagen.setMaximumSize(new java.awt.Dimension(14250, 9520));

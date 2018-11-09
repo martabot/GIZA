@@ -339,7 +339,7 @@ public class VistaPrecios extends javax.swing.JFrame {
         background.add(borrarProducto);
         borrarProducto.setBounds(380, 520, 120, 30);
 
-        cerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/Logout-512.png"))); // NOI18N
+        cerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Logout.png"))); // NOI18N
         cerrarSesion.setContentAreaFilled(false);
         cerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -349,7 +349,7 @@ public class VistaPrecios extends javax.swing.JFrame {
         background.add(cerrarSesion);
         cerrarSesion.setBounds(240, 40, 30, 40);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/salir.png"))); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/salir.png"))); // NOI18N
         jButton1.setContentAreaFilled(false);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -379,7 +379,7 @@ public class VistaPrecios extends javax.swing.JFrame {
         background.add(cambiarNombre2);
         cambiarNombre2.setBounds(770, 50, 120, 30);
 
-        botonAjustes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/ajustes.png"))); // NOI18N
+        botonAjustes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ajustes.png"))); // NOI18N
         botonAjustes.setContentAreaFilled(false);
         botonAjustes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -483,7 +483,7 @@ public class VistaPrecios extends javax.swing.JFrame {
         background.add(avisos);
         avisos.setBounds(490, 240, 300, 14);
 
-        imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/Background.png"))); // NOI18N
+        imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Background.png"))); // NOI18N
         imagen.setAlignmentY(0.0F);
         imagen.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -622,7 +622,7 @@ public class VistaPrecios extends javax.swing.JFrame {
     //Pasa a vista de balance
     private void botonBalanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBalanceActionPerformed
         background.removeAll();
-        VistaBalance vistaBalance=new VistaBalance();
+        VistaIngresos vistaBalance=new VistaIngresos();
         vistaBalance.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_botonBalanceActionPerformed

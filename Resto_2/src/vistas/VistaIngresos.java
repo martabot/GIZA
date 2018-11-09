@@ -22,7 +22,7 @@ import modelo.*;
  *
  * @author Muñeca Brava
  */
-public class VistaBalance extends javax.swing.JFrame {
+public class VistaIngresos extends javax.swing.JFrame {
     Conexion conexion;
     private Fuentes fuente;
     private ArrayList<Mesero> meseros;
@@ -34,7 +34,7 @@ public class VistaBalance extends javax.swing.JFrame {
     private DefaultTableModel modelo;
     private DateTimeFormatter d;
     
-    public VistaBalance() {
+    public VistaIngresos() {
         
         //Propiedades de la pantalla completa
         this.setUndecorated(true);
@@ -243,9 +243,9 @@ public class VistaBalance extends javax.swing.JFrame {
         labelBalance.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelBalance.setText("INGRESOS");
         background.add(labelBalance);
-        labelBalance.setBounds(360, 190, 560, 40);
+        labelBalance.setBounds(360, 200, 560, 40);
 
-        cerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/Logout-512.png"))); // NOI18N
+        cerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Logout.png"))); // NOI18N
         cerrarSesion.setContentAreaFilled(false);
         cerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -255,7 +255,7 @@ public class VistaBalance extends javax.swing.JFrame {
         background.add(cerrarSesion);
         cerrarSesion.setBounds(240, 40, 30, 40);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/salir.png"))); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/salir.png"))); // NOI18N
         jButton1.setContentAreaFilled(false);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -285,7 +285,7 @@ public class VistaBalance extends javax.swing.JFrame {
         background.add(cambiarNombre2);
         cambiarNombre2.setBounds(770, 50, 120, 30);
 
-        botonAjustes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/ajustes.png"))); // NOI18N
+        botonAjustes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ajustes.png"))); // NOI18N
         botonAjustes.setContentAreaFilled(false);
         botonAjustes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -330,11 +330,11 @@ public class VistaBalance extends javax.swing.JFrame {
 
         calendario1.setDateFormatString("yyyy-mm-dd");
         background.add(calendario1);
-        calendario1.setBounds(490, 340, 200, 30);
+        calendario1.setBounds(490, 340, 210, 30);
 
         calendario.setDateFormatString("yyyy-mm-dd");
         background.add(calendario);
-        calendario.setBounds(490, 300, 200, 30);
+        calendario.setBounds(490, 300, 210, 30);
 
         eActualizar.setForeground(new java.awt.Color(102, 0, 0));
         eActualizar.setText("EL NOMBRE DE USUARIO SE ACTUALIZO CON EXITO");
@@ -350,7 +350,7 @@ public class VistaBalance extends javax.swing.JFrame {
             }
         });
         background.add(cbBuscarPor);
-        cbBuscarPor.setBounds(490, 260, 90, 30);
+        cbBuscarPor.setBounds(490, 260, 100, 30);
 
         cbReferencias.setForeground(new java.awt.Color(102, 102, 102));
         cbReferencias.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "seleccionar" }));
@@ -361,7 +361,7 @@ public class VistaBalance extends javax.swing.JFrame {
             }
         });
         background.add(cbReferencias);
-        cbReferencias.setBounds(600, 260, 90, 30);
+        cbReferencias.setBounds(600, 260, 100, 30);
 
         filtrar.setBackground(new java.awt.Color(255, 237, 221));
         filtrar.setForeground(new java.awt.Color(102, 0, 0));
@@ -432,7 +432,7 @@ public class VistaBalance extends javax.swing.JFrame {
         ePagaCon1.setForeground(new java.awt.Color(153, 0, 51));
         ePagaCon1.setText("TOTAL:");
         background.add(ePagaCon1);
-        ePagaCon1.setBounds(730, 640, 60, 30);
+        ePagaCon1.setBounds(730, 650, 60, 30);
 
         tablaReservas.setBackground(new java.awt.Color(254, 247, 230));
         tablaReservas.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -486,9 +486,9 @@ public class VistaBalance extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tablaReservas);
 
         background.add(jScrollPane1);
-        jScrollPane1.setBounds(390, 390, 500, 250);
+        jScrollPane1.setBounds(400, 390, 490, 260);
 
-        imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/Background.png"))); // NOI18N
+        imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Background.png"))); // NOI18N
         imagen.setAlignmentY(0.0F);
         background.add(imagen);
         imagen.setBounds(0, 0, 1440, 896);

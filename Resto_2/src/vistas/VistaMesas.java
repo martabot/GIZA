@@ -406,7 +406,7 @@ public class VistaMesas extends javax.swing.JFrame {
         background.add(botonPedidos);
         botonPedidos.setBounds(20, 400, 250, 70);
 
-        cerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/Logout-512.png"))); // NOI18N
+        cerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Logout.png"))); // NOI18N
         cerrarSesion.setContentAreaFilled(false);
         cerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -416,7 +416,7 @@ public class VistaMesas extends javax.swing.JFrame {
         background.add(cerrarSesion);
         cerrarSesion.setBounds(240, 40, 30, 40);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/salir.png"))); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/salir.png"))); // NOI18N
         jButton1.setContentAreaFilled(false);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -430,7 +430,7 @@ public class VistaMesas extends javax.swing.JFrame {
         jLabel11.setForeground(new java.awt.Color(153, 0, 51));
         jLabel11.setText("DISPONIBLES:");
         background.add(jLabel11);
-        jLabel11.setBounds(430, 260, 100, 30);
+        jLabel11.setBounds(420, 270, 100, 30);
 
         cambiarNombre2.setBackground(new java.awt.Color(255, 237, 221));
         cambiarNombre2.setForeground(new java.awt.Color(102, 0, 0));
@@ -448,12 +448,13 @@ public class VistaMesas extends javax.swing.JFrame {
 
         textoCapacidad.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         background.add(textoCapacidad);
-        textoCapacidad.setBounds(840, 240, 60, 18);
+        textoCapacidad.setBounds(850, 240, 60, 20);
 
         avisos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         avisos.setForeground(new java.awt.Color(204, 0, 51));
+        avisos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         background.add(avisos);
-        avisos.setBounds(590, 370, 320, 30);
+        avisos.setBounds(380, 390, 300, 20);
 
         textoUsuario1.setForeground(new java.awt.Color(153, 0, 51));
         textoUsuario1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -471,7 +472,7 @@ public class VistaMesas extends javax.swing.JFrame {
         background.add(nomNu);
         nomNu.setBounds(420, 50, 100, 30);
 
-        botonAjustes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/ajustes.png"))); // NOI18N
+        botonAjustes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ajustes.png"))); // NOI18N
         botonAjustes.setContentAreaFilled(false);
         botonAjustes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -483,13 +484,14 @@ public class VistaMesas extends javax.swing.JFrame {
 
         labelMesas.setFont(new java.awt.Font("Luisa", 1, 24)); // NOI18N
         labelMesas.setForeground(new java.awt.Color(153, 0, 51));
+        labelMesas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelMesas.setText("MESAS");
         background.add(labelMesas);
-        labelMesas.setBounds(610, 190, 120, 40);
+        labelMesas.setBounds(360, 200, 560, 40);
 
         agregarMesa.setBackground(new java.awt.Color(255, 237, 221));
         agregarMesa.setForeground(new java.awt.Color(102, 0, 0));
-        agregarMesa.setText("AGREGAR");
+        agregarMesa.setText("AGREGAR  MESA");
         agregarMesa.setActionCommand("");
         agregarMesa.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 204, 204), new java.awt.Color(255, 204, 102), new java.awt.Color(204, 0, 51), new java.awt.Color(102, 0, 0)));
         agregarMesa.addActionListener(new java.awt.event.ActionListener() {
@@ -498,7 +500,7 @@ public class VistaMesas extends javax.swing.JFrame {
             }
         });
         background.add(agregarMesa);
-        agregarMesa.setBounds(410, 540, 120, 30);
+        agregarMesa.setBounds(750, 490, 140, 30);
 
         actualizarMesa.setBackground(new java.awt.Color(255, 237, 221));
         actualizarMesa.setForeground(new java.awt.Color(102, 0, 0));
@@ -511,7 +513,7 @@ public class VistaMesas extends javax.swing.JFrame {
             }
         });
         background.add(actualizarMesa);
-        actualizarMesa.setBounds(410, 480, 120, 30);
+        actualizarMesa.setBounds(750, 550, 140, 30);
 
         limpiarCasilleros.setBackground(new java.awt.Color(255, 237, 221));
         limpiarCasilleros.setForeground(new java.awt.Color(102, 0, 0));
@@ -524,7 +526,7 @@ public class VistaMesas extends javax.swing.JFrame {
             }
         });
         background.add(limpiarCasilleros);
-        limpiarCasilleros.setBounds(410, 420, 120, 30);
+        limpiarCasilleros.setBounds(750, 430, 140, 30);
 
         eliminarMesa.setBackground(new java.awt.Color(255, 237, 221));
         eliminarMesa.setForeground(new java.awt.Color(102, 0, 0));
@@ -537,7 +539,7 @@ public class VistaMesas extends javax.swing.JFrame {
             }
         });
         background.add(eliminarMesa);
-        eliminarMesa.setBounds(410, 600, 120, 30);
+        eliminarMesa.setBounds(750, 610, 140, 30);
 
         botonPrecios.setBackground(new java.awt.Color(0, 0, 0));
         botonPrecios.setFont(new java.awt.Font("Luisa", 1, 36)); // NOI18N
@@ -574,13 +576,13 @@ public class VistaMesas extends javax.swing.JFrame {
 
         textoId.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         background.add(textoId);
-        textoId.setBounds(840, 210, 60, 18);
+        textoId.setBounds(850, 210, 60, 20);
 
         etiquetaId.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         etiquetaId.setForeground(new java.awt.Color(153, 0, 51));
         etiquetaId.setText("NRO:");
         background.add(etiquetaId);
-        etiquetaId.setBounds(800, 210, 40, 17);
+        etiquetaId.setBounds(800, 210, 50, 20);
 
         cbDisponibles.setForeground(new java.awt.Color(102, 102, 102));
         cbDisponibles.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "seleccionar" }));
@@ -591,7 +593,7 @@ public class VistaMesas extends javax.swing.JFrame {
             }
         });
         background.add(cbDisponibles);
-        cbDisponibles.setBounds(530, 260, 150, 30);
+        cbDisponibles.setBounds(520, 270, 150, 30);
 
         tablaMesas.setBackground(new java.awt.Color(254, 247, 230));
         tablaMesas.setForeground(new java.awt.Color(153, 0, 0));
@@ -644,7 +646,7 @@ public class VistaMesas extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tablaMesas);
 
         background.add(jScrollPane1);
-        jScrollPane1.setBounds(590, 400, 310, 260);
+        jScrollPane1.setBounds(390, 420, 320, 240);
 
         cbReservadas.setForeground(new java.awt.Color(102, 102, 102));
         cbReservadas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "seleccionar" }));
@@ -655,20 +657,20 @@ public class VistaMesas extends javax.swing.JFrame {
             }
         });
         background.add(cbReservadas);
-        cbReservadas.setBounds(530, 300, 150, 30);
+        cbReservadas.setBounds(520, 310, 150, 30);
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(153, 0, 51));
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel13.setText("RESERVADAS HOY:");
         background.add(jLabel13);
-        jLabel13.setBounds(400, 300, 130, 30);
+        jLabel13.setBounds(390, 310, 130, 30);
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(153, 0, 51));
         jLabel14.setText("ATENDIENDO AHORA:");
         background.add(jLabel14);
-        jLabel14.setBounds(380, 340, 150, 30);
+        jLabel14.setBounds(380, 350, 150, 30);
 
         cbAtendidas.setForeground(new java.awt.Color(102, 102, 102));
         cbAtendidas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "seleccionar" }));
@@ -679,7 +681,7 @@ public class VistaMesas extends javax.swing.JFrame {
             }
         });
         background.add(cbAtendidas);
-        cbAtendidas.setBounds(530, 340, 150, 30);
+        cbAtendidas.setBounds(520, 350, 150, 30);
 
         atenderMesas.setBackground(new java.awt.Color(255, 237, 221));
         atenderMesas.setForeground(new java.awt.Color(102, 0, 0));
@@ -692,14 +694,14 @@ public class VistaMesas extends javax.swing.JFrame {
             }
         });
         background.add(atenderMesas);
-        atenderMesas.setBounds(740, 340, 100, 30);
+        atenderMesas.setBounds(750, 350, 100, 30);
 
         jLabel15.setForeground(new java.awt.Color(153, 0, 51));
         jLabel15.setText("CAPACIDAD:");
         background.add(jLabel15);
-        jLabel15.setBounds(760, 240, 80, 20);
+        jLabel15.setBounds(770, 240, 80, 20);
 
-        imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/Background.png"))); // NOI18N
+        imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Background.png"))); // NOI18N
         imagen.setAlignmentY(0.0F);
         background.add(imagen);
         imagen.setBounds(0, 0, 1440, 896);
@@ -720,7 +722,7 @@ public class VistaMesas extends javax.swing.JFrame {
 
     private void botonBalanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBalanceActionPerformed
         background.removeAll();
-        VistaBalance vistaBalance=new VistaBalance();
+        VistaIngresos vistaBalance=new VistaIngresos();
         vistaBalance.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_botonBalanceActionPerformed

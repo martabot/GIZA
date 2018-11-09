@@ -156,7 +156,7 @@ public class Background extends javax.swing.JFrame {
         background.add(tB3);
         tB3.setBounds(510, 490, 290, 50);
 
-        cerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/Logout-512.png"))); // NOI18N
+        cerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Logout.png"))); // NOI18N
         cerrarSesion.setContentAreaFilled(false);
         cerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -166,7 +166,7 @@ public class Background extends javax.swing.JFrame {
         background.add(cerrarSesion);
         cerrarSesion.setBounds(240, 40, 30, 40);
 
-        botonAjustes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/ajustes.png"))); // NOI18N
+        botonAjustes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ajustes.png"))); // NOI18N
         botonAjustes.setContentAreaFilled(false);
         botonAjustes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -176,7 +176,7 @@ public class Background extends javax.swing.JFrame {
         background.add(botonAjustes);
         botonAjustes.setBounds(320, 40, 30, 40);
 
-        botonApagar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/salir.png"))); // NOI18N
+        botonApagar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/salir.png"))); // NOI18N
         botonApagar.setContentAreaFilled(false);
         botonApagar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -249,7 +249,7 @@ public class Background extends javax.swing.JFrame {
         background.add(eActualizar);
         eActualizar.setBounds(480, 30, 310, 20);
 
-        imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/Background.png"))); // NOI18N
+        imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Background.png"))); // NOI18N
         imagen.setAlignmentY(0.0F);
         background.add(imagen);
         imagen.setBounds(0, 0, 1440, 896);
@@ -351,7 +351,7 @@ public class Background extends javax.swing.JFrame {
     private void botonBalanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBalanceActionPerformed
         background.removeAll();
         background.repaint();
-        VistaBalance vistaBalance=new VistaBalance();
+        VistaIngresos vistaBalance=new VistaIngresos();
         vistaBalance.setVisible(true);
     }//GEN-LAST:event_botonBalanceActionPerformed
 

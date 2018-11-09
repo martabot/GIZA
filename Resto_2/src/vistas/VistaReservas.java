@@ -430,9 +430,10 @@ public class VistaReservas extends javax.swing.JFrame {
 
         labelReservas.setFont(new java.awt.Font("Luisa", 1, 24)); // NOI18N
         labelReservas.setForeground(new java.awt.Color(153, 0, 51));
+        labelReservas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelReservas.setText("RESERVAS");
         background.add(labelReservas);
-        labelReservas.setBounds(570, 190, 150, 40);
+        labelReservas.setBounds(360, 200, 560, 40);
 
         darDeBaja.setBackground(new java.awt.Color(255, 237, 221));
         darDeBaja.setForeground(new java.awt.Color(102, 0, 0));
@@ -477,9 +478,9 @@ public class VistaReservas extends javax.swing.JFrame {
         spinnerMesas.setBorder(null);
         spinnerMesas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         background.add(spinnerMesas);
-        spinnerMesas.setBounds(470, 390, 140, 30);
+        spinnerMesas.setBounds(460, 400, 140, 30);
 
-        cerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/Logout-512.png"))); // NOI18N
+        cerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Logout.png"))); // NOI18N
         cerrarSesion.setContentAreaFilled(false);
         cerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -489,7 +490,7 @@ public class VistaReservas extends javax.swing.JFrame {
         background.add(cerrarSesion);
         cerrarSesion.setBounds(240, 40, 30, 40);
 
-        apagar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/salir.png"))); // NOI18N
+        apagar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/salir.png"))); // NOI18N
         apagar.setContentAreaFilled(false);
         apagar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -528,7 +529,7 @@ public class VistaReservas extends javax.swing.JFrame {
         background.add(textoUsuario1);
         textoUsuario1.setBounds(520, 50, 220, 30);
 
-        botonAjustes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/ajustes.png"))); // NOI18N
+        botonAjustes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ajustes.png"))); // NOI18N
         botonAjustes.setContentAreaFilled(false);
         botonAjustes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -548,7 +549,7 @@ public class VistaReservas extends javax.swing.JFrame {
         etiquetaId.setForeground(new java.awt.Color(153, 0, 51));
         etiquetaId.setText("NRO:");
         background.add(etiquetaId);
-        etiquetaId.setBounds(800, 210, 40, 17);
+        etiquetaId.setBounds(790, 210, 40, 17);
 
         textoId.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         background.add(textoId);
@@ -559,50 +560,50 @@ public class VistaReservas extends javax.swing.JFrame {
         etiquetaNombre.setText("NOMBRE:");
         etiquetaNombre.setAlignmentY(0.0F);
         background.add(etiquetaNombre);
-        etiquetaNombre.setBounds(380, 270, 90, 30);
+        etiquetaNombre.setBounds(390, 280, 70, 30);
 
         textoNombre.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         background.add(textoNombre);
-        textoNombre.setBounds(470, 269, 270, 30);
+        textoNombre.setBounds(460, 280, 270, 30);
 
         textoDni.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         background.add(textoDni);
-        textoDni.setBounds(470, 310, 140, 30);
+        textoDni.setBounds(460, 320, 140, 30);
 
         emesa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         emesa.setForeground(new java.awt.Color(153, 0, 51));
         emesa.setText("MESA:");
         background.add(emesa);
-        emesa.setBounds(380, 390, 90, 30);
+        emesa.setBounds(390, 400, 70, 30);
 
         etiquetaId2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         etiquetaId2.setForeground(new java.awt.Color(153, 0, 51));
         etiquetaId2.setText("* DNI sin puntos");
         background.add(etiquetaId2);
-        etiquetaId2.setBounds(620, 320, 110, 15);
+        etiquetaId2.setBounds(610, 330, 110, 15);
 
         etiquetaId3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         etiquetaId3.setForeground(new java.awt.Color(153, 0, 51));
         etiquetaId3.setText("FECHA:");
         background.add(etiquetaId3);
-        etiquetaId3.setBounds(380, 350, 90, 30);
+        etiquetaId3.setBounds(390, 360, 70, 30);
 
         etiquetaId4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         etiquetaId4.setForeground(new java.awt.Color(153, 0, 51));
         etiquetaId4.setText("DNI:");
         background.add(etiquetaId4);
-        etiquetaId4.setBounds(380, 310, 90, 30);
+        etiquetaId4.setBounds(390, 320, 70, 30);
 
         calendario.setDateFormatString("dd/MM/yyyy HH:mm:ss");
         calendario.setMaxSelectableDate(new java.util.Date(253370779265000L));
         calendario.setMinSelectableDate(new java.util.Date(-62135755135000L));
         background.add(calendario);
-        calendario.setBounds(470, 350, 270, 30);
+        calendario.setBounds(460, 360, 270, 30);
 
         avisos.setForeground(new java.awt.Color(204, 0, 51));
         avisos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         background.add(avisos);
-        avisos.setBounds(470, 430, 290, 30);
+        avisos.setBounds(460, 440, 310, 30);
 
         limpiarCasilleros1.setBackground(new java.awt.Color(255, 237, 221));
         limpiarCasilleros1.setForeground(new java.awt.Color(102, 0, 0));
@@ -615,7 +616,7 @@ public class VistaReservas extends javax.swing.JFrame {
             }
         });
         background.add(limpiarCasilleros1);
-        limpiarCasilleros1.setBounds(790, 430, 120, 30);
+        limpiarCasilleros1.setBounds(780, 440, 120, 30);
 
         tablaReservas.setBackground(new java.awt.Color(254, 247, 230));
         tablaReservas.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -669,7 +670,7 @@ public class VistaReservas extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tablaReservas);
 
         background.add(jScrollPane1);
-        jScrollPane1.setBounds(370, 482, 540, 180);
+        jScrollPane1.setBounds(390, 482, 510, 180);
 
         botonBalance.setBackground(new java.awt.Color(0, 0, 0));
         botonBalance.setFont(new java.awt.Font("Luisa", 1, 36)); // NOI18N
@@ -704,7 +705,7 @@ public class VistaReservas extends javax.swing.JFrame {
         background.add(ocultar);
         ocultar.setBounds(570, 60, 120, 30);
 
-        imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/Background.png"))); // NOI18N
+        imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Background.png"))); // NOI18N
         imagen.setAlignmentY(0.0F);
         background.add(imagen);
         imagen.setBounds(0, 0, 1430, 896);
@@ -872,7 +873,7 @@ public class VistaReservas extends javax.swing.JFrame {
     //Pasa a la vista de Balance
     private void botonBalanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBalanceActionPerformed
         background.removeAll();
-        VistaBalance vistaBalance=new VistaBalance();
+        VistaIngresos vistaBalance=new VistaIngresos();
         vistaBalance.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_botonBalanceActionPerformed

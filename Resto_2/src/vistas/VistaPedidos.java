@@ -386,7 +386,7 @@ public class VistaPedidos extends javax.swing.JFrame {
         spinnerCantidad.setBorder(null);
         spinnerCantidad.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         background.add(spinnerCantidad);
-        spinnerCantidad.setBounds(430, 380, 60, 30);
+        spinnerCantidad.setBounds(420, 380, 60, 30);
 
         avisos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         avisos.setForeground(new java.awt.Color(204, 0, 51));
@@ -403,17 +403,17 @@ public class VistaPedidos extends javax.swing.JFrame {
         eCantidad.setForeground(new java.awt.Color(153, 0, 51));
         eCantidad.setText("Cant:");
         background.add(eCantidad);
-        eCantidad.setBounds(380, 380, 50, 30);
+        eCantidad.setBounds(370, 380, 40, 30);
 
         eIdProducto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         eIdProducto.setForeground(new java.awt.Color(153, 0, 51));
         eIdProducto.setText("NOMBRE:");
         background.add(eIdProducto);
-        eIdProducto.setBounds(610, 380, 70, 30);
+        eIdProducto.setBounds(580, 380, 70, 30);
 
         idProducto.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         background.add(idProducto);
-        idProducto.setBounds(540, 380, 50, 30);
+        idProducto.setBounds(520, 380, 50, 30);
 
         ePagaCon.setForeground(new java.awt.Color(179, 3, 62));
         ePagaCon.setText("PAGA CON:");
@@ -441,7 +441,7 @@ public class VistaPedidos extends javax.swing.JFrame {
         background.add(textoPagaCon);
         textoPagaCon.setBounds(810, 490, 90, 30);
 
-        cerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/Logout-512.png"))); // NOI18N
+        cerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Logout.png"))); // NOI18N
         cerrarSesion.setContentAreaFilled(false);
         cerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -451,7 +451,7 @@ public class VistaPedidos extends javax.swing.JFrame {
         background.add(cerrarSesion);
         cerrarSesion.setBounds(240, 40, 30, 40);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/salir.png"))); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/salir.png"))); // NOI18N
         jButton1.setContentAreaFilled(false);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -461,7 +461,7 @@ public class VistaPedidos extends javax.swing.JFrame {
         background.add(jButton1);
         jButton1.setBounds(280, 40, 30, 40);
 
-        botonAjustes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/ajustes.png"))); // NOI18N
+        botonAjustes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ajustes.png"))); // NOI18N
         botonAjustes.setContentAreaFilled(false);
         botonAjustes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -541,13 +541,14 @@ public class VistaPedidos extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tablaPedido);
 
         background.add(jScrollPane1);
-        jScrollPane1.setBounds(380, 430, 320, 200);
+        jScrollPane1.setBounds(380, 430, 320, 210);
 
         labelPedidos.setFont(new java.awt.Font("Luisa", 1, 24)); // NOI18N
         labelPedidos.setForeground(new java.awt.Color(153, 0, 51));
+        labelPedidos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelPedidos.setText("PEDIDOS");
         background.add(labelPedidos);
-        labelPedidos.setBounds(580, 190, 130, 40);
+        labelPedidos.setBounds(360, 200, 560, 40);
 
         limpiarCampos.setBackground(new java.awt.Color(255, 237, 221));
         limpiarCampos.setForeground(new java.awt.Color(102, 0, 0));
@@ -610,7 +611,7 @@ public class VistaPedidos extends javax.swing.JFrame {
             }
         });
         background.add(quitarProducto);
-        quitarProducto.setBounds(620, 640, 70, 20);
+        quitarProducto.setBounds(620, 650, 70, 20);
 
         agregarProducto.setBackground(new java.awt.Color(255, 237, 221));
         agregarProducto.setForeground(new java.awt.Color(102, 0, 0));
@@ -624,7 +625,7 @@ public class VistaPedidos extends javax.swing.JFrame {
             }
         });
         background.add(agregarProducto);
-        agregarProducto.setBounds(800, 380, 110, 30);
+        agregarProducto.setBounds(790, 380, 110, 30);
 
         cobrarPedido.setBackground(new java.awt.Color(255, 237, 221));
         cobrarPedido.setForeground(new java.awt.Color(102, 0, 0));
@@ -682,7 +683,7 @@ public class VistaPedidos extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(153, 0, 51));
         jLabel1.setText("Seleccione un producto para quitar");
         background.add(jLabel1);
-        jLabel1.setBounds(380, 640, 240, 14);
+        jLabel1.setBounds(380, 650, 240, 14);
 
         cancelarPedido1.setBackground(new java.awt.Color(255, 237, 221));
         cancelarPedido1.setForeground(new java.awt.Color(102, 0, 0));
@@ -702,7 +703,7 @@ public class VistaPedidos extends javax.swing.JFrame {
         eIdProducto1.setForeground(new java.awt.Color(153, 0, 51));
         eIdProducto1.setText("ID:");
         background.add(eIdProducto1);
-        eIdProducto1.setBounds(510, 380, 30, 30);
+        eIdProducto1.setBounds(490, 380, 30, 30);
 
         cbProductos.setForeground(new java.awt.Color(102, 102, 102));
         cbProductos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar" }));
@@ -713,7 +714,7 @@ public class VistaPedidos extends javax.swing.JFrame {
             }
         });
         background.add(cbProductos);
-        cbProductos.setBounds(680, 380, 100, 30);
+        cbProductos.setBounds(650, 380, 100, 30);
 
         ocultar.setBackground(new java.awt.Color(255, 237, 221));
         ocultar.setForeground(new java.awt.Color(102, 0, 0));
@@ -736,7 +737,7 @@ public class VistaPedidos extends javax.swing.JFrame {
 
         imagen.setBackground(new java.awt.Color(204, 70, 0));
         imagen.setForeground(new java.awt.Color(1, 1, 1));
-        imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/Background.png"))); // NOI18N
+        imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Background.png"))); // NOI18N
         imagen.setAlignmentY(0.0F);
         background.add(imagen);
         imagen.setBounds(0, 0, 1440, 896);
@@ -913,7 +914,7 @@ public class VistaPedidos extends javax.swing.JFrame {
 
     //Pasa a la vista de Balance
     private void botonBalanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBalanceActionPerformed
-        VistaBalance vistaBalance=new VistaBalance();
+        VistaIngresos vistaBalance=new VistaIngresos();
         vistaBalance.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_botonBalanceActionPerformed
