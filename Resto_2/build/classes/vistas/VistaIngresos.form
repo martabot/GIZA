@@ -348,7 +348,7 @@
         </Component>
         <Component class="com.toedter.calendar.JDateChooser" name="calendario1">
           <Properties>
-            <Property name="dateFormatString" type="java.lang.String" value="yyyy-mm-dd"/>
+            <Property name="dateFormatString" type="java.lang.String" value="dd/MM/yyyy HH:mm:ss"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -358,7 +358,7 @@
         </Component>
         <Component class="com.toedter.calendar.JDateChooser" name="calendario">
           <Properties>
-            <Property name="dateFormatString" type="java.lang.String" value="yyyy-mm-dd"/>
+            <Property name="dateFormatString" type="java.lang.String" value="dd/MM/yyyy HH:mm:ss"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -385,11 +385,10 @@
               <Color blue="66" green="66" red="66" type="rgb"/>
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
+              <StringArray count="3">
                 <StringItem index="0" value="seleccionar"/>
-                <StringItem index="1" value="INGRESOS"/>
-                <StringItem index="2" value="MESERO"/>
-                <StringItem index="3" value="MESA"/>
+                <StringItem index="1" value="MESERO"/>
+                <StringItem index="2" value="MESA"/>
               </StringArray>
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -422,9 +421,6 @@
               <Border info="null"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbReferenciasActionPerformed"/>
-          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
@@ -633,11 +629,11 @@
                 </Property>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="5" rowCount="17">
-                    <Column editable="false" title="PEDIDO" type="java.lang.Integer"/>
-                    <Column editable="false" title="MESERO" type="java.lang.String"/>
-                    <Column editable="false" title="MESA" type="java.lang.Integer"/>
-                    <Column editable="false" title="FECHA" type="java.lang.String"/>
-                    <Column editable="false" title="CUENTA" type="java.lang.Double"/>
+                    <Column editable="false" title="PEDIDO" type="java.lang.Object"/>
+                    <Column editable="false" title="MESERO" type="java.lang.Object"/>
+                    <Column editable="false" title="MESA" type="java.lang.Object"/>
+                    <Column editable="false" title="FECHA" type="java.lang.Object"/>
+                    <Column editable="false" title="CUENTA" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="selectionBackground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -647,9 +643,6 @@
                   <Color blue="e6" green="f7" red="fe" type="rgb"/>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tablaReservasMouseClicked"/>
-              </Events>
             </Component>
           </SubComponents>
         </Container>

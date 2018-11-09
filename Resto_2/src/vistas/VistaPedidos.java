@@ -235,7 +235,7 @@ public class VistaPedidos extends javax.swing.JFrame {
             }else if ("Ocupada".equals(md.deIdAMesa(m).getEstadoMesa())||"Atendida".equals(md.deIdAMesa(m).getEstadoMesa())){
                 avisos.setText("Mesa "+md.deIdAMesa(m).getEstadoMesa()+" por otro usuario.");
                 PedidoData pd=new PedidoData(conexion);
-                if (Inicio.usuarioRegistrado().equals(pd.selccionarPedidoPorMesa(m).getMesero().getNombreMesero())||"Ocupada".equals(md.deIdAMesa(m).getEstadoMesa())){
+                if (Inicio.usuarioRegistrado().equals(pd.selccionarPedidoPor("id_mesa",m).getMesero().getNombreMesero())||"Ocupada".equals(md.deIdAMesa(m).getEstadoMesa())){
                 avisos.setText("Mesa "+md.deIdAMesa(m).getEstadoMesa());
                 
                 DefaultTableModel modelo=new DefaultTableModel();
@@ -247,11 +247,11 @@ public class VistaPedidos extends javax.swing.JFrame {
                 
                 ComandaData cd=new ComandaData(conexion);
                 
-                textoId.setText(String.valueOf(pd.selccionarPedidoPorMesa(m).getIdPedido()));
-                int x=cd.selccionarComandasPorPedido(pd.selccionarPedidoPorMesa(m).getIdPedido()).size();
+                textoId.setText(String.valueOf(pd.selccionarPedidoPor("id_mesa",m).getIdPedido()));
+                int x=cd.selccionarComandasPorPedido(pd.selccionarPedidoPor("id_mesa",m).getIdPedido()).size();
                 int p=Integer.valueOf(textoId.getText());
                 List<Comanda> lista=new ArrayList<>();
-                lista=cd.selccionarComandasPorPedido(pd.selccionarPedidoPorMesa(m).getIdPedido());
+                lista=cd.selccionarComandasPorPedido(pd.selccionarPedidoPor("id_mesa",m).getIdPedido());
                 
                 for (int b=0;b<x;b++){
                 Object [] filas = new Object[3];

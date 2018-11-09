@@ -102,7 +102,7 @@ public class VistaMesas extends javax.swing.JFrame {
             filas  [1]=nuevo.getCapacidad();
             if("Atendida".equals(nuevo.getEstadoMesa())){
                 try {
-                    filas  [2]=pedidoData.selccionarPedidoPorMesa(nuevo.getIdMesa()).getCuenta();
+                    filas  [2]=pedidoData.selccionarPedidoPor("id_mesa",nuevo.getIdMesa()).getCuenta();
                 } catch (ClassNotFoundException ex) {
                     Logger.getLogger(VistaMesas.class.getName()).log(Level.SEVERE, null, ex);
                 }

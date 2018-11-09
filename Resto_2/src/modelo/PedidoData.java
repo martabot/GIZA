@@ -136,12 +136,12 @@ public class PedidoData {
         }
     }  
        
-    public Pedido selccionarPedidoPorMesa(int idM) throws ClassNotFoundException{
+    public Pedido selccionarPedidoPor(String a,int b) throws ClassNotFoundException{
         
         try {
-            String sql = "SELECT * FROM pedido where id_mesa = ?;";
+            String sql = "SELECT * FROM pedido where "+a+" = ?;";
           try (PreparedStatement statment = connection.prepareStatement(sql)) {
-              statment.setInt(1, idM);
+              statment.setInt(1, b);
               ResultSet resultSet = statment.executeQuery();
               while(resultSet.next()){
               Pedido pedi = new Pedido();
@@ -164,6 +164,66 @@ public class PedidoData {
         }
     return pedido;
     }  
+    
+    public ArrayList<Pedido> selccionarPedidosPor(String a,int b) throws ClassNotFoundException{
+        ArrayList<Pedido> este=new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM pedido where "+a+" = ?;";
+          try (PreparedStatement statment = connection.prepareStatement(sql)) {
+              statment.setInt(1, b);
+              ResultSet resultSet = statment.executeQuery();
+              while(resultSet.next()){
+              Pedido pedi = new Pedido();
+              connect=new Conexion();
+              connect.getConexion();
+              mesa=new MesaData(connect);
+              mesero=new MeseroData(connect);
+                    pedi.setIdPedido(resultSet.getInt(1));
+                    pedi.setMesa(mesa.deIdAMesa(resultSet.getInt(2)));
+                    pedi.setMesero(mesero.deIdAMesero(resultSet.getInt(3)));
+                    pedi.setFechaPedido(resultSet.getTimestamp(4).toLocalDateTime());
+                    pedi.setCuenta(resultSet.getDouble(5));
+                    pedi.setCobrada(resultSet.getBoolean(6));
+              
+              este.add(pedi);
+            }
+          }
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener el pedido: " + ex.getMessage());
+        }
+    return este;
+    }
+    
+    public ArrayList<Pedido> selccionarPedidosConFecha(String a,int b,LocalDateTime c,LocalDateTime d) throws ClassNotFoundException{
+        ArrayList<Pedido> este=new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM pedido where "+a+" = ? AND fecha_pedido BETWEEN ? AND ? ;";
+          try (PreparedStatement statment = connection.prepareStatement(sql)) {
+              statment.setInt(1, b);
+              statment.setTimestamp(2, Timestamp.valueOf(c));
+              statment.setTimestamp(3, Timestamp.valueOf(d));
+              ResultSet resultSet = statment.executeQuery();
+              while(resultSet.next()){
+              Pedido pedi = new Pedido();
+              connect=new Conexion();
+              connect.getConexion();
+              mesa=new MesaData(connect);
+              mesero=new MeseroData(connect);
+                    pedi.setIdPedido(resultSet.getInt(1));
+                    pedi.setMesa(mesa.deIdAMesa(resultSet.getInt(2)));
+                    pedi.setMesero(mesero.deIdAMesero(resultSet.getInt(3)));
+                    pedi.setFechaPedido(resultSet.getTimestamp(4).toLocalDateTime());
+                    pedi.setCuenta(resultSet.getDouble(5));
+                    pedi.setCobrada(resultSet.getBoolean(6));
+              
+              este.add(pedi);
+            }
+          }
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener el pedido: " + ex.getMessage());
+        }
+    return este;
+    }
     
     public ArrayList<Integer> selccionarPedidoPorMesero(String idM) throws ClassNotFoundException{
         ArrayList<Integer> idMesas=new ArrayList<>();
@@ -197,24 +257,6 @@ public class PedidoData {
         } catch (SQLException ex) {
             System.out.println("Error al actualizar la cuenta: " + ex.getMessage());
         }
-    }
-    
-    public double cuentaDelDia(String x){
-        ArrayList<Double> cuentas = new ArrayList<>();
-        
-        try {
-            String sql = "SELECT cuenta FROM pedido WHERE (DATE(`fecha_pedido`))= ?;";
-        try (PreparedStatement statment = connection.prepareStatement(sql)) {
-            statment.setString(1, x);
-            ResultSet resultSet = statment.executeQuery();
-            while(resultSet.next()){
-                double c=resultSet.getDouble(1);    
-                cuentas.add(c);
-            }}
-        } catch (SQLException ex) {
-            System.out.println("Error al obtener las cuentas del dia: " + ex.getMessage());
-        }
-        return cuentas.stream().mapToDouble(s->s).sum();
     }
     
     public int totalDeTotales(){

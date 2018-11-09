@@ -7,14 +7,14 @@ package vistas;
 
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import static java.time.LocalDate.now;
 import java.time.LocalDateTime;
+import static java.time.LocalDateTime.now;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.*;
 
@@ -30,9 +30,11 @@ public class VistaIngresos extends javax.swing.JFrame {
     private MeseroData meseroData;
     private MesaData mesaData;
     private PedidoData pedidoData;
-    private LocalDateTime fecha;
+    private LocalDateTime fecha1;
+    private LocalDateTime fecha2;
     private DefaultTableModel modelo;
     private DateTimeFormatter d;
+    private ArrayList<Pedido> listaPedidos;
     
     public VistaIngresos() {
         
@@ -65,21 +67,34 @@ public class VistaIngresos extends javax.swing.JFrame {
             meseroData=new MeseroData(conexion);
             mesaData=new MesaData(conexion);
             pedidoData=new PedidoData(conexion);
+            
             modelo=new DefaultTableModel();
-            d = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            Date utilStartDate = calendario.getDate();
-            java.sql.Timestamp fec = new java.sql.Timestamp(utilStartDate.getTime());
-            this.setFecha(fec.toLocalDateTime());
+            modelo.addColumn("MESERO"); 
+            modelo.addColumn("PEDIDO");
+            modelo.addColumn("MESA");
+            modelo.addColumn("FECHA");
+            modelo.addColumn("CUENTA");
+            
+            d = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            
+            listaPedidos =new ArrayList<>();
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(Background.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public LocalDateTime getFecha() {
-        return fecha;
+    public LocalDateTime getFecha1() {
+        return fecha1;
     }
-    public void setFecha(LocalDateTime fecha) {
-        this.fecha = fecha;
+    public void setFecha1(LocalDateTime fecha) {
+        this.fecha1 = fecha;
+    }
+
+    public LocalDateTime getFecha2() {
+        return fecha2;
+    }
+    public void setFecha2(LocalDateTime fecha2) {
+        this.fecha2 = fecha2;
     }
     
     private void cargarReferenciaMesero(){
@@ -97,46 +112,20 @@ public class VistaIngresos extends javax.swing.JFrame {
              cbReferencias.addItem(String.valueOf(m.getIdMesa()));
          }
     }
-     
-     private void cargarTablaMesero(String nombre){
-            tablaReservas.setModel(modelo);
-            
-            modelo.addColumn("FECHA");
-            modelo.addColumn("TOTAL"); 
-            
-            int x=pedidoData.totalDeTotales();
-            ArrayList<LocalDateTime> cuentas=new ArrayList<>();
-            cuentas=pedidoData.listaDeFechas();
-            for (int b=0;b<x;b++){
-                Object [] filas = new Object[2];
-                LocalDateTime nuevo=cuentas.get(b);
-                filas  [0]= nuevo.format(d);
-                filas  [1]=pedidoData.cuentaDelDia(filas[0].toString());
-                modelo.addRow(filas);
-            }
-     }
-     
-    private void cargarTablaMesa(int id){
+    
+    private void cargarTabla(ArrayList<Pedido> lista){
+        tablaReservas.setModel(modelo);
         
-    }
-     
-    private void cargarTablaIngresos(){
-            tablaReservas.setModel(modelo);
-            
-            //agrega las columnas con las que vamos a trabajar
-            modelo.addColumn("FECHA");
-            modelo.addColumn("TOTAL"); 
-            
-            int x=pedidoData.totalDeTotales();
-            ArrayList<LocalDateTime> cuentas=new ArrayList<>();
-            cuentas=pedidoData.listaDeFechas();
-            for (int b=0;b<x;b++){
-                Object [] filas = new Object[2];
-                LocalDateTime nuevo=cuentas.get(b);
-                filas  [0]= nuevo.format(d);
-                filas  [1]=pedidoData.cuentaDelDia(filas[0].toString());
-                modelo.addRow(filas);
-            }
+        int x = modelo.getRowCount() - 1;
+        for (int i = x; i >= 0; i--) {
+            modelo.removeRow(i);
+        }
+        
+        listaPedidos=lista;
+        for (Pedido p : listaPedidos ) {
+            modelo.addRow(new Object[]{p.getMesero().getNombreMesero(),p.getIdPedido(),p.getMesa().getIdMesa(),
+                p.getFechaPedido().format(d),p.getCuenta()});
+        }
     }
 
     private void limpiar(){
@@ -144,6 +133,8 @@ public class VistaIngresos extends javax.swing.JFrame {
          cbReferencias.addItem("seleccionar");
          cbBuscarPor.setSelectedIndex(0);
          calendario.setDate(null);
+         calendario1.setDate(null);
+         cargarTabla(null);
     }
 
     @SuppressWarnings("unchecked")
@@ -328,11 +319,11 @@ public class VistaIngresos extends javax.swing.JFrame {
         background.add(ocultar);
         ocultar.setBounds(550, 60, 120, 30);
 
-        calendario1.setDateFormatString("yyyy-mm-dd");
+        calendario1.setDateFormatString("dd/MM/yyyy HH:mm:ss");
         background.add(calendario1);
         calendario1.setBounds(490, 340, 210, 30);
 
-        calendario.setDateFormatString("yyyy-mm-dd");
+        calendario.setDateFormatString("dd/MM/yyyy HH:mm:ss");
         background.add(calendario);
         calendario.setBounds(490, 300, 210, 30);
 
@@ -342,7 +333,7 @@ public class VistaIngresos extends javax.swing.JFrame {
         eActualizar.setBounds(480, 30, 300, 14);
 
         cbBuscarPor.setForeground(new java.awt.Color(102, 102, 102));
-        cbBuscarPor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "seleccionar", "INGRESOS", "MESERO", "MESA" }));
+        cbBuscarPor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "seleccionar", "MESERO", "MESA" }));
         cbBuscarPor.setBorder(null);
         cbBuscarPor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -355,11 +346,6 @@ public class VistaIngresos extends javax.swing.JFrame {
         cbReferencias.setForeground(new java.awt.Color(102, 102, 102));
         cbReferencias.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "seleccionar" }));
         cbReferencias.setBorder(null);
-        cbReferencias.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbReferenciasActionPerformed(evt);
-            }
-        });
         background.add(cbReferencias);
         cbReferencias.setBounds(600, 260, 100, 30);
 
@@ -461,16 +447,9 @@ public class VistaIngresos extends javax.swing.JFrame {
                 "PEDIDO", "MESERO", "MESA", "FECHA", "CUENTA"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Double.class
-            };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -478,11 +457,6 @@ public class VistaIngresos extends javax.swing.JFrame {
         });
         tablaReservas.setSelectionBackground(new java.awt.Color(153, 0, 51));
         tablaReservas.setSelectionForeground(new java.awt.Color(254, 247, 230));
-        tablaReservas.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tablaReservasMouseClicked(evt);
-            }
-        });
         jScrollPane1.setViewportView(tablaReservas);
 
         background.add(jScrollPane1);
@@ -582,6 +556,7 @@ public class VistaIngresos extends javax.swing.JFrame {
 
     private void cbBuscarPorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbBuscarPorActionPerformed
         calendario.setDate(null);
+        calendario1.setDate(null);
         if ("MESA".equals(cbBuscarPor.getSelectedItem().toString())){
             cargarReferenciaMesa();
         }else if("MESERO".equals(cbBuscarPor.getSelectedItem().toString())){
@@ -589,25 +564,107 @@ public class VistaIngresos extends javax.swing.JFrame {
         }  
     }//GEN-LAST:event_cbBuscarPorActionPerformed
 
-    private void cbReferenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbReferenciasActionPerformed
-        
-    }//GEN-LAST:event_cbReferenciasActionPerformed
-
     private void filtrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filtrarActionPerformed
-        if("INGRESOS".equals(cbBuscarPor.getSelectedItem().toString())){
-            
+        if(null == cbBuscarPor.getSelectedItem().toString()){ 
+            JOptionPane.showMessageDialog(null, "Indique un filtro");
+        } else switch (cbBuscarPor.getSelectedItem().toString()) {
+            case "MESERO":
+        { 
+           if(calendario.getDate()==null&&calendario1.getDate()==null){
+            try {
+                 listaPedidos=pedidoData.selccionarPedidosPor("id_mesero", cbReferencias.getSelectedIndex()+1);
+                 cargarTabla(listaPedidos);
+                } catch (ClassNotFoundException ex) {
+                 Logger.getLogger(VistaIngresos.class.getName()).log(Level.SEVERE, null, ex);
+                }
+           }
+            if (calendario.getDate()!=null){
+            try {
+                Date util1 = calendario.getDate();
+                java.sql.Timestamp fec = new java.sql.Timestamp(util1.getTime());
+                this.setFecha1(fec.toLocalDateTime());
+                
+                if(calendario1.getDate()!=null){
+                    try {
+                        Date util2 = calendario1.getDate();
+                        java.sql.Timestamp fec2 = new java.sql.Timestamp(util2.getTime());
+                        this.setFecha2(fec2.toLocalDateTime());
+                        
+                        listaPedidos=pedidoData.selccionarPedidosConFecha("id_mesero",cbReferencias.getSelectedIndex()+1, getFecha1(), getFecha2());
+                        cargarTabla(listaPedidos);
+                        if (listaPedidos.isEmpty()){
+                            JOptionPane.showMessageDialog(null, "No se han encontrado pedidos");
+                            cargarTabla(null);
+                        }
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(VistaIngresos.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                listaPedidos=pedidoData.selccionarPedidosConFecha("id_mesero",cbReferencias.getSelectedIndex()+1, getFecha1(), now().plus(100,ChronoUnit.YEARS));
+                cargarTabla(listaPedidos);
+                if (listaPedidos.isEmpty()){
+                            JOptionPane.showMessageDialog(null, "No se han encontrado pedidos");
+                            cargarTabla(null);
+                        }
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(VistaIngresos.class.getName()).log(Level.SEVERE, null, ex);
+                }
+              }
+            }
+                break;
+            case "MESA":
+                cargarTabla(null);
+            if(calendario.getDate()==null&&calendario1.getDate()==null){
+            try {
+                 listaPedidos=pedidoData.selccionarPedidosPor("id_mesa", cbReferencias.getSelectedIndex()+1);
+                 cargarTabla(listaPedidos);
+                } catch (ClassNotFoundException ex) {
+                 Logger.getLogger(VistaIngresos.class.getName()).log(Level.SEVERE, null, ex);
+                }
+           }
+            if (calendario.getDate()!=null){
+            try {
+                Date util1 = calendario.getDate();
+                java.sql.Timestamp fec = new java.sql.Timestamp(util1.getTime());
+                this.setFecha1(fec.toLocalDateTime());
+                
+                if(calendario1.getDate()!=null){
+                    try {
+                        Date util2 = calendario1.getDate();
+                        java.sql.Timestamp fec2 = new java.sql.Timestamp(util2.getTime());
+                        this.setFecha2(fec2.toLocalDateTime());
+                        
+                        listaPedidos=pedidoData.selccionarPedidosConFecha("id_mesa",cbReferencias.getSelectedIndex()+1, getFecha1(), getFecha2());
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(VistaIngresos.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                listaPedidos=pedidoData.selccionarPedidosConFecha("id_mesa",cbReferencias.getSelectedIndex()+1, getFecha1(), now().plus(100,ChronoUnit.YEARS));
+                if (listaPedidos.isEmpty()){
+                    JOptionPane.showMessageDialog(null, "No se han encontrado pedidos");
+                    cargarTabla(listaPedidos);
+                }
+                
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(VistaIngresos.class.getName()).log(Level.SEVERE, null, ex);
+                }
+              }
+                break;
+            default:
+                JOptionPane.showMessageDialog(null, "Indique un filtro");
+                break;
         }
     }//GEN-LAST:event_filtrarActionPerformed
 
     private void listarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listarTodosActionPerformed
-        if("INGRESOS".equals(cbBuscarPor.getSelectedItem().toString())){
-            cargarTablaIngresos();
+        limpiar();
+        try {
+            listaPedidos=pedidoData.obtenerPedidos();
+            cargarTabla(listaPedidos);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(VistaIngresos.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_listarTodosActionPerformed
-
-    private void tablaReservasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaReservasMouseClicked
-       
-    }//GEN-LAST:event_tablaReservasMouseClicked
 
     private void limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarActionPerformed
        limpiar();
