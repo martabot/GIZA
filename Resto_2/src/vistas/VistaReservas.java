@@ -771,7 +771,7 @@ public class VistaReservas extends javax.swing.JFrame {
                     avisos.setText("Por favor ingrese su nombre.");
                 } else if (textoDni.getText().equals("")) {
                     avisos.setText("Por favor ingrese su DNI.");
-                } else if (fec2>1) {
+                } else if (fec2>=1) {
                     avisos.setText("Por favor ingrese una fecha válida.");
                 } else if ("Reservada".equals(m1.deIdAMesa(this.getNroMesa()).getEstadoMesa())){
                 avisos.setText("La mesa ya se encuentra reservada, seleccione otra.");

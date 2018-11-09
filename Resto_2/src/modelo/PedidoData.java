@@ -194,14 +194,15 @@ public class PedidoData {
     return este;
     }
     
-    public ArrayList<Pedido> selccionarPedidosConFecha(String a,int b,LocalDateTime c,LocalDateTime d) throws ClassNotFoundException{
+    public ArrayList<Pedido> selccionarPedidosConFecha(String a,int b,boolean e,LocalDateTime c,LocalDateTime d) throws ClassNotFoundException{
         ArrayList<Pedido> este=new ArrayList<>();
         try {
-            String sql = "SELECT * FROM pedido where "+a+" = ? AND fecha_pedido BETWEEN ? AND ? ;";
+            String sql = "SELECT * FROM pedido where "+a+" = ? AND estado_pedido=? AND fecha_pedido BETWEEN ? AND ? ;";
           try (PreparedStatement statment = connection.prepareStatement(sql)) {
               statment.setInt(1, b);
-              statment.setTimestamp(2, Timestamp.valueOf(c));
-              statment.setTimestamp(3, Timestamp.valueOf(d));
+              statment.setBoolean(2, e);
+              statment.setTimestamp(3, Timestamp.valueOf(c));
+              statment.setTimestamp(4, Timestamp.valueOf(d));
               ResultSet resultSet = statment.executeQuery();
               while(resultSet.next()){
               Pedido pedi = new Pedido();

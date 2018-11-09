@@ -199,9 +199,9 @@ public class VistaPedidos extends javax.swing.JFrame {
     
     //Metodo para caragar los productos disponibles en el combobox
     public void cargarCbProductos(){
-        for(Producto p: productos) {
+        productos.forEach((p) -> {
             cbProductos.addItem(p.getNombreProducto());
-        }
+        });
     }
     
     //nuestro amigo identifica la mesa que se quiere seleccionar y segun las condiciones realizara diferentes acciones
