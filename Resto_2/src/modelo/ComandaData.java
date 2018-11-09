@@ -75,7 +75,7 @@ public class ComandaData {
                     pedido=new PedidoData(connect);
                     producto=new ProductoData(connect);
                     crystal.setIdComanda(resultSet.getInt(1));
-                    crystal.setPedido(pedido.deIdAPedido(resultSet.getInt(2)));
+                    crystal.setPedido(pedido.seleccionarPedidoPor("id_pedido",resultSet.getInt(2)));
                     crystal.setProducto(producto.deIdAlProducto(resultSet.getInt(3)));
                     crystal.setCantidad(resultSet.getInt(4));
                     
@@ -115,7 +115,7 @@ public class ComandaData {
                     pedido=new PedidoData(connect);
                     producto=new ProductoData(connect);
                     c.setIdComanda(resultSet.getInt(1));
-                    c.setPedido(pedido.deIdAPedido(resultSet.getInt(2)));
+                    c.setPedido(pedido.seleccionarPedidoPor("id_pedido",resultSet.getInt(2)));
                     c.setProducto(producto.deIdAlProducto(resultSet.getInt(3)));
                     c.setCantidad(resultSet.getInt(4));
                     

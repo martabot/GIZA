@@ -93,36 +93,6 @@ public class PedidoData {
         return pedidos;
     }
     
-    public Pedido deIdAPedido(int idP) throws ClassNotFoundException{
-
-        try {
-            String sql = "SELECT * FROM pedido where id_pedido= ?;";
-          try (PreparedStatement statment = connection.prepareStatement(sql)) {
-              statment.setInt(1, idP);
-              ResultSet resultSet = statment.executeQuery();
-              while(resultSet.next()){
-              Pedido pedi = new Pedido();
-              connect=new Conexion();
-              connect.getConexion();
-              mesa=new MesaData(connect);
-              mesero=new MeseroData(connect);
-                    pedi.setIdPedido(resultSet.getInt(1));
-                    pedi.setMesa(mesa.deIdAMesa(resultSet.getInt(2)));
-                    pedi.setMesero(mesero.deIdAMesero(resultSet.getInt(3)));
-                    pedi.setFechaPedido(resultSet.getTimestamp(4).toLocalDateTime());
-                    pedi.setCuenta(resultSet.getDouble(5));
-                    pedi.setCobrada(resultSet.getBoolean(6));
-              
-              this.pedido=pedi;
-            }
-          }
-        } catch (SQLException ex) {
-            System.out.println("Error al obtener el pedido: " + ex.getMessage());
-        }
-        
-        return pedido;
-    }  
-        
     public void borrarPedido(int idP) throws ClassNotFoundException{
 
         String sql = "DELETE FROM pedido where id_pedido= ?;";
@@ -136,7 +106,7 @@ public class PedidoData {
         }
     }  
        
-    public Pedido selccionarPedidoPor(String a,int b) throws ClassNotFoundException{
+    public Pedido seleccionarPedidoPor(String a,int b) throws ClassNotFoundException{
         
         try {
             String sql = "SELECT * FROM pedido where "+a+" = ?;";
@@ -165,7 +135,7 @@ public class PedidoData {
     return pedido;
     }  
     
-    public ArrayList<Pedido> selccionarPedidosPor(String a,int b) throws ClassNotFoundException{
+    public ArrayList<Pedido> seleccionarPedidosPor(String a,int b) throws ClassNotFoundException{
         ArrayList<Pedido> este=new ArrayList<>();
         try {
             String sql = "SELECT * FROM pedido where "+a+" = ?;";

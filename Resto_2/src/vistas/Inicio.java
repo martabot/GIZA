@@ -35,7 +35,7 @@ public class Inicio extends javax.swing.JFrame {
         this.setResizable(false);
         this.setVisible(true);
         
-        
+        VistaMesas.setMesaActual(0);
         initComponents();
         
         label3.setVisible(false);

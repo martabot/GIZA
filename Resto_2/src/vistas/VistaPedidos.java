@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.*;
 
@@ -25,10 +26,18 @@ public class VistaPedidos extends javax.swing.JFrame {
     private Conexion conexion;
     private Fuentes fuente;
     private Double subtotal;
-    private ProductoData pd;
+    private ProductoData productoData;
+    private PedidoData pedidoData;
+    private ComandaData comandaData;
     private ArrayList<Producto> productos;
+    private DefaultTableModel modelo;
+    private MesaData mesaData;
+    private MeseroData meseroData;
+    private ReservaData reservaData;
+    private int idPedido;
+    private int idMesa;
     
-    //cosntructor
+    //construcutor 
     public VistaPedidos() {
         //inicializamos nuestro contador de subtotal
         this.subtotal = 00.0;
@@ -61,121 +70,94 @@ public class VistaPedidos extends javax.swing.JFrame {
             conexion = new Conexion();
             conexion.getConexion();
             
-            pd = new ProductoData(conexion);
-            productos = (ArrayList<Producto>) pd.obtenerProductos();
+            productoData = new ProductoData(conexion);
+            productos = (ArrayList<Producto>) productoData.obtenerProductos();
+            pedidoData=new PedidoData(conexion);
+            comandaData=new ComandaData(conexion);
+            mesaData=new MesaData(conexion);
+            meseroData=new MeseroData(conexion);
+            reservaData=new ReservaData(conexion);
+            
+            modelo=new DefaultTableModel();
+            //agrega las columnas con las que vamos a trabajar
+                modelo.addColumn("CANTIDAD");
+                modelo.addColumn("PRODUCTO");
+                modelo.addColumn("SUB-TOTAL");
             
             //cargamos los prodcutos disponibles en el combobox
             cargarCbProductos();
             
+            //Iniciamos con una mesa pre-cargada
+            spinnerMesas.setValue(VistaMesas.getMesaActual());
+            VistaMesas.setMesaActual(0);
+            idMesa=Integer.valueOf(spinnerMesas.getValue().toString());
+            if(idMesa!=0){textoId.setText(String.valueOf(pedidoData.seleccionarPedidoPor("id_mesa", idMesa).getIdPedido()));
+            setIdPedido();
+            atenderMesas();
+            }
         } catch (ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(Background.class.getName()).log(Level.SEVERE, null, ex);
         }  
     }
-    
-    //construcutor sobrecargado
-    public VistaPedidos(int mesaActual) {
-        //inicializamos nuestro contador de subtotal
-        this.subtotal = 00.0;
-        
-        //popiedades de la pantalla completa
-        this.setUndecorated(true);
-        this.setResizable(false);
-        this.setVisible(true);
-        
-        initComponents();
-        
-        //setteamos las fuentes personalizadas
-        fuente=new Fuentes();
-        botonBalance.setFont(fuente.fuenteLuisa(1,36));
-        botonMesas.setFont(fuente.fuenteLuisa(1,36));
-        botonReservas.setFont(fuente.fuenteLuisa(1,36));
-        botonPedidos.setFont(fuente.fuenteLuisa(1,36));
-        botonPrecios.setFont(fuente.fuenteLuisa(1,36));
-        labelPedidos.setFont(fuente.fuenteLuisa(1,24));
-        
-        //campos ocultos que aparecen al ser llamados por los ajustes del usuario
-        textoUsuario1.setVisible(false);
-        nomNu.setVisible(false);
-        cambiarNombre2.setVisible(false);
-        eActualizar.setVisible(false);
-        ocultar.setVisible(false);
-        
-        //Instanciamos la conexion 
-        try {
-            conexion = new Conexion();
-            conexion.getConexion();
-            
-            pd = new ProductoData(conexion);
-            productos = (ArrayList<Producto>) pd.obtenerProductos();
-            
-            //cargamos los prodcutos disponibles en el combobox
-            cargarCbProductos();
-            spinnerMesas.setValue(mesaActual);
-            this.atenderMesas();
-            
-        } catch (ClassNotFoundException | SQLException ex) {
-                Logger.getLogger(Background.class.getName()).log(Level.SEVERE, null, ex);
-        }  
+
+    public int getIdPedido() {
+        return idPedido;
+    }
+    public void setIdPedido() {
+        this.idPedido = Integer.parseInt(textoId.getText());
     }
     
     //llena la tabla con informacion sobre el pedido
     private void cargarTabla(){
-        int z=Integer.parseInt(textoId.getText());
+        limpiarTabla();
+        setIdPedido();
         try {
-            //nos ayuda a editar una tabla con modelo personalizado
-            DefaultTableModel modelo=new DefaultTableModel();
-            tablaPedido.setModel(modelo);
-            
-            //agrega las columnas con las que vamos a trabajar
-            modelo.addColumn("CANTIDAD");
-            modelo.addColumn("PRODUCTO");
-            modelo.addColumn("SUB-TOTAL");
-            
-            //instaciamos las clases necesarias para conectar con la base
-            PedidoData pd= new PedidoData(conexion);
-            ComandaData cd= new ComandaData(conexion);
-            
-            //averiguamos de que tamaño en filas va a ser nuestra tabla
-            int x=cd.selccionarComandasPorPedido(z).size();
-            
-            //preparamos una lista con las comandas del pedido seleccionado
-            List<Comanda> lista=new ArrayList<>();
-            lista=cd.selccionarComandasPorPedido(z);
-            
-            //primera condicion, el pedido podría no existir
-            if(pd.deIdAPedido(z)==null){
-            avisos.setText("No se encuentra la orden o no existe.");}
-            
-            //el pedido podria haber sido cobrado, por lo que no debemos perjudicar la cuenta que almacena
-            if(lista.isEmpty() && pd.deIdAPedido(z).getCuenta()!=0.0){
-                avisos.setText("El pedido ya fue cobrado, limpie los campos para continuar...");
-            } else if(!lista.isEmpty()){
+            try {
+                //nos ayuda a editar una tabla con modelo personalizado
+                tablaPedido.setModel(modelo);            
                 
-            //si el pedido tiene comandas activas las lista en nuestra tabla
-            for (int b=0;b<x;b++){
-                Object [] filas = new Object[3];
-                Comanda nuevo=lista.get(b);
-                //asigna a cada fila el siguiente valor de b hasta llegar a x que es nuestro tamaño de tabla declarado mas arriba
-                filas  [0]=nuevo.getCantidad();
-                filas  [1]=nuevo.getProducto().getNombreProducto();
-                filas  [2]=(nuevo.getProducto().getPrecio())*nuevo.getCantidad();
-                modelo.addRow(filas);
+                //preparamos una lista con las comandas del pedido seleccionado
+                List<Comanda> lista=new ArrayList<>();
+                lista=comandaData.selccionarComandasPorPedido(getIdPedido());
                 
-                //actualiza el subtotal y lo convierte en la suma de subtotales que luego serán la cuenta
-                subtotal=subtotal+(nuevo.getProducto().getPrecio())*nuevo.getCantidad();
+                //primera condicion, el pedido podría no existir
+                if(pedidoData.seleccionarPedidoPor("id_pedido",getIdPedido())==null){
+                    JOptionPane.showMessageDialog(null, "La orden no existe o se ha eliminado");}
+                
+                //el pedido podria haber sido cobrado, por lo que no debemos perjudicar la cuenta que almacena
+                if(pedidoData.seleccionarPedidoPor("id_pedido",getIdPedido()).getCobrada()){
+                    JOptionPane.showMessageDialog(null, "El predido ya fue cobrado, información en la pestaña de ingresos");
+                } else {
+                
+                //si el pedido tiene comandas activas las lista en nuestra tabla
+                for (Comanda c: lista){
+                    modelo.addRow(new Object[]{c.getCantidad(),c.getProducto().getNombreProducto(),c.getCantidad()*c.getProducto().getPrecio()});
+                    
+                    //actualiza el subtotal y lo convierte en la suma de subtotales que luego serán la cuenta
+                    subtotal=subtotal+(c.getProducto().getPrecio())*c.getCantidad();
+                }
+               } 
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(VistaPedidos.class.getName()).log(Level.SEVERE, null, ex);
             }
             
             //Asigna el subtotal a la cuenta y lo muesta en su campo de texto, lo limpia para poder volver a cargarlo con otros datos
-            pd.actualizarCuentaDePedido(z,subtotal);
+            pedidoData.actualizarCuentaDePedido(getIdPedido(),subtotal);
+            textoCuenta.setText(String.valueOf(subtotal));
             subtotal=00.0;
-            textoCuenta.setText(String.valueOf(pd.deIdAPedido(z).getCuenta()));
             
             //nos muestra en el spinner la mesa del pedido que estamos seleccionando
-            spinnerMesas.setValue(pd.deIdAPedido(z).getMesa().getIdMesa()); 
-            }
+            spinnerMesas.setValue(pedidoData.seleccionarPedidoPor("id_pedido",getIdPedido()).getMesa().getIdMesa()); 
+            
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(VistaPedidos.class.getName()).log(Level.SEVERE, null, ex);
-            
+            }
+    }
+    
+    private void limpiarTabla(){
+        int x= modelo.getRowCount()-1;
+        for (int i=x;i>=0;i--){
+            modelo.removeRow(i);
         }
     }
 
@@ -190,11 +172,7 @@ public class VistaPedidos extends javax.swing.JFrame {
         textoCambio.setText(null);
         textoCuenta.setText(null);
         subtotal=00.0;
-        DefaultTableModel modelo=new DefaultTableModel();
-        int a =modelo.getRowCount()-1;
-            for(int i=a;i>=0;i--){
-                modelo.removeRow(i );
-            }
+        limpiarTabla();
     }
     
     //Metodo para caragar los productos disponibles en el combobox
@@ -206,71 +184,41 @@ public class VistaPedidos extends javax.swing.JFrame {
     
     //nuestro amigo identifica la mesa que se quiere seleccionar y segun las condiciones realizara diferentes acciones
     private void atenderMesas(){
-        //asignamos la variable de la mesa con la que vamos a trabajar
-       int m=Integer.valueOf(spinnerMesas.getValue().toString());
-       try {MesaData md=new MesaData(conexion);
-        //Primera condición.. contemplamos dos posiblidades
-        //si la mesa estaba reservada se ocupa, las reservas se vencen solas al pasar media hora del momentos en el que se espera al cliente
-        //si la mesa esta libre le crea un pedido para comenzar a agregarle productos
-        if("Reservada".equals(md.deIdAMesa(m).getEstadoMesa())||"Libre".equals(md.deIdAMesa(m).getEstadoMesa())){
-            
-                PedidoData p1=new PedidoData(conexion);
-                MeseroData mm=new MeseroData(conexion);
-                ReservaData rd=new ReservaData(conexion);
+        //asignamos la mesa con la que vamos a trabajar
+        idMesa=Integer.valueOf(spinnerMesas.getValue().toString());
+        String estadoMesa= mesaData.deIdAMesa(idMesa).getEstadoMesa();
+        if ("Reservada".equals(estadoMesa) || "Libre".equals(estadoMesa)) {
+            try {
                 
-                //mentimos en el nombre de usuario porque aun no sabemos averiguarlo
-                Pedido pedido=new Pedido(md.deIdAMesa(m),mm.deUsuarioAMesero(Inicio.usuarioRegistrado()),LocalDateTime.now(),0.0,false);
+                Pedido pedido=new Pedido(mesaData.deIdAMesa(idMesa),
+                        meseroData.deUsuarioAMesero(Inicio.usuarioRegistrado()),LocalDateTime.now(),0.0,false);
                 
-                //guardamos un nuevo pedido que va a tener la mesa y el pedido asignados, la cuenta en cero lista para agregar productos
-                p1.guardarPedido(pedido);
-                textoId.setText(String.valueOf(p1.obtenerPedidos().get(p1.obtenerPedidos().size()-1).getIdPedido()));
-                rd.cancelarReserva("id_mesa",spinnerMesas.getValue().toString());
-                //ocupamos la mesa para poder trabajar en ella hasta que sea cobrada
-                md.actualizarEstadoMesa("Ocupada", m);
-                avisos.setText("Agregue un producto para continuar...");
-             
-            //nuestra segunda posibilidad es que la mesa este ocupada o atendida
-            //la diferencia es que la ocupada no tiene comandas y la atendida si
-            //en ambas vamos a desear agregar comandas, por lo que cargamos la tabla con los datos que tenemos hasta ahora
-            }else if ("Ocupada".equals(md.deIdAMesa(m).getEstadoMesa())||"Atendida".equals(md.deIdAMesa(m).getEstadoMesa())){
-                avisos.setText("Mesa "+md.deIdAMesa(m).getEstadoMesa()+" por otro usuario.");
-                PedidoData pd=new PedidoData(conexion);
-                if (Inicio.usuarioRegistrado().equals(pd.selccionarPedidoPor("id_mesa",m).getMesero().getNombreMesero())||"Ocupada".equals(md.deIdAMesa(m).getEstadoMesa())){
-                avisos.setText("Mesa "+md.deIdAMesa(m).getEstadoMesa());
+                pedidoData.guardarPedido(pedido);
                 
-                DefaultTableModel modelo=new DefaultTableModel();
-                tablaPedido.setModel(modelo);
-            
-                modelo.addColumn("CANTIDAD");
-                modelo.addColumn("PRODUCTO");
-                modelo.addColumn("SUB-TOTAL");
+                if ("Reservada".equals(estadoMesa)){
+                    reservaData.cancelarReserva("id_mesa", spinnerMesas.getValue().toString());
+                }
                 
-                ComandaData cd=new ComandaData(conexion);
-                
-                textoId.setText(String.valueOf(pd.selccionarPedidoPor("id_mesa",m).getIdPedido()));
-                int x=cd.selccionarComandasPorPedido(pd.selccionarPedidoPor("id_mesa",m).getIdPedido()).size();
-                int p=Integer.valueOf(textoId.getText());
-                List<Comanda> lista=new ArrayList<>();
-                lista=cd.selccionarComandasPorPedido(pd.selccionarPedidoPor("id_mesa",m).getIdPedido());
-                
-                for (int b=0;b<x;b++){
-                Object [] filas = new Object[3];
-                Comanda nuevo=lista.get(b);
-                filas  [0]=nuevo.getCantidad();
-                filas  [1]=nuevo.getProducto().getNombreProducto();
-                filas  [2]=(nuevo.getProducto().getPrecio())*nuevo.getCantidad();
-                modelo.addRow(filas);
-                subtotal=subtotal+(nuevo.getProducto().getPrecio())*nuevo.getCantidad();
-            }
-                
-            //actualizamos la cuenta y limpiamos el subtotal para seguir trabajando sin problemas
-            pd.actualizarCuentaDePedido(p,subtotal);
-            subtotal=00.0;
-            //devolvemos el total del pedido seleccionado
-            textoCuenta.setText(String.valueOf(pd.deIdAPedido(p).getCuenta()));
-            }}
-        } catch (ClassNotFoundException | SQLException ex) {
+                textoId.setText(String.valueOf(pedidoData.obtenerPedidos().get(pedidoData.obtenerPedidos().size()-1).getIdPedido()));
+                setIdPedido();
+                mesaData.actualizarEstadoMesa("Ocupada", idMesa);
+                JOptionPane.showMessageDialog(null, "Agregue un producto para continuar");
+            } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(VistaPedidos.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        } else if ("Ocupada".equals(estadoMesa)||"Atendida".equals(estadoMesa)){
+            
+            try {
+                if (Inicio.usuarioRegistrado().equals(pedidoData.seleccionarPedidoPor("id_mesa",idMesa).getMesero().getNombreMesero())||"Ocupada".equals(estadoMesa)){
+                    avisos.setText("Estado de la mesa: "+estadoMesa);
+                    idPedido=pedidoData.seleccionarPedidoPor("id_mesa",idMesa).getIdPedido();
+                    textoId.setText(String.valueOf(idPedido));
+                    cargarTabla();
+                } else {JOptionPane.showMessageDialog(null, "Mesa "+idMesa+" es atendida por otro usuario.");}
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(VistaPedidos.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
@@ -318,7 +266,6 @@ public class VistaPedidos extends javax.swing.JFrame {
         atenderMesa = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         cancelarPedido1 = new javax.swing.JButton();
-        eIdProducto1 = new javax.swing.JLabel();
         cbProductos = new javax.swing.JComboBox<>();
         ocultar = new javax.swing.JButton();
         eActualizar = new javax.swing.JLabel();
@@ -390,12 +337,13 @@ public class VistaPedidos extends javax.swing.JFrame {
 
         avisos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         avisos.setForeground(new java.awt.Color(204, 0, 51));
+        avisos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         background.add(avisos);
-        avisos.setBounds(440, 310, 440, 30);
+        avisos.setBounds(420, 310, 440, 30);
 
         eAgregarProducto.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         eAgregarProducto.setForeground(new java.awt.Color(153, 0, 51));
-        eAgregarProducto.setText("AGREGAR PRODUCTO");
+        eAgregarProducto.setText("AGREGAR AL PEDIDO");
         background.add(eAgregarProducto);
         eAgregarProducto.setBounds(390, 340, 190, 30);
 
@@ -403,17 +351,19 @@ public class VistaPedidos extends javax.swing.JFrame {
         eCantidad.setForeground(new java.awt.Color(153, 0, 51));
         eCantidad.setText("Cant:");
         background.add(eCantidad);
-        eCantidad.setBounds(370, 380, 40, 30);
+        eCantidad.setBounds(380, 380, 40, 30);
 
         eIdProducto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         eIdProducto.setForeground(new java.awt.Color(153, 0, 51));
-        eIdProducto.setText("NOMBRE:");
+        eIdProducto.setText("Menú:");
         background.add(eIdProducto);
-        eIdProducto.setBounds(580, 380, 70, 30);
+        eIdProducto.setBounds(500, 380, 70, 30);
 
-        idProducto.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        idProducto.setBackground(new java.awt.Color(255, 236, 223));
+        idProducto.setForeground(new java.awt.Color(255, 236, 223));
+        idProducto.setBorder(null);
         background.add(idProducto);
-        idProducto.setBounds(520, 380, 50, 30);
+        idProducto.setBounds(710, 380, 30, 30);
 
         ePagaCon.setForeground(new java.awt.Color(179, 3, 62));
         ePagaCon.setText("PAGA CON:");
@@ -578,7 +528,7 @@ public class VistaPedidos extends javax.swing.JFrame {
         emesa.setForeground(new java.awt.Color(153, 0, 51));
         emesa.setText("MESA:");
         background.add(emesa);
-        emesa.setBounds(380, 270, 90, 30);
+        emesa.setBounds(380, 270, 70, 30);
 
         spinnerMesas.setModel(new javax.swing.SpinnerNumberModel(0, 0, 100, 1));
         spinnerMesas.setBorder(null);
@@ -625,7 +575,7 @@ public class VistaPedidos extends javax.swing.JFrame {
             }
         });
         background.add(agregarProducto);
-        agregarProducto.setBounds(790, 380, 110, 30);
+        agregarProducto.setBounds(770, 380, 110, 30);
 
         cobrarPedido.setBackground(new java.awt.Color(255, 237, 221));
         cobrarPedido.setForeground(new java.awt.Color(102, 0, 0));
@@ -678,7 +628,7 @@ public class VistaPedidos extends javax.swing.JFrame {
             }
         });
         background.add(atenderMesa);
-        atenderMesa.setBounds(600, 270, 110, 30);
+        atenderMesa.setBounds(590, 270, 110, 30);
 
         jLabel1.setForeground(new java.awt.Color(153, 0, 51));
         jLabel1.setText("Seleccione un producto para quitar");
@@ -699,12 +649,6 @@ public class VistaPedidos extends javax.swing.JFrame {
         background.add(cancelarPedido1);
         cancelarPedido1.setBounds(740, 640, 150, 20);
 
-        eIdProducto1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        eIdProducto1.setForeground(new java.awt.Color(153, 0, 51));
-        eIdProducto1.setText("ID:");
-        background.add(eIdProducto1);
-        eIdProducto1.setBounds(490, 380, 30, 30);
-
         cbProductos.setForeground(new java.awt.Color(102, 102, 102));
         cbProductos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar" }));
         cbProductos.setBorder(null);
@@ -714,7 +658,7 @@ public class VistaPedidos extends javax.swing.JFrame {
             }
         });
         background.add(cbProductos);
-        cbProductos.setBounds(650, 380, 100, 30);
+        cbProductos.setBounds(550, 380, 150, 30);
 
         ocultar.setBackground(new java.awt.Color(255, 237, 221));
         ocultar.setForeground(new java.awt.Color(102, 0, 0));
@@ -800,8 +744,8 @@ public class VistaPedidos extends javax.swing.JFrame {
     //actualiza el nombre de usuario con enter en el segundo campo
     private void textoUsuario1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textoUsuario1KeyPressed
         if (evt.getKeyCode()==KeyEvent.VK_ENTER){
-            MeseroData mm= new MeseroData(conexion);
-            mm.cambiarNombre(Inicio.usuarioRegistrado(), textoUsuario1.getText());
+            
+            meseroData.cambiarNombre(Inicio.usuarioRegistrado(), textoUsuario1.getText());
             Inicio.almacenarUsuario(textoUsuario1.getText());
             textoUsuario1.setVisible(false);
             nomNu.setVisible(false);
@@ -814,8 +758,7 @@ public class VistaPedidos extends javax.swing.JFrame {
 
     //actualiza el nombre de usuario
     private void cambiarNombre2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cambiarNombre2ActionPerformed
-        MeseroData mm= new MeseroData(conexion);
-        mm.cambiarNombre(Inicio.usuarioRegistrado(), textoUsuario1.getText());
+        meseroData.cambiarNombre(Inicio.usuarioRegistrado(), textoUsuario1.getText());
         Inicio.almacenarUsuario(textoUsuario1.getText());
         textoUsuario1.setVisible(false);
         nomNu.setVisible(false);
@@ -837,57 +780,35 @@ public class VistaPedidos extends javax.swing.JFrame {
 
     //Quita el producto seleccionado de la tabla
     private void quitarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitarProductoActionPerformed
-        try {
-            //variables
-            int z=Integer.parseInt(textoId.getText());
-            ProductoData pp=new ProductoData(conexion);
-            ComandaData cd= new ComandaData(conexion);
-            //obtenemos los productos y filtramos los que tengan el nombre de una fila seleccionada
-            List<Producto> productos=pp.obtenerProductos().stream().filter(p->p.getNombreProducto().equals(tablaPedido.getValueAt(tablaPedido.getSelectedRow(), 1).toString())).collect(Collectors.toList());
-            //los eliminamos
-            productos.forEach(p1->cd.borrarComandaPorPrdocuto(p1.getIdProducto()));
-            //si lo elimina con exito y la tabla ya no tiene comandas.. avisa en la pantalla y limpia la tabla
-            if(cd.selccionarComandasPorPedido(z).isEmpty()){
-                avisos.setText("Producto eliminado.");
-                DefaultTableModel modelo=new DefaultTableModel();
-                tablaPedido.setModel(modelo);
-                modelo.addColumn("CANTIDAD");
-                modelo.addColumn("PRODUCTO");
-                modelo.addColumn("SUB-TOTAL");
-                for (int b=0;b<13;b++){
-                    Object [] filas = new Object[3];
-                    filas  [0]=null;
-                    filas  [1]=null;
-                    filas  [2]=null;
-                    modelo.addRow(filas);
-                }
-                textoCuenta.setText(String.valueOf(00.0));
-            }
-            //si aun tiene comandas las muestra en la tabla
-            else{this.cargarTabla();}
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(VistaPedidos.class.getName()).log(Level.SEVERE, null, ex);
+        //obtenemos los productos y filtramos los que tengan el nombre de una fila seleccionada
+        List<Producto> productos=productoData.obtenerProductos().stream().filter(p->p.getNombreProducto().equals(tablaPedido.getValueAt(tablaPedido.getSelectedRow(), 1).toString())).collect(Collectors.toList());
+        productos.forEach(p1->comandaData.borrarComandaPorPrdocuto(p1.getIdProducto()));
+        
+        //si lo elimina con exito y la tabla ya no tiene comandas.. avisa en la pantalla y limpia la tabla
+        if(productos.isEmpty()){
+            JOptionPane.showMessageDialog(null,"Producto eliminado.");
+            tablaPedido.setModel(modelo);
+            limpiarTabla();
+            textoCuenta.setText(String.valueOf(00.0));
         }
+        //si aun tiene comandas las muestra en la tabla
+        else{this.cargarTabla();}
     }//GEN-LAST:event_quitarProductoActionPerformed
 
     //agregamos un producto a nuestra tabla con su cantidad
     private void agregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarProductoActionPerformed
         try {
-            //variables y conexiones
-            MesaData md= new MesaData(conexion);
-            ComandaData cd= new ComandaData(conexion);
-            PedidoData pd= new PedidoData(conexion);
-            ProductoData pp=new ProductoData(conexion);
-            int a=Integer.parseInt(textoId.getText());
+            
             int b=Integer.parseInt(idProducto.getText());
             int cantidad=Integer.valueOf(spinnerCantidad.getValue().toString());
+            setIdPedido();
             
             //actualizamos el estado de la mesa ya que si hay una comanda hay alguien que la atiende
-            md.actualizarEstadoMesa("Atendida", Integer.parseInt(spinnerMesas.getValue().toString()));
-            Comanda c=new Comanda(pd.deIdAPedido(a),pp.deIdAlProducto(b),cantidad);
+            mesaData.actualizarEstadoMesa("Atendida",idMesa);
+            Comanda c=new Comanda(pedidoData.seleccionarPedidoPor("id_pedido",getIdPedido()),productoData.deIdAlProducto(b),cantidad);
             
             //la guardamos en la base y actualizamos la tabla para que aparezca
-            cd.guardarComanda(c);
+            comandaData.guardarComanda(c);
             this.cargarTabla();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(VistaPedidos.class.getName()).log(Level.SEVERE, null, ex);
@@ -896,20 +817,17 @@ public class VistaPedidos extends javax.swing.JFrame {
 
     //cobra el pedido, dando por finalizado su ciclo, almacena el valor de su cuenta y libera la mesa
     private void cobrarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cobrarPedidoActionPerformed
-        PedidoData pd= new PedidoData(conexion);
-        MesaData md= new MesaData(conexion);
-        int a=Integer.parseInt(textoId.getText());
+        
         Double salvar=Double.valueOf(textoCuenta.getText());
         //actualizamos el estado de la mesa para liberarla
-        md.actualizarEstadoMesa("Libre", Integer.parseInt(spinnerMesas.getValue().toString()));
+        mesaData.actualizarEstadoMesa("Libre", idMesa);
         //cobrado
-        pd.actualizarEstadoYfecha(a);
+        pedidoData.actualizarEstadoYfecha(getIdPedido());
         //guardamos la cuenta del pedido cobrado para poder hacer nuestro balance
-        //la hora del pedido es aquella donde fue creado, no pagado.
         //avisamos y limpiamos los campos
-        pd.actualizarCuentaDePedido(a, salvar);
-        this.limpiar();
-        avisos.setText("El pedido se cobró con exito, limpie los campos para continuar.");
+        pedidoData.actualizarCuentaDePedido(getIdPedido(), salvar);
+        limpiar();
+        JOptionPane.showMessageDialog(null, "El pedido se cobro con exito");
     }//GEN-LAST:event_cobrarPedidoActionPerformed
 
     //Pasa a la vista de Balance
@@ -920,23 +838,20 @@ public class VistaPedidos extends javax.swing.JFrame {
     }//GEN-LAST:event_botonBalanceActionPerformed
 
     private void atenderMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atenderMesaActionPerformed
-       this.atenderMesas();
+       atenderMesas();
     }//GEN-LAST:event_atenderMesaActionPerformed
 
     //cancelar el pedido hara que se elimine de la base de datos, ese numero de pedido ya no podrá ser usado
     //Por ejemplo si queremos crear un pedido para la misma mesa de donde fue eliminado, seleccionamos la mesa y se creará un nuevo pedido
     private void cancelarPedido1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarPedido1ActionPerformed
         try {
-            int z=Integer.parseInt(textoId.getText());
             
-            PedidoData pd=new PedidoData(conexion);
-            MesaData md=new MesaData(conexion);
-            md.actualizarEstadoMesa("Libre", pd.deIdAPedido(z).getMesa().getIdMesa());
-            pd.borrarPedido(z);
-            this.limpiar();
+            mesaData.actualizarEstadoMesa("Libre", idMesa);
+            pedidoData.borrarPedido(getIdPedido());
+            limpiar();
             
             //avisamos que numero de pedido fue eliminado
-            avisos.setText("Pedido "+z+" eliminado.");
+            JOptionPane.showMessageDialog(null,"Pedido "+idPedido+" eliminado.");
             
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(VistaPedidos.class.getName()).log(Level.SEVERE, null, ex);
@@ -949,8 +864,7 @@ public class VistaPedidos extends javax.swing.JFrame {
     }//GEN-LAST:event_recualculando
 
     private void cbProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbProductosActionPerformed
-        ProductoData pp=new ProductoData(conexion);
-        List<Producto> productos=pp.obtenerProductos().stream().filter(p->p.getNombreProducto().equals(cbProductos.getSelectedItem().toString())).collect(Collectors.toList());
+        List<Producto> productos=productoData.obtenerProductos().stream().filter(p->p.getNombreProducto().equals(cbProductos.getSelectedItem().toString())).collect(Collectors.toList());
         productos.forEach(p1->idProducto.setText(String.valueOf(p1.getIdProducto())));
     }//GEN-LAST:event_cbProductosActionPerformed
 
@@ -983,7 +897,6 @@ public class VistaPedidos extends javax.swing.JFrame {
     private javax.swing.JLabel eCambio;
     private javax.swing.JLabel eCantidad;
     private javax.swing.JLabel eIdProducto;
-    private javax.swing.JLabel eIdProducto1;
     private javax.swing.JLabel ePagaCon;
     private javax.swing.JLabel ePagaCon1;
     private javax.swing.JLabel eTomarPedido;

@@ -102,7 +102,7 @@ public class VistaMesas extends javax.swing.JFrame {
             filas  [1]=nuevo.getCapacidad();
             if("Atendida".equals(nuevo.getEstadoMesa())){
                 try {
-                    filas  [2]=pedidoData.selccionarPedidoPor("id_mesa",nuevo.getIdMesa()).getCuenta();
+                    filas  [2]=pedidoData.seleccionarPedidoPor("id_mesa",nuevo.getIdMesa()).getCuenta();
                 } catch (ClassNotFoundException ex) {
                     Logger.getLogger(VistaMesas.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -428,9 +428,9 @@ public class VistaMesas extends javax.swing.JFrame {
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(153, 0, 51));
-        jLabel11.setText("DISPONIBLES:");
+        jLabel11.setText("MESAS LIBRES:");
         background.add(jLabel11);
-        jLabel11.setBounds(420, 270, 100, 30);
+        jLabel11.setBounds(410, 270, 100, 30);
 
         cambiarNombre2.setBackground(new java.awt.Color(255, 237, 221));
         cambiarNombre2.setForeground(new java.awt.Color(102, 0, 0));
@@ -670,7 +670,7 @@ public class VistaMesas extends javax.swing.JFrame {
         jLabel14.setForeground(new java.awt.Color(153, 0, 51));
         jLabel14.setText("ATENDIENDO AHORA:");
         background.add(jLabel14);
-        jLabel14.setBounds(380, 350, 150, 30);
+        jLabel14.setBounds(370, 350, 150, 30);
 
         cbAtendidas.setForeground(new java.awt.Color(102, 102, 102));
         cbAtendidas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "seleccionar" }));
@@ -874,7 +874,8 @@ public class VistaMesas extends javax.swing.JFrame {
     private void botonAceptar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptar1ActionPerformed
         background.removeAll();
         confirmacion.dispose();
-        VistaPedidos vistaPedidos=new VistaPedidos(VistaMesas.getMesaActual());
+        VistaMesas.setMesaActual(Integer.parseInt(textoId.getText()));
+        VistaPedidos vistaPedidos=new VistaPedidos();
         vistaPedidos.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_botonAceptar1ActionPerformed

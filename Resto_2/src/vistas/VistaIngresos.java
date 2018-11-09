@@ -604,7 +604,7 @@ public class VistaIngresos extends javax.swing.JFrame {
         { 
            if(calendario.getDate()==null&&calendario1.getDate()==null){
             try {
-                 listaPedidos=(ArrayList<Pedido>) pedidoData.selccionarPedidosPor("id_mesero", cbReferencias.getSelectedIndex()+1).stream().filter(p-> p.getCobrada()).collect(Collectors.toList());
+                 listaPedidos=(ArrayList<Pedido>) pedidoData.seleccionarPedidosPor("id_mesero", cbReferencias.getSelectedIndex()+1).stream().filter(p-> p.getCobrada()).collect(Collectors.toList());
                  cargarTabla(listaPedidos);
                 } catch (ClassNotFoundException ex) {
                  Logger.getLogger(VistaIngresos.class.getName()).log(Level.SEVERE, null, ex);
@@ -624,20 +624,21 @@ public class VistaIngresos extends javax.swing.JFrame {
                         
                         listaPedidos=pedidoData.selccionarPedidosConFecha("id_mesero",cbReferencias.getSelectedIndex()+1,true, getFecha1(), getFecha2());
                         cargarTabla(listaPedidos);
+                        
                         if (listaPedidos.isEmpty()){
                             JOptionPane.showMessageDialog(null, "No se han encontrado pedidos");
-                            cargarTabla(null);
+                            limpiarTabla();
                         }
                     } catch (ClassNotFoundException ex) {
                         Logger.getLogger(VistaIngresos.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                }
+                }else{
                 listaPedidos=pedidoData.selccionarPedidosConFecha("id_mesero",cbReferencias.getSelectedIndex()+1,true, getFecha1(), now().plus(100,ChronoUnit.YEARS));
                 cargarTabla(listaPedidos);
                 if (listaPedidos.isEmpty()){
                             JOptionPane.showMessageDialog(null, "No se han encontrado pedidos");
-                            cargarTabla(null);
-                        }
+                            limpiarTabla();
+                        }}
                 } catch (ClassNotFoundException ex) {
                     Logger.getLogger(VistaIngresos.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -648,7 +649,7 @@ public class VistaIngresos extends javax.swing.JFrame {
                 cargarTabla(null);
             if(calendario.getDate()==null&&calendario1.getDate()==null){
             try {
-                 listaPedidos=(ArrayList<Pedido>) pedidoData.selccionarPedidosPor("id_mesa", cbReferencias.getSelectedIndex()+1).stream().filter(p-> p.getCobrada()).collect(Collectors.toList());
+                 listaPedidos=(ArrayList<Pedido>) pedidoData.seleccionarPedidosPor("id_mesa", cbReferencias.getSelectedIndex()+1).stream().filter(p-> p.getCobrada()).collect(Collectors.toList());
                  cargarTabla(listaPedidos);
                 } catch (ClassNotFoundException ex) {
                  Logger.getLogger(VistaIngresos.class.getName()).log(Level.SEVERE, null, ex);
@@ -667,14 +668,16 @@ public class VistaIngresos extends javax.swing.JFrame {
                         this.setFecha2(fec2.toLocalDateTime());
                         
                         listaPedidos=pedidoData.selccionarPedidosConFecha("id_mesa",cbReferencias.getSelectedIndex()+1,true, getFecha1(), getFecha2());
+                        cargarTabla(listaPedidos);
                     } catch (ClassNotFoundException ex) {
                         Logger.getLogger(VistaIngresos.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
                 listaPedidos=pedidoData.selccionarPedidosConFecha("id_mesa",cbReferencias.getSelectedIndex()+1,true, getFecha1(), now().plus(100,ChronoUnit.YEARS));
+                cargarTabla(listaPedidos);
                 if (listaPedidos.isEmpty()){
                     JOptionPane.showMessageDialog(null, "No se han encontrado pedidos");
-                    cargarTabla(listaPedidos);
+                    limpiarTabla();
                 }
                 
                 } catch (ClassNotFoundException ex) {
@@ -699,7 +702,7 @@ public class VistaIngresos extends javax.swing.JFrame {
         { 
            if(calendario.getDate()==null&&calendario1.getDate()==null){
             try {
-                 listaPedidos=(ArrayList<Pedido>) pedidoData.selccionarPedidosPor("id_mesero", cbReferencias.getSelectedIndex()+1).stream().filter(p-> !p.getCobrada()).collect(Collectors.toList());
+                 listaPedidos=(ArrayList<Pedido>) pedidoData.seleccionarPedidosPor("id_mesero", cbReferencias.getSelectedIndex()+1).stream().filter(p-> !p.getCobrada()).collect(Collectors.toList());
                  cargarTabla(listaPedidos);
                 } catch (ClassNotFoundException ex) {
                  Logger.getLogger(VistaIngresos.class.getName()).log(Level.SEVERE, null, ex);
@@ -719,6 +722,7 @@ public class VistaIngresos extends javax.swing.JFrame {
                         
                         listaPedidos=pedidoData.selccionarPedidosConFecha("id_mesero",cbReferencias.getSelectedIndex()+1,false, getFecha1(), getFecha2());
                         cargarTabla(listaPedidos);
+                        
                         if (listaPedidos.isEmpty()){
                             JOptionPane.showMessageDialog(null, "No se han encontrado pedidos");
                             cargarTabla(null);
@@ -743,7 +747,7 @@ public class VistaIngresos extends javax.swing.JFrame {
                 cargarTabla(null);
             if(calendario.getDate()==null&&calendario1.getDate()==null){
             try {
-                 listaPedidos=(ArrayList<Pedido>) pedidoData.selccionarPedidosPor("id_mesa", cbReferencias.getSelectedIndex()+1).stream().filter(p-> !p.getCobrada()).collect(Collectors.toList());
+                 listaPedidos=(ArrayList<Pedido>) pedidoData.seleccionarPedidosPor("id_mesa", cbReferencias.getSelectedIndex()+1).stream().filter(p-> !p.getCobrada()).collect(Collectors.toList());
                  cargarTabla(listaPedidos);
                 } catch (ClassNotFoundException ex) {
                  Logger.getLogger(VistaIngresos.class.getName()).log(Level.SEVERE, null, ex);
@@ -762,14 +766,16 @@ public class VistaIngresos extends javax.swing.JFrame {
                         this.setFecha2(fec2.toLocalDateTime());
                         
                         listaPedidos=pedidoData.selccionarPedidosConFecha("id_mesa",cbReferencias.getSelectedIndex()+1,false, getFecha1(), getFecha2());
+                        cargarTabla(listaPedidos);
                     } catch (ClassNotFoundException ex) {
                         Logger.getLogger(VistaIngresos.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
                 listaPedidos=pedidoData.selccionarPedidosConFecha("id_mesa",cbReferencias.getSelectedIndex()+1,false, getFecha1(), now().plus(100,ChronoUnit.YEARS));
+                cargarTabla(listaPedidos);
                 if (listaPedidos.isEmpty()){
                     JOptionPane.showMessageDialog(null, "No se han encontrado pedidos");
-                    cargarTabla(listaPedidos);
+                    limpiarTabla();
                 }
                 
                 } catch (ClassNotFoundException ex) {
