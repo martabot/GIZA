@@ -35,6 +35,7 @@ public class VistaIngresos extends javax.swing.JFrame {
     private DefaultTableModel modelo;
     private DateTimeFormatter d;
     private ArrayList<Pedido> listaPedidos;
+    private double sub;
     
     public VistaIngresos() {
         
@@ -113,19 +114,26 @@ public class VistaIngresos extends javax.swing.JFrame {
          }
     }
     
-    private void cargarTabla(ArrayList<Pedido> lista){
-        tablaReservas.setModel(modelo);
-        
+    private void limpiarTabla(){
         int x = modelo.getRowCount() - 1;
         for (int i = x; i >= 0; i--) {
             modelo.removeRow(i);
         }
+    }
+    
+    private void cargarTabla(ArrayList<Pedido> lista){
+        tablaReservas.setModel(modelo);
+        sub=0;
+        
+        limpiarTabla();
         
         listaPedidos=lista;
         for (Pedido p : listaPedidos ) {
             modelo.addRow(new Object[]{p.getMesero().getNombreMesero(),p.getIdPedido(),p.getMesa().getIdMesa(),
                 p.getFechaPedido().format(d),p.getCuenta()});
+            sub=sub+p.getCuenta();
         }
+        eTotal.setText(String.valueOf(sub));
     }
 
     private void limpiar(){
@@ -134,7 +142,9 @@ public class VistaIngresos extends javax.swing.JFrame {
          cbBuscarPor.setSelectedIndex(0);
          calendario.setDate(null);
          calendario1.setDate(null);
-         cargarTabla(null);
+         sub=0;
+         eTotal.setText("00.0");
+         limpiarTabla();
     }
 
     @SuppressWarnings("unchecked")
@@ -411,14 +421,15 @@ public class VistaIngresos extends javax.swing.JFrame {
 
         eTotal.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         eTotal.setForeground(new java.awt.Color(153, 0, 51));
+        eTotal.setText("00.0");
         background.add(eTotal);
-        eTotal.setBounds(790, 640, 90, 30);
+        eTotal.setBounds(800, 650, 90, 30);
 
         ePagaCon1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         ePagaCon1.setForeground(new java.awt.Color(153, 0, 51));
-        ePagaCon1.setText("TOTAL:");
+        ePagaCon1.setText("TOTAL:   $");
         background.add(ePagaCon1);
-        ePagaCon1.setBounds(730, 650, 60, 30);
+        ePagaCon1.setBounds(730, 650, 90, 30);
 
         tablaReservas.setBackground(new java.awt.Color(254, 247, 230));
         tablaReservas.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -657,7 +668,6 @@ public class VistaIngresos extends javax.swing.JFrame {
     }//GEN-LAST:event_filtrarActionPerformed
 
     private void listarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listarTodosActionPerformed
-        limpiar();
         try {
             listaPedidos=pedidoData.obtenerPedidos();
             cargarTabla(listaPedidos);
