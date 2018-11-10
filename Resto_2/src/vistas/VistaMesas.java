@@ -430,7 +430,7 @@ public class VistaMesas extends javax.swing.JFrame {
         jLabel11.setForeground(new java.awt.Color(153, 0, 51));
         jLabel11.setText("MESAS LIBRES:");
         background.add(jLabel11);
-        jLabel11.setBounds(410, 270, 100, 30);
+        jLabel11.setBounds(400, 270, 100, 30);
 
         cambiarNombre2.setBackground(new java.awt.Color(255, 237, 221));
         cambiarNombre2.setForeground(new java.awt.Color(102, 0, 0));
@@ -593,7 +593,7 @@ public class VistaMesas extends javax.swing.JFrame {
             }
         });
         background.add(cbDisponibles);
-        cbDisponibles.setBounds(520, 270, 150, 30);
+        cbDisponibles.setBounds(550, 270, 150, 30);
 
         tablaMesas.setBackground(new java.awt.Color(254, 247, 230));
         tablaMesas.setForeground(new java.awt.Color(153, 0, 0));
@@ -657,20 +657,20 @@ public class VistaMesas extends javax.swing.JFrame {
             }
         });
         background.add(cbReservadas);
-        cbReservadas.setBounds(520, 310, 150, 30);
+        cbReservadas.setBounds(550, 310, 150, 30);
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(153, 0, 51));
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel13.setText("RESERVADAS HOY:");
         background.add(jLabel13);
-        jLabel13.setBounds(390, 310, 130, 30);
+        jLabel13.setBounds(400, 310, 130, 30);
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(153, 0, 51));
         jLabel14.setText("ATENDIENDO AHORA:");
         background.add(jLabel14);
-        jLabel14.setBounds(370, 350, 150, 30);
+        jLabel14.setBounds(400, 350, 150, 30);
 
         cbAtendidas.setForeground(new java.awt.Color(102, 102, 102));
         cbAtendidas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "seleccionar" }));
@@ -681,7 +681,7 @@ public class VistaMesas extends javax.swing.JFrame {
             }
         });
         background.add(cbAtendidas);
-        cbAtendidas.setBounds(520, 350, 150, 30);
+        cbAtendidas.setBounds(550, 350, 150, 30);
 
         atenderMesas.setBackground(new java.awt.Color(255, 237, 221));
         atenderMesas.setForeground(new java.awt.Color(102, 0, 0));
@@ -784,9 +784,15 @@ public class VistaMesas extends javax.swing.JFrame {
     }//GEN-LAST:event_textoUsuario1KeyPressed
 
     private void botonAjustesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAjustesActionPerformed
-        textoUsuario1.setVisible(true);
-        nomNu.setVisible(true);
-        cambiarNombre2.setVisible(true);
+        if(!nomNu.isVisible()){
+            textoUsuario1.setVisible(true);
+            nomNu.setVisible(true);
+            cambiarNombre2.setVisible(true);}
+        else{
+            textoUsuario1.setVisible(false);
+            nomNu.setVisible(false);
+            cambiarNombre2.setVisible(false);
+        }
     }//GEN-LAST:event_botonAjustesActionPerformed
 
     private void agregarMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarMesaActionPerformed
@@ -862,7 +868,7 @@ public class VistaMesas extends javax.swing.JFrame {
         if (textoId.getText().equals("")) {
                     avisos.setText("Por favor seleccione una mesa.");
                 }else{
-        textoConfirmacionMesa.setText("Desea iniciar un pedido para la mesa "+textoId.getText()+"?");}
+        textoConfirmacionMesa.setText("Desea continuar con el pedido para la mesa "+textoId.getText()+"?");}
         VistaMesas.setMesaActual(Integer.parseInt(textoId.getText()));
         confirmacion.setVisible(true);
     }//GEN-LAST:event_atenderMesasActionPerformed

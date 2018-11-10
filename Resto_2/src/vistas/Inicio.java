@@ -78,21 +78,21 @@ public class Inicio extends javax.swing.JFrame {
     private void initComponents() {
 
         confirmacion = new javax.swing.JDialog();
-        jPanel3 = new javax.swing.JPanel();
-        labelConfirmacion2 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        labelConfirmacion3 = new javax.swing.JLabel();
         cancelarReg = new javax.swing.JButton();
         aceptarReg = new javax.swing.JButton();
-        label7 = new javax.swing.JLabel();
+        label10 = new javax.swing.JLabel();
         usuarioReg = new javax.swing.JLabel();
-        label9 = new javax.swing.JLabel();
+        label11 = new javax.swing.JLabel();
         confirmacion1 = new javax.swing.JDialog();
-        jPanel2 = new javax.swing.JPanel();
-        labelConfirmacion1 = new javax.swing.JLabel();
-        cancelarRen = new javax.swing.JButton();
+        jPanel5 = new javax.swing.JPanel();
+        usuarioEliminado = new javax.swing.JLabel();
+        labelConfirmacion4 = new javax.swing.JLabel();
+        label12 = new javax.swing.JLabel();
         aceptarRen = new javax.swing.JButton();
-        label6 = new javax.swing.JLabel();
-        usuarioElim = new javax.swing.JLabel();
-        label8 = new javax.swing.JLabel();
+        cancelarRen = new javax.swing.JButton();
+        usuarioElim1 = new javax.swing.JLabel();
         panelPrincipal = new javax.swing.JPanel();
         panelDeInicio = new javax.swing.JPanel();
         textoBuscar = new javax.swing.JTextField();
@@ -105,19 +105,20 @@ public class Inicio extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         imagen = new javax.swing.JLabel();
 
+        confirmacion.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         confirmacion.setAlwaysOnTop(true);
         confirmacion.setBackground(new java.awt.Color(252, 238, 220));
-        confirmacion.setBounds(new java.awt.Rectangle(410, 230, 562, 488));
-        confirmacion.setLocation(new java.awt.Point(408, 216));
+        confirmacion.setBounds(new java.awt.Rectangle(377, 216, 562, 488));
+        confirmacion.setResizable(false);
 
-        jPanel3.setBackground(new java.awt.Color(255, 236, 223));
-        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel4.setBackground(new java.awt.Color(255, 236, 223));
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        labelConfirmacion2.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 24)); // NOI18N
-        labelConfirmacion2.setForeground(new java.awt.Color(153, 0, 51));
-        labelConfirmacion2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelConfirmacion2.setText("REGISTRAR MESERO");
-        jPanel3.add(labelConfirmacion2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 540, 30));
+        labelConfirmacion3.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 24)); // NOI18N
+        labelConfirmacion3.setForeground(new java.awt.Color(153, 0, 51));
+        labelConfirmacion3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelConfirmacion3.setText("REGISTRAR MESERO");
+        jPanel4.add(labelConfirmacion3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 540, 30));
 
         cancelarReg.setBackground(new java.awt.Color(204, 70, 0));
         cancelarReg.setForeground(new java.awt.Color(102, 0, 0));
@@ -129,7 +130,7 @@ public class Inicio extends javax.swing.JFrame {
                 cancelarRegActionPerformed(evt);
             }
         });
-        jPanel3.add(cancelarReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 230, 80, -1));
+        jPanel4.add(cancelarReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 230, 80, -1));
 
         aceptarReg.setBackground(new java.awt.Color(204, 70, 0));
         aceptarReg.setForeground(new java.awt.Color(102, 0, 0));
@@ -141,57 +142,55 @@ public class Inicio extends javax.swing.JFrame {
                 aceptarRegActionPerformed(evt);
             }
         });
-        jPanel3.add(aceptarReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 230, 80, -1));
+        jPanel4.add(aceptarReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 230, 80, -1));
 
-        label7.setForeground(new java.awt.Color(102, 0, 0));
-        label7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label7.setText("Desea registrarse e ingresar al sistema como");
-        jPanel3.add(label7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 540, 30));
+        label10.setForeground(new java.awt.Color(102, 0, 0));
+        label10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label10.setText("Desea registrarse e ingresar al sistema como");
+        jPanel4.add(label10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 540, 30));
 
         usuarioReg.setForeground(new java.awt.Color(102, 0, 0));
         usuarioReg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel3.add(usuarioReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 540, 30));
+        jPanel4.add(usuarioReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 540, 30));
 
-        label9.setForeground(new java.awt.Color(102, 0, 0));
-        label9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel3.add(label9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 540, 30));
+        label11.setForeground(new java.awt.Color(102, 0, 0));
+        label11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel4.add(label11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 540, 30));
 
         javax.swing.GroupLayout confirmacionLayout = new javax.swing.GroupLayout(confirmacion.getContentPane());
         confirmacion.getContentPane().setLayout(confirmacionLayout);
         confirmacionLayout.setHorizontalGroup(
             confirmacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 558, Short.MAX_VALUE)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 558, Short.MAX_VALUE)
         );
         confirmacionLayout.setVerticalGroup(
             confirmacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
         );
 
+        confirmacion1.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         confirmacion1.setAlwaysOnTop(true);
         confirmacion1.setBackground(new java.awt.Color(252, 238, 220));
-        confirmacion1.setBounds(new java.awt.Rectangle(408, 216, 562, 488));
-        confirmacion1.setLocation(new java.awt.Point(408, 216));
+        confirmacion1.setBounds(new java.awt.Rectangle(377, 216, 562, 488));
+        confirmacion1.setResizable(false);
 
-        jPanel2.setBackground(new java.awt.Color(255, 236, 223));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel5.setBackground(new java.awt.Color(255, 236, 223));
+        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        labelConfirmacion1.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 24)); // NOI18N
-        labelConfirmacion1.setForeground(new java.awt.Color(153, 0, 51));
-        labelConfirmacion1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelConfirmacion1.setText("ELIMINAR MESERO");
-        jPanel2.add(labelConfirmacion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 540, 30));
+        usuarioEliminado.setForeground(new java.awt.Color(102, 0, 0));
+        usuarioEliminado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel5.add(usuarioEliminado, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 540, 30));
 
-        cancelarRen.setBackground(new java.awt.Color(204, 70, 0));
-        cancelarRen.setForeground(new java.awt.Color(102, 0, 0));
-        cancelarRen.setText("Cancelar");
-        cancelarRen.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, null, null, new java.awt.Color(153, 0, 0)));
-        cancelarRen.setContentAreaFilled(false);
-        cancelarRen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelarRenActionPerformed(evt);
-            }
-        });
-        jPanel2.add(cancelarRen, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 230, 80, -1));
+        labelConfirmacion4.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 24)); // NOI18N
+        labelConfirmacion4.setForeground(new java.awt.Color(153, 0, 51));
+        labelConfirmacion4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelConfirmacion4.setText("ELIMINAR MESERO");
+        jPanel5.add(labelConfirmacion4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 540, 30));
+
+        label12.setForeground(new java.awt.Color(102, 0, 0));
+        label12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label12.setText("Desea eliminar el mesero");
+        jPanel5.add(label12, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 540, 30));
 
         aceptarRen.setBackground(new java.awt.Color(204, 70, 0));
         aceptarRen.setForeground(new java.awt.Color(102, 0, 0));
@@ -203,30 +202,33 @@ public class Inicio extends javax.swing.JFrame {
                 aceptarRenActionPerformed(evt);
             }
         });
-        jPanel2.add(aceptarRen, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 230, 80, -1));
+        jPanel5.add(aceptarRen, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 230, 80, -1));
 
-        label6.setForeground(new java.awt.Color(102, 0, 0));
-        label6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label6.setText("Desea eliminar el mesero");
-        jPanel2.add(label6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 540, 30));
+        cancelarRen.setBackground(new java.awt.Color(204, 70, 0));
+        cancelarRen.setForeground(new java.awt.Color(102, 0, 0));
+        cancelarRen.setText("Cancelar");
+        cancelarRen.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, null, null, new java.awt.Color(153, 0, 0)));
+        cancelarRen.setContentAreaFilled(false);
+        cancelarRen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelarRenActionPerformed(evt);
+            }
+        });
+        jPanel5.add(cancelarRen, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 230, 80, -1));
 
-        usuarioElim.setForeground(new java.awt.Color(102, 0, 0));
-        usuarioElim.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel2.add(usuarioElim, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 540, 30));
-
-        label8.setForeground(new java.awt.Color(102, 0, 0));
-        label8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel2.add(label8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 540, 30));
+        usuarioElim1.setForeground(new java.awt.Color(102, 0, 0));
+        usuarioElim1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel5.add(usuarioElim1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 540, 30));
 
         javax.swing.GroupLayout confirmacion1Layout = new javax.swing.GroupLayout(confirmacion1.getContentPane());
         confirmacion1.getContentPane().setLayout(confirmacion1Layout);
         confirmacion1Layout.setHorizontalGroup(
             confirmacion1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 558, Short.MAX_VALUE)
         );
         confirmacion1Layout.setVerticalGroup(
             confirmacion1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -458,7 +460,7 @@ public class Inicio extends javax.swing.JFrame {
 
     //elimina al mesero de la base de datos y lo avisa en el campo de texto
     private void bRenunciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRenunciarActionPerformed
-        usuarioElim.setText(textoBuscar.getText()+"?");
+        usuarioEliminado.setText(textoBuscar.getText()+"?");
         confirmacion1.setUndecorated(true);
         confirmacion1.setVisible(true);
     }//GEN-LAST:event_bRenunciarActionPerformed
@@ -468,34 +470,12 @@ public class Inicio extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void cancelarRenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarRenActionPerformed
-        confirmacion1.dispose();
-    }//GEN-LAST:event_cancelarRenActionPerformed
-
-    private void aceptarRenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarRenActionPerformed
-        this.setNombre(textoBuscar.getText());
-        
-        try {
-            Conexion conexion = new Conexion();
-            conexion.getConexion();
-            
-            MeseroData mesero1=new MeseroData(conexion);
-            
-            mesero1.borrarMesero(this.getNombre());
-            textoBuscar.setText(null);
-            confirmacion1.setVisible(false);
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_aceptarRenActionPerformed
-
     private void cancelarRegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarRegActionPerformed
-        textoBuscar.setText(null);
         confirmacion.dispose();
     }//GEN-LAST:event_cancelarRegActionPerformed
 
     private void aceptarRegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarRegActionPerformed
-        this.setNombre(textoBuscar.getText());
+                this.setNombre(textoBuscar.getText());
         
         try {
             Conexion conexion = new Conexion();
@@ -524,6 +504,27 @@ public class Inicio extends javax.swing.JFrame {
             System.out.println("Error al instanciar la clase conexion: " + e.getMessage());
         }
     }//GEN-LAST:event_aceptarRegActionPerformed
+
+    private void aceptarRenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarRenActionPerformed
+    this.setNombre(textoBuscar.getText());
+        
+        try {
+            Conexion conexion = new Conexion();
+            conexion.getConexion();
+            
+            MeseroData mesero1=new MeseroData(conexion);
+            
+            mesero1.borrarMesero(this.getNombre());
+            textoBuscar.setText(null);
+            confirmacion1.setVisible(false);
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_aceptarRenActionPerformed
+
+    private void cancelarRenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarRenActionPerformed
+        confirmacion1.dispose();
+    }//GEN-LAST:event_cancelarRenActionPerformed
       
     /**
      * @param args the command line arguments
@@ -569,22 +570,22 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JDialog confirmacion1;
     private javax.swing.JLabel imagen;
     private javax.swing.JButton jButton1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JLabel label1;
+    private javax.swing.JLabel label10;
+    private javax.swing.JLabel label11;
+    private javax.swing.JLabel label12;
     private javax.swing.JLabel label2;
     private javax.swing.JLabel label3;
-    private javax.swing.JLabel label6;
-    private javax.swing.JLabel label7;
-    private javax.swing.JLabel label8;
-    private javax.swing.JLabel label9;
-    private javax.swing.JLabel labelConfirmacion1;
-    private javax.swing.JLabel labelConfirmacion2;
+    private javax.swing.JLabel labelConfirmacion3;
+    private javax.swing.JLabel labelConfirmacion4;
     private javax.swing.JPanel panelDeInicio;
     private javax.swing.JPanel panelPrincipal;
     private javax.swing.JButton signUp;
     private javax.swing.JTextField textoBuscar;
-    private javax.swing.JLabel usuarioElim;
+    private javax.swing.JLabel usuarioElim1;
+    private javax.swing.JLabel usuarioEliminado;
     private javax.swing.JLabel usuarioReg;
     // End of variables declaration//GEN-END:variables
 }

@@ -195,15 +195,11 @@ public class VistaPedidos extends javax.swing.JFrame {
                 
                 pedidoData.guardarPedido(pedido);
                 
-                if ("Reservada".equals(estadoMesa)){
-                    reservaData.cancelarReserva("id_mesa", spinnerMesas.getValue().toString());
-                }
-                
                 textoId.setText(String.valueOf(pedidoData.obtenerPedidos().get(pedidoData.obtenerPedidos().size()-1).getIdPedido()));
                 setIdPedido();
                 mesaData.actualizarEstadoMesa("Ocupada", idMesa);
                 JOptionPane.showMessageDialog(null, "Agregue un producto para continuar");
-            } catch (SQLException | ClassNotFoundException ex) {
+            } catch (ClassNotFoundException ex) {
                 Logger.getLogger(VistaPedidos.class.getName()).log(Level.SEVERE, null, ex);
             }
             
@@ -736,9 +732,15 @@ public class VistaPedidos extends javax.swing.JFrame {
 
     //permite actualizar el nombre de usuario
     private void botonAjustesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAjustesActionPerformed
-        textoUsuario1.setVisible(true);
-        nomNu.setVisible(true);
-        cambiarNombre2.setVisible(true);
+        if(!nomNu.isVisible()){
+            textoUsuario1.setVisible(true);
+            nomNu.setVisible(true);
+            cambiarNombre2.setVisible(true);}
+        else{
+            textoUsuario1.setVisible(false);
+            nomNu.setVisible(false);
+            cambiarNombre2.setVisible(false);
+        }
     }//GEN-LAST:event_botonAjustesActionPerformed
 
     //actualiza el nombre de usuario con enter en el segundo campo

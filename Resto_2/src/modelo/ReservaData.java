@@ -12,6 +12,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -21,6 +23,7 @@ public class ReservaData {
     private Connection connection;
     private Conexion connect;
     private MesaData m1;
+    private Reserva reserva;
 
     public ReservaData(Conexion conexion) {
         try {
@@ -100,11 +103,12 @@ public class ReservaData {
         }
     } 
     
-    public void cancelarReserva(String algo,String idM) throws SQLException{
+    public void actualizarEstado(Boolean estado,String algo,String idM) throws SQLException{
         
        try {
-        String sql = "UPDATE reserva SET esta_vigente=0 where "+algo+"="+idM+" ;";
+        String sql = "UPDATE reserva SET esta_vigente=? where "+algo+"="+idM+" ;";
        try (PreparedStatement statment = connection.prepareStatement(sql)) {
+           statment.setBoolean(1, estado);
              
             statment.executeUpdate();
             
@@ -114,11 +118,12 @@ public class ReservaData {
         }
     }
     
-    public void autoCancelarReserva(){
+    public void autoCancelarReserva(int id){
         
        try {
-        String sql = "UPDATE reserva SET esta_vigente=0 where fecha_reserva=NOW()-INTERVAL 30 MINUTE;";
+        String sql = "UPDATE reserva SET esta_vigente=0 where id_reserva=? AND fecha_reserva BETWEEN NOW()-INTERVAL 100 YEAR AND NOW();";
        try (PreparedStatement statment = connection.prepareStatement(sql)) {
+           statment.setInt(1, id);
              
             statment.executeUpdate();
             
@@ -126,6 +131,35 @@ public class ReservaData {
        } catch (SQLException ex) {
             System.out.println("Error al cancelar la reserva: " + ex.getMessage());
         }
+    }
+    
+    public Reserva reservaDeLaMesa(String a){
+        try {
+            String sql = "SELECT * FROM reserva WHERE id_mesa="+a+";";
+            try (PreparedStatement statment = connection.prepareStatement(sql)) {
+                ResultSet resultSet = statment.executeQuery();
+                Reserva reser;
+                while(resultSet.next()){
+                    reser = new Reserva();
+                    connect=new Conexion();
+                    connect.getConexion();
+                    m1=new MesaData(connect);
+                    reser.setIdReserva(resultSet.getInt(1));
+                    reser.setNombreCliente(resultSet.getString(2));
+                    reser.setDniCliente(resultSet.getInt(3));
+                    reser.setFechaReserva(resultSet.getTimestamp(4).toLocalDateTime());
+                    reser.setMesa(m1.deIdAMesa(resultSet.getInt(5)));
+                    reser.setEstaVigente(resultSet.getBoolean(6));
+                    
+                    reserva=reser;
+                }
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(ReservaData.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener la reserva: " + ex.getMessage());
+        }
+        return reserva;
     }
     
     public ArrayList<Integer> reservasPorMesa(){

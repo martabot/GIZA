@@ -230,38 +230,6 @@ public class PedidoData {
         }
     }
     
-    public int totalDeTotales(){
-        try {
-            String sql= "SELECT COUNT(DISTINCT (DATE(`fecha_pedido`))) AS cuentas FROM pedido;";
-            try (PreparedStatement statment = connection.prepareStatement(sql)) {
-            ResultSet resultSet = statment.executeQuery();
-            while(resultSet.next()){
-                int total=resultSet.getInt(1);    
-                totales=total;
-            }}
-        } catch (SQLException ex) {
-            System.out.println("Error al obtener el total de totales: " + ex.getMessage());
-        } 
-        return totales;
-    }
-    
-    public ArrayList<LocalDateTime> listaDeFechas(){
-        ArrayList<LocalDateTime> total = new ArrayList<>();
-        try {
-            String sql= "SELECT DISTINCT (DATE(`fecha_pedido`)) AS cuentas FROM pedido;";
-            try (PreparedStatement statment = connection.prepareStatement(sql)) {
-            ResultSet resultSet = statment.executeQuery();
-            while(resultSet.next()){
-                LocalDateTime a=resultSet.getTimestamp(1).toLocalDateTime();
-                total.add(a);
-            }
-            }
-        } catch (SQLException ex) {
-            System.out.println("Error al obtener las reservas: " + ex.getMessage());
-        }
-        return total;
-    }
-    
     public void actualizarEstadoYfecha(int x){
 
         try {

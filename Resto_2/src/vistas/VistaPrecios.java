@@ -599,9 +599,15 @@ public class VistaPrecios extends javax.swing.JFrame {
  
     //Permite actualizar el nombre del mesero
     private void botonAjustesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAjustesActionPerformed
-        textoUsuario1.setVisible(true);
-        nomNu.setVisible(true);
-        cambiarNombre2.setVisible(true);
+        if(!nomNu.isVisible()){
+            textoUsuario1.setVisible(true);
+            nomNu.setVisible(true);
+            cambiarNombre2.setVisible(true);}
+        else{
+            textoUsuario1.setVisible(false);
+            nomNu.setVisible(false);
+            cambiarNombre2.setVisible(false);
+        }
     }//GEN-LAST:event_botonAjustesActionPerformed
 
     //Actualiza el nombre del usuario apretando enter en el segundo campo de texto

@@ -37,8 +37,7 @@ public class Background extends javax.swing.JFrame {
         botonPedidos.setFont(fuente.fuenteLuisa(1,36));
         botonPrecios.setFont(fuente.fuenteLuisa(1,36));
         textoBienvenida.setFont(fuente.fuenteLuisa(0,36));
-        tB2.setFont(fuente.fuenteLuisa(0,36));
-        tB3.setFont(fuente.fuenteLuisa(0,36));
+        tB3.setFont(fuente.fuenteSunshine(0,72));
         
         //campos ocultos que aparecen al ser llamados por los ajustes del usuario
         textoUsuario1.setVisible(false);
@@ -66,7 +65,6 @@ public class Background extends javax.swing.JFrame {
         botonReservas = new javax.swing.JButton();
         botonPedidos = new javax.swing.JButton();
         textoBienvenida = new javax.swing.JLabel();
-        tB2 = new javax.swing.JLabel();
         tB3 = new javax.swing.JLabel();
         cerrarSesion = new javax.swing.JButton();
         botonAjustes = new javax.swing.JButton();
@@ -77,6 +75,8 @@ public class Background extends javax.swing.JFrame {
         botonBalance = new javax.swing.JButton();
         ocultar = new javax.swing.JButton();
         eActualizar = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         imagen = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -140,21 +140,17 @@ public class Background extends javax.swing.JFrame {
 
         textoBienvenida.setFont(new java.awt.Font("Luisa", 0, 36)); // NOI18N
         textoBienvenida.setForeground(new java.awt.Color(153, 0, 51));
-        textoBienvenida.setText("BIENVENIDO");
+        textoBienvenida.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textoBienvenida.setText(" BIENVENIDES");
         background.add(textoBienvenida);
-        textoBienvenida.setBounds(530, 300, 210, 40);
+        textoBienvenida.setBounds(360, 570, 560, 80);
 
-        tB2.setFont(new java.awt.Font("Luisa", 0, 36)); // NOI18N
-        tB2.setForeground(new java.awt.Color(153, 0, 51));
-        tB2.setText("AL SISTEMA DE ATENCIÓN");
-        background.add(tB2);
-        tB2.setBounds(420, 390, 460, 50);
-
-        tB3.setFont(new java.awt.Font("Luisa", 0, 36)); // NOI18N
-        tB3.setForeground(new java.awt.Color(153, 0, 51));
-        tB3.setText("DE GIZA RESTO");
+        tB3.setFont(new java.awt.Font("Sunshine", 0, 72)); // NOI18N
+        tB3.setForeground(new java.awt.Color(0, 0, 0));
+        tB3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        tB3.setText("Giza!");
         background.add(tB3);
-        tB3.setBounds(510, 490, 290, 50);
+        tB3.setBounds(520, 200, 250, 90);
 
         cerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Logout.png"))); // NOI18N
         cerrarSesion.setContentAreaFilled(false);
@@ -249,6 +245,29 @@ public class Background extends javax.swing.JFrame {
         background.add(eActualizar);
         eActualizar.setBounds(480, 30, 310, 20);
 
+        jPanel1.setForeground(new java.awt.Color(255, 236, 223));
+
+        jLabel1.setBackground(new java.awt.Color(255, 236, 223));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconoGi.jpg"))); // NOI18N
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 249, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        background.add(jPanel1);
+        jPanel1.setBounds(520, 300, 250, 250);
+
         imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Background.png"))); // NOI18N
         imagen.setAlignmentY(0.0F);
         background.add(imagen);
@@ -302,9 +321,15 @@ public class Background extends javax.swing.JFrame {
 
     //llama a las variable que están ocultas en el constructor para realizar el cambio de nombre del usuario
     private void botonAjustesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAjustesActionPerformed
-        textoUsuario1.setVisible(true);
-        nomNu.setVisible(true);
-        cambiarNombre.setVisible(true);
+        if(!nomNu.isVisible()){
+            textoUsuario1.setVisible(true);
+            nomNu.setVisible(true);
+            cambiarNombre.setVisible(true);}
+        else{
+            textoUsuario1.setVisible(false);
+            nomNu.setVisible(false);
+            cambiarNombre.setVisible(false);
+        }
     }//GEN-LAST:event_botonAjustesActionPerformed
 
     //cierra el programa
@@ -375,9 +400,10 @@ public class Background extends javax.swing.JFrame {
     private javax.swing.JButton cerrarSesion;
     private javax.swing.JLabel eActualizar;
     private javax.swing.JLabel imagen;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel nomNu;
     private javax.swing.JButton ocultar;
-    private javax.swing.JLabel tB2;
     private javax.swing.JLabel tB3;
     private javax.swing.JLabel textoBienvenida;
     private javax.swing.JTextField textoUsuario1;

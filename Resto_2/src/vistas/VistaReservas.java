@@ -5,6 +5,8 @@
  */
 package vistas;
 
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -14,6 +16,9 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import modelo.*;
 
@@ -34,6 +39,7 @@ public class VistaReservas extends javax.swing.JFrame {
     private ReservaData reservaData;
     private Conexion conexion;
     private MesaData mesaData;
+    private PedidoData pedidoData;
     
     
     //Constructor
@@ -68,12 +74,13 @@ public class VistaReservas extends javax.swing.JFrame {
                 conexion.getConexion();
                 reservaData=new ReservaData(conexion);
                 mesaData=new MesaData(conexion);
+                pedidoData=new PedidoData(conexion);
                 
                 //cargamos la tabla con las reservas existentes
                 this.cargarTabla();
                 
                 //autocancelamos las reservas que pierden vigencia
-                reservaData.autoCancelarReserva();
+                reservaData.obtenerReservas().forEach(r -> reservaData.autoCancelarReserva(r.getIdReserva()));
             } catch (ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(Background.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -117,12 +124,14 @@ public class VistaReservas extends javax.swing.JFrame {
 
     //este metodo limpia los casilleros y busquedas realizadas
     private void limpiar(){
-        textoId.setText(null);
-        textoNombre.setText(null);
-        textoDni.setText(null);
+        textoId.setText("");
+        textoNombre.setText("");
+        textoDni.setText("");
         calendario.setDate(null);
         spinnerMesas.setValue(0);
-        avisos.setText(null);
+        avisos.setText("");
+        rbActiva.setSelected(false);
+        rbInactiva.setSelected(false);
     }
     
     //cargamos la tabla con la información de nuestras reservas
@@ -158,16 +167,6 @@ public class VistaReservas extends javax.swing.JFrame {
                 modelo.addRow(filas);
             }
     }
-    /* intentamos comparar el dni para saber si es valido
-    private boolean esEntero(String nosabemos){
-        try {
-            Integer.parseInt(nosabemos);
-            return true;
-        } catch (NumberFormatException nfe){
-            return false;
-        }
-    }
-    */
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -186,6 +185,8 @@ public class VistaReservas extends javax.swing.JFrame {
         mesaConfirmacion = new javax.swing.JLabel();
         botonAceptar = new javax.swing.JButton();
         botonAceptar1 = new javax.swing.JButton();
+        estadoConfirmacion = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
         confirmacion1 = new javax.swing.JDialog();
         jPanel2 = new javax.swing.JPanel();
         labelConfirmacion1 = new javax.swing.JLabel();
@@ -222,6 +223,7 @@ public class VistaReservas extends javax.swing.JFrame {
         etiquetaId2 = new javax.swing.JLabel();
         etiquetaId3 = new javax.swing.JLabel();
         etiquetaId4 = new javax.swing.JLabel();
+        rbInactiva = new javax.swing.JRadioButton();
         calendario = new com.toedter.calendar.JDateChooser();
         avisos = new javax.swing.JLabel();
         limpiarCasilleros1 = new javax.swing.JButton();
@@ -230,6 +232,8 @@ public class VistaReservas extends javax.swing.JFrame {
         botonBalance = new javax.swing.JButton();
         eActualizar = new javax.swing.JLabel();
         ocultar = new javax.swing.JButton();
+        emesa1 = new javax.swing.JLabel();
+        rbActiva = new javax.swing.JRadioButton();
         imagen = new javax.swing.JLabel();
 
         confirmacion.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -295,6 +299,13 @@ public class VistaReservas extends javax.swing.JFrame {
             }
         });
         jPanel1.add(botonAceptar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 380, 130, 40));
+
+        estadoConfirmacion.setForeground(new java.awt.Color(153, 0, 51));
+        jPanel1.add(estadoConfirmacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 290, 300, 30));
+
+        jLabel9.setForeground(new java.awt.Color(153, 0, 51));
+        jLabel9.setText("ESTADO:");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 290, 60, 30));
 
         javax.swing.GroupLayout confirmacionLayout = new javax.swing.GroupLayout(confirmacion.getContentPane());
         confirmacion.getContentPane().setLayout(confirmacionLayout);
@@ -437,7 +448,7 @@ public class VistaReservas extends javax.swing.JFrame {
 
         darDeBaja.setBackground(new java.awt.Color(255, 237, 221));
         darDeBaja.setForeground(new java.awt.Color(102, 0, 0));
-        darDeBaja.setText("DAR DE BAJA");
+        darDeBaja.setText("ACTUALIZAR");
         darDeBaja.setActionCommand("");
         darDeBaja.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 204, 204), new java.awt.Color(255, 204, 102), new java.awt.Color(204, 0, 51), new java.awt.Color(102, 0, 0)));
         darDeBaja.addActionListener(new java.awt.event.ActionListener() {
@@ -446,7 +457,7 @@ public class VistaReservas extends javax.swing.JFrame {
             }
         });
         background.add(darDeBaja);
-        darDeBaja.setBounds(780, 360, 120, 30);
+        darDeBaja.setBounds(780, 340, 120, 30);
 
         crearReserva.setBackground(new java.awt.Color(255, 237, 221));
         crearReserva.setForeground(new java.awt.Color(102, 0, 0));
@@ -459,7 +470,7 @@ public class VistaReservas extends javax.swing.JFrame {
             }
         });
         background.add(crearReserva);
-        crearReserva.setBounds(780, 280, 120, 30);
+        crearReserva.setBounds(780, 260, 120, 30);
 
         eliminarReserva.setBackground(new java.awt.Color(255, 237, 221));
         eliminarReserva.setForeground(new java.awt.Color(102, 0, 0));
@@ -472,13 +483,13 @@ public class VistaReservas extends javax.swing.JFrame {
             }
         });
         background.add(eliminarReserva);
-        eliminarReserva.setBounds(780, 320, 120, 30);
+        eliminarReserva.setBounds(780, 300, 120, 30);
 
         spinnerMesas.setModel(new javax.swing.SpinnerNumberModel(0, 0, 100, 1));
         spinnerMesas.setBorder(null);
         spinnerMesas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         background.add(spinnerMesas);
-        spinnerMesas.setBounds(460, 400, 140, 30);
+        spinnerMesas.setBounds(460, 380, 150, 30);
 
         cerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Logout.png"))); // NOI18N
         cerrarSesion.setContentAreaFilled(false);
@@ -560,46 +571,58 @@ public class VistaReservas extends javax.swing.JFrame {
         etiquetaNombre.setText("NOMBRE:");
         etiquetaNombre.setAlignmentY(0.0F);
         background.add(etiquetaNombre);
-        etiquetaNombre.setBounds(390, 280, 70, 30);
+        etiquetaNombre.setBounds(390, 260, 70, 30);
 
         textoNombre.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         background.add(textoNombre);
-        textoNombre.setBounds(460, 280, 270, 30);
+        textoNombre.setBounds(460, 260, 270, 30);
 
         textoDni.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         background.add(textoDni);
-        textoDni.setBounds(460, 320, 140, 30);
+        textoDni.setBounds(460, 300, 150, 30);
 
         emesa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         emesa.setForeground(new java.awt.Color(153, 0, 51));
         emesa.setText("MESA:");
         background.add(emesa);
-        emesa.setBounds(390, 400, 70, 30);
+        emesa.setBounds(390, 380, 70, 30);
 
         etiquetaId2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         etiquetaId2.setForeground(new java.awt.Color(153, 0, 51));
-        etiquetaId2.setText("* DNI sin puntos");
+        etiquetaId2.setText("<- DNI sin puntos");
         background.add(etiquetaId2);
-        etiquetaId2.setBounds(610, 330, 110, 15);
+        etiquetaId2.setBounds(620, 310, 110, 15);
 
         etiquetaId3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         etiquetaId3.setForeground(new java.awt.Color(153, 0, 51));
         etiquetaId3.setText("FECHA:");
         background.add(etiquetaId3);
-        etiquetaId3.setBounds(390, 360, 70, 30);
+        etiquetaId3.setBounds(390, 340, 70, 30);
 
         etiquetaId4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         etiquetaId4.setForeground(new java.awt.Color(153, 0, 51));
         etiquetaId4.setText("DNI:");
         background.add(etiquetaId4);
-        etiquetaId4.setBounds(390, 320, 70, 30);
+        etiquetaId4.setBounds(390, 300, 70, 30);
+
+        rbInactiva.setBackground(new java.awt.Color(255, 236, 223));
+        rbInactiva.setForeground(new java.awt.Color(153, 0, 51));
+        rbInactiva.setText("INACTIVA");
+        rbInactiva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbInactivaActionPerformed(evt);
+            }
+        });
+        background.add(rbInactiva);
+        rbInactiva.setBounds(540, 420, 80, 30);
 
         calendario.setDateFormatString("dd/MM/yyyy HH:mm:ss");
         calendario.setMaxSelectableDate(new java.util.Date(253370779265000L));
         calendario.setMinSelectableDate(new java.util.Date(-62135755135000L));
         background.add(calendario);
-        calendario.setBounds(460, 360, 270, 30);
+        calendario.setBounds(460, 340, 270, 30);
 
+        avisos.setBackground(new java.awt.Color(255, 236, 223));
         avisos.setForeground(new java.awt.Color(204, 0, 51));
         avisos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         background.add(avisos);
@@ -705,6 +728,23 @@ public class VistaReservas extends javax.swing.JFrame {
         background.add(ocultar);
         ocultar.setBounds(570, 60, 120, 30);
 
+        emesa1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        emesa1.setForeground(new java.awt.Color(153, 0, 51));
+        emesa1.setText("ESTADO:");
+        background.add(emesa1);
+        emesa1.setBounds(390, 420, 70, 30);
+
+        rbActiva.setBackground(new java.awt.Color(255, 236, 223));
+        rbActiva.setForeground(new java.awt.Color(153, 0, 51));
+        rbActiva.setText("ACTIVA");
+        rbActiva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbActivaActionPerformed(evt);
+            }
+        });
+        background.add(rbActiva);
+        rbActiva.setBounds(460, 420, 80, 30);
+
         imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Background.png"))); // NOI18N
         imagen.setAlignmentY(0.0F);
         background.add(imagen);
@@ -782,6 +822,7 @@ public class VistaReservas extends javax.swing.JFrame {
         dniConfirmacion.setText(textoDni.getText());
         fechaConfirmacion.setText(this.getFecha().format(x));
         mesaConfirmacion.setText(String.valueOf(this.getNroMesa()));
+        estadoConfirmacion.setText(String.valueOf(rbActiva.isSelected()));
         confirmacion.setVisible(true);}
     }//GEN-LAST:event_crearReservaActionPerformed
 
@@ -831,9 +872,15 @@ public class VistaReservas extends javax.swing.JFrame {
 
     //llama a las variable que están ocultas en el constructor para realizar el cambio de nombre del usuario
     private void botonAjustesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAjustesActionPerformed
-        textoUsuario1.setVisible(true);
-        nomNu.setVisible(true);
-        cambiarNombre2.setVisible(true);
+        if(!nomNu.isVisible()){
+            textoUsuario1.setVisible(true);
+            nomNu.setVisible(true);
+            cambiarNombre2.setVisible(true);}
+        else{
+            textoUsuario1.setVisible(false);
+            nomNu.setVisible(false);
+            cambiarNombre2.setVisible(false);
+        }
     }//GEN-LAST:event_botonAjustesActionPerformed
 
     //Elimina la reserva por id o "numero de reserva"(el que se le da al cliente) y reestablece el estado de la mesa a Libre
@@ -848,18 +895,22 @@ public class VistaReservas extends javax.swing.JFrame {
 
     //Cambia la vigencia de una Reserva que no fue eliminada pero que ya no es válida
     private void darDeBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_darDeBajaActionPerformed
-       try {
+        int idMesa=Integer.parseInt(textoId.getText());
+        try {
         reservasLista=reservaData.obtenerReservas();  
-        reservaData.cancelarReserva("id_reserva",textoId.getText());
-        reservaMesa=reservasLista.stream().filter(r->r.getMesa().getIdMesa()==Integer.parseInt(textoId.getText())).collect(Collectors.toList());
-        reservaMesa.forEach(r->{
-        mesaData.actualizarEstadoMesa("Libre",r.getMesa().getIdMesa());
-        }); 
-        ////incompleto
-        tablaReservas.setDefaultRenderer (Object.class, new MiRender());
+        reservaData.actualizarEstado(rbActiva.isSelected(),"id_reserva",textoId.getText());
+        
+        if(rbActiva.isSelected()){mesaData.actualizarEstadoMesa("Reservada", idMesa);}
+            else{
+                for (Pedido p: pedidoData.obtenerPedidos()){
+                    if(p.getMesa().getIdMesa()==idMesa){
+                        mesaData.actualizarEstadoMesa("Atendida", p.getMesa().getIdMesa());
+                        }else{mesaData.actualizarEstadoMesa("Libre", idMesa);}
+                        }
+                }
         this.limpiar();
         this.cargarTabla();
-        avisos.setText("Reserva cancelada.");
+        JOptionPane.showMessageDialog(null,"Reserva actualizada.");
        } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(VistaReservas.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -888,7 +939,7 @@ public class VistaReservas extends javax.swing.JFrame {
         try {
             reservasLista=reservaData.obtenerReservas();
         //si todo es correcto crea una reserva y la guarda en la base de datos
-        Reserva reserva=new Reserva(textoNombre.getText(),this.getDni(),this.getFecha(),mesaData.deIdAMesa(this.getNroMesa()),true);
+        Reserva reserva=new Reserva(textoNombre.getText(),this.getDni(),this.getFecha(),mesaData.deIdAMesa(this.getNroMesa()),rbActiva.isSelected());
         reservaData.guardarReserva(reserva);
         //actualizamos el estado de la mesa para saber que está reservada
         mesaData.actualizarEstadoMesa("Reservada",this.getNroMesa());
@@ -896,7 +947,7 @@ public class VistaReservas extends javax.swing.JFrame {
         confirmacion.setVisible(false);
         this.cargarTabla();
         this.limpiar();
-        avisos.setText("La reserva se creo exitosamente.");
+        JOptionPane.showMessageDialog(null,"La reserva se creo exitosamente.");
         } catch (ClassNotFoundException ex) {
                 Logger.getLogger(Background.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -920,6 +971,8 @@ public class VistaReservas extends javax.swing.JFrame {
         textoDni.setText(tablaReservas.getValueAt(filaSeleccionada, 2).toString());
         calendario.setDate(Date.from(LocalDateTime.parse(tablaReservas.getValueAt(filaSeleccionada, 3).toString(),x).toInstant(ZoneOffset.UTC)));
         spinnerMesas.setValue(tablaReservas.getValueAt(filaSeleccionada, 4));
+        if(reservaData.reservaDeLaMesa(spinnerMesas.getValue().toString()).isEstaVigente()){rbActiva.setSelected(true);rbInactiva.setSelected(false);}
+            else{rbInactiva.setSelected(true);rbActiva.setSelected(false);}
         }    
     }//GEN-LAST:event_tablaReservasMouseClicked
 
@@ -940,6 +993,14 @@ public class VistaReservas extends javax.swing.JFrame {
             Logger.getLogger(VistaReservas.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_botonAceptar3ActionPerformed
+
+    private void rbInactivaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbInactivaActionPerformed
+        rbActiva.setSelected(false);               
+    }//GEN-LAST:event_rbInactivaActionPerformed
+
+    private void rbActivaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbActivaActionPerformed
+        rbInactiva.setSelected(false);
+    }//GEN-LAST:event_rbActivaActionPerformed
 
     
 
@@ -969,6 +1030,8 @@ public class VistaReservas extends javax.swing.JFrame {
     private javax.swing.JLabel eActualizar;
     private javax.swing.JButton eliminarReserva;
     private javax.swing.JLabel emesa;
+    private javax.swing.JLabel emesa1;
+    private javax.swing.JLabel estadoConfirmacion;
     private javax.swing.JLabel etiquetaId;
     private javax.swing.JLabel etiquetaId2;
     private javax.swing.JLabel etiquetaId3;
@@ -983,6 +1046,7 @@ public class VistaReservas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -996,6 +1060,8 @@ public class VistaReservas extends javax.swing.JFrame {
     private javax.swing.JLabel nombreConfirmacion;
     private javax.swing.JLabel nombreConfirmacion1;
     private javax.swing.JButton ocultar;
+    private javax.swing.JRadioButton rbActiva;
+    private javax.swing.JRadioButton rbInactiva;
     private javax.swing.JSpinner spinnerMesas;
     private javax.swing.JTable tablaReservas;
     private javax.swing.JTextField textoDni;

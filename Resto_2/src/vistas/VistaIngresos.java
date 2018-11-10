@@ -24,7 +24,7 @@ import modelo.*;
  * @author Muñeca Brava
  */
 public class VistaIngresos extends javax.swing.JFrame {
-    Conexion conexion;
+    private Conexion conexion;
     private Fuentes fuente;
     private ArrayList<Mesero> meseros;
     private ArrayList<Mesa> mesas;
@@ -552,9 +552,15 @@ public class VistaIngresos extends javax.swing.JFrame {
     }//GEN-LAST:event_cambiarNombre2ActionPerformed
 
     private void botonAjustesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAjustesActionPerformed
-        textoUsuario1.setVisible(true);
-        nomNu.setVisible(true);
-        cambiarNombre2.setVisible(true);
+        if(!nomNu.isVisible()){
+            textoUsuario1.setVisible(true);
+            nomNu.setVisible(true);
+            cambiarNombre2.setVisible(true);}
+        else{
+            textoUsuario1.setVisible(false);
+            nomNu.setVisible(false);
+            cambiarNombre2.setVisible(false);
+        }
     }//GEN-LAST:event_botonAjustesActionPerformed
 
     private void textoUsuario1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textoUsuario1KeyPressed

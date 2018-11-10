@@ -163,7 +163,8 @@ INSERT INTO `producto` (`id_producto`, `nombre_producto`, `precio`) VALUES
 (16, 'Whiskey', 100),
 (17, 'Flan Mixto', 5),
 (18, 'Helado', 15),
-(19, 'Pastel en fuente', 50);
+(19, 'Pastel en fuente', 50),
+(20, 'Asado', 100);
 
 -- --------------------------------------------------------
 
