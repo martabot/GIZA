@@ -274,7 +274,7 @@ public class VistaIngresos extends javax.swing.JFrame {
         nomNu.setForeground(new java.awt.Color(102, 0, 0));
         nomNu.setText("NUEVO NOMBRE:");
         background.add(nomNu);
-        nomNu.setBounds(420, 50, 100, 30);
+        nomNu.setBounds(390, 50, 130, 30);
 
         cambiarNombre2.setBackground(new java.awt.Color(255, 237, 221));
         cambiarNombre2.setForeground(new java.awt.Color(102, 0, 0));
@@ -344,7 +344,7 @@ public class VistaIngresos extends javax.swing.JFrame {
         eActualizar.setForeground(new java.awt.Color(102, 0, 0));
         eActualizar.setText("EL NOMBRE DE USUARIO SE ACTUALIZO CON EXITO");
         background.add(eActualizar);
-        eActualizar.setBounds(480, 30, 300, 14);
+        eActualizar.setBounds(480, 30, 340, 15);
 
         cbEstado.setForeground(new java.awt.Color(102, 102, 102));
         cbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "seleccionar", "PENDIENTES", "COBRADOS" }));
@@ -361,12 +361,12 @@ public class VistaIngresos extends javax.swing.JFrame {
             }
         });
         background.add(cbBuscarPor);
-        cbBuscarPor.setBounds(560, 260, 100, 30);
+        cbBuscarPor.setBounds(560, 260, 110, 30);
 
         cbReferencias.setForeground(new java.awt.Color(102, 102, 102));
         cbReferencias.setBorder(null);
         background.add(cbReferencias);
-        cbReferencias.setBounds(670, 260, 100, 30);
+        cbReferencias.setBounds(680, 260, 90, 30);
 
         filtrar.setBackground(new java.awt.Color(255, 237, 221));
         filtrar.setForeground(new java.awt.Color(102, 0, 0));
@@ -792,7 +792,7 @@ public class VistaIngresos extends javax.swing.JFrame {
             default:
                 JOptionPane.showMessageDialog(null, "Indique un filtro");
                 break;
-        }}
+        }}else{String a= "atrapalos YA, pokemon!";}
     }//GEN-LAST:event_filtrarActionPerformed
 
     private void listarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listarTodosActionPerformed

@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.*;
 
@@ -21,6 +22,7 @@ public class VistaPrecios extends javax.swing.JFrame {
     //atributos encapsulados
     private Fuentes fuente;
     private Conexion conexion;
+    private ProductoData productoData;
     
     //constructor
     public VistaPrecios() {
@@ -51,6 +53,7 @@ public class VistaPrecios extends javax.swing.JFrame {
         try {
             conexion = new Conexion();
             conexion.getConexion();
+            productoData = new ProductoData(conexion);
             //vamos a cargar los datos que hay en la db de la tabla productos a nuestra lista de precios
             this.cargarTabla();
                 
@@ -363,7 +366,7 @@ public class VistaPrecios extends javax.swing.JFrame {
         nomNu.setForeground(new java.awt.Color(102, 0, 0));
         nomNu.setText("NUEVO NOMBRE:");
         background.add(nomNu);
-        nomNu.setBounds(420, 50, 100, 30);
+        nomNu.setBounds(390, 50, 130, 30);
 
         cambiarNombre2.setBackground(new java.awt.Color(255, 237, 221));
         cambiarNombre2.setForeground(new java.awt.Color(102, 0, 0));
@@ -415,7 +418,7 @@ public class VistaPrecios extends javax.swing.JFrame {
 
         textoId.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         background.add(textoId);
-        textoId.setBounds(840, 210, 60, 18);
+        textoId.setBounds(840, 210, 60, 19);
 
         etiquetaId.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         etiquetaId.setForeground(new java.awt.Color(153, 0, 51));
@@ -479,7 +482,7 @@ public class VistaPrecios extends javax.swing.JFrame {
         eActualizar.setForeground(new java.awt.Color(102, 0, 0));
         eActualizar.setText("EL NOMBRE DE USUARIO SE ACTUALIZO CON EXITO");
         background.add(eActualizar);
-        eActualizar.setBounds(490, 30, 340, 14);
+        eActualizar.setBounds(490, 30, 340, 15);
         background.add(avisos);
         avisos.setBounds(490, 240, 300, 14);
 
@@ -533,17 +536,16 @@ public class VistaPrecios extends javax.swing.JFrame {
 
     //actualiza la informacion de un producto con los datos cargados en cada campo
     private void actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarActionPerformed
-        ProductoData pp = new ProductoData(conexion);
         int filaSeleccionada = tablaPrecios.getSelectedRow();
         if (filaSeleccionada != -1){
-            pp.actualizarIdProducto(Integer.parseInt(tablaPrecios.getValueAt(filaSeleccionada, 0).toString()), Integer.parseInt(textoId.getText()));
+            productoData.actualizarIdProducto(Integer.parseInt(tablaPrecios.getValueAt(filaSeleccionada, 0).toString()), Integer.parseInt(textoId.getText()));
         tablaPrecios.setValueAt(textoId.getText(), filaSeleccionada, 0);
-            pp.actualizarNombreProducto(Integer.parseInt(tablaPrecios.getValueAt(filaSeleccionada, 0).toString()), textoNombre.getText());
+            productoData.actualizarNombreProducto(Integer.parseInt(tablaPrecios.getValueAt(filaSeleccionada, 0).toString()), textoNombre.getText());
         tablaPrecios.setValueAt(textoNombre.getText(), filaSeleccionada, 1);
-            pp.actualizarPrecioProducto(Integer.parseInt(tablaPrecios.getValueAt(filaSeleccionada, 0).toString()), Double.valueOf(textoMonto.getText()));
+            productoData.actualizarPrecioProducto(Integer.parseInt(tablaPrecios.getValueAt(filaSeleccionada, 0).toString()), Double.valueOf(textoMonto.getText()));
         tablaPrecios.setValueAt(textoMonto.getText(), filaSeleccionada, 2);
          limpiar();
-         avisos.setText("La información del producto se actualizó con éxito");
+         JOptionPane.showMessageDialog(null,"La información del producto se actualizó con éxito");
     }           
          
      

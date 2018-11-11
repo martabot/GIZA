@@ -428,9 +428,10 @@ public class VistaMesas extends javax.swing.JFrame {
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(153, 0, 51));
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel11.setText("MESAS LIBRES:");
         background.add(jLabel11);
-        jLabel11.setBounds(400, 270, 100, 30);
+        jLabel11.setBounds(380, 270, 170, 30);
 
         cambiarNombre2.setBackground(new java.awt.Color(255, 237, 221));
         cambiarNombre2.setForeground(new java.awt.Color(102, 0, 0));
@@ -470,7 +471,7 @@ public class VistaMesas extends javax.swing.JFrame {
         nomNu.setForeground(new java.awt.Color(102, 0, 0));
         nomNu.setText("NUEVO NOMBRE:");
         background.add(nomNu);
-        nomNu.setBounds(420, 50, 100, 30);
+        nomNu.setBounds(390, 50, 130, 30);
 
         botonAjustes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ajustes.png"))); // NOI18N
         botonAjustes.setContentAreaFilled(false);
@@ -572,7 +573,7 @@ public class VistaMesas extends javax.swing.JFrame {
         eActualizar.setForeground(new java.awt.Color(102, 0, 0));
         eActualizar.setText("EL NOMBRE DE USUARIO SE ACTUALIZO CON EXITO");
         background.add(eActualizar);
-        eActualizar.setBounds(480, 30, 300, 14);
+        eActualizar.setBounds(460, 30, 340, 15);
 
         textoId.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         background.add(textoId);
@@ -661,16 +662,17 @@ public class VistaMesas extends javax.swing.JFrame {
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(153, 0, 51));
-        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel13.setText("RESERVADAS HOY:");
         background.add(jLabel13);
-        jLabel13.setBounds(400, 310, 130, 30);
+        jLabel13.setBounds(380, 310, 170, 30);
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(153, 0, 51));
+        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel14.setText("ATENDIENDO AHORA:");
         background.add(jLabel14);
-        jLabel14.setBounds(400, 350, 150, 30);
+        jLabel14.setBounds(380, 350, 170, 30);
 
         cbAtendidas.setForeground(new java.awt.Color(102, 102, 102));
         cbAtendidas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "seleccionar" }));

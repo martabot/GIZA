@@ -117,8 +117,7 @@ public class VistaPedidos extends javax.swing.JFrame {
                 tablaPedido.setModel(modelo);            
                 
                 //preparamos una lista con las comandas del pedido seleccionado
-                List<Comanda> lista=new ArrayList<>();
-                lista=comandaData.selccionarComandasPorPedido(getIdPedido());
+                List<Comanda> lista=comandaData.selccionarComandasPorPedido(getIdPedido());
                 
                 //primera condicion, el pedido podría no existir
                 if(pedidoData.seleccionarPedidoPor("id_pedido",getIdPedido())==null){
@@ -129,13 +128,14 @@ public class VistaPedidos extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "El predido ya fue cobrado, información en la pestaña de ingresos");
                 } else {
                 
-                //si el pedido tiene comandas activas las lista en nuestra tabla
-                for (Comanda c: lista){
-                    modelo.addRow(new Object[]{c.getCantidad(),c.getProducto().getNombreProducto(),c.getCantidad()*c.getProducto().getPrecio()});
-                    
-                    //actualiza el subtotal y lo convierte en la suma de subtotales que luego serán la cuenta
-                    subtotal=subtotal+(c.getProducto().getPrecio())*c.getCantidad();
-                }
+                    //si el pedido tiene comandas activas las lista en nuestra tabla
+                    lista.stream().map((c) -> {
+                        modelo.addRow(new Object[]{c.getCantidad(),c.getProducto().getNombreProducto(),c.getCantidad()*c.getProducto().getPrecio()});
+                        return c;
+                    }).forEach((c) -> {
+                        //actualiza el subtotal y lo convierte en la suma de subtotales que luego serán la cuenta
+                        subtotal=subtotal+(c.getProducto().getPrecio())*c.getCantidad();
+                    });
                } 
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(VistaPedidos.class.getName()).log(Level.SEVERE, null, ex);
@@ -421,7 +421,7 @@ public class VistaPedidos extends javax.swing.JFrame {
         nomNu.setForeground(new java.awt.Color(102, 0, 0));
         nomNu.setText("NUEVO NOMBRE:");
         background.add(nomNu);
-        nomNu.setBounds(420, 50, 100, 30);
+        nomNu.setBounds(400, 50, 120, 30);
 
         textoUsuario1.setForeground(new java.awt.Color(153, 0, 51));
         textoUsuario1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -512,7 +512,7 @@ public class VistaPedidos extends javax.swing.JFrame {
 
         textoId.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         background.add(textoId);
-        textoId.setBounds(840, 210, 60, 18);
+        textoId.setBounds(840, 210, 60, 19);
 
         etiquetaId.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         etiquetaId.setForeground(new java.awt.Color(153, 0, 51));
@@ -629,7 +629,7 @@ public class VistaPedidos extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(153, 0, 51));
         jLabel1.setText("Seleccione un producto para quitar");
         background.add(jLabel1);
-        jLabel1.setBounds(380, 650, 240, 14);
+        jLabel1.setBounds(380, 650, 240, 15);
 
         cancelarPedido1.setBackground(new java.awt.Color(255, 237, 221));
         cancelarPedido1.setForeground(new java.awt.Color(102, 0, 0));
@@ -673,7 +673,7 @@ public class VistaPedidos extends javax.swing.JFrame {
         eActualizar.setForeground(new java.awt.Color(102, 0, 0));
         eActualizar.setText("EL NOMBRE DE USUARIO SE ACTUALIZO CON EXITO");
         background.add(eActualizar);
-        eActualizar.setBounds(490, 30, 320, 14);
+        eActualizar.setBounds(490, 30, 320, 15);
 
         imagen.setBackground(new java.awt.Color(204, 70, 0));
         imagen.setForeground(new java.awt.Color(1, 1, 1));

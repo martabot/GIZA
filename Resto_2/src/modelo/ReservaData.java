@@ -118,10 +118,25 @@ public class ReservaData {
         }
     }
     
+    public void actualizarReserva(int reserva,String atributo,String valor) throws SQLException{
+        
+       try {
+        String sql = "UPDATE reserva SET "+atributo+"="+valor+" where id_reserva=? ;";
+       try (PreparedStatement statment = connection.prepareStatement(sql)) {
+           statment.setInt(1, reserva);
+             
+            statment.executeUpdate();
+            
+            }  
+       } catch (SQLException ex) {
+            System.out.println("Error al cancelar la reserva: " + ex.getMessage());
+        }
+    }
+    
     public void autoCancelarReserva(int id){
         
        try {
-        String sql = "UPDATE reserva SET esta_vigente=0 where id_reserva=? AND fecha_reserva BETWEEN NOW()-INTERVAL 100 YEAR AND NOW();";
+        String sql = "UPDATE reserva SET esta_vigente=0 where id_reserva=? AND fecha_reserva BETWEEN NOW()-INTERVAL 100 YEAR AND NOW()-INTERVAL 30 MINUTE;";
        try (PreparedStatement statment = connection.prepareStatement(sql)) {
            statment.setInt(1, id);
              

@@ -5,8 +5,6 @@
  */
 package vistas;
 
-import java.awt.Color;
-import java.awt.Component;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -17,8 +15,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import modelo.*;
 
@@ -40,6 +36,7 @@ public class VistaReservas extends javax.swing.JFrame {
     private Conexion conexion;
     private MesaData mesaData;
     private PedidoData pedidoData;
+    private MeseroData meseroData;
     
     
     //Constructor
@@ -75,18 +72,21 @@ public class VistaReservas extends javax.swing.JFrame {
                 reservaData=new ReservaData(conexion);
                 mesaData=new MesaData(conexion);
                 pedidoData=new PedidoData(conexion);
+                meseroData=new MeseroData(conexion);
                 
                 //cargamos la tabla con las reservas existentes
                 this.cargarTabla();
                 
                 //autocancelamos las reservas que pierden vigencia
                 reservaData.obtenerReservas().forEach(r -> reservaData.autoCancelarReserva(r.getIdReserva()));
+                
+                idReserva=Integer.parseInt(textoId.getText());
             } catch (ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(Background.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    //algunos getters y setters necesarios
+    //algunos getters y setters
     public int getIdReserva() {
         return idReserva;
     }
@@ -122,7 +122,7 @@ public class VistaReservas extends javax.swing.JFrame {
         this.nroMesa = Integer.parseInt(nroMesa);
     }
 
-    //este metodo limpia los casilleros y busquedas realizadas
+    //limpia los casilleros y busquedas realizadas
     private void limpiar(){
         textoId.setText("");
         textoNombre.setText("");
@@ -153,8 +153,7 @@ public class VistaReservas extends javax.swing.JFrame {
             
             
             int x=reservaData.obtenerReservas().size();
-            ArrayList<Reserva> lista=new ArrayList<>();
-            lista=reservaData.obtenerReservas();
+            ArrayList<Reserva> lista=reservaData.obtenerReservas();
             for (int b=0;b<x;b++){
                 //para una lista de tamaño x(que es nuestra cantidad de filas) llenamos los datos de cada columna, los contadores de fila empiezan en 0
                 Object [] filas = new Object[5];
@@ -489,7 +488,7 @@ public class VistaReservas extends javax.swing.JFrame {
         spinnerMesas.setBorder(null);
         spinnerMesas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         background.add(spinnerMesas);
-        spinnerMesas.setBounds(460, 380, 150, 30);
+        spinnerMesas.setBounds(470, 380, 150, 30);
 
         cerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Logout.png"))); // NOI18N
         cerrarSesion.setContentAreaFilled(false);
@@ -564,46 +563,50 @@ public class VistaReservas extends javax.swing.JFrame {
 
         textoId.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         background.add(textoId);
-        textoId.setBounds(840, 210, 60, 18);
+        textoId.setBounds(840, 210, 60, 19);
 
         etiquetaNombre.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         etiquetaNombre.setForeground(new java.awt.Color(153, 0, 51));
+        etiquetaNombre.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         etiquetaNombre.setText("NOMBRE:");
         etiquetaNombre.setAlignmentY(0.0F);
         background.add(etiquetaNombre);
-        etiquetaNombre.setBounds(390, 260, 70, 30);
+        etiquetaNombre.setBounds(390, 260, 80, 30);
 
         textoNombre.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         background.add(textoNombre);
-        textoNombre.setBounds(460, 260, 270, 30);
+        textoNombre.setBounds(470, 260, 270, 30);
 
         textoDni.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         background.add(textoDni);
-        textoDni.setBounds(460, 300, 150, 30);
+        textoDni.setBounds(470, 300, 150, 30);
 
         emesa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         emesa.setForeground(new java.awt.Color(153, 0, 51));
+        emesa.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         emesa.setText("MESA:");
         background.add(emesa);
-        emesa.setBounds(390, 380, 70, 30);
+        emesa.setBounds(390, 380, 80, 30);
 
         etiquetaId2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         etiquetaId2.setForeground(new java.awt.Color(153, 0, 51));
         etiquetaId2.setText("<- DNI sin puntos");
         background.add(etiquetaId2);
-        etiquetaId2.setBounds(620, 310, 110, 15);
+        etiquetaId2.setBounds(630, 310, 130, 15);
 
         etiquetaId3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         etiquetaId3.setForeground(new java.awt.Color(153, 0, 51));
+        etiquetaId3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         etiquetaId3.setText("FECHA:");
         background.add(etiquetaId3);
-        etiquetaId3.setBounds(390, 340, 70, 30);
+        etiquetaId3.setBounds(390, 340, 80, 30);
 
         etiquetaId4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         etiquetaId4.setForeground(new java.awt.Color(153, 0, 51));
+        etiquetaId4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         etiquetaId4.setText("DNI:");
         background.add(etiquetaId4);
-        etiquetaId4.setBounds(390, 300, 70, 30);
+        etiquetaId4.setBounds(390, 300, 80, 30);
 
         rbInactiva.setBackground(new java.awt.Color(255, 236, 223));
         rbInactiva.setForeground(new java.awt.Color(153, 0, 51));
@@ -614,13 +617,13 @@ public class VistaReservas extends javax.swing.JFrame {
             }
         });
         background.add(rbInactiva);
-        rbInactiva.setBounds(540, 420, 80, 30);
+        rbInactiva.setBounds(550, 420, 80, 30);
 
         calendario.setDateFormatString("dd/MM/yyyy HH:mm:ss");
         calendario.setMaxSelectableDate(new java.util.Date(253370779265000L));
         calendario.setMinSelectableDate(new java.util.Date(-62135755135000L));
         background.add(calendario);
-        calendario.setBounds(460, 340, 270, 30);
+        calendario.setBounds(470, 340, 270, 30);
 
         avisos.setBackground(new java.awt.Color(255, 236, 223));
         avisos.setForeground(new java.awt.Color(204, 0, 51));
@@ -730,9 +733,10 @@ public class VistaReservas extends javax.swing.JFrame {
 
         emesa1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         emesa1.setForeground(new java.awt.Color(153, 0, 51));
+        emesa1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         emesa1.setText("ESTADO:");
         background.add(emesa1);
-        emesa1.setBounds(390, 420, 70, 30);
+        emesa1.setBounds(390, 420, 80, 30);
 
         rbActiva.setBackground(new java.awt.Color(255, 236, 223));
         rbActiva.setForeground(new java.awt.Color(153, 0, 51));
@@ -743,7 +747,7 @@ public class VistaReservas extends javax.swing.JFrame {
             }
         });
         background.add(rbActiva);
-        rbActiva.setBounds(460, 420, 80, 30);
+        rbActiva.setBounds(470, 420, 80, 30);
 
         imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Background.png"))); // NOI18N
         imagen.setAlignmentY(0.0F);
@@ -790,7 +794,7 @@ public class VistaReservas extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_botonPedidosActionPerformed
 
-    //Creamos una reserva con los datos insertados en los campos de texto y avisamos si algo en el proceso está saliendo mal
+    //Creamos una reserva con los datos insertados en los campos de texto y avisamos si algo en el proceso está maliendo sal
     private void crearReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearReservaActionPerformed
         //Seteamos el campo dni
         this.setDni(textoDni.getText());
@@ -817,7 +821,7 @@ public class VistaReservas extends javax.swing.JFrame {
                 avisos.setText("La mesa ya se encuentra reservada, seleccione otra.");
                 }else{
                    
-        
+        //llenamos los campos para la confirmacion
         nombreConfirmacion.setText(textoNombre.getText());
         dniConfirmacion.setText(textoDni.getText());
         fechaConfirmacion.setText(this.getFecha().format(x));
@@ -826,7 +830,7 @@ public class VistaReservas extends javax.swing.JFrame {
         confirmacion.setVisible(true);}
     }//GEN-LAST:event_crearReservaActionPerformed
 
-    //vuelve a la pagina de inicio donde el mesero iniciara sesión
+    //vuelve a la pagina de inicio donde se reinicia sesión
     private void cerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarSesionActionPerformed
         background.removeAll();
         background.repaint();
@@ -839,11 +843,8 @@ public class VistaReservas extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_apagarActionPerformed
 
-    //actualiza el nombre del usuario, y vuelve a settear ocultos los campos de texto
-    private void cambiarNombre2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cambiarNombre2ActionPerformed
-
-        MeseroData m1=new MeseroData(conexion);
-        m1.cambiarNombre(Inicio.usuarioRegistrado(), textoUsuario1.getText());
+    private void actualizarNombre(){
+        meseroData.cambiarNombre(Inicio.usuarioRegistrado(), textoUsuario1.getText());
         Inicio.almacenarUsuario(textoUsuario1.getText());
         textoUsuario1.setVisible(false);
         nomNu.setVisible(false);
@@ -851,22 +852,16 @@ public class VistaReservas extends javax.swing.JFrame {
         textoUsuario1.setText(null);
         eActualizar.setVisible(true);
         ocultar.setVisible(true);
-        
+    }
+    //actualiza el nombre del usuario, y vuelve a settear ocultos los campos de texto
+    private void cambiarNombre2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cambiarNombre2ActionPerformed
+        actualizarNombre();
     }//GEN-LAST:event_cambiarNombre2ActionPerformed
 
     //Lo mismo que el método anterior pero a través de la tecla enter en el campo del nuevo nombre
     private void textoUsuario1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textoUsuario1KeyPressed
         if (evt.getKeyCode()==KeyEvent.VK_ENTER){
-
-            MeseroData m1=new MeseroData(conexion);
-            m1.cambiarNombre(Inicio.usuarioRegistrado(), textoUsuario1.getText());
-            Inicio.almacenarUsuario(textoUsuario1.getText());
-            textoUsuario1.setVisible(false);
-            nomNu.setVisible(false);
-            cambiarNombre2.setVisible(false);
-            textoUsuario1.setText(null);
-            eActualizar.setVisible(true);
-            ocultar.setVisible(true);
+            actualizarNombre();
         }
     }//GEN-LAST:event_textoUsuario1KeyPressed
 
@@ -885,17 +880,32 @@ public class VistaReservas extends javax.swing.JFrame {
 
     //Elimina la reserva por id o "numero de reserva"(el que se le da al cliente) y reestablece el estado de la mesa a Libre
     private void eliminarReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarReservaActionPerformed
-        //DateTimeFormatter x = DateTimeFormatter.ofPattern("dd/mm/yyyy HH:mm:ss");
         nombreConfirmacion1.setText(textoNombre.getText());
         dniConfirmacion1.setText(textoDni.getText());
-        //fechaConfirmacion1.setText(this.getFecha().format(x));
-        //mesaConfirmacion1.setText(String.valueOf(this.getNroMesa()));
         confirmacion1.setVisible(true);
     }//GEN-LAST:event_eliminarReservaActionPerformed
 
     //Cambia la vigencia de una Reserva que no fue eliminada pero que ya no es válida
     private void darDeBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_darDeBajaActionPerformed
-        int idMesa=Integer.parseInt(textoId.getText());
+        int idMesa=Integer.parseInt(spinnerMesas.getValue().toString());
+        ///INCOMPLETO, SOLO ACTUALIZA ESTADO
+       // int filaSeleccionada = tablaReservas.getSelectedRow();
+        //if (filaSeleccionada != -1){
+            //productoData.actualizarIdProducto(Integer.parseInt(tablaPrecios.getValueAt(filaSeleccionada, 0).toString()), Integer.parseInt(textoId.getText()));
+            //reservaData.actualizarReserva(Integer.parseInt(tablaReservas.getValueAt(filaSeleccionada,0).toString()), "id_reserva", String.valueOf(idReserva));
+        //tablaPrecios.setValueAt(textoId.getText(), filaSeleccionada, 0);
+        //
+            //productoData.actualizarNombreProducto(Integer.parseInt(tablaPrecios.getValueAt(filaSeleccionada, 0).toString()), textoNombre.getText());
+            //
+        //tablaPrecios.setValueAt(textoNombre.getText(), filaSeleccionada, 1);
+        //
+            //productoData.actualizarPrecioProducto(Integer.parseInt(tablaPrecios.getValueAt(filaSeleccionada, 0).toString()), Double.valueOf(textoMonto.getText()));
+            //
+        //tablaPrecios.setValueAt(textoMonto.getText(), filaSeleccionada, 2);
+        //
+        ///limpiar();
+         //JOptionPane.showMessageDialog(null,"La información del producto se actualizó con éxito");
+    //}           
         try {
         reservasLista=reservaData.obtenerReservas();  
         reservaData.actualizarEstado(rbActiva.isSelected(),"id_reserva",textoId.getText());
@@ -977,7 +987,7 @@ public class VistaReservas extends javax.swing.JFrame {
     }//GEN-LAST:event_tablaReservasMouseClicked
 
     private void botonAceptar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptar2ActionPerformed
-        // TODO add your handling code here:
+        confirmacion1.dispose();
     }//GEN-LAST:event_botonAceptar2ActionPerformed
 
     private void botonAceptar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptar3ActionPerformed
