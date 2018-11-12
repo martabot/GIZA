@@ -852,18 +852,18 @@ public class VistaMesas extends javax.swing.JFrame {
     }//GEN-LAST:event_tablaMesasMouseClicked
 
     private void cbDisponiblesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbDisponiblesActionPerformed
-        List<Mesa> mesas=mesaData.obtenerMesas().stream().filter(m->m.getIdMesa()==Integer.parseInt(cbDisponibles.getSelectedItem().toString())).collect(Collectors.toList());
-        mesas.forEach(m1->textoId.setText(String.valueOf(m1.getIdMesa())));
+        List<Mesa> me=mesaData.obtenerMesas().stream().filter(m->m.getIdMesa()==Integer.parseInt(cbDisponibles.getSelectedItem().toString())).collect(Collectors.toList());
+        me.forEach(m1->textoId.setText(String.valueOf(m1.getIdMesa())));
     }//GEN-LAST:event_cbDisponiblesActionPerformed
 
     private void cbReservadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbReservadasActionPerformed
-        List<Mesa> mesas=mesaData.obtenerMesas().stream().filter(m->m.getIdMesa()==Integer.parseInt(cbReservadas.getSelectedItem().toString())).collect(Collectors.toList());
-        mesas.forEach(m1->textoId.setText(String.valueOf(m1.getIdMesa())));
+        List<Mesa> me=mesaData.obtenerMesas().stream().filter(m->m.getIdMesa()==Integer.parseInt(cbReservadas.getSelectedItem().toString())).collect(Collectors.toList());
+        me.forEach(m1->textoId.setText(String.valueOf(m1.getIdMesa())));
     }//GEN-LAST:event_cbReservadasActionPerformed
 
     private void cbAtendidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAtendidasActionPerformed
-       List<Mesa> mesas=mesaData.obtenerMesas().stream().filter(m->m.getIdMesa()==Integer.parseInt(cbAtendidas.getSelectedItem().toString())).collect(Collectors.toList());
-       mesas.forEach(m1->textoId.setText(String.valueOf(m1.getIdMesa())));
+       List<Mesa> meee=mesaData.obtenerMesas().stream().filter(m->m.getIdMesa()==Integer.parseInt(cbAtendidas.getSelectedItem().toString())).collect(Collectors.toList());
+       meee.forEach(m1->textoId.setText(String.valueOf(m1.getIdMesa())));
     }//GEN-LAST:event_cbAtendidasActionPerformed
 
     private void atenderMesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atenderMesasActionPerformed

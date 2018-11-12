@@ -73,8 +73,7 @@ public class VistaPrecios extends javax.swing.JFrame {
             
             ProductoData pd=new ProductoData(conexion);
             int x=pd.obtenerProductos().size();
-            ArrayList<Producto> lista=new ArrayList<>();
-            lista=pd.obtenerProductos();
+            ArrayList<Producto> lista=pd.obtenerProductos();
             for (int b=0;b<x;b++){
             Object [] filas = new Object[3];
             Producto nuevo=lista.get(b);

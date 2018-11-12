@@ -6,7 +6,6 @@
 package vistas;
 
 import java.awt.event.KeyEvent;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -26,7 +25,6 @@ public class Inicio extends javax.swing.JFrame {
     private String nombre;
     private Boolean meseroIngresado;
     private List<Mesero> filtrados;
-    PreparedStatement ps;
     public static String usuario;
     
     //constructor
@@ -268,6 +266,7 @@ public class Inicio extends javax.swing.JFrame {
 
         label1.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 24)); // NOI18N
         label1.setForeground(new java.awt.Color(102, 0, 0));
+        label1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label1.setText("INGRESAR");
 
         label3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -342,7 +341,7 @@ public class Inicio extends javax.swing.JFrame {
         );
 
         panelPrincipal.add(panelDeInicio);
-        panelDeInicio.setBounds(550, 280, 260, 320);
+        panelDeInicio.setBounds(550, 300, 260, 320);
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/salir.png"))); // NOI18N
         jButton1.setContentAreaFilled(false);

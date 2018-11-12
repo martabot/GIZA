@@ -159,9 +159,9 @@ public class VistaReservas extends javax.swing.JFrame {
             DateTimeFormatter d = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"); 
             
             
-            int x=reservaData.obtenerReservas().size();
+            int r=reservaData.obtenerReservas().size();
             ArrayList<Reserva> lista=reservaData.obtenerReservas();
-            for (int b=0;b<x;b++){
+            for (int b=0;b<r;b++){
                 //para una lista de tamaño x(que es nuestra cantidad de filas) llenamos los datos de cada columna, los contadores de fila empiezan en 0
                 Object [] filas = new Object[5];
                 Reserva nuevo=lista.get(b);
@@ -987,7 +987,7 @@ public class VistaReservas extends javax.swing.JFrame {
     }//GEN-LAST:event_textoUsuario1ActionPerformed
 
     private void tablaReservasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaReservasMouseClicked
-        DateTimeFormatter x = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        x = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         int filaSeleccionada = tablaReservas.getSelectedRow();
         if (filaSeleccionada != -1){
         textoId.setText(tablaReservas.getValueAt(filaSeleccionada, 0).toString());

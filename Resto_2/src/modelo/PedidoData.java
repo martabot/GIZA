@@ -26,7 +26,6 @@ public class PedidoData {
     private Pedido pedido;
     private MesaData mesa;
     private MeseroData mesero;
-    private int totales;
 
     public PedidoData(Conexion conexion) {
         try {

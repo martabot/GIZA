@@ -47,7 +47,4 @@ public class Fuentes {
         Font tfont = font.deriveFont(stilo, tamanio);
         return tfont;
     }
-    
-    
 }
-

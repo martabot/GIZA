@@ -16,20 +16,17 @@ import java.sql.SQLException;
 public class Conexion {
     private final String url="jdbc:mysql://localhost/giza";
     private final String usuario="root";
-    private final String password="contrasenia";
-
+    private final String password="";
     private Connection conexion;
     
     public Conexion() throws ClassNotFoundException {
         
         //Cargamos las clases de mariadb que implementan JDBC
         Class.forName("org.mariadb.jdbc.Driver");
-
     }
     
     public Connection getConexion() throws SQLException{
         if(conexion == null){
-                    // Setup the connection with the DB
             conexion = DriverManager
                 .getConnection(url,usuario,password);
         }

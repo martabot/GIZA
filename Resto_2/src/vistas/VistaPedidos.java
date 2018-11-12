@@ -33,7 +33,6 @@ public class VistaPedidos extends javax.swing.JFrame {
     private DefaultTableModel modelo;
     private MesaData mesaData;
     private MeseroData meseroData;
-    private ReservaData reservaData;
     private int idPedido;
     private int idMesa;
     
@@ -76,7 +75,6 @@ public class VistaPedidos extends javax.swing.JFrame {
             comandaData=new ComandaData(conexion);
             mesaData=new MesaData(conexion);
             meseroData=new MeseroData(conexion);
-            reservaData=new ReservaData(conexion);
             
             modelo=new DefaultTableModel();
             //agrega las columnas con las que vamos a trabajar
@@ -103,7 +101,7 @@ public class VistaPedidos extends javax.swing.JFrame {
     public int getIdPedido() {
         return idPedido;
     }
-    public void setIdPedido() {
+    private void setIdPedido() {
         this.idPedido = Integer.parseInt(textoId.getText());
     }
     
@@ -176,7 +174,7 @@ public class VistaPedidos extends javax.swing.JFrame {
     }
     
     //Metodo para caragar los productos disponibles en el combobox
-    public void cargarCbProductos(){
+    private void cargarCbProductos(){
         productos.forEach((p) -> {
             cbProductos.addItem(p.getNombreProducto());
         });
@@ -783,11 +781,11 @@ public class VistaPedidos extends javax.swing.JFrame {
     //Quita el producto seleccionado de la tabla
     private void quitarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitarProductoActionPerformed
         //obtenemos los productos y filtramos los que tengan el nombre de una fila seleccionada
-        List<Producto> productos=productoData.obtenerProductos().stream().filter(p->p.getNombreProducto().equals(tablaPedido.getValueAt(tablaPedido.getSelectedRow(), 1).toString())).collect(Collectors.toList());
-        productos.forEach(p1->comandaData.borrarComandaPorPrdocuto(p1.getIdProducto()));
+        List<Producto> products=productoData.obtenerProductos().stream().filter(p->p.getNombreProducto().equals(tablaPedido.getValueAt(tablaPedido.getSelectedRow(), 1).toString())).collect(Collectors.toList());
+        products.forEach(p1->comandaData.borrarComandaPorPrdocuto(p1.getIdProducto()));
         
         //si lo elimina con exito y la tabla ya no tiene comandas.. avisa en la pantalla y limpia la tabla
-        if(productos.isEmpty()){
+        if(products.isEmpty()){
             JOptionPane.showMessageDialog(null,"Producto eliminado.");
             tablaPedido.setModel(modelo);
             limpiarTabla();
@@ -868,8 +866,8 @@ public class VistaPedidos extends javax.swing.JFrame {
     }//GEN-LAST:event_recualculando
 
     private void cbProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbProductosActionPerformed
-        List<Producto> productos=productoData.obtenerProductos().stream().filter(p->p.getNombreProducto().equals(cbProductos.getSelectedItem().toString())).collect(Collectors.toList());
-        productos.forEach(p1->idProducto.setText(String.valueOf(p1.getIdProducto())));
+        List<Producto> products=productoData.obtenerProductos().stream().filter(p->p.getNombreProducto().equals(cbProductos.getSelectedItem().toString())).collect(Collectors.toList());
+        products.forEach(p1->idProducto.setText(String.valueOf(p1.getIdProducto())));
     }//GEN-LAST:event_cbProductosActionPerformed
 
     private void ocultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ocultarActionPerformed

@@ -91,5 +91,4 @@ public class Pedido {
     public void setCobrada(boolean cobrada) {
         this.cobrada = cobrada;
     }
-    
 }
