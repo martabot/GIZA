@@ -141,9 +141,9 @@ public class Background extends javax.swing.JFrame {
         textoBienvenida.setFont(new java.awt.Font("Luisa", 0, 36)); // NOI18N
         textoBienvenida.setForeground(new java.awt.Color(153, 0, 51));
         textoBienvenida.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        textoBienvenida.setText(" BIENVENIDES");
+        textoBienvenida.setText("BIENVENIDES");
         background.add(textoBienvenida);
-        textoBienvenida.setBounds(360, 570, 560, 80);
+        textoBienvenida.setBounds(370, 570, 560, 80);
 
         tB3.setFont(new java.awt.Font("Sunshine", 0, 72)); // NOI18N
         tB3.setForeground(new java.awt.Color(0, 0, 0));
@@ -245,6 +245,7 @@ public class Background extends javax.swing.JFrame {
         background.add(eActualizar);
         eActualizar.setBounds(480, 30, 310, 20);
 
+        jPanel1.setBackground(new java.awt.Color(255, 236, 223));
         jPanel1.setForeground(new java.awt.Color(255, 236, 223));
 
         jLabel1.setBackground(new java.awt.Color(255, 236, 223));
@@ -255,18 +256,18 @@ public class Background extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jLabel1)
+                .addGap(0, 4, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 249, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         background.add(jPanel1);
-        jPanel1.setBounds(520, 300, 250, 250);
+        jPanel1.setBounds(520, 300, 260, 260);
 
         imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Background.png"))); // NOI18N
         imagen.setAlignmentY(0.0F);

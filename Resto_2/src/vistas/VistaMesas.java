@@ -94,8 +94,7 @@ public class VistaMesas extends javax.swing.JFrame {
             modelo.addColumn("CUENTA");
             
             int x=mesaData.obtenerMesas().size();
-            ArrayList<Mesa> lista=new ArrayList<>();
-            lista=mesaData.obtenerMesas();
+            ArrayList<Mesa> lista=mesaData.obtenerMesas();
             for (int b=0;b<x;b++){
             Object [] filas = new Object[3];
             Mesa nuevo=lista.get(b);
