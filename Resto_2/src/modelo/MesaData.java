@@ -140,7 +140,7 @@ public class MesaData {
     
     public void actualizarCapacidad(int i,int b){
         try {
-            String sql = "UPDATE mesa SET capacidad = ?  WHERE capacidad = ?;";
+            String sql = "UPDATE mesa SET capacidad = ?  WHERE id_mesa= ?;";
             try (PreparedStatement statment = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 statment.setInt(1, b);
                 statment.setInt(2, i);

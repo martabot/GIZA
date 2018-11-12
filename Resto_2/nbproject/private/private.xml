@@ -3,10 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/sarah/Documentos/repositorio_giza/GIZA/Resto_2/src/modelo/Conexion.java</file>
-            <file>file:/home/sarah/Documentos/repositorio_giza/GIZA/Resto_2/src/vistas/VistaPedidos.java</file>
-            <file>file:/home/sarah/Documentos/repositorio_giza/GIZA/Resto_2/src/vistas/VistaReservas.java</file>
-            <file>file:/home/sarah/Documentos/repositorio_giza/GIZA/Resto_2/src/vistas/Background.java</file>
+            <file>file:/C:/Users/Muñeca%20Brava/Documents/repositorio_giza/GIZA/Resto_2/src/vistas/VistaReservas.java</file>
+            <file>file:/C:/Users/Muñeca%20Brava/Documents/repositorio_giza/GIZA/Resto_2/src/modelo/ProductoData.java</file>
+            <file>file:/C:/Users/Muñeca%20Brava/Documents/repositorio_giza/GIZA/Resto_2/src/vistas/VistaMesas.java</file>
+            <file>file:/C:/Users/Muñeca%20Brava/Documents/repositorio_giza/GIZA/Resto_2/src/vistas/VistaPedidos.java</file>
+            <file>file:/C:/Users/Muñeca%20Brava/Documents/repositorio_giza/GIZA/Resto_2/src/modelo/ReservaData.java</file>
+            <file>file:/C:/Users/Muñeca%20Brava/Documents/repositorio_giza/GIZA/Resto_2/src/vistas/VistaPrecios.java</file>
         </group>
     </open-files>
 </project-private>

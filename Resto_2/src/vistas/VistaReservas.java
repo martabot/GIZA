@@ -37,6 +37,7 @@ public class VistaReservas extends javax.swing.JFrame {
     private MesaData mesaData;
     private PedidoData pedidoData;
     private MeseroData meseroData;
+    private DateTimeFormatter x;
     
     
     //Constructor
@@ -80,7 +81,8 @@ public class VistaReservas extends javax.swing.JFrame {
                 //autocancelamos las reservas que pierden vigencia
                 reservaData.obtenerReservas().forEach(r -> reservaData.autoCancelarReserva(r.getIdReserva()));
                 
-                idReserva=Integer.parseInt(textoId.getText());
+                
+                x = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
             } catch (ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(Background.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -132,6 +134,11 @@ public class VistaReservas extends javax.swing.JFrame {
         avisos.setText("");
         rbActiva.setSelected(false);
         rbInactiva.setSelected(false);
+        try {
+            this.cargarTabla();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(VistaReservas.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     //cargamos la tabla con la información de nuestras reservas
@@ -806,19 +813,17 @@ public class VistaReservas extends javax.swing.JFrame {
         this.setFecha(fec.toLocalDateTime());
         //comparamos con la fecha de hoy para saber si es una fecha de reserva válida
         int fec2=LocalDateTime.now().compareTo(this.getFecha());
-        DateTimeFormatter x = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         
-        MesaData m1=new MesaData(conexion);
                 
         //corroboramos que los datos sean validos mediante condicion if/else
         if (textoNombre.getText().equals("")) {
-                    avisos.setText("Por favor ingrese su nombre.");
+                    JOptionPane.showMessageDialog(null,"Por favor ingrese su nombre.");
                 } else if (textoDni.getText().equals("")) {
-                    avisos.setText("Por favor ingrese su DNI.");
+                    JOptionPane.showMessageDialog(null,"Por favor ingrese su DNI.");
                 } else if (fec2>=1) {
-                    avisos.setText("Por favor ingrese una fecha válida.");
-                } else if ("Reservada".equals(m1.deIdAMesa(this.getNroMesa()).getEstadoMesa())){
-                avisos.setText("La mesa ya se encuentra reservada, seleccione otra.");
+                    JOptionPane.showMessageDialog(null,"Por favor ingrese una fecha válida.");
+                } else if ("Reservada".equals(mesaData.deIdAMesa(this.getNroMesa()).getEstadoMesa())){
+                    JOptionPane.showMessageDialog(null,"La mesa ya se encuentra reservada, seleccione otra.");
                 }else{
                    
         //llenamos los campos para la confirmacion
@@ -826,7 +831,8 @@ public class VistaReservas extends javax.swing.JFrame {
         dniConfirmacion.setText(textoDni.getText());
         fechaConfirmacion.setText(this.getFecha().format(x));
         mesaConfirmacion.setText(String.valueOf(this.getNroMesa()));
-        estadoConfirmacion.setText(String.valueOf(rbActiva.isSelected()));
+        if(!rbActiva.isSelected()){estadoConfirmacion.setText("Inactiva");}
+        else{estadoConfirmacion.setText("Activa");}
         confirmacion.setVisible(true);}
     }//GEN-LAST:event_crearReservaActionPerformed
 
@@ -880,32 +886,40 @@ public class VistaReservas extends javax.swing.JFrame {
 
     //Elimina la reserva por id o "numero de reserva"(el que se le da al cliente) y reestablece el estado de la mesa a Libre
     private void eliminarReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarReservaActionPerformed
-        nombreConfirmacion1.setText(textoNombre.getText());
-        dniConfirmacion1.setText(textoDni.getText());
-        confirmacion1.setVisible(true);
+        if("".equals(textoId.getText())){JOptionPane.showMessageDialog(null, "Seleccione una reserva para eliminar");}
+        else{
+            nombreConfirmacion1.setText(textoNombre.getText());
+            dniConfirmacion1.setText(textoDni.getText());
+            confirmacion1.setVisible(true);
+        }
     }//GEN-LAST:event_eliminarReservaActionPerformed
 
     //Cambia la vigencia de una Reserva que no fue eliminada pero que ya no es válida
     private void darDeBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_darDeBajaActionPerformed
+        if(!"".equals(textoId.getText())){int pregunta= JOptionPane.showConfirmDialog(null, "Desea actualizar los datos de la reserva?");
+        if (pregunta==0){
         int idMesa=Integer.parseInt(spinnerMesas.getValue().toString());
-        ///INCOMPLETO, SOLO ACTUALIZA ESTADO
-       // int filaSeleccionada = tablaReservas.getSelectedRow();
-        //if (filaSeleccionada != -1){
-            //productoData.actualizarIdProducto(Integer.parseInt(tablaPrecios.getValueAt(filaSeleccionada, 0).toString()), Integer.parseInt(textoId.getText()));
-            //reservaData.actualizarReserva(Integer.parseInt(tablaReservas.getValueAt(filaSeleccionada,0).toString()), "id_reserva", String.valueOf(idReserva));
-        //tablaPrecios.setValueAt(textoId.getText(), filaSeleccionada, 0);
-        //
-            //productoData.actualizarNombreProducto(Integer.parseInt(tablaPrecios.getValueAt(filaSeleccionada, 0).toString()), textoNombre.getText());
-            //
-        //tablaPrecios.setValueAt(textoNombre.getText(), filaSeleccionada, 1);
-        //
-            //productoData.actualizarPrecioProducto(Integer.parseInt(tablaPrecios.getValueAt(filaSeleccionada, 0).toString()), Double.valueOf(textoMonto.getText()));
-            //
-        //tablaPrecios.setValueAt(textoMonto.getText(), filaSeleccionada, 2);
-        //
-        ///limpiar();
-         //JOptionPane.showMessageDialog(null,"La información del producto se actualizó con éxito");
-    //}           
+        Date utilStartDate = calendario.getDate();
+        java.sql.Timestamp fec = new java.sql.Timestamp(utilStartDate.getTime());
+        int filaSeleccionada = tablaReservas.getSelectedRow();
+        if (filaSeleccionada != -1){
+            try {
+                reservaData.actualizarReserva(Integer.parseInt(tablaReservas.getValueAt(filaSeleccionada,0).toString()), "id_reserva", textoId.getText());
+                tablaReservas.setValueAt(textoId.getText(),filaSeleccionada,0);
+                reservaData.actualizarNombre(Integer.parseInt(tablaReservas.getValueAt(filaSeleccionada,0).toString()), textoNombre.getText());
+                tablaReservas.setValueAt(textoNombre.getText(), filaSeleccionada, 1);
+                reservaData.actualizarReserva(Integer.parseInt(tablaReservas.getValueAt(filaSeleccionada,0).toString()), "dni_cliente", textoDni.getText());
+                tablaReservas.setValueAt(textoDni.getText(), filaSeleccionada, 2);
+                reservaData.actualizarFechaReserva(Integer.parseInt(tablaReservas.getValueAt(filaSeleccionada,0).toString()), fec.toLocalDateTime());
+                tablaReservas.setValueAt(fec.toLocalDateTime().format(x), filaSeleccionada, 3);
+                reservaData.actualizarReserva(Integer.parseInt(tablaReservas.getValueAt(filaSeleccionada,0).toString()), "id_mesa", spinnerMesas.getValue().toString());
+                tablaReservas.setValueAt(spinnerMesas.getValue().toString(), filaSeleccionada, 4);
+                
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(VistaReservas.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    }           
         try {
         reservasLista=reservaData.obtenerReservas();  
         reservaData.actualizarEstado(rbActiva.isSelected(),"id_reserva",textoId.getText());
@@ -923,7 +937,7 @@ public class VistaReservas extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null,"Reserva actualizada.");
        } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(VistaReservas.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }}}
     }//GEN-LAST:event_darDeBajaActionPerformed
     
     //limpia los casilleros invocando al método limpiante
@@ -997,8 +1011,9 @@ public class VistaReservas extends javax.swing.JFrame {
         reservaMesa.forEach(r->{
         mesaData.actualizarEstadoMesa("Libre",r.getMesa().getIdMesa());});
         reservaData.borrarReserva(Integer.parseInt(textoId.getText()));
-        this.limpiar();this.cargarTabla();avisos.setText("Reserva eliminada.");
+        this.limpiar();this.cargarTabla();
         confirmacion1.dispose();
+        JOptionPane.showMessageDialog(null,"Reserva eliminada.");
        } catch (ClassNotFoundException ex) {
             Logger.getLogger(VistaReservas.class.getName()).log(Level.SEVERE, null, ex);
         }

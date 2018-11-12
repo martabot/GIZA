@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -122,14 +123,46 @@ public class ReservaData {
         
        try {
         String sql = "UPDATE reserva SET "+atributo+"="+valor+" where id_reserva=? ;";
-       try (PreparedStatement statment = connection.prepareStatement(sql)) {
+       try (PreparedStatement statment = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
            statment.setInt(1, reserva);
              
             statment.executeUpdate();
             
             }  
        } catch (SQLException ex) {
-            System.out.println("Error al cancelar la reserva: " + ex.getMessage());
+            System.out.println("Error al actualizar la reserva: " + ex.getMessage());
+        }
+    }
+    
+    public void actualizarNombre(int reserva,String valor) throws SQLException{
+        
+       try {
+        String sql = "UPDATE reserva SET nombre_cliente= ? where id_reserva=? ;";
+       try (PreparedStatement statment = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+           statment.setString(1, valor);
+           statment.setInt(2, reserva);
+             
+            statment.executeUpdate();
+            
+            }  
+       } catch (SQLException ex) {
+            System.out.println("Error al actualizar el nombre: " + ex.getMessage());
+        }
+    }
+    
+     public void actualizarFechaReserva(int reserva,LocalDateTime dia) throws SQLException{
+        
+       try {
+        String sql = "UPDATE reserva SET fecha_reserva= ? where id_reserva=? ;";
+       try (PreparedStatement statment = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+           statment.setTimestamp(1, Timestamp.valueOf(dia));
+           statment.setInt(2, reserva);
+             
+            statment.executeUpdate();
+            
+            }  
+       } catch (SQLException ex) {
+            System.out.println("Error al actualizar la reserva: " + ex.getMessage());
         }
     }
     
@@ -137,7 +170,7 @@ public class ReservaData {
         
        try {
         String sql = "UPDATE reserva SET esta_vigente=0 where id_reserva=? AND fecha_reserva BETWEEN NOW()-INTERVAL 100 YEAR AND NOW()-INTERVAL 30 MINUTE;";
-       try (PreparedStatement statment = connection.prepareStatement(sql)) {
+      try (PreparedStatement statment = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
            statment.setInt(1, id);
              
             statment.executeUpdate();

@@ -87,10 +87,10 @@ public class VistaPrecios extends javax.swing.JFrame {
     
     //limpia los campos de texto
     private void limpiar(){
-        textoNombre.setText(null);
+        textoNombre.setText("");
         textoMonto.setText("00.0");
-        textoId.setText(null);
-        avisos.setText(null);
+        textoId.setText("");
+        this.cargarTabla();
     }
 
     @SuppressWarnings("unchecked")
@@ -125,7 +125,6 @@ public class VistaPrecios extends javax.swing.JFrame {
         limpiar = new javax.swing.JButton();
         ocultar = new javax.swing.JButton();
         eActualizar = new javax.swing.JLabel();
-        avisos = new javax.swing.JLabel();
         imagen = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -331,7 +330,7 @@ public class VistaPrecios extends javax.swing.JFrame {
 
         borrarProducto.setBackground(new java.awt.Color(255, 237, 221));
         borrarProducto.setForeground(new java.awt.Color(102, 0, 0));
-        borrarProducto.setText("BORRAR");
+        borrarProducto.setText("ELIMINAR");
         borrarProducto.setActionCommand("");
         borrarProducto.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 204, 204), new java.awt.Color(255, 204, 102), new java.awt.Color(204, 0, 51), new java.awt.Color(102, 0, 0)));
         borrarProducto.addActionListener(new java.awt.event.ActionListener() {
@@ -418,7 +417,7 @@ public class VistaPrecios extends javax.swing.JFrame {
 
         textoId.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         background.add(textoId);
-        textoId.setBounds(840, 210, 60, 19);
+        textoId.setBounds(840, 210, 60, 18);
 
         etiquetaId.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         etiquetaId.setForeground(new java.awt.Color(153, 0, 51));
@@ -482,9 +481,7 @@ public class VistaPrecios extends javax.swing.JFrame {
         eActualizar.setForeground(new java.awt.Color(102, 0, 0));
         eActualizar.setText("EL NOMBRE DE USUARIO SE ACTUALIZO CON EXITO");
         background.add(eActualizar);
-        eActualizar.setBounds(490, 30, 340, 15);
-        background.add(avisos);
-        avisos.setBounds(490, 240, 300, 14);
+        eActualizar.setBounds(490, 30, 340, 14);
 
         imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Background.png"))); // NOI18N
         imagen.setAlignmentY(0.0F);
@@ -536,6 +533,8 @@ public class VistaPrecios extends javax.swing.JFrame {
 
     //actualiza la informacion de un producto con los datos cargados en cada campo
     private void actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarActionPerformed
+        if(!"".equals(textoId.getText())){int pregunta= JOptionPane.showConfirmDialog(null, "Desea actualizar los datos del producto?");
+        if (pregunta==0){
         int filaSeleccionada = tablaPrecios.getSelectedRow();
         if (filaSeleccionada != -1){
             productoData.actualizarIdProducto(Integer.parseInt(tablaPrecios.getValueAt(filaSeleccionada, 0).toString()), Integer.parseInt(textoId.getText()));
@@ -546,31 +545,35 @@ public class VistaPrecios extends javax.swing.JFrame {
         tablaPrecios.setValueAt(textoMonto.getText(), filaSeleccionada, 2);
          limpiar();
          JOptionPane.showMessageDialog(null,"La información del producto se actualizó con éxito");
-    }           
-         
-     
-       
+    }}} 
     }//GEN-LAST:event_actualizarActionPerformed
 
     //agrega un producto a la db y a la tabla
     private void agregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarProductoActionPerformed
+        if(!"".equals(textoId.getText())){int pregunta= JOptionPane.showConfirmDialog(null, "Desea agregar un producto a la base de datos?");
+        if (pregunta==0){
         ProductoData pd=new ProductoData(conexion);
         Producto p1=new Producto(textoNombre.getText(),Double.parseDouble(textoMonto.getText()));
         pd.guardarProducto(p1);
         this.cargarTabla();
         this.limpiar();
+        JOptionPane.showMessageDialog(null,"El producto se agregó con éxito");
+        }}
     }//GEN-LAST:event_agregarProductoActionPerformed
 
     //borra un producto de la db por medio de su id
     private void borrarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarProductoActionPerformed
+        if(!"".equals(textoId.getText())){int pregunta= JOptionPane.showConfirmDialog(null, "Desea eliminar el producto de la base de datos?");
+        if (pregunta==0){
         try {
             ProductoData pd=new ProductoData(conexion);
             pd.borrarProducto(Integer.parseInt(textoId.getText()));
             this.cargarTabla();
             this.limpiar();
+            JOptionPane.showMessageDialog(null,"Producto eliminado.");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(VistaPrecios.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }}}
     }//GEN-LAST:event_borrarProductoActionPerformed
 
     //cierra sesión y vuelve al inicio
@@ -665,7 +668,6 @@ public class VistaPrecios extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton actualizar;
     private javax.swing.JButton agregarProducto;
-    private javax.swing.JLabel avisos;
     private javax.swing.JPanel background;
     private javax.swing.JButton borrarProducto;
     private javax.swing.JButton botonAjustes;

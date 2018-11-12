@@ -11,6 +11,7 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.*;
 
@@ -78,9 +79,9 @@ public class VistaMesas extends javax.swing.JFrame {
     }
     
     private void limpiar(){
-        textoId.setText(null);
-        textoCapacidad.setText(null);
-        avisos.setText(null);
+        textoId.setText("");
+        textoCapacidad.setText("");
+        avisos.setText("");
         this.cargarTabla();
     }
     
@@ -799,22 +800,23 @@ public class VistaMesas extends javax.swing.JFrame {
 
     private void agregarMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarMesaActionPerformed
         if (textoCapacidad.getText().equals("")) {
-                    avisos.setText("Por favor indique una capacidad.");
+                    JOptionPane.showMessageDialog(null,"Por favor indique una capacidad.");
                 }else{
-        textoConfirmacionMesa1.setText("Desea agregar una mesa para "+textoCapacidad.getText()+" personas?");}
-        confirmacion1.setVisible(true);
+        textoConfirmacionMesa1.setText("Desea agregar una mesa para "+textoCapacidad.getText()+" personas?");
+        confirmacion1.setVisible(true);}
     }//GEN-LAST:event_agregarMesaActionPerformed
 
     private void actualizarMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarMesaActionPerformed
-        int filaSeleccionada = tablaMesas.getSelectedRow();
+        if(!"".equals(textoId.getText())){int pregunta= JOptionPane.showConfirmDialog(null, "Desea actualizar los datos de la mesa?");
+        if (pregunta==0){int filaSeleccionada = tablaMesas.getSelectedRow();
         if (filaSeleccionada != -1){
             mesaData.actualizarIdMesa(Integer.parseInt(tablaMesas.getValueAt(filaSeleccionada, 0).toString()), Integer.parseInt(textoId.getText()));
             tablaMesas.setValueAt(textoId.getText(), filaSeleccionada, 0);
-            mesaData.actualizarCapacidad(Integer.parseInt(tablaMesas.getValueAt(filaSeleccionada, 1).toString()), Integer.parseInt(textoCapacidad.getText()));
+            mesaData.actualizarCapacidad(Integer.parseInt(tablaMesas.getValueAt(filaSeleccionada, 0).toString()), Integer.parseInt(textoCapacidad.getText()));
             tablaMesas.setValueAt(textoCapacidad.getText(), filaSeleccionada, 1);
             limpiar();
-            avisos.setText("La información se actualizó con éxito");
-        }
+            JOptionPane.showMessageDialog(null,"La información se actualizó con éxito");}
+        }}
     }//GEN-LAST:event_actualizarMesaActionPerformed
 
     private void limpiarCasillerosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarCasillerosActionPerformed
@@ -822,12 +824,11 @@ public class VistaMesas extends javax.swing.JFrame {
     }//GEN-LAST:event_limpiarCasillerosActionPerformed
 
     private void eliminarMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarMesaActionPerformed
-        if (textoId.getText().equals("")) {
-                    avisos.setText("Por favor seleccione una mesa.");
-                }else{
-        textoConfirmacionMesa2.setText("Desea eliminar la mesa "+textoId.getText()+" para "+textoCapacidad.getText()+" personas?");}
-        VistaMesas.setMesaActual(Integer.parseInt(textoId.getText()));
-        confirmacion2.setVisible(true);
+        if (textoId.getText().equals("")) {JOptionPane.showMessageDialog(null, "Seleccione una mesa para eliminar");}
+            else{
+            textoConfirmacionMesa2.setText("Desea eliminar la mesa "+textoId.getText()+" para "+textoCapacidad.getText()+" personas?");
+            VistaMesas.setMesaActual(Integer.parseInt(textoId.getText()));
+            confirmacion2.setVisible(true);}
     }//GEN-LAST:event_eliminarMesaActionPerformed
 
     private void botonPreciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPreciosActionPerformed
@@ -868,11 +869,11 @@ public class VistaMesas extends javax.swing.JFrame {
 
     private void atenderMesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atenderMesasActionPerformed
         if (textoId.getText().equals("")) {
-                    avisos.setText("Por favor seleccione una mesa.");
+                    JOptionPane.showMessageDialog(null,"Por favor seleccione una mesa.");
                 }else{
-        textoConfirmacionMesa.setText("Desea continuar con el pedido para la mesa "+textoId.getText()+"?");}
+        textoConfirmacionMesa.setText("Desea continuar con el pedido para la mesa "+textoId.getText()+"?");
         VistaMesas.setMesaActual(Integer.parseInt(textoId.getText()));
-        confirmacion.setVisible(true);
+        confirmacion.setVisible(true);}
     }//GEN-LAST:event_atenderMesasActionPerformed
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
@@ -897,7 +898,7 @@ public class VistaMesas extends javax.swing.JFrame {
         mesaData.guardarMesa(m);
         limpiar();
         cargarTabla();
-        avisos.setText("Se agregó una nueva mesa");
+        JOptionPane.showMessageDialog(null,"Se agregó una nueva mesa");
         confirmacion1.dispose();
     }//GEN-LAST:event_botonAceptar3ActionPerformed
 
@@ -909,7 +910,7 @@ public class VistaMesas extends javax.swing.JFrame {
         mesaData.borrarMesa(Integer.parseInt(textoId.getText()));
         limpiar();
         cargarTabla();
-        avisos.setText("Se eliminó una mesa");
+        JOptionPane.showMessageDialog(null,"Se eliminó una mesa");
         confirmacion2.dispose();
     }//GEN-LAST:event_botonAceptar5ActionPerformed
 

@@ -163,14 +163,14 @@ public class VistaPedidos extends javax.swing.JFrame {
 
     //pone todos nuestros campos en sus valores más virgenes
     private void limpiar(){
-        textoId.setText(null);
+        textoId.setText("");
         spinnerMesas.setValue(0);
-        avisos.setText(null);
+        avisos.setText("");
         spinnerCantidad.setValue(0);
-        idProducto.setText(null);
-        textoPagaCon.setText(null);
-        textoCambio.setText(null);
-        textoCuenta.setText(null);
+        idProducto.setText("");
+        textoPagaCon.setText("");
+        textoCambio.setText("");
+        textoCuenta.setText("");
         subtotal=00.0;
         limpiarTabla();
     }
@@ -198,7 +198,7 @@ public class VistaPedidos extends javax.swing.JFrame {
                 textoId.setText(String.valueOf(pedidoData.obtenerPedidos().get(pedidoData.obtenerPedidos().size()-1).getIdPedido()));
                 setIdPedido();
                 mesaData.actualizarEstadoMesa("Ocupada", idMesa);
-                JOptionPane.showMessageDialog(null, "Agregue un producto para continuar");
+                JOptionPane.showMessageDialog(null, "Se creo el pedido número "+textoId.getText()+". Agregue un producto para continuar");
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(VistaPedidos.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -846,8 +846,10 @@ public class VistaPedidos extends javax.swing.JFrame {
     //cancelar el pedido hara que se elimine de la base de datos, ese numero de pedido ya no podrá ser usado
     //Por ejemplo si queremos crear un pedido para la misma mesa de donde fue eliminado, seleccionamos la mesa y se creará un nuevo pedido
     private void cancelarPedido1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarPedido1ActionPerformed
+        if(!"".equals(textoId.getText())){
+            int pregunta= JOptionPane.showConfirmDialog(null, "Desea eliminar el pedido número "+textoId.getText()+"?");
+        if (pregunta==0){
         try {
-            
             mesaData.actualizarEstadoMesa("Libre", idMesa);
             pedidoData.borrarPedido(getIdPedido());
             limpiar();
@@ -857,7 +859,7 @@ public class VistaPedidos extends javax.swing.JFrame {
             
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(VistaPedidos.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }}}
     }//GEN-LAST:event_cancelarPedido1ActionPerformed
     
      //calcula el cambio que le daremos al cliente dependiendo de su cuenta y con cuanto pague
