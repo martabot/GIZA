@@ -35,6 +35,7 @@ public class VistaPedidos extends javax.swing.JFrame {
     private MeseroData meseroData;
     private int idPedido;
     private int idMesa;
+    private ReservaData reservaData;
     
     //construcutor 
     public VistaPedidos() {
@@ -75,6 +76,7 @@ public class VistaPedidos extends javax.swing.JFrame {
             comandaData=new ComandaData(conexion);
             mesaData=new MesaData(conexion);
             meseroData=new MeseroData(conexion);
+            reservaData=new ReservaData(conexion);
             
             modelo=new DefaultTableModel();
             //agrega las columnas con las que vamos a trabajar
@@ -192,12 +194,12 @@ public class VistaPedidos extends javax.swing.JFrame {
                         meseroData.deUsuarioAMesero(Inicio.usuarioRegistrado()),LocalDateTime.now(),0.0,false);
                 
                 pedidoData.guardarPedido(pedido);
-                
+                if("Reservada".equals(estadoMesa)){reservaData.actualizarEstado(false, "id_mesa", String.valueOf(idMesa));}
                 textoId.setText(String.valueOf(pedidoData.obtenerPedidos().get(pedidoData.obtenerPedidos().size()-1).getIdPedido()));
                 setIdPedido();
                 mesaData.actualizarEstadoMesa("Ocupada", idMesa);
                 JOptionPane.showMessageDialog(null, "Se creo el pedido número "+textoId.getText()+". Agregue un producto para continuar");
-            } catch (ClassNotFoundException ex) {
+            } catch (ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(VistaPedidos.class.getName()).log(Level.SEVERE, null, ex);
             }
             

@@ -884,8 +884,8 @@ public class VistaMesas extends javax.swing.JFrame {
         confirmacion.dispose();
         VistaMesas.setMesaActual(Integer.parseInt(textoId.getText()));
         VistaPedidos vistaPedidos=new VistaPedidos();
-        vistaPedidos.setVisible(true);
         this.setVisible(false);
+        vistaPedidos.setVisible(true);
     }//GEN-LAST:event_botonAceptar1ActionPerformed
 
     private void botonAceptar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptar2ActionPerformed
