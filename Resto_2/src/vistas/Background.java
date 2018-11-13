@@ -141,7 +141,7 @@ public class Background extends javax.swing.JFrame {
         textoBienvenida.setFont(new java.awt.Font("Luisa", 0, 36)); // NOI18N
         textoBienvenida.setForeground(new java.awt.Color(153, 0, 51));
         textoBienvenida.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        textoBienvenida.setText("BIENVENIDES");
+        textoBienvenida.setText("BIENVENIDOS");
         background.add(textoBienvenida);
         textoBienvenida.setBounds(370, 570, 560, 80);
 

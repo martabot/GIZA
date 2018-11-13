@@ -25,9 +25,9 @@ public class VistaMesas extends javax.swing.JFrame {
     private MeseroData meseroData;
     private PedidoData pedidoData;
     private ReservaData reservaData;
-    private List<Mesa> mesas;
-    private List<Integer> mesasId;
-    private List<Integer> reservas;
+    private ArrayList<Mesa> mesas;
+    private ArrayList<Integer> mesasId;
+    private ArrayList<Integer> reservas;
     private Fuentes fuente;
     public static int mesaActual;
 
@@ -62,6 +62,12 @@ public class VistaMesas extends javax.swing.JFrame {
             pedidoData=new PedidoData(conexion);
             reservaData=new ReservaData(conexion);
             
+            mesas=(ArrayList<Mesa>) mesaData.obtenerMesas().stream().filter(m->"Libre".equals(m.getEstadoMesa())).collect(Collectors.toList());
+
+            mesasId=pedidoData.selccionarPedidoPorMesero(Inicio.usuarioRegistrado());
+
+            reservas=reservaData.reservasPorMesa();
+            
             cargarCbAtendidas();
             cargarCbReservadasHoy();
             cargarCbDisponibles();
@@ -79,13 +85,13 @@ public class VistaMesas extends javax.swing.JFrame {
     }
     
     private void limpiar(){
-        cargarCbDisponibles();
-        cargarCbReservadasHoy();
-        cargarCbAtendidas();
         textoId.setText("");
         textoCapacidad.setText("");
         avisos.setText("");
         this.cargarTabla();
+        if(cbReservadas.getSelectedItem()!="seleccionar"){cbReservadas.setSelectedIndex(0);}
+        if(cbDisponibles.getSelectedItem()!="seleccionar"){cbDisponibles.setSelectedItem("seleccionar");}
+        if(cbAtendidas.getSelectedItem()!="seleccionar"){cbAtendidas.setSelectedIndex(0);}
     }
     
     private void cargarTabla(){
@@ -116,28 +122,21 @@ public class VistaMesas extends javax.swing.JFrame {
     }
     
     private void cargarCbDisponibles(){
-        mesas=mesaData.obtenerMesas().stream().filter(m->"Libre".equals(m.getEstadoMesa())).collect(Collectors.toList());
         mesas.forEach((m) -> {
             cbDisponibles.addItem(String.valueOf(m.getIdMesa()));
         });
     }
     
     private void cargarCbReservadasHoy(){
-        reservas=reservaData.reservasPorMesa();
         reservas.forEach((r) -> {
             cbReservadas.addItem(String.valueOf(r));
         });
     }
     
     private void cargarCbAtendidas(){
-        try {
-            mesasId=pedidoData.selccionarPedidoPorMesero(Inicio.usuarioRegistrado());
-            mesasId.forEach((r) -> {
-                cbAtendidas.addItem(String.valueOf(r));
-            });
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(VistaMesas.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        mesasId.forEach((r) -> {
+            cbAtendidas.addItem(String.valueOf(r));
+        });
     }
 
     @SuppressWarnings("unchecked")

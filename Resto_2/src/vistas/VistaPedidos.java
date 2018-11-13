@@ -94,7 +94,6 @@ public class VistaPedidos extends javax.swing.JFrame {
             VistaMesas.setMesaActual(0);
             idMesa=Integer.valueOf(spinnerMesas.getValue().toString());
             atenderMesas();
-            setIdPedido();
             }
             
         } catch (ClassNotFoundException | SQLException ex) {
@@ -174,7 +173,7 @@ public class VistaPedidos extends javax.swing.JFrame {
         textoCambio.setText("");
         textoCuenta.setText("");
         subtotal=00.0;
-        cargarCbProductos();
+        cbProductos.setSelectedIndex(0);
         limpiarTabla();
     }
     
@@ -200,8 +199,9 @@ public class VistaPedidos extends javax.swing.JFrame {
                 if("Reservada".equals(estadoMesa)){reservaData.actualizarEstado(false, "id_mesa", String.valueOf(idMesa));}
                 textoId.setText(String.valueOf(pedidoData.obtenerPedidos().get(pedidoData.obtenerPedidos().size()-1).getIdPedido()));
                 setIdPedido();
-                mesaData.actualizarEstadoMesa("Ocupada", idMesa);
+                mesaData.actualizarEstadoMesa("Ocupada", idMesa); 
                 JOptionPane.showMessageDialog(null, "Se creo el pedido número "+textoId.getText()+". Agregue un producto para continuar");
+                avisos.setText("Estado de la mesa: "+mesaData.deIdAMesa(idMesa).getEstadoMesa()); 
             } catch (ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(VistaPedidos.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -783,17 +783,19 @@ public class VistaPedidos extends javax.swing.JFrame {
     //el boton de buscar carga la tabla cumpliendo con las condiciones del método invocado
     private void buscarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarPedidoActionPerformed
         try {int i=0;
+            String estadoMesa= mesaData.deIdAMesa(Integer.parseInt(spinnerMesas.getValue().toString())).getEstadoMesa();
             setIdPedido();
             int idConsultaDos=meseroData.deUsuarioAMesero(Inicio.usuarioRegistrado()).getIdMesero();
             for(Pedido p: pedidoData.obtenerPedidos()){
                 if(p.getIdPedido()==getIdPedido()&&p.getMesero().getIdMesero()==idConsultaDos){i=1;}
                 else if(p.getIdPedido()==getIdPedido()&&p.getMesero().getIdMesero()!=idConsultaDos&&p.getCobrada()){i=1;}
-                else if(pedidoData.seleccionarPedidosPor("id_pedido", getIdPedido()).isEmpty()&&getIdPedido()!=0){i=2; }
+                else if(pedidoData.seleccionarPedidosPor("id_pedido", getIdPedido()).isEmpty()&&getIdPedido()!=0){i=2;}
             }
             switch (i) {
                 case 1:
                     this.cargarTabla();
-                    avisos.setText("Estado de la mesa: "+mesaData.deIdAMesa(Integer.parseInt(spinnerMesas.getValue().toString())).getEstadoMesa());
+                    if(estadoMesa.equals("Reservada")){
+                    avisos.setText("Estado de la mesa: Atendida");} else {avisos.setText("Estado de la mesa: "+estadoMesa);}
                     break; 
                 case 2:
                     JOptionPane.showMessageDialog(null, "No se encontró la orden o no existe.");

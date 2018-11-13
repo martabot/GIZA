@@ -598,7 +598,7 @@ public class VistaIngresos extends javax.swing.JFrame {
 
     private void filtrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filtrarActionPerformed
         if("COBRADOS".equals(cbEstado.getSelectedItem().toString())){
-            if(0==cbBuscarPor.getSelectedIndex()){ 
+            if(0==cbBuscarPor.getSelectedIndex()&&(calendario.getDate()==null&&calendario1.getDate()==null)){ 
                 try {
                     listaPedidos=(ArrayList<Pedido>) pedidoData.obtenerPedidos().stream().filter(p-> p.getCobrada()).collect(Collectors.toList());
                     cargarTabla(listaPedidos);
@@ -692,10 +692,10 @@ public class VistaIngresos extends javax.swing.JFrame {
               }
                 break;
             default:
-                JOptionPane.showMessageDialog(null, "Indique un filtro");
+                JOptionPane.showMessageDialog(null, "Indique un filtro de MESA O MESERO.");
                 break;
         }} else if("PENDIENTES".equals(cbEstado.getSelectedItem().toString())){
-         if(0==cbBuscarPor.getSelectedIndex()){ 
+         if(0==cbBuscarPor.getSelectedIndex()&&(calendario.getDate()==null&&calendario1.getDate()==null)){ 
             try {
                     listaPedidos=(ArrayList<Pedido>) pedidoData.obtenerPedidos().stream().filter(p-> !p.getCobrada()).collect(Collectors.toList());
                     cargarTabla(listaPedidos);
@@ -789,7 +789,7 @@ public class VistaIngresos extends javax.swing.JFrame {
               }
                 break;
             default:
-                JOptionPane.showMessageDialog(null, "Indique un filtro.");
+                JOptionPane.showMessageDialog(null, "Indique un filtro de MESA o MESERO.");
                 break;
         }}else{JOptionPane.showMessageDialog(null, "Indique un estado de COBRADO O PENDIENTE para filtrar los pedidos.");}
     }//GEN-LAST:event_filtrarActionPerformed
