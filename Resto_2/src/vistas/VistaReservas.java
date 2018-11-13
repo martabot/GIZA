@@ -15,6 +15,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import modelo.*;
 
@@ -38,7 +40,7 @@ public class VistaReservas extends javax.swing.JFrame {
     private PedidoData pedidoData;
     private MeseroData meseroData;
     private DateTimeFormatter x;
-    
+    private static DefaultTableCellRenderer alineacion;
     
     //Constructor
     public VistaReservas(){
@@ -146,6 +148,8 @@ public class VistaReservas extends javax.swing.JFrame {
             
             //nos ayuda a editar una tabla con modelo personalizado
             DefaultTableModel modelo=new DefaultTableModel();
+            alineacion = new DefaultTableCellRenderer();
+            alineacion.setHorizontalAlignment(SwingConstants.RIGHT);
             tablaReservas.setModel(modelo);
             
             //agrega las columnas con las que vamos a trabajar
@@ -154,6 +158,10 @@ public class VistaReservas extends javax.swing.JFrame {
             modelo.addColumn("DNI");
             modelo.addColumn("FECHA");
             modelo.addColumn("MESA");
+            
+            tablaReservas.getColumnModel().getColumn(0).setCellRenderer(alineacion);
+            tablaReservas.getColumnModel().getColumn(2).setCellRenderer(alineacion);
+            tablaReservas.getColumnModel().getColumn(4).setCellRenderer(alineacion);
             
             //acomodamos el formato para que se vea bonito en nuestra tabla
             DateTimeFormatter d = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"); 

@@ -12,6 +12,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import modelo.*;
 
@@ -30,6 +32,7 @@ public class VistaMesas extends javax.swing.JFrame {
     private ArrayList<Integer> reservas;
     private Fuentes fuente;
     public static int mesaActual;
+    private static DefaultTableCellRenderer alineacion;
 
     public VistaMesas(){
         this.setUndecorated(true);
@@ -96,11 +99,18 @@ public class VistaMesas extends javax.swing.JFrame {
     
     private void cargarTabla(){
         DefaultTableModel modelo=new DefaultTableModel();
-            tablaMesas.setModel(modelo);
+            alineacion = new DefaultTableCellRenderer();
+            alineacion.setHorizontalAlignment(SwingConstants.RIGHT);
             
             modelo.addColumn("NRO DE MESA");
             modelo.addColumn("CAPACIDAD");
             modelo.addColumn("CUENTA");
+            
+            tablaMesas.setModel(modelo);
+            
+            tablaMesas.getColumnModel().getColumn(0).setCellRenderer(alineacion);
+            tablaMesas.getColumnModel().getColumn(1).setCellRenderer(alineacion);
+            tablaMesas.getColumnModel().getColumn(2).setCellRenderer(alineacion);
             
             int x=mesaData.obtenerMesas().size();
             ArrayList<Mesa> lista=mesaData.obtenerMesas();
@@ -575,7 +585,7 @@ public class VistaMesas extends javax.swing.JFrame {
         eActualizar.setForeground(new java.awt.Color(102, 0, 0));
         eActualizar.setText("EL NOMBRE DE USUARIO SE ACTUALIZO CON EXITO");
         background.add(eActualizar);
-        eActualizar.setBounds(460, 30, 340, 15);
+        eActualizar.setBounds(460, 30, 340, 16);
 
         textoId.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         background.add(textoId);

@@ -14,6 +14,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import modelo.*;
 
@@ -36,6 +38,7 @@ public class VistaPedidos extends javax.swing.JFrame {
     private int idPedido;
     private int idMesa;
     private ReservaData reservaData;
+    private static DefaultTableCellRenderer alineacion;
     
     //construcutor 
     public VistaPedidos() {
@@ -115,6 +118,8 @@ public class VistaPedidos extends javax.swing.JFrame {
         try {
             try {
                 //nos ayuda a editar una tabla con modelo personalizado
+                alineacion = new DefaultTableCellRenderer();
+                alineacion.setHorizontalAlignment(SwingConstants.RIGHT);
                 tablaPedido.setModel(modelo);            
                 
                 //preparamos una lista con las comandas del pedido seleccionado
@@ -128,7 +133,8 @@ public class VistaPedidos extends javax.swing.JFrame {
                 if(pedidoData.seleccionarPedidoPor("id_pedido",getIdPedido()).getCobrada()){
                     JOptionPane.showMessageDialog(null, "El predido ya fue cobrado, información en la pestaña de ingresos");
                 } else {
-                
+                    tablaPedido.getColumnModel().getColumn(0).setCellRenderer(alineacion);
+                    tablaPedido.getColumnModel().getColumn(2).setCellRenderer(alineacion);
                     //si el pedido tiene comandas activas las lista en nuestra tabla
                     lista.stream().map((c) -> {
                         modelo.addRow(new Object[]{c.getCantidad(),c.getProducto().getNombreProducto(),c.getCantidad()*c.getProducto().getPrecio()});

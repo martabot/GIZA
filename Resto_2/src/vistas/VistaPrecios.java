@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import modelo.*;
 
@@ -23,6 +25,7 @@ public class VistaPrecios extends javax.swing.JFrame {
     private Fuentes fuente;
     private Conexion conexion;
     private ProductoData productoData;
+    private static DefaultTableCellRenderer alineacion;
     
     //constructor
     public VistaPrecios() {
@@ -65,11 +68,16 @@ public class VistaPrecios extends javax.swing.JFrame {
     //Carga la tabla con los datos
     private void cargarTabla(){
         DefaultTableModel modelo=new DefaultTableModel();
+        alineacion = new DefaultTableCellRenderer();
+            alineacion.setHorizontalAlignment(SwingConstants.RIGHT);
             tablaPrecios.setModel(modelo);
             
             modelo.addColumn("CODIGO");
             modelo.addColumn("NOMBRE");
             modelo.addColumn("PRECIO");
+            
+            tablaPrecios.getColumnModel().getColumn(0).setCellRenderer(alineacion);
+            tablaPrecios.getColumnModel().getColumn(2).setCellRenderer(alineacion);
             
             ProductoData pd=new ProductoData(conexion);
             int x=pd.obtenerProductos().size();

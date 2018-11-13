@@ -16,6 +16,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import modelo.*;
 
@@ -37,6 +39,7 @@ public class VistaIngresos extends javax.swing.JFrame {
     private DateTimeFormatter d;
     private ArrayList<Pedido> listaPedidos;
     private double sub;
+    private static DefaultTableCellRenderer alineacion;
     
     public VistaIngresos() {
         
@@ -71,14 +74,21 @@ public class VistaIngresos extends javax.swing.JFrame {
             pedidoData=new PedidoData(conexion);
             
             modelo=new DefaultTableModel();
+            alineacion = new DefaultTableCellRenderer();
+            alineacion.setHorizontalAlignment(SwingConstants.RIGHT);
+            
             modelo.addColumn("MESERO"); 
             modelo.addColumn("PEDIDO");
             modelo.addColumn("MESA");
             modelo.addColumn("FECHA");
             modelo.addColumn("CUENTA");
             
+            tablaIngresos.getColumnModel().getColumn(1).setCellRenderer(alineacion);
+            tablaIngresos.getColumnModel().getColumn(2).setCellRenderer(alineacion);
+            tablaIngresos.getColumnModel().getColumn(4).setCellRenderer(alineacion);
+                    
             d = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-            
+            tablaIngresos.setModel(modelo);
             listaPedidos =new ArrayList<>();
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(Background.class.getName()).log(Level.SEVERE, null, ex);
@@ -123,7 +133,8 @@ public class VistaIngresos extends javax.swing.JFrame {
     }
     
     private void cargarTabla(ArrayList<Pedido> lista){
-        tablaReservas.setModel(modelo);
+        tablaIngresos.getColumnModel().getColumn(4).setCellRenderer(alineacion);
+        tablaIngresos.setModel(modelo);
         sub=0;
         
         limpiarTabla();
@@ -183,7 +194,7 @@ public class VistaIngresos extends javax.swing.JFrame {
         eTotal = new javax.swing.JLabel();
         ePagaCon1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablaReservas = new javax.swing.JTable();
+        tablaIngresos = new javax.swing.JTable();
         imagen = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -344,7 +355,7 @@ public class VistaIngresos extends javax.swing.JFrame {
         eActualizar.setForeground(new java.awt.Color(102, 0, 0));
         eActualizar.setText("EL NOMBRE DE USUARIO SE ACTUALIZO CON EXITO");
         background.add(eActualizar);
-        eActualizar.setBounds(480, 30, 340, 15);
+        eActualizar.setBounds(480, 30, 340, 16);
 
         cbEstado.setForeground(new java.awt.Color(102, 102, 102));
         cbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "seleccionar", "PENDIENTES", "COBRADOS" }));
@@ -440,10 +451,10 @@ public class VistaIngresos extends javax.swing.JFrame {
         background.add(ePagaCon1);
         ePagaCon1.setBounds(730, 650, 90, 30);
 
-        tablaReservas.setBackground(new java.awt.Color(254, 247, 230));
-        tablaReservas.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        tablaReservas.setForeground(new java.awt.Color(153, 0, 51));
-        tablaReservas.setModel(new javax.swing.table.DefaultTableModel(
+        tablaIngresos.setBackground(new java.awt.Color(254, 247, 230));
+        tablaIngresos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        tablaIngresos.setForeground(new java.awt.Color(153, 0, 51));
+        tablaIngresos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -475,9 +486,9 @@ public class VistaIngresos extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tablaReservas.setSelectionBackground(new java.awt.Color(153, 0, 51));
-        tablaReservas.setSelectionForeground(new java.awt.Color(254, 247, 230));
-        jScrollPane1.setViewportView(tablaReservas);
+        tablaIngresos.setSelectionBackground(new java.awt.Color(153, 0, 51));
+        tablaIngresos.setSelectionForeground(new java.awt.Color(254, 247, 230));
+        jScrollPane1.setViewportView(tablaIngresos);
 
         background.add(jScrollPane1);
         jScrollPane1.setBounds(400, 390, 490, 260);
@@ -840,7 +851,7 @@ public class VistaIngresos extends javax.swing.JFrame {
     private javax.swing.JButton listarTodos;
     private javax.swing.JLabel nomNu;
     private javax.swing.JButton ocultar;
-    private javax.swing.JTable tablaReservas;
+    private javax.swing.JTable tablaIngresos;
     private javax.swing.JTextField textoUsuario1;
     // End of variables declaration//GEN-END:variables
 }
