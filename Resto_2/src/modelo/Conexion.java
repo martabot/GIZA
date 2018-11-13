@@ -16,7 +16,7 @@ import java.sql.SQLException;
 public class Conexion {
     private final String url="jdbc:mysql://localhost/giza";
     private final String usuario="root";
-    private final String password="";
+    private final String password="contrasenia";
     private Connection conexion;
     
     public Conexion() throws ClassNotFoundException {

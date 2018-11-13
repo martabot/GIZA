@@ -79,6 +79,9 @@ public class VistaMesas extends javax.swing.JFrame {
     }
     
     private void limpiar(){
+        cargarCbDisponibles();
+        cargarCbReservadasHoy();
+        cargarCbAtendidas();
         textoId.setText("");
         textoCapacidad.setText("");
         avisos.setText("");
@@ -853,17 +856,26 @@ public class VistaMesas extends javax.swing.JFrame {
 
     private void cbDisponiblesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbDisponiblesActionPerformed
         List<Mesa> me=mesaData.obtenerMesas().stream().filter(m->m.getIdMesa()==Integer.parseInt(cbDisponibles.getSelectedItem().toString())).collect(Collectors.toList());
-        me.forEach(m1->textoId.setText(String.valueOf(m1.getIdMesa())));
+        me.forEach(m1->{
+            textoId.setText(String.valueOf(m1.getIdMesa()));
+            textoCapacidad.setText(String.valueOf(m1.getCapacidad()));
+                });
     }//GEN-LAST:event_cbDisponiblesActionPerformed
 
     private void cbReservadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbReservadasActionPerformed
         List<Mesa> me=mesaData.obtenerMesas().stream().filter(m->m.getIdMesa()==Integer.parseInt(cbReservadas.getSelectedItem().toString())).collect(Collectors.toList());
-        me.forEach(m1->textoId.setText(String.valueOf(m1.getIdMesa())));
+        me.forEach(m1->{
+            textoId.setText(String.valueOf(m1.getIdMesa()));
+            textoCapacidad.setText(String.valueOf(m1.getCapacidad()));
+                });
     }//GEN-LAST:event_cbReservadasActionPerformed
 
     private void cbAtendidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAtendidasActionPerformed
        List<Mesa> meee=mesaData.obtenerMesas().stream().filter(m->m.getIdMesa()==Integer.parseInt(cbAtendidas.getSelectedItem().toString())).collect(Collectors.toList());
-       meee.forEach(m1->textoId.setText(String.valueOf(m1.getIdMesa())));
+       meee.forEach(m1->{
+           textoId.setText(String.valueOf(m1.getIdMesa()));
+           textoCapacidad.setText(String.valueOf(m1.getCapacidad()));
+               });
     }//GEN-LAST:event_cbAtendidasActionPerformed
 
     private void atenderMesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atenderMesasActionPerformed
@@ -871,7 +883,6 @@ public class VistaMesas extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null,"Por favor seleccione una mesa.");
                 }else{
         textoConfirmacionMesa.setText("Desea continuar con el pedido para la mesa "+textoId.getText()+"?");
-        VistaMesas.setMesaActual(Integer.parseInt(textoId.getText()));
         confirmacion.setVisible(true);}
     }//GEN-LAST:event_atenderMesasActionPerformed
 

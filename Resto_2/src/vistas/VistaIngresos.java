@@ -750,7 +750,6 @@ public class VistaIngresos extends javax.swing.JFrame {
             }
                 break;
             case "MESA":
-                cargarTabla(null);
             if(calendario.getDate()==null&&calendario1.getDate()==null){
             try {
                  listaPedidos=(ArrayList<Pedido>) pedidoData.seleccionarPedidosPor("id_mesa", cbReferencias.getSelectedIndex()+1).stream().filter(p-> !p.getCobrada()).collect(Collectors.toList());
@@ -780,7 +779,7 @@ public class VistaIngresos extends javax.swing.JFrame {
                 listaPedidos=pedidoData.selccionarPedidosConFecha("id_mesa",cbReferencias.getSelectedIndex()+1,false, getFecha1(), now().plus(100,ChronoUnit.YEARS));
                 cargarTabla(listaPedidos);
                 if (listaPedidos.isEmpty()){
-                    JOptionPane.showMessageDialog(null, "No se han encontrado pedidos");
+                    JOptionPane.showMessageDialog(null, "No se han encontrado pedidos.");
                     limpiarTabla();
                 }
                 
@@ -790,13 +789,14 @@ public class VistaIngresos extends javax.swing.JFrame {
               }
                 break;
             default:
-                JOptionPane.showMessageDialog(null, "Indique un filtro");
+                JOptionPane.showMessageDialog(null, "Indique un filtro.");
                 break;
-        }}else{String a= "atrapalos YA, pokemon!";}
+        }}else{JOptionPane.showMessageDialog(null, "Indique un estado de COBRADO O PENDIENTE para filtrar los pedidos.");}
     }//GEN-LAST:event_filtrarActionPerformed
 
     private void listarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listarTodosActionPerformed
         try {
+            limpiar();
             listaPedidos=pedidoData.obtenerPedidos();
             cargarTabla(listaPedidos);
         } catch (ClassNotFoundException ex) {

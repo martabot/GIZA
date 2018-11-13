@@ -101,7 +101,10 @@ public class VistaPrecios extends javax.swing.JFrame {
         botonMesas = new javax.swing.JButton();
         botonReservas = new javax.swing.JButton();
         botonPedidos = new javax.swing.JButton();
+        etiquetaId = new javax.swing.JLabel();
         labelPrecios = new javax.swing.JLabel();
+        nomNu = new javax.swing.JLabel();
+        textoId = new javax.swing.JTextField();
         actualizar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaPrecios = new javax.swing.JTable();
@@ -109,13 +112,10 @@ public class VistaPrecios extends javax.swing.JFrame {
         borrarProducto = new javax.swing.JButton();
         cerrarSesion = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        nomNu = new javax.swing.JLabel();
         cambiarNombre2 = new javax.swing.JButton();
         botonAjustes = new javax.swing.JButton();
         textoUsuario1 = new javax.swing.JTextField();
         botonBalance = new javax.swing.JButton();
-        textoId = new javax.swing.JTextField();
-        etiquetaId = new javax.swing.JLabel();
         textoNombre = new javax.swing.JTextField();
         etiquetaNombre = new javax.swing.JLabel();
         etiquetaId4 = new javax.swing.JLabel();
@@ -136,6 +136,11 @@ public class VistaPrecios extends javax.swing.JFrame {
         botonPrecios.setText("PRECIOS");
         botonPrecios.setToolTipText("");
         botonPrecios.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 153, 51), 3, true));
+        botonPrecios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonPreciosActionPerformed(evt);
+            }
+        });
         background.add(botonPrecios);
         botonPrecios.setBounds(20, 500, 250, 70);
 
@@ -178,11 +183,28 @@ public class VistaPrecios extends javax.swing.JFrame {
         background.add(botonPedidos);
         botonPedidos.setBounds(20, 400, 250, 70);
 
+        etiquetaId.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        etiquetaId.setForeground(new java.awt.Color(153, 0, 51));
+        etiquetaId.setText("CÓDIGO:");
+        background.add(etiquetaId);
+        etiquetaId.setBounds(760, 210, 80, 20);
+
         labelPrecios.setFont(new java.awt.Font("Luisa", 1, 24)); // NOI18N
         labelPrecios.setForeground(new java.awt.Color(153, 0, 51));
-        labelPrecios.setText("LISTA DE PRECIOS");
+        labelPrecios.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelPrecios.setText("PRECIOS");
         background.add(labelPrecios);
-        labelPrecios.setBounds(540, 190, 220, 40);
+        labelPrecios.setBounds(360, 200, 560, 40);
+
+        nomNu.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        nomNu.setForeground(new java.awt.Color(102, 0, 0));
+        nomNu.setText("NUEVO NOMBRE:");
+        background.add(nomNu);
+        nomNu.setBounds(390, 50, 130, 30);
+
+        textoId.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        background.add(textoId);
+        textoId.setBounds(840, 210, 60, 19);
 
         actualizar.setBackground(new java.awt.Color(255, 237, 221));
         actualizar.setForeground(new java.awt.Color(102, 0, 0));
@@ -304,6 +326,7 @@ public class VistaPrecios extends javax.swing.JFrame {
         tablaPrecios.setGridColor(new java.awt.Color(194, 65, 65));
         tablaPrecios.setSelectionBackground(new java.awt.Color(153, 0, 0));
         tablaPrecios.setSelectionForeground(new java.awt.Color(254, 247, 230));
+        tablaPrecios.setUpdateSelectionOnSort(false);
         tablaPrecios.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tablaPreciosMouseClicked(evt);
@@ -360,12 +383,6 @@ public class VistaPrecios extends javax.swing.JFrame {
         background.add(jButton1);
         jButton1.setBounds(280, 40, 30, 40);
 
-        nomNu.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        nomNu.setForeground(new java.awt.Color(102, 0, 0));
-        nomNu.setText("NUEVO NOMBRE:");
-        background.add(nomNu);
-        nomNu.setBounds(390, 50, 130, 30);
-
         cambiarNombre2.setBackground(new java.awt.Color(255, 237, 221));
         cambiarNombre2.setForeground(new java.awt.Color(102, 0, 0));
         cambiarNombre2.setText("Cambiar Nombre");
@@ -413,16 +430,6 @@ public class VistaPrecios extends javax.swing.JFrame {
         });
         background.add(botonBalance);
         botonBalance.setBounds(20, 600, 250, 70);
-
-        textoId.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        background.add(textoId);
-        textoId.setBounds(840, 210, 60, 18);
-
-        etiquetaId.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        etiquetaId.setForeground(new java.awt.Color(153, 0, 51));
-        etiquetaId.setText("NRO:");
-        background.add(etiquetaId);
-        etiquetaId.setBounds(800, 210, 50, 20);
 
         textoNombre.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         background.add(textoNombre);
@@ -480,7 +487,7 @@ public class VistaPrecios extends javax.swing.JFrame {
         eActualizar.setForeground(new java.awt.Color(102, 0, 0));
         eActualizar.setText("EL NOMBRE DE USUARIO SE ACTUALIZO CON EXITO");
         background.add(eActualizar);
-        eActualizar.setBounds(490, 30, 340, 14);
+        eActualizar.setBounds(490, 30, 340, 15);
 
         imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Background.png"))); // NOI18N
         imagen.setAlignmentY(0.0F);
@@ -532,7 +539,11 @@ public class VistaPrecios extends javax.swing.JFrame {
 
     //actualiza la informacion de un producto con los datos cargados en cada campo
     private void actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarActionPerformed
-        if(!"".equals(textoId.getText())){int pregunta= JOptionPane.showConfirmDialog(null, "Desea actualizar los datos del producto?");
+        Producto p = productoData.deIdAlProducto(Integer.parseInt(textoId.getText()));
+        if(p.getIdProducto()==Integer.parseInt(tablaPrecios.getValueAt(tablaPrecios.getSelectedRow(), 0).toString())){
+            p=null;
+        }
+        if(!"".equals(textoId.getText())&&p==null){int pregunta= JOptionPane.showConfirmDialog(null, "Desea actualizar los datos del producto?");
         if (pregunta==0){
         int filaSeleccionada = tablaPrecios.getSelectedRow();
         if (filaSeleccionada != -1){
@@ -544,12 +555,12 @@ public class VistaPrecios extends javax.swing.JFrame {
         tablaPrecios.setValueAt(textoMonto.getText(), filaSeleccionada, 2);
          limpiar();
          JOptionPane.showMessageDialog(null,"La información del producto se actualizó con éxito");
-    }}} 
+    }}} else {JOptionPane.showMessageDialog(null, "Ese código ya pertenece a otro producto.");}
     }//GEN-LAST:event_actualizarActionPerformed
 
     //agrega un producto a la db y a la tabla
     private void agregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarProductoActionPerformed
-        if(!"".equals(textoId.getText())){int pregunta= JOptionPane.showConfirmDialog(null, "Desea agregar un producto a la base de datos?");
+        if("".equals(textoId.getText())){int pregunta= JOptionPane.showConfirmDialog(null, "Desea agregar un producto a la base de datos?");
         if (pregunta==0){
         ProductoData pd=new ProductoData(conexion);
         Producto p1=new Producto(textoNombre.getText(),Double.parseDouble(textoMonto.getText()));
@@ -661,6 +672,10 @@ public class VistaPrecios extends javax.swing.JFrame {
         eActualizar.setVisible(false);
         ocultar.setVisible(false);
     }//GEN-LAST:event_ocultarActionPerformed
+
+    private void botonPreciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPreciosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonPreciosActionPerformed
 
     
 

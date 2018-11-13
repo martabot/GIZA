@@ -88,13 +88,15 @@ public class VistaPedidos extends javax.swing.JFrame {
             cargarCbProductos();
             
             //Iniciamos con una mesa pre-cargada
+            idPedido=0;
+            if(VistaMesas.getMesaActual()!=0){
             spinnerMesas.setValue(VistaMesas.getMesaActual());
             VistaMesas.setMesaActual(0);
             idMesa=Integer.valueOf(spinnerMesas.getValue().toString());
-            if(idMesa!=0){textoId.setText(String.valueOf(pedidoData.seleccionarPedidoPor("id_mesa", idMesa).getIdPedido()));
-            setIdPedido();
             atenderMesas();
+            setIdPedido();
             }
+            
         } catch (ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(Background.class.getName()).log(Level.SEVERE, null, ex);
         }  
@@ -172,6 +174,7 @@ public class VistaPedidos extends javax.swing.JFrame {
         textoCambio.setText("");
         textoCuenta.setText("");
         subtotal=00.0;
+        cargarCbProductos();
         limpiarTabla();
     }
     
@@ -484,6 +487,8 @@ public class VistaPedidos extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tablaPedido.setSelectionBackground(new java.awt.Color(153, 0, 0));
+        tablaPedido.setSelectionForeground(new java.awt.Color(254, 247, 230));
         jScrollPane1.setViewportView(tablaPedido);
 
         background.add(jScrollPane1);
@@ -777,7 +782,31 @@ public class VistaPedidos extends javax.swing.JFrame {
 
     //el boton de buscar carga la tabla cumpliendo con las condiciones del método invocado
     private void buscarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarPedidoActionPerformed
-        this.cargarTabla();
+        try {int i=0;
+            setIdPedido();
+            int idConsultaDos=meseroData.deUsuarioAMesero(Inicio.usuarioRegistrado()).getIdMesero();
+            for(Pedido p: pedidoData.obtenerPedidos()){
+                if(p.getIdPedido()==getIdPedido()&&p.getMesero().getIdMesero()==idConsultaDos){i=1;}
+                else if(p.getIdPedido()==getIdPedido()&&p.getMesero().getIdMesero()!=idConsultaDos&&p.getCobrada()){i=1;}
+                else if(pedidoData.seleccionarPedidosPor("id_pedido", getIdPedido()).isEmpty()&&getIdPedido()!=0){i=2; }
+            }
+            switch (i) {
+                case 1:
+                    this.cargarTabla();
+                    avisos.setText("Estado de la mesa: "+mesaData.deIdAMesa(Integer.parseInt(spinnerMesas.getValue().toString())).getEstadoMesa());
+                    break; 
+                case 2:
+                    JOptionPane.showMessageDialog(null, "No se encontró la orden o no existe.");
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(null, "El pedido es atendido por otro mesero.");
+                    break;
+            }
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(VistaPedidos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_buscarPedidoActionPerformed
 
     //Quita el producto seleccionado de la tabla

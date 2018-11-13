@@ -26,6 +26,7 @@ public class PedidoData {
     private Pedido pedido;
     private MesaData mesa;
     private MeseroData mesero;
+    private int idMesero;
 
     public PedidoData(Conexion conexion) {
         try {
@@ -195,13 +196,13 @@ public class PedidoData {
     return este;
     }
     
-    public ArrayList<Integer> selccionarPedidoPorMesero(String idM) throws ClassNotFoundException{
+    public ArrayList<Integer> selccionarPedidoPorMesero(String nombreMesero) throws ClassNotFoundException{
         ArrayList<Integer> idMesas=new ArrayList<>();
         
         try {
             String sql = "SELECT DISTINCT id_mesa FROM `pedido`,mesero WHERE pedido.id_mesero=mesero.id_mesero AND mesero.nombre_mesero=? AND estado_pedido=0;";
           try (PreparedStatement statment = connection.prepareStatement(sql)) {
-              statment.setString(1, idM);
+              statment.setString(1, nombreMesero);
               ResultSet resultSet = statment.executeQuery();
               while(resultSet.next()){
               int me=resultSet.getInt(1);
@@ -241,5 +242,23 @@ public class PedidoData {
         } catch (SQLException ex) {
             System.out.println("Error al actualizar el estado: " + ex.getMessage());
         }
+    }
+    
+    public int idDelPedidoConMesero(int id){
+        
+        try {
+            String sql = "SELECT id_mesero FROM `pedido` WHERE estado_pedido=0 AND id_pedido=? ;";
+        try (PreparedStatement statment = connection.prepareStatement(sql)) {
+            statment.setInt(1, id);
+            ResultSet resultSet = statment.executeQuery();
+            while(resultSet.next()){
+                Integer reser=resultSet.getInt(1);    
+                idMesero=reser;
+            }
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener las reservas: " + ex.getMessage());
+        }
+        return idMesero;
     }
 }

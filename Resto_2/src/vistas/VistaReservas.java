@@ -812,7 +812,8 @@ public class VistaReservas extends javax.swing.JFrame {
         java.sql.Timestamp fec = new java.sql.Timestamp(utilStartDate.getTime());
         this.setFecha(fec.toLocalDateTime());
         //comparamos con la fecha de hoy para saber si es una fecha de reserva válida
-        int fec2=LocalDateTime.now().compareTo(this.getFecha());
+        int fec2=LocalDateTime.now().compareTo(getFecha());
+        ArrayList<Integer> noSePuede=reservaData.reservasPorFecha(getFecha(),getNroMesa());
         
                 
         //corroboramos que los datos sean validos mediante condicion if/else
@@ -822,9 +823,9 @@ public class VistaReservas extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null,"Por favor ingrese su DNI.");
                 } else if (fec2>=1) {
                     JOptionPane.showMessageDialog(null,"Por favor ingrese una fecha válida.");
-                } else if ("Reservada".equals(mesaData.deIdAMesa(this.getNroMesa()).getEstadoMesa())){
-                    JOptionPane.showMessageDialog(null,"La mesa ya se encuentra reservada, seleccione otra.");
-                }else{
+                } else if (!noSePuede.isEmpty()){
+                    JOptionPane.showMessageDialog(null,"La mesa se encuentra reservada en ese horario.");
+                } else{
                    
         //llenamos los campos para la confirmacion
         nombreConfirmacion.setText(textoNombre.getText());

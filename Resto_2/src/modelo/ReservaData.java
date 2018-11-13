@@ -227,4 +227,25 @@ public class ReservaData {
         }
         return reservas;
     }
+    
+    public ArrayList<Integer> reservasPorFecha(LocalDateTime hoy,int mesa){
+        ArrayList<Integer> lista=new ArrayList<>();
+        
+        try {
+            String sql = "SELECT id_reserva FROM `reserva` WHERE fecha_reserva BETWEEN ?- INTERVAL 1 HOUR AND ?+ INTERVAL 3 HOUR AND esta_vigente=1 AND id_mesa= ?;";
+        try (PreparedStatement statment = connection.prepareStatement(sql)) {
+            statment.setTimestamp(1, Timestamp.valueOf(hoy));
+            statment.setTimestamp(2, Timestamp.valueOf(hoy));
+            statment.setInt(3, mesa);
+            ResultSet resultSet = statment.executeQuery();
+            while(resultSet.next()){
+                int i=resultSet.getInt(1);
+                lista.add(i);
+            }
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener las reservas: " + ex.getMessage());
+        }
+        return lista;
+    }
 }

@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import modelo.*;
 
 
@@ -36,7 +37,7 @@ public class Inicio extends javax.swing.JFrame {
         VistaMesas.setMesaActual(0);
         initComponents();
         
-        label3.setVisible(false);
+        etiReg.setVisible(false);
         signUp.setVisible(false);
 
     }
@@ -97,7 +98,7 @@ public class Inicio extends javax.swing.JFrame {
         botonBuscar = new javax.swing.JButton();
         label2 = new javax.swing.JLabel();
         label1 = new javax.swing.JLabel();
-        label3 = new javax.swing.JLabel();
+        etiReg = new javax.swing.JLabel();
         signUp = new javax.swing.JButton();
         bRenunciar = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
@@ -269,9 +270,9 @@ public class Inicio extends javax.swing.JFrame {
         label1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label1.setText("INGRESAR");
 
-        label3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        label3.setForeground(new java.awt.Color(255, 0, 51));
-        label3.setText("Mesero no registrado");
+        etiReg.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        etiReg.setForeground(new java.awt.Color(255, 0, 51));
+        etiReg.setText("Mesero no registrado");
 
         signUp.setBackground(new java.awt.Color(255, 204, 153));
         signUp.setForeground(new java.awt.Color(237, 63, 63));
@@ -302,7 +303,7 @@ public class Inicio extends javax.swing.JFrame {
                 .addGroup(panelDeInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelDeInicioLayout.createSequentialGroup()
                         .addGap(2, 2, 2)
-                        .addComponent(label3)
+                        .addComponent(etiReg)
                         .addGap(18, 18, 18)
                         .addComponent(signUp, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelDeInicioLayout.createSequentialGroup()
@@ -336,7 +337,7 @@ public class Inicio extends javax.swing.JFrame {
                 .addGap(43, 43, 43)
                 .addGroup(panelDeInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(signUp, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(label3))
+                    .addComponent(etiReg))
                 .addContainerGap(34, Short.MAX_VALUE))
         );
 
@@ -406,7 +407,7 @@ public class Inicio extends javax.swing.JFrame {
             this.setVisible(false);
            }else{
                //Sino invoca estos componentes que le permiten registrarse
-               label3.setVisible(true);
+               etiReg.setVisible(true);
                signUp.setVisible(true);
            }
            
@@ -444,7 +445,7 @@ public class Inicio extends javax.swing.JFrame {
             this.dispose();
             
            }else{
-               label3.setVisible(true);
+               etiReg.setVisible(true);
                signUp.setVisible(true);
            }
            
@@ -467,6 +468,8 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void cancelarRegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarRegActionPerformed
+        signUp.setVisible(false);
+        etiReg.setVisible(false);
         confirmacion.dispose();
     }//GEN-LAST:event_cancelarRegActionPerformed
 
@@ -513,6 +516,7 @@ public class Inicio extends javax.swing.JFrame {
             mesero1.borrarMesero(this.getNombre());
             textoBuscar.setText(null);
             confirmacion1.setVisible(false);
+            JOptionPane.showMessageDialog(null, "Usuario: "+getNombre()+" eliminado.");
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -564,6 +568,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JButton cancelarRen;
     private javax.swing.JDialog confirmacion;
     private javax.swing.JDialog confirmacion1;
+    private javax.swing.JLabel etiReg;
     private javax.swing.JLabel imagen;
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel4;
@@ -573,7 +578,6 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JLabel label11;
     private javax.swing.JLabel label12;
     private javax.swing.JLabel label2;
-    private javax.swing.JLabel label3;
     private javax.swing.JLabel labelConfirmacion3;
     private javax.swing.JLabel labelConfirmacion4;
     private javax.swing.JPanel panelDeInicio;

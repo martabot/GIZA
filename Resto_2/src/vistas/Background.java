@@ -150,7 +150,7 @@ public class Background extends javax.swing.JFrame {
         tB3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         tB3.setText("Giza!");
         background.add(tB3);
-        tB3.setBounds(520, 200, 250, 90);
+        tB3.setBounds(520, 200, 260, 90);
 
         cerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Logout.png"))); // NOI18N
         cerrarSesion.setContentAreaFilled(false);
