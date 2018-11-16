@@ -210,6 +210,40 @@ public class ReservaData {
         return reserva;
     }
     
+    public Reserva reservaPorId(int a){
+            
+        try {
+            String sql = "SELECT * FROM reserva where id_reserva=?;";
+            try (PreparedStatement statment = connection.prepareStatement(sql)) {
+                statment.setInt(1, a);
+                ResultSet resultSet = statment.executeQuery();
+                Reserva reser;
+                while(resultSet.next()){
+                    reser = new Reserva();
+                    connect=new Conexion();
+                    connect.getConexion();
+                    m1=new MesaData(connect);
+                    reser.setIdReserva(resultSet.getInt(1));
+                    reser.setNombreCliente(resultSet.getString(2));
+                    reser.setDniCliente(resultSet.getInt(3));
+                    reser.setFechaReserva(resultSet.getTimestamp(4).toLocalDateTime());
+                    reser.setMesa(m1.deIdAMesa(resultSet.getInt(5)));
+                    reser.setEstaVigente(resultSet.getBoolean(6));
+                    
+                    reserva=reser;
+                    
+                }}
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener las reservas: " + ex.getMessage());
+        }catch(NullPointerException e){
+                System.out.println("Error3"+e.getLocalizedMessage());
+        }   catch (ClassNotFoundException ex) {
+                Logger.getLogger(ReservaData.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        
+        return reserva;
+    }
+    
     public ArrayList<Integer> reservasPorMesa(){
         ArrayList<Integer> reservas = new ArrayList<>();
         

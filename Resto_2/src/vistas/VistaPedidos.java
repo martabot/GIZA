@@ -179,6 +179,9 @@ public class VistaPedidos extends javax.swing.JFrame {
         textoCambio.setText("");
         textoCuenta.setText("");
         subtotal=00.0;
+        spinnerMesas.setEnabled(true);
+        atenderMesa.setEnabled(true);
+        textoId.setEnabled(true);
         cbProductos.setSelectedIndex(0);
         limpiarTabla();
     }
@@ -208,6 +211,9 @@ public class VistaPedidos extends javax.swing.JFrame {
                 mesaData.actualizarEstadoMesa("Ocupada", idMesa); 
                 JOptionPane.showMessageDialog(null, "Se creo el pedido número "+textoId.getText()+". Agregue un producto para continuar");
                 avisos.setText("Estado de la mesa: "+mesaData.deIdAMesa(idMesa).getEstadoMesa()); 
+                spinnerMesas.setEnabled(false);
+                atenderMesa.setEnabled(false);
+                textoId.setEnabled(false);
             } catch (ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(VistaPedidos.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -220,6 +226,9 @@ public class VistaPedidos extends javax.swing.JFrame {
                     idPedido=pedidoData.seleccionarPedidoPor("id_mesa",idMesa).getIdPedido();
                     textoId.setText(String.valueOf(idPedido));
                     cargarTabla();
+                    spinnerMesas.setEnabled(false);
+                    atenderMesa.setEnabled(false);
+                    textoId.setEnabled(false);
                 } else {JOptionPane.showMessageDialog(null, "Mesa "+idMesa+" es atendida por otro usuario.");}
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(VistaPedidos.class.getName()).log(Level.SEVERE, null, ex);
@@ -789,17 +798,17 @@ public class VistaPedidos extends javax.swing.JFrame {
     //el boton de buscar carga la tabla cumpliendo con las condiciones del método invocado
     private void buscarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarPedidoActionPerformed
         try {int i=0;
-            String estadoMesa= mesaData.deIdAMesa(Integer.parseInt(spinnerMesas.getValue().toString())).getEstadoMesa();
             setIdPedido();
             int idConsultaDos=meseroData.deUsuarioAMesero(Inicio.usuarioRegistrado()).getIdMesero();
             for(Pedido p: pedidoData.obtenerPedidos()){
                 if(p.getIdPedido()==getIdPedido()&&p.getMesero().getIdMesero()==idConsultaDos){i=1;}
-                else if(p.getIdPedido()==getIdPedido()&&p.getMesero().getIdMesero()!=idConsultaDos&&p.getCobrada()){i=1;}
+                else if(p.getIdPedido()==getIdPedido()&&p.getMesero().getIdMesero()!=idConsultaDos&&p.getCobrada()){i=1;spinnerMesas.setValue(p.getMesa().getIdMesa());}
                 else if(pedidoData.seleccionarPedidosPor("id_pedido", getIdPedido()).isEmpty()&&getIdPedido()!=0){i=2;}
             }
             switch (i) {
                 case 1:
                     this.cargarTabla();
+                    String estadoMesa= mesaData.deIdAMesa(Integer.parseInt(spinnerMesas.getValue().toString())).getEstadoMesa();
                     if(estadoMesa.equals("Reservada")){
                     avisos.setText("Estado de la mesa: Atendida");} else {avisos.setText("Estado de la mesa: "+estadoMesa);}
                     break; 
@@ -837,18 +846,19 @@ public class VistaPedidos extends javax.swing.JFrame {
     //agregamos un producto a nuestra tabla con su cantidad
     private void agregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarProductoActionPerformed
         try {
-            
+            if (textoId.getText().equals("")){JOptionPane.showMessageDialog(null, "No se ha indicado un pedido");}else{
             int b=Integer.parseInt(idProducto.getText());
             int cantidad=Integer.valueOf(spinnerCantidad.getValue().toString());
             setIdPedido();
             
             //actualizamos el estado de la mesa ya que si hay una comanda hay alguien que la atiende
             mesaData.actualizarEstadoMesa("Atendida",idMesa);
+            avisos.setText("Estado de la mesa: Atendida");
             Comanda c=new Comanda(pedidoData.seleccionarPedidoPor("id_pedido",getIdPedido()),productoData.deIdAlProducto(b),cantidad);
             
             //la guardamos en la base y actualizamos la tabla para que aparezca
             comandaData.guardarComanda(c);
-            this.cargarTabla();
+            this.cargarTabla();}
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(VistaPedidos.class.getName()).log(Level.SEVERE, null, ex);
         }  

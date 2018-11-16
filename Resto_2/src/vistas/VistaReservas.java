@@ -213,6 +213,7 @@ public class VistaReservas extends javax.swing.JFrame {
         botonAceptar3 = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         background = new javax.swing.JPanel();
+        limpiarCasilleros2 = new javax.swing.JButton();
         botonPrecios = new javax.swing.JButton();
         botonMesas = new javax.swing.JButton();
         botonReservas = new javax.swing.JButton();
@@ -405,6 +406,19 @@ public class VistaReservas extends javax.swing.JFrame {
 
         background.setLayout(null);
 
+        limpiarCasilleros2.setBackground(new java.awt.Color(255, 237, 221));
+        limpiarCasilleros2.setForeground(new java.awt.Color(102, 0, 0));
+        limpiarCasilleros2.setText("BUSCAR");
+        limpiarCasilleros2.setActionCommand("");
+        limpiarCasilleros2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 204, 204), new java.awt.Color(255, 204, 102), new java.awt.Color(204, 0, 51), new java.awt.Color(102, 0, 0)));
+        limpiarCasilleros2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                limpiarCasilleros2ActionPerformed(evt);
+            }
+        });
+        background.add(limpiarCasilleros2);
+        limpiarCasilleros2.setBounds(790, 230, 110, 20);
+
         botonPrecios.setBackground(new java.awt.Color(0, 0, 0));
         botonPrecios.setFont(new java.awt.Font("Luisa", 1, 36)); // NOI18N
         botonPrecios.setForeground(new java.awt.Color(238, 140, 60));
@@ -471,7 +485,7 @@ public class VistaReservas extends javax.swing.JFrame {
             }
         });
         background.add(darDeBaja);
-        darDeBaja.setBounds(780, 340, 120, 30);
+        darDeBaja.setBounds(780, 360, 120, 30);
 
         crearReserva.setBackground(new java.awt.Color(255, 237, 221));
         crearReserva.setForeground(new java.awt.Color(102, 0, 0));
@@ -484,7 +498,7 @@ public class VistaReservas extends javax.swing.JFrame {
             }
         });
         background.add(crearReserva);
-        crearReserva.setBounds(780, 260, 120, 30);
+        crearReserva.setBounds(780, 280, 120, 30);
 
         eliminarReserva.setBackground(new java.awt.Color(255, 237, 221));
         eliminarReserva.setForeground(new java.awt.Color(102, 0, 0));
@@ -497,7 +511,7 @@ public class VistaReservas extends javax.swing.JFrame {
             }
         });
         background.add(eliminarReserva);
-        eliminarReserva.setBounds(780, 300, 120, 30);
+        eliminarReserva.setBounds(780, 320, 120, 30);
 
         spinnerMesas.setModel(new javax.swing.SpinnerNumberModel(0, 0, 100, 1));
         spinnerMesas.setBorder(null);
@@ -644,7 +658,7 @@ public class VistaReservas extends javax.swing.JFrame {
         avisos.setForeground(new java.awt.Color(204, 0, 51));
         avisos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         background.add(avisos);
-        avisos.setBounds(460, 440, 310, 30);
+        avisos.setBounds(390, 450, 390, 30);
 
         limpiarCasilleros1.setBackground(new java.awt.Color(255, 237, 221));
         limpiarCasilleros1.setForeground(new java.awt.Color(102, 0, 0));
@@ -1036,6 +1050,13 @@ public class VistaReservas extends javax.swing.JFrame {
         rbInactiva.setSelected(false);
     }//GEN-LAST:event_rbActivaActionPerformed
 
+    private void limpiarCasilleros2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarCasilleros2ActionPerformed
+        if (textoId!=null){
+            Reserva re=reservaData.reservaPorId(Integer.parseInt(textoId.getText()));
+            avisos.setText("Reserva "+re.getNombreCliente()+" la mesa "+re.getMesa().getIdMesa()+" el "+re.getFechaReserva().format(x)+".");
+        }else{JOptionPane.showMessageDialog(null, "Indique un numero de reserva válido.");}
+    }//GEN-LAST:event_limpiarCasilleros2ActionPerformed
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1088,6 +1109,7 @@ public class VistaReservas extends javax.swing.JFrame {
     private javax.swing.JLabel labelConfirmacion1;
     private javax.swing.JLabel labelReservas;
     private javax.swing.JButton limpiarCasilleros1;
+    private javax.swing.JButton limpiarCasilleros2;
     private javax.swing.JLabel mesaConfirmacion;
     private javax.swing.JLabel mesaConfirmacion1;
     private javax.swing.JLabel nomNu;

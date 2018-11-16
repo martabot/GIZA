@@ -93,7 +93,8 @@ public class VistaMesas extends javax.swing.JFrame {
         avisos.setText("");
         this.cargarTabla();
         if(cbReservadas.getSelectedItem()!="seleccionar"){cbReservadas.setSelectedIndex(0);}
-        if(cbDisponibles.getSelectedItem()!="seleccionar"){cbDisponibles.setSelectedItem("seleccionar");}
+        ///Al cargar el cb disponibles de ArrayList<Mesa> se genera "java.lang.NumberFormatException: For input string: "seleccionar""
+        if(!cbDisponibles.getSelectedItem().equals("seleccionar")){cbDisponibles.setSelectedIndex(0);}
         if(cbAtendidas.getSelectedItem()!="seleccionar"){cbAtendidas.setSelectedIndex(0);}
     }
     
@@ -864,7 +865,7 @@ public class VistaMesas extends javax.swing.JFrame {
     }//GEN-LAST:event_tablaMesasMouseClicked
 
     private void cbDisponiblesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbDisponiblesActionPerformed
-        List<Mesa> me=mesaData.obtenerMesas().stream().filter(m->m.getIdMesa()==Integer.parseInt(cbDisponibles.getSelectedItem().toString())).collect(Collectors.toList());
+        List<Mesa> me=mesaData.obtenerMesas().stream().filter(m->!cbDisponibles.getSelectedItem().equals("seleccionar")&&m.getIdMesa()==Integer.parseInt(cbDisponibles.getSelectedItem().toString())).collect(Collectors.toList());
         me.forEach(m1->{
             textoId.setText(String.valueOf(m1.getIdMesa()));
             textoCapacidad.setText(String.valueOf(m1.getCapacidad()));

@@ -5,6 +5,7 @@
  */
 package vistas;
 
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -83,10 +84,8 @@ public class VistaIngresos extends javax.swing.JFrame {
             modelo.addColumn("FECHA");
             modelo.addColumn("CUENTA");
             
-            tablaIngresos.getColumnModel().getColumn(1).setCellRenderer(alineacion);
-            tablaIngresos.getColumnModel().getColumn(2).setCellRenderer(alineacion);
             tablaIngresos.getColumnModel().getColumn(4).setCellRenderer(alineacion);
-                    
+                   
             d = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             tablaIngresos.setModel(modelo);
             listaPedidos =new ArrayList<>();
@@ -663,7 +662,6 @@ public class VistaIngresos extends javax.swing.JFrame {
             }
                 break;
             case "MESA":
-                cargarTabla(null);
             if(calendario.getDate()==null&&calendario1.getDate()==null){
             try {
                  listaPedidos=(ArrayList<Pedido>) pedidoData.seleccionarPedidosPor("id_mesa", cbReferencias.getSelectedIndex()+1).stream().filter(p-> p.getCobrada()).collect(Collectors.toList());
